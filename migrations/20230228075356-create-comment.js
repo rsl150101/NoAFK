@@ -30,6 +30,26 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+    await queryInterface.addConstraint('comments', {
+      fields: ['userId'],
+      type: 'foreign key',
+      references: {
+        table: 'users',
+        field: 'id',
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
+    });
+    await queryInterface.addConstraint('comments', {
+      fields: ['projectId'],
+      type: 'foreign key',
+      references: {
+        table: 'projects',
+        field: 'id',
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
+    });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('comments');
