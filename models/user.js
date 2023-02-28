@@ -46,18 +46,12 @@ module.exports = (sequelize, DataTypes) => {
       expired_at: {
         type: DataTypes.DATE,
       },
-      created_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
-      updated_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
     },
     {
       sequelize,
       modelName: 'User',
+      tableName: 'users',
+      underscored: true,
     }
   );
   return User;
