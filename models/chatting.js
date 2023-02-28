@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.Chatting.belongsTo(models.User, { foreignKey: 'userId' });
+      models.Chatting.belongsTo(models.User, { foreignKey: 'user_id' });
     }
   }
   Chatting.init(
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      userId: {
+      user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
