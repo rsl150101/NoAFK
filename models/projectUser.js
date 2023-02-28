@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ProjectUser extends Model {
@@ -9,23 +9,26 @@ module.exports = (sequelize, DataTypes) => {
       models.ProjectUser.belongsTo(models.Project);
     }
   }
-  ProjectUser.init({
-    role_level: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+  ProjectUser.init(
+    {
+      role_level: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      task: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
-    task: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    {
+      sequelize,
+      timestamps: true,
+      paranoid: false,
+      modelName: 'ProjectUser',
+      tableName: 'projectUsers',
+      charset: 'utf8',
+      collate: 'utf8_general_ci',
     }
-  }, {
-    sequelize,
-    timestamps: true,
-    paranoid: false,
-    modelName: 'ProjectUser',
-    tableName: 'projectUsers',
-    charset: 'utf8',
-    collate: 'utf8_general_ci',
-  });
+  );
   return ProjectUser;
-}
+};
