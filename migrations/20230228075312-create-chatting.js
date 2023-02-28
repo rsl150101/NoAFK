@@ -17,21 +17,21 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING,
       },
-      userId: {
+      user_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
     await queryInterface.addConstraint('chattings', {
-      fields: ['userId'],
+      fields: ['user_id'],
       type: 'foreign key',
       references: {
         table: 'users',

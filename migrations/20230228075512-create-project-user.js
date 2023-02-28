@@ -17,25 +17,25 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      userId: {
+      user_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      projectId: {
+      project_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
     await queryInterface.addConstraint('projectUsers', {
-      fields: ['userId'],
+      fields: ['user_id'],
       type: 'foreign key',
       references: {
         table: 'users',
@@ -45,7 +45,7 @@ module.exports = {
       onUpdate: 'cascade',
     });
     await queryInterface.addConstraint('projectUsers', {
-      fields: ['projectId'],
+      fields: ['project_id'],
       type: 'foreign key',
       references: {
         table: 'projects',
