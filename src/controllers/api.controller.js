@@ -29,6 +29,7 @@ class ApiController {
       }
 
       const foundByEmail = await this.userService.findByEmail(email);
+      // console.log(foundByEmail, 456465);
 
       if (foundByEmail.length > 0) {
         return res

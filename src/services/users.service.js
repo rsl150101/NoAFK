@@ -6,6 +6,7 @@ class UserService {
 
   findByEmail = async (email) => {
     try {
+      console.log(email, 'sjdklfjsjdklf');
       const userByEmail = await this.userRepository.findByEmail(email);
 
       return userByEmail.map((user) => {
@@ -23,6 +24,7 @@ class UserService {
 
   findByNickname = async (nickname) => {
     try {
+      console.log(nickname, 'dskjfksajdlkfjkl');
       const userByNIckname = await this.userRepository.findByNickname(nickname);
 
       // 얘는 다 불러와 줄 필요는 없음

@@ -5,9 +5,11 @@ class UserRepository {
 
   findByEmail = async (email) => {
     try {
+      console.log(email, 'email');
       const userByEmail = await this.userModel.findAll({
         where: { email },
       });
+      console.log(userByEmail, 'userByEmail');
       return userByEmail;
     } catch (error) {
       error.status = 500;
@@ -17,9 +19,11 @@ class UserRepository {
 
   findByNickname = async (nickname) => {
     try {
+      console.log(nickname, 'nickname');
       const userByNickname = await this.userModel.findAll({
         where: { nickname },
       });
+      console.log(userByNickname, 'userByNickname');
       return userByNickname;
     } catch (error) {
       error.status = 500;

@@ -32,22 +32,19 @@ module.exports = (sequelize, DataTypes) => {
       auth_level: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 0,
       },
       test_result: {
         type: DataTypes.INTEGER,
-        allowNull: false,
       },
       introduction: {
         type: DataTypes.STRING,
-        allowNull: true,
       },
       image: {
         type: DataTypes.STRING,
-        allowNull: true,
       },
       expired_at: {
         type: DataTypes.DATE,
-        allowNull: false,
       },
       created_at: {
         type: DataTypes.DATE,
