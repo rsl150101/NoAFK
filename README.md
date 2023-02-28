@@ -27,3 +27,5 @@
 <a href="https://github.com/rsl150101/NoAFK/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=rsl150101/NoAFK" />
 </a>
+
+학수.
