@@ -8,10 +8,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.User.hasMany(models.Project, { through: models.ProjectUser });
-      models.User.hasMany(models.Comment, { foreignKey: 'userId' });
-      models.User.hasMany(models.Chatting, { foreignKey: 'userId' });
-      models.User.belongsTo(models.Project, { through: models.ProjectUser });
+      models.User.hasMany(models.ProjectUser, { foreignKey: 'user_id' });
+      models.User.hasMany(models.Comment, { foreignKey: 'user_id' });
+      models.User.hasMany(models.Chatting, { foreignKey: 'user_id' });
     }
   }
   User.init(
@@ -47,6 +46,14 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
       expired_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      updated_at: {
         type: DataTypes.DATE,
         allowNull: false,
       },

@@ -3,10 +3,8 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ProjectUser extends Model {
     static associate(models) {
-      models.ProjectUser.hasMany(models.User);
-      models.ProjectUser.hasMany(models.Project);
-      models.ProjectUser.belongsTo(models.User);
-      models.ProjectUser.belongsTo(models.Project);
+      models.ProjectUser.belongsTo(models.User, { foreignKey: 'user_id' });
+      models.ProjectUser.belongsTo(models.Project, { foreignKey: 'project_id' });
     }
   }
   ProjectUser.init(
@@ -17,6 +15,22 @@ module.exports = (sequelize, DataTypes) => {
       },
       task: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      project_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      updated_at: {
+        type: DataTypes.DATE,
         allowNull: false,
       },
     },
