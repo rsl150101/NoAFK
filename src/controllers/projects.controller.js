@@ -10,7 +10,12 @@ class ProjectController {
 
   //+ 전체 프로젝트 데이터 조회
   getProjects = async (req, res) => {
-    return res.json();
+    try {
+      const projects = await this.projectService.getProjects();
+      return res.status(200).json(projects);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
   };
 
   //+ 프로젝트 생성

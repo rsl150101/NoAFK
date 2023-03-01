@@ -3,6 +3,16 @@ class ProjectRepository {
     this.projectModel = ProjectModel;
   }
 
+  findAllProject = async () => {
+    try {
+      const projects = await this.projectModel.findAll({ raw: true });
+      return projects;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
   createProject = async (projectInfo) => {
     try {
       await this.projectModel.create({
