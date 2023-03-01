@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>noAFK | 회원관리</title>
+    <link rel="stylesheet" href="../static/css/admin.css" />
+  </head>
+  <body>
+    <header id="hd">
+      <div id="hd_top">
+        <div id="logo">
+          <a href="http://127.0.0.1:5500/src/views/adminUser.html"
+            >어드민 페이지</a
+          >
+        </div>
+
+        <div id="tnb">
+          <ul>
+            <li class="tnb_li">
+              <a
+                href="http://127.0.0.1:5500/src/views/adminUser.html"
+                class="tnb_service"
+                >회원관리</a
+              >
+            </li>
+            <li class="tnb_li">
+              <a
+                href="http://127.0.0.1:5500/src/views/adminUser.html"
+                class="tnb_service"
+                >공고관리</a
+              >
+            </li>
+            <li class="tnb_li_logout">
+              <a
+                href="http://127.0.0.1:5500/src/views/adminUser.html"
+                class="tnb_service"
+                >로그아웃</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div id="wrapper">
+      <div id="container" class="container-small">
+        <h1 id="container_title">회원관리</h1>
+        <div class="container_wr">
+          <div class="local_ov01 local_ov">
+            <span class="btn_ov01"
+              ><span class="ov_txt">총회원수 </span
+              ><span class="ov_num"> 000명 </span></span
+            >
+          </div>
+
+          <form
+            id="fsearch"
+            name="fsearch"
+            class="local_sch01 local_sch"
+            method="get"
+          >
+            <label for="sfl" class="sound_only">검색대상</label>
+            <select name="sfl" id="sfl">
+              <option value="mb_email">이메일</option>
+              <option value="mb_nick">닉네임</option>
+            </select>
+            <label for="stx" class="sound_only"
+              >검색어<strong class="sound_only"> 필수</strong></label
+            >
+            <input
+              type="text"
+              name="stx"
+              value=""
+              id="stx"
+              required
+              class="required frm_input"
+            />
+            <input type="submit" class="btn_submit" value="검색" />
+          </form>
+
+          <form
+            name="fmemberlist"
+            id="fmemberlist"
+            action="./member_list_update.php"
+            onsubmit="return fmemberlist_submit(this);"
+            method="post"
+          >
+            <div class="tbl_head01 tbl_wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col" id="user_list_id" class="td_mng_s">
+                      회원번호
+                    </th>
+                    <th scope="col" id="user_list_email">이메일</th>
+                    <th scope="col" id="user_list_nickname">닉네임</th>
+                    <th scope="col" id="user_list_introduction">자기소개</th>
+                    <th scope="col" id="user_list_test_result">성격유형</th>
+                    <th scope="col" id="user_list_expired_at">멤버쉽 만료일</th>
+                    <th scope="col" id="user_list_auth_level" class="td_mng_s">
+                      권한등급
+                    </th>
+                    <th scope="col" id="user_list_control" class="td_mng_s">
+                      관리
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg0">
+                    <td headers="user_list_id" class="user_id">1</td>
+                    <td headers="user_list_email" class="user_id">1@1.com</td>
+                    <td headers="user_list_nickname" class="user_nickname">
+                      닉네임인것
+                    </td>
+                    <td
+                      headers="user_list_introduction"
+                      class="user_introduction"
+                    >
+                      자기소개임
+                    </td>
+                    <td
+                      headers="user_list_test_result"
+                      class="user_test_result"
+                    >
+                      ISTJ
+                    </td>
+                    <td headers="user_list_expired_at" class="user_expired_at">
+                      2023-12-31
+                    </td>
+                    <td headers="user_list_auth_level" class="user_auth_level">
+                      99
+                    </td>
+                    <td headers="user_list_control" class="user_control">
+                      <a class="btn btn_03">수정</a>
+                      <a class="btn btn_02">삭제</a>
+                    </td>
+                  </tr>
+                  <tr class="bg0">
+                    <td headers="user_list_id" class="user_id">1</td>
+                    <td headers="user_list_email" class="user_id">1@1.com</td>
+                    <td headers="user_list_nickname" class="user_nickname">
+                      닉네임인것
+                    </td>
+                    <td
+                      headers="user_list_introduction"
+                      class="user_introduction"
+                    >
+                      자기소개임
+                    </td>
+                    <td
+                      headers="user_list_test_result"
+                      class="user_test_result"
+                    >
+                      ISTJ
+                    </td>
+                    <td headers="user_list_expired_at" class="user_expired_at">
+                      2023-12-31
+                    </td>
+                    <td headers="user_list_auth_level" class="user_auth_level">
+                      99
+                    </td>
+                    <td headers="user_list_control" class="user_control">
+                      <a class="btn btn_03">수정</a>
+                      <a class="btn btn_02">삭제</a>
+                    </td>
+                  </tr>
+                  <tr class="bg0">
+                    <td headers="user_list_id" class="user_id">1</td>
+                    <td headers="user_list_email" class="user_id">1@1.com</td>
+                    <td headers="user_list_nickname" class="user_nickname">
+                      닉네임인것
+                    </td>
+                    <td
+                      headers="user_list_introduction"
+                      class="user_introduction"
+                    >
+                      자기소개임
+                    </td>
+                    <td
+                      headers="user_list_test_result"
+                      class="user_test_result"
+                    >
+                      ISTJ
+                    </td>
+                    <td headers="user_list_expired_at" class="user_expired_at">
+                      2023-12-31
+                    </td>
+                    <td headers="user_list_auth_level" class="user_auth_level">
+                      99
+                    </td>
+                    <td headers="user_list_control" class="user_control">
+                      <a class="btn btn_03">수정</a>
+                      <a class="btn btn_02">삭제</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+        <footer id="ft">
+          <p>Copyright &copy; noAFK All rights reserved.<br /></p>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
