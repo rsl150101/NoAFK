@@ -1,7 +1,7 @@
 const express = require('express');
-const router = express.Router();
-
 const ApiController = require('../controllers/api.controller');
+
+const router = express.Router();
 const apiController = new ApiController();
 
 router.post('/auth/join', apiController.join);

@@ -8,10 +8,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.User.hasMany(models.Project, { through: models.ProjectUser });
-      models.User.hasMany(models.Comment, { foreignKey: 'userId' });
-      models.User.hasMany(models.Chatting, { foreignKey: 'userId' });
-      models.User.belongsTo(models.Project, { through: models.ProjectUser });
+      models.User.hasMany(models.ProjectUser, { foreignKey: 'user_id' });
+      models.User.hasMany(models.Comment, { foreignKey: 'user_id' });
+      models.User.hasMany(models.Chatting, { foreignKey: 'user_id' });
     }
   }
   User.init(
@@ -33,27 +32,26 @@ module.exports = (sequelize, DataTypes) => {
       auth_level: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 0,
       },
       test_result: {
         type: DataTypes.INTEGER,
-        allowNull: false,
       },
       introduction: {
         type: DataTypes.STRING,
-        allowNull: true,
       },
       image: {
         type: DataTypes.STRING,
-        allowNull: true,
       },
       expired_at: {
         type: DataTypes.DATE,
-        allowNull: false,
       },
     },
     {
       sequelize,
       modelName: 'User',
+      tableName: 'users',
+      underscored: true,
     }
   );
   return User;

@@ -56,6 +56,7 @@ class ApiController {
         .status(201)
         .json({ data: createUser, message: '회원가입이 완료되었습니다.' });
     } catch (error) {
+      console.log(error);
       res.status(400).json({ errorMessage: '회원가입이 실패하였습니다' });
     }
   };

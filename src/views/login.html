@@ -1,0 +1,38 @@
+{% extends "loginIndex.html" %} {% block content %}
+<main>
+  <div>
+    <div class="text-align form-margin-top">
+      <div>
+        <h1>로그인</h1>
+      </div>
+      <div class="login-box">
+        <div class="form-floating form-margin form-margin-top">
+          <input type="id" class="form-control" id="id" placeholder="Id" />
+          <label for="id"></label>
+        </div>
+        <div class="form-floating form-margin">
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Password"
+          />
+          <label for="password"></label>
+        </div>
+        <button class="login-button" type="button" onclick="login()">
+          Login
+        </button>
+        <div>
+          <button
+            type="button"
+            class="join-button"
+            onclick="location.href='/join'"
+          >
+            회원이 아니신가요??
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
