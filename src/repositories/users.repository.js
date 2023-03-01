@@ -35,8 +35,6 @@ class UserRepository {
         nickname,
       });
 
-      console.log(userData);
-
       return userData;
     } catch (error) {
       error.status = 500;
