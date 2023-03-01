@@ -23,10 +23,10 @@ class UserService {
 
   findByNickname = async (nickname) => {
     try {
-      const userByNIckname = await this.userRepository.findByNickname(nickname);
+      const userByNickname = await this.userRepository.findByNickname(nickname);
 
       // 얘는 다 불러와 줄 필요는 없음
-      return userByNIckname.map((user) => {
+      return userByNickname.map((user) => {
         return {
           id: user.id,
           email: user.email,
