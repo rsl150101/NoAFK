@@ -13,4 +13,11 @@ router.get('/users');
 router.get('/projects');
 router.get('/teams');
 
+router.get('/login', (req, res) => {
+  res.render('login.html');
+});
+router.get('/join', (req, res) => {
+  res.render('join.html');
+});
+
 module.exports = router;
