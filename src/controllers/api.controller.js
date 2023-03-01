@@ -2,59 +2,19 @@ const UserService = require('../services/users.service');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+//joi
+const { joinDataValidation } = require('../static/js/joi');
+
 class ApiController {
   userService = new UserService();
   // 회원가입(id 동일하면 안됨!)
   join = async (req, res, next) => {
     try {
-      const { email, password, nickname } = req.body;
-      if (!email || !password || !nickname) {
-        return res.status(400).json({ errorMessage: '모든 값을 입력하세요.' });
-      }
+      const userInfo = await joinDataValidation.validateAsync(req.body);
 
-      // 이메일: aaa@aaa.aaa
-      const emailCheck = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-      // 비밀번호: 영어대소문자숫자
-      const passwordCheck = /^[A-Za-z0-9]{3,}$/;
-      // 닉네임:한글포함영어대소문자숫자
-      const nicknameCheck = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
-      if (
-        !emailCheck.test(email) ||
-        !passwordCheck.test(password) ||
-        !nicknameCheck.test(nickname)
-      ) {
-        return res.status(412).json({
-          errorMessage: '형식이 올바르지 않습니다. 다시 확인해주세요.',
-        });
-      }
+      const { status, message } = await this.userService.createUser(userInfo);
 
-      const foundByEmail = await this.userService.findByEmail(email);
-
-      if (foundByEmail.length > 0) {
-        return res
-          .status(409)
-          .json({ errorMessage: `${email}는 이미 존재하는 아이디입니다.` });
-      }
-
-      const foundByNickname = await this.userService.findByNickname(nickname);
-
-      if (foundByNickname.length > 0) {
-        return res
-          .status(409)
-          .json({ errorMessage: `${nickname}는 이미 존재하는 닉네임입니다.` });
-      }
-
-      const hashed = await bcrypt.hash(password, 12);
-
-      const createUser = await this.userService.createUser(
-        email,
-        hashed,
-        nickname
-      );
-
-      res
-        .status(201)
-        .json({ data: createUser, message: '회원가입이 완료되었습니다.' });
+      res.status(status).json({ message });
     } catch (error) {
       console.log(error);
       res.status(400).json({ errorMessage: '회원가입이 실패하였습니다' });

@@ -1,56 +1,37 @@
 const UserRepository = require('../repositories/users.repository');
 const { User } = require('../models');
+const bcrypt = require('bcrypt');
+
+// customError
+const { emailExist, nicknameExist } = require('../static/js/customError');
 
 class UserService {
   userRepository = new UserRepository(User);
 
-  findByEmail = async (email) => {
+  createUser = async (userInfo) => {
     try {
-      const userByEmail = await this.userRepository.findByEmail(email);
+      // 동일한 닉네임, Email 체크
+      const userByEmail = await this.userRepository.findByEmail(userInfo.email);
 
-      return userByEmail.map((user) => {
-        return {
-          id: user.id,
-          email: user.email,
-          password: user.password,
-          nickname: user.nickname,
-        };
-      });
-    } catch (error) {
-      throw error;
-    }
-  };
+      if (userByEmail.length > 0) {
+        const error = new emailExist();
+        throw error;
+      }
 
-  findByNickname = async (nickname) => {
-    try {
-      const userByNickname = await this.userRepository.findByNickname(nickname);
-
-      // 얘는 다 불러와 줄 필요는 없음
-      return userByNickname.map((user) => {
-        return {
-          id: user.id,
-          email: user.email,
-          password: user.password,
-          nickname: user.nickname,
-        };
-      });
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  createUser = async (email, hashed, nickname) => {
-    try {
-      const createUserData = await this.userRepository.createUser(
-        email,
-        hashed,
-        nickname
+      const userByNickname = await this.userRepository.findByNickname(
+        userInfo.nickname
       );
 
-      return {
-        email: createUserData.email,
-        nickname: createUserData.nickname,
-      };
+      if (userByNickname.length > 0) {
+        const error = new nicknameExist();
+        throw error;
+      }
+
+      // 비밀번호 암호화
+      const hashedPassword = await bcrypt.hash(userInfo.password, 12);
+      userInfo.password = hashedPassword;
+
+      return await this.userRepository.createUser(userInfo);
     } catch (error) {
       throw error;
     }
