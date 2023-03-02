@@ -30,9 +30,18 @@ class incorrectPassword extends Error {
   }
 }
 
+class alreayLogin extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'alreayLogin';
+    this.message = '이미 로그인되어 있습니다.';
+  }
+}
+
 module.exports = {
   emailExist,
   nicknameExist,
   userNotFound,
   incorrectPassword,
+  alreayLogin,
 };
