@@ -43,6 +43,17 @@ class UserRepository {
       throw error;
     }
   };
+
+  allUserInfo = async () => {
+    try {
+      const users = await this.userModel.findAll({});
+
+      return users;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
 }
 
 module.exports = UserRepository;

@@ -55,6 +55,26 @@ class UserService {
       throw error;
     }
   };
+
+  findAllUserInfo = async () => {
+    try {
+      const allUserInfo = await this.userRepository.allUserInfo();
+
+      return allUserInfo.map((users) => {
+        return {
+          id: users.id,
+          email: users.email,
+          nickname: users.nickname,
+          auth_level: users.auth_level,
+          test_result: users.test_result,
+          introduction: users.introduction,
+          expired_at: users.expired_at,
+        };
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = UserService;
