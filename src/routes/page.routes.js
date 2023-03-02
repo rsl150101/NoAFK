@@ -10,7 +10,7 @@ const projectController = new ProjectController();
 
 router.get('/');
 router.get('/users');
-router.get('/projects', projectController.getProjectsPage);
+router.get('/projects', projectController.renderProjectsPage);
 router.get('/teams');
 
 module.exports = router;

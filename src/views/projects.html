@@ -18,5 +18,10 @@
       <input type="datetime-local" name="projectEnd" id="projectEnd" />
       <input type="submit" value="send" />
     </form>
+    <script>
+      const urlSearch = new URLSearchParams(location.search);
+      const page = urlSearch.get('page') || 1;
+      fetch(`http://localhost:3000/api/projects?page=${page}`);
+    </script>
   </body>
 </html>

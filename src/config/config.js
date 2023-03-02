@@ -9,6 +9,11 @@ const development = {
   dialect: 'mysql',
   logging: false,
   timezone: '+09:00',
+  dialectOptions: {
+    charset: 'utf8mb4',
+    dateStrings: true,
+    typeCast: true,
+  },
 };
 const test = {
   username: 'root',
