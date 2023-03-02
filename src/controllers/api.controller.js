@@ -14,7 +14,6 @@ class ApiController {
 
       res.status(status).json({ message });
     } catch (error) {
-      console.log(error);
       res.status(400).json({ errorMessage: '회원가입이 실패하였습니다' });
     }
   };
@@ -29,7 +28,6 @@ class ApiController {
       res.cookie('accessToken', accessToken);
       return res.status(status).json({ accessToken });
     } catch (error) {
-      console.log(error);
       return res.status(400).json({ errorMessage: '로그인 실패.' });
     }
   };

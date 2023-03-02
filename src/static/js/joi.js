@@ -7,13 +7,14 @@ const joinDataValidation = joi.object({
   password: joi
     .string()
     .min(8)
+    .max(20)
     .pattern(new RegExp('^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$'))
     .required(),
   nickname: joi
     .string()
     .min(1)
     .max(20)
-    .pattern(new RegExp('^[a-z0-9가-힣]*$'))
+    .pattern(new RegExp('^[A-za-z0-9가-힣]*$'))
     .required(),
 });
 
