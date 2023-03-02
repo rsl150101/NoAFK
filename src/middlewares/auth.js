@@ -19,10 +19,7 @@ module.exports = async (req, res, next) => {
 
     const { id } = jwt.verify(accessToken, process.env.KAKAO_SECRET);
 
-    const user = await User.findByPk(id).then((user) => {
-      res.locals.user = user;
-      next();
-    });
+    const user = await User.findByPk(id);
 
     // 해당하는 회원이 존재하지 않을 때
     if (!user) {
