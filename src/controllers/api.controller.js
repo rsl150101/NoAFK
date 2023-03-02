@@ -1,14 +1,12 @@
 const UserService = require('../services/users.service');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
 
 //joi
-const { joinDataValidation } = require('../static/js/joi');
+const { joinDataValidation, loginDataValidation } = require('../static/js/joi');
 
 class ApiController {
   userService = new UserService();
   // 회원가입(id 동일하면 안됨!)
-  join = async (req, res, next) => {
+  join = async (req, res) => {
     try {
       const userInfo = await joinDataValidation.validateAsync(req.body);
 
@@ -24,33 +22,14 @@ class ApiController {
   // 로그인
   login = async (req, res) => {
     try {
-      const { email, password } = req.body;
+      const userInfo = await loginDataValidation.validateAsync(req.body);
 
-      const user = await this.userService.findByEmail(email);
+      const { status, accessToken } = await this.userService.login(userInfo);
 
-      const passwordTest = await bcrypt.compare(password, user[0].password);
-      if (user.length === 0 || !passwordTest) {
-        return res
-          .status(401)
-          .json({ errorMessage: '사용자가 없거나 비밀번호가 틀렸습니다.' });
-      }
-
-      const accessToken = jwt.sign(
-        {
-          id: user[0].id,
-          email: user[0].email,
-          nickname: user[0].nickname,
-        },
-        process.env.KAKAO_SECRET,
-        { expiresIn: '1d' }
-      );
-
-      // 쿠키에 토큰 담아서 보내기
-      // res.cookie("accessToken", accessToken, { httpOnly: true, secure: true });
       res.cookie('accessToken', accessToken);
-
-      return res.status(200).json({ message: '로그인 성공.' });
+      return res.status(status).json({ accessToken });
     } catch (error) {
+      console.log(error);
       return res.status(400).json({ errorMessage: '로그인 실패.' });
     }
   };

@@ -14,7 +14,25 @@ class nicknameExist extends Error {
   }
 }
 
+class userNotFound extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'userNotFound';
+    this.message = '유저가 존재하지 않습니다.';
+  }
+}
+
+class incorrectPassword extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'incorrectPassword';
+    this.message = '비밀번호가 틀렸습니다.';
+  }
+}
+
 module.exports = {
   emailExist,
   nicknameExist,
+  userNotFound,
+  incorrectPassword,
 };
