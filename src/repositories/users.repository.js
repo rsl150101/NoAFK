@@ -44,7 +44,7 @@ class UserRepository {
     }
   };
 
-  allUserInfo = async () => {
+  getAllUserInfo = async () => {
     try {
       const users = await this.userModel.findAll({});
 

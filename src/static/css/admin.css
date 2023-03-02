@@ -144,7 +144,7 @@ h2 {
   height: 100%;
   float: left;
   width: 220px;
-  padding: 15px 0 15px 0;
+  padding: 15px 0;
   text-align: center;
 }
 
@@ -196,7 +196,6 @@ h2 {
   padding-left: 0px;
 }
 #container_wr {
-  /* max-width: 1000px; */
   padding: 25px;
   min-height: 500px;
 }
@@ -244,7 +243,7 @@ a.btn {
 .btn_02,
 a.btn_02 {
   background: red;
-  color: #fff;
+  color: white;
 }
 .btn_03,
 a.btn_03 {

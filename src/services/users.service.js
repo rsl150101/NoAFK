@@ -58,19 +58,29 @@ class UserService {
 
   findAllUserInfo = async () => {
     try {
-      const allUserInfo = await this.userRepository.allUserInfo();
+      const allUserInfo = await this.userRepository.getAllUserInfo();
 
-      return allUserInfo.map((users) => {
-        return {
-          id: users.id,
-          email: users.email,
-          nickname: users.nickname,
-          auth_level: users.auth_level,
-          test_result: users.test_result,
-          introduction: users.introduction,
-          expired_at: users.expired_at,
-        };
-      });
+      return allUserInfo.map(
+        ({
+          id,
+          email,
+          nickname,
+          auth_level,
+          test_result,
+          introduction,
+          expired_at,
+        }) => {
+          return {
+            id,
+            email,
+            nickname,
+            auth_level,
+            test_result,
+            introduction,
+            expired_at,
+          };
+        }
+      );
     } catch (error) {
       throw error;
     }
