@@ -55,6 +55,36 @@ class UserService {
       throw error;
     }
   };
+
+  findAllUserInfo = async () => {
+    try {
+      const allUserInfo = await this.userRepository.getAllUserInfo();
+
+      return allUserInfo.map(
+        ({
+          id,
+          email,
+          nickname,
+          auth_level,
+          test_result,
+          introduction,
+          expired_at,
+        }) => {
+          return {
+            id,
+            email,
+            nickname,
+            auth_level,
+            test_result,
+            introduction,
+            expired_at,
+          };
+        }
+      );
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = UserService;
