@@ -2,22 +2,24 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const { userNotFound } = require('../static/js/customError');
 
-/* env */
-dotenv.config();
-
-module.exports = async (req, res, next) => {
+// 로그인이 되어있는지 확인
+const notLogin = async (req, res, next) => {
   try {
-    // accessToken 들고오기
-    const { accessToken } = req.cookies;
+    // cookie 들고오기
+    const { cookie } = req.headers;
 
-    console.log(accessToken, 'jasdfjklsdjfkljdslkfjklsdjfjsdk');
-
-    // accessToken 없음
-    if (!accessToken) {
-      return res.status(401).json({ message: '로그인 후 이용가능합니다.' });
+    // cookie 없음
+    if (!cookie) {
+      return next();
     }
 
-    const { id } = jwt.verify(accessToken, process.env.KAKAO_SECRET);
+    let [authType, authToken] = cookie.split('=');
+
+    if (!authToken || authType !== 'accessToken') {
+      return next();
+    }
+
+    const { id } = jwt.verify(authToken, process.env.KAKAO_SECRET);
 
     const user = await User.findByPk(id);
 
@@ -34,3 +36,5 @@ module.exports = async (req, res, next) => {
     return res.status(401).json({ message: '로그인 후 이용가능합니다.' });
   }
 };
+
+module.exports = { notLogin };

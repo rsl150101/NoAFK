@@ -67,9 +67,9 @@ class UserService {
       // access token
       const accessToken = jwt.sign(
         {
-          id: userByEmail.id,
-          email: userByEmail.email,
-          nickname: userByEmail.nickname,
+          id: userByEmail[0].id,
+          email: userByEmail[0].email,
+          nickname: userByEmail[0].nickname,
         },
         process.env.KAKAO_SECRET,
         {
