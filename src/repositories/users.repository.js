@@ -66,6 +66,19 @@ class UserRepository {
       throw error;
     }
   };
+
+  //* 회원 삭제
+  deleteUser = async (userId) => {
+    try {
+      return await this.userModel.destroy({
+        where: {
+          id: userId,
+        },
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = UserRepository;

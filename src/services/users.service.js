@@ -94,6 +94,15 @@ class UserService {
       throw error;
     }
   };
+
+  //* 회원 삭제
+  deleteUser = async (userId) => {
+    try {
+      return await this.userRepository.deleteUser(userId);
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = UserService;

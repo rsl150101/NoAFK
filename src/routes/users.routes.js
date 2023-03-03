@@ -10,4 +10,7 @@ router.get('/', usersController.getAllUserInfo);
 //* 회원 차단
 router.patch('/:userId', usersController.blockUser);
 
+//* 회원 삭제
+router.delete('/:userId', usersController.deleteUser);
+
 module.exports = router;

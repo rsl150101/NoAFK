@@ -31,6 +31,19 @@ class UsersController {
       return res.status(400).json({ message: error.message });
     }
   };
+
+  //* 회원 삭제
+  deleteUser = async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+
+      await this.userService.deleteUser(userId);
+
+      res.status(200).json({ message: '탈퇴 처리가 완료되었습니다.' });
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  };
 }
 
 module.exports = UsersController;
