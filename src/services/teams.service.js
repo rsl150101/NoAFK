@@ -8,27 +8,6 @@ class TeamService {
   projectRepository = new ProjectRepository(Project);
   userRepository = new UserRepository(User);
 
-  findByTeamMemberId = async (teamMemberId) => {
-    try {
-      const teamMemberById = await this.teamRepository.findByTeamMemberId(
-        teamMemberId
-      );
-
-      const teamMemberInfo = teamMemberById.map((teamMember) => {
-        return {
-          id: teamMember.id,
-          position: teamMember.position,
-          task: teamMember.task,
-          createdAt: teamMember.createdAt,
-        };
-      });
-
-      return teamMemberInfo;
-    } catch (error) {
-      throw error;
-    }
-  };
-
   findAllByTeamId = async (teamId) => {
     try {
       return await this.teamRepository.findAllByTeamId(teamId);

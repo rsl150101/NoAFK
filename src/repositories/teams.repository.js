@@ -20,7 +20,6 @@ class TeamRepository {
   };
 
   findAllByTeamId = async (teamId) => {
-    // teamId == projectId
     try {
       return await this.teamModel.findAll({
         where: { project_id: teamId },
@@ -40,7 +39,7 @@ class TeamRepository {
         task = LEADER;
       }
       await this.teamModel.create({
-        position: position, // 0 == 신청자, 1 == 팀페이지에서 바로 추가
+        position, // 0 == 신청자, 1 == 팀페이지에서 바로 추가
         task,
         user_id: userId,
         project_id: teamId,
@@ -74,7 +73,6 @@ class TeamRepository {
   };
 
   deleteTeamMember = async (teamMemberId) => {
-    // teamMemberId == projectUserId(TeamModel's PK)
     try {
       await this.teamModel.destroy({
         where: {

@@ -10,8 +10,6 @@ class TeamsController {
   getTeam = async (req, res, next) => {
     const { teamId } = req.params;
 
-    // const teamName = await this.ProjectService.get팀이름(teamId)
-    // const projectStatus = await this.ProjectService.get프로젝트진행상태(teamId)
     const teamName = 'jin'; // 임시구현
     const projectStatus = 0; // 임시구현
     const memberList = await this.teamService.findAllByTeamId(teamId);
@@ -23,8 +21,6 @@ class TeamsController {
     const { teamId } = req.params;
     const { nickname, position } = req.body;
 
-    // const userByNickname = await this.userService.findUserInfo(nickname);
-    // const userId = userByNickname.id
     const userId = 2; // 임시구현
     const newMember = await this.teamService.addNewMember(
       position,
@@ -41,9 +37,7 @@ class TeamsController {
     if (req.body.status) {
       status = req.body.status;
     }
-    // const updatedStatus = await this.projectService.팀상태변경(status)
 
-    // return res.status(200).json(updatedStatus);
     return res.status(200).json({ msg: 'updateTeam success', status }); // 임시구현
   };
 
