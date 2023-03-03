@@ -33,9 +33,11 @@ class TeamRepository {
 
   createTeamMember = async (position, userId, teamId) => {
     try {
-      let task = '팀원';
+      const LEADER = '리더';
+      const TEAM_MEMBER = '팀원';
+      let task = TEAM_MEMBER;
       if (position === 3) {
-        task = '리더';
+        task = LEADER;
       }
       await this.teamModel.create({
         position: position, // 0 == 신청자, 1 == 팀페이지에서 바로 추가

@@ -2,13 +2,13 @@ const TeamService = require('../services/teams.service');
 const ProjectService = require('../services/projects.service');
 const UserService = require('../services/users.service');
 
-class TeamController {
+class TeamsController {
   teamService = new TeamService();
   projectService = new ProjectService();
   userService = new UserService();
 
   getTeam = async (req, res, next) => {
-    const teamId = req.params.teamId;
+    const { teamId } = req.params;
 
     // const teamName = await this.ProjectService.get팀이름(teamId)
     // const projectStatus = await this.ProjectService.get프로젝트진행상태(teamId)
@@ -20,7 +20,7 @@ class TeamController {
   };
 
   postTeamMember = async (req, res, next) => {
-    const teamId = req.params.teamId;
+    const { teamId } = req.params;
     const { nickname, position } = req.body;
 
     // const userByNickname = await this.userService.findUserInfo(nickname);
@@ -36,7 +36,7 @@ class TeamController {
   };
 
   updateTeam = async (req, res, next) => {
-    const teamId = req.params.teamId;
+    const { teamId } = req.params;
     let status = 5; // 소프트 삭제 상태
     if (req.body.status) {
       status = req.body.status;
@@ -69,4 +69,4 @@ class TeamController {
   };
 }
 
-module.exports = TeamController;
+module.exports = TeamsController;

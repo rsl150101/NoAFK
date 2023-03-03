@@ -39,9 +39,6 @@ class TeamService {
 
   addNewMember = async (position, userId, teamId) => {
     try {
-      console.log(
-        `position, userId, teamId: ${position}, ${userId}, ${teamId}`
-      );
       return await this.teamRepository.createTeamMember(
         position,
         userId,
