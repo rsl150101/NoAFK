@@ -1,6 +1,6 @@
 const ProjectService = require('../services/projects.service');
 
-class ProjectController {
+class ProjectsController {
   projectService = new ProjectService();
 
   //* 전체 프로젝트 페이지 렌더링
@@ -33,4 +33,4 @@ class ProjectController {
   };
 }
 
-module.exports = ProjectController;
+module.exports = ProjectsController;
