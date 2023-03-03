@@ -3,7 +3,7 @@ const UserController = require('../controllers/users.controller');
 const TeamsController = require('../controllers/teams.controller');
 const ProjectController = require('../controllers/projects.controller');
 const { notLogin } = require('../middlewares/auth');
-const { alreayLogin } = require('../static/js/customError');
+const { alreayLogin } = require('../utility/customError');
 
 const router = express.Router();
 const userController = new UserController();
