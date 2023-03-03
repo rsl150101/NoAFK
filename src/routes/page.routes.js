@@ -11,6 +11,9 @@ const projectController = new ProjectController();
 router.get('/');
 router.get('/users');
 router.get('/projects');
-router.get('/teams');
+router.get('/teams/:teamid', (req, res, next) => {
+  // 추후 auth 미들웨어로 추가
+  return res.render('myteam');
+});
 
 module.exports = router;
