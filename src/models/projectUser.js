@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   ProjectUser.init(
     {
-      role_level: {
+      position: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

@@ -31,9 +31,9 @@ class TeamService {
 
   findAllByTeamId = async (teamId) => {
     try {
-      const AllByTeamId = await this.teamRepository.findAllByTeamId(teamId);
+      const allByTeamId = await this.teamRepository.findAllByTeamId(teamId);
 
-      const allInfo = AllByTeamId.map((all) => {
+      const allInfo = allByTeamId.map((all) => {
         return {
           id: all.teamMember.id,
           position: all.teamMember.position,
@@ -48,22 +48,19 @@ class TeamService {
     }
   };
 
-  createTeamMember = async (userId, projectId) => {
+  // 완성
+  addNewMember = async (position, userId, teamId) => {
     try {
-      const newTeamMember = await this.teamRepository.createTeamMember(
+      console.log(
+        `position, userId, teamId: ${position}, ${userId}, ${teamId}`
+      );
+      const newMember = await this.teamRepository.createTeamMember(
+        position,
         userId,
-        projectId
+        teamId
       );
 
-      const newTeamMemberInfo = newTeamMember.map((newMember) => {
-        return {
-          userId: newMember.userId,
-          projectId: newMember.projectId,
-          position: newMember.position,
-        };
-      });
-
-      return newTeamMemberInfo;
+      return newMember;
     } catch (error) {
       throw error;
     }

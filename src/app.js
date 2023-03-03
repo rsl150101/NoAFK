@@ -9,7 +9,7 @@ require('dotenv').config();
 //* Router import
 const pageRouter = require('./routes/page.routes');
 const apiRouter = require('./routes/api.routes');
-const teamsRouter = require('./routes/teams.routes');
+const teamsRouter = require('./routes/teams.routes.js');
 const usersRouter = require('./routes/users.routes');
 const projectsRouter = require('./routes/projects.routes');
 

@@ -3,12 +3,12 @@ class TeamRepository {
     this.teamModel = TeamModel;
   }
 
-  // TeamModel == ProjectUser_DB 라고 하면 TeamID는 각 팀 멤버의 고유ID값으로 생각하게된다.
-  // 하지만 직관적으로 TeamId라고 할 수 있는 것은 외래키로 연결된 ProjectModel의 아이디값이다.
-  // URL의 team/:teamId 도 projectID로 사용되는 것이 코드가 더 간단화 될 것.
+  // TeamModel == ProjectUser 👉 TeamId == ProjectUserId 이 되는 것이 일반적이지만,
+  // 실제 코드에서 TeamId == ProjectId (Not PK, but FK) 라는 것을 유의❗
+  // Therefore, In TeamRouter, URL: /team/:teamId 👉 TeamId == ProjectId
+  // And, In this repository, "ProjectUserId" is used as "TeamMemberId".
 
   findByTeamMemberId = async (teamMemberId) => {
-    // TeamModel의 PK인 teamMemberId == projectUser의 PK인 projectUserId
     try {
       const teamMemberById = await this.teamModel.findOne({
         where: { teamMemberId },
@@ -33,15 +33,19 @@ class TeamRepository {
     }
   };
 
-  createTeamMember = async (userId, projectId) => {
+  createTeamMember = async (position, userId, teamId) => {
     try {
       const newTeamMember = await this.teamModel.create({
-        userId,
-        projectId,
-        position: 1, // 0 == 신청자
+        position: position, // 0 == 신청자, 1 == 팀페이지에서 바로 추가
+        task: '팀원',
+        user_id: userId,
+        project_id: teamId,
       });
-      console.log(newTeamMember);
-      return newTeamMember;
+      console.log('createTeamMember => position:', position);
+      if (position === 0) {
+        return { status: 201, message: '팀 합류 신청 성공!' };
+      }
+      return { status: 201, message: '팀원 추가 성공!' };
     } catch (error) {
       error.status = 500;
       throw error;
