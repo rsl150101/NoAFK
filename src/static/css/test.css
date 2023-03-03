@@ -169,7 +169,7 @@ h2 {
 }
 
 #top-menu-right a {
-  color: #fff;
+  color: white;
   padding: 0 10px;
   display: block;
   line-height: 30px;
@@ -178,7 +178,7 @@ h2 {
 #top-menu-right .top-menu-list-a {
   border-radius: 3px;
   background: #fad7ac;
-  color: #000000;
+  color: black;
   padding: 0 10px;
   text-align: left;
   height: 30px;

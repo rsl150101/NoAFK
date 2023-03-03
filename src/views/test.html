@@ -74,32 +74,32 @@
   <script>
     function submit() {
       let IE = document.getElementsByName('IE');
+      let NS = document.getElementsByName('NS');
+      let TF = document.getElementsByName('TF');
+      let PJ = document.getElementsByName('PJ');
+      
       for (let i = 0; i < IE.length; i++) {
         if(IE[i].checked) {
           MBTI_IE = IE[i].value;
-          
         }
       }
-      let NS = document.getElementsByName('NS');
       for (let i = 0; i < NS.length; i++) {
         if(NS[i].checked) {
           MBTI_NS = NS[i].value;
         }
       }
-      let TF = document.getElementsByName('TF');
       for (let i = 0; i < TF.length; i++) {
         if(TF[i].checked) {
           MBTI_TF = TF[i].value
         }
       }
-      let PJ = document.getElementsByName('PJ');
       for (let i = 0; i < PJ.length; i++) {
         if(PJ[i].checked) {
           MBTI_PJ = PJ[i].value
         }
       }
       const MBTI = [MBTI_IE, MBTI_NS, MBTI_TF, MBTI_PJ];
-      var MBTI_RESULT = MBTI.join('');
+      let MBTI_RESULT = MBTI.join('');
       if (MBTI_RESULT) {
         $('#mbti_submit').empty();
         temp_html = `<br>
@@ -115,16 +115,14 @@
         start(MBTI_RESULT);
       }
     }
-    
 
-    var i = 0;
-
+    let i = 0;
     function start(mbti) {
         if (i === 0) {
             i = 1;
-            var elem = document.getElementById("progress-bar");
-            var width = 0;
-            var id = setInterval(frame, 10);
+            let elem = document.getElementById("progress-bar");
+            let width = 0;
+            let id = setInterval(frame, 10);
  
             function frame() {
                 if (width === 100) {
@@ -136,7 +134,6 @@
                                 <a href="#"><input type="button" value="다음" /><a>`
                     $('#mbti_result').append(temp_html);
                   clearInterval(id)
-
                 } else {
                     width++;
                     elem.style.width = width + "%";
