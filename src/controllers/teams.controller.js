@@ -41,13 +41,22 @@ class TeamController {
   };
 
   updateTeam = async (req, res, next) => {
-    const { status } = req.body;
+    const teamId = req.params.teamId;
+    let status = 5;
+    if (req.body.status) {
+      status = req.body.status;
+    }
+    console.log('status: ', status);
     // const updatedStatus = await this.projectService.팀상태변경(status)
 
-    return res.status(200).json(updatedStatus);
+    // return res.status(200).json(updatedStatus);
+    return res.status(200).json({ msg: 'updateTeam success', status });
   };
 
-  deleteTeam = async (req, res, next) => {};
+  softDeleteTeam = async (req, res, next) => {
+    const teamId = req.params.teamId;
+    //const softDeletedTeam = await this.projectService.팀상태변경(status)
+  };
 }
 
 module.exports = TeamController;

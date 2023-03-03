@@ -12,7 +12,7 @@ router.post('/:teamId', teamController.postTeamMember);
 // 팀 상태(status) 수정
 router.patch('/:teamId', teamController.updateTeam);
 // 팀 소프트 삭제(팀 조회시 안나오도록)
-//*router.delete('/:teamId', teamController.softDeleteTeam);
+router.delete('/:teamId', teamController.softDeleteTeam);
 
 // memberId(teamMemberId) == projectUserId
 // 팀원 정보 수정: 1. 팀페이지 => task, position, 2. 모집페이지(팀신청수락) => position = 0 에서 1로 수정
