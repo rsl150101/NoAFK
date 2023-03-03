@@ -1,7 +1,7 @@
 const UserService = require('../services/users.service');
 
 //joi
-const { joinDataValidation, loginDataValidation } = require('../static/js/joi');
+const { joinDataValidation, loginDataValidation } = require('../utility/joi');
 
 // 소셜로그인
 const jwt = require('jsonwebtoken');

@@ -9,7 +9,7 @@ const {
   nicknameExist,
   userNotFound,
   incorrectPassword,
-} = require('../static/js/customError');
+} = require('../utility/customError');
 
 class UserService {
   userRepository = new UserRepository(User);
