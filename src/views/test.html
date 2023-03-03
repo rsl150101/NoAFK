@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>noAFK | 테스트</title>
+    <link rel="stylesheet" href="../static/css/test.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <header id="head">
+      <div id="head-top">
+        <div id="top-menu">
+          <ul>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">NoAFK</a></li>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">모집공고</a></li>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">팀</a></li>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">프로젝트</a></li>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">유저조회</a></li>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">내팀</a></li>
+          </ul>
+        </div>
+        <div id="top-menu-right">
+          <ul>
+            <li class="top-menu-list-logout"><a href="#" class="top-menu-list-a">로그아웃</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+      <div id="question-list">
+        🧑‍💻 나의 성향 TEST <br><br><br>
+        <div class="question1">
+          1. 나는 관심이 가는 사람에게 다가가서 대화를 시작하기가 어렵지 않다.<br><br>
+          <div>
+            예&nbsp;<input type="radio" name="IE" value="E" />&nbsp;&nbsp;
+            아니오&nbsp;<input type="radio" name="IE" value="I" /><br><br><br>
+          </div>
+        </div>
+        <div class="question2">
+          2. 나는 자유 시간 중 상당 부분을 다양한 관심사를 탐구하는 데 할애한다.<br><br>
+          <div>
+            예&nbsp;<input type="radio" name="NS" value="N" />&nbsp;&nbsp;
+            아니오&nbsp;<input type="radio" name="NS" value="S" /><br><br><br>
+          </div>
+        </div>
+        <div class="question3">
+          3. 나는 자신의 의견과 매우 다른 의견을 이해하기 위해 많은 시간을 할애하곤 한다.<br><br>
+          <div>
+            예&nbsp;<input type="radio" name="TF" value="F" />&nbsp;&nbsp;
+            아니오&nbsp;<input type="radio" name="TF" value="T" /><br><br><br>
+          </div>
+        </div>
+        <div class="question4">
+          4. 나는 여행계획을 세울 때 구체적으로 세우는 편이다.<br><br>
+          <div>
+            예&nbsp;<input type="radio" name="PJ" value="J" />&nbsp;&nbsp;
+            아니오&nbsp;<input type="radio" name="PJ" value="P" /><br><br>
+          </div>
+        </div>
+        <div id="mbti_submit">
+          <input type="button" onclick="submit()" value="제출" />
+        </div>
+        <br>
+        <br>
+        <div id="mbti_progress"></div>
+        <div id="mbti_result"></div>
+      </div>
+
+  </body>
+
+
+  <script>
+    function submit() {
+      let IE = document.getElementsByName('IE');
+      let NS = document.getElementsByName('NS');
+      let TF = document.getElementsByName('TF');
+      let PJ = document.getElementsByName('PJ');
+      
+      for (let i = 0; i < IE.length; i++) {
+        if(IE[i].checked) {
+          MBTI_IE = IE[i].value;
+        }
+      }
+      for (let i = 0; i < NS.length; i++) {
+        if(NS[i].checked) {
+          MBTI_NS = NS[i].value;
+        }
+      }
+      for (let i = 0; i < TF.length; i++) {
+        if(TF[i].checked) {
+          MBTI_TF = TF[i].value
+        }
+      }
+      for (let i = 0; i < PJ.length; i++) {
+        if(PJ[i].checked) {
+          MBTI_PJ = PJ[i].value
+        }
+      }
+      const MBTI = [MBTI_IE, MBTI_NS, MBTI_TF, MBTI_PJ];
+      let MBTI_RESULT = MBTI.join('');
+      if (MBTI_RESULT) {
+        $('#mbti_submit').empty();
+        temp_html = `<br>
+                      <div id="progress">
+                          <div id="progress-container">
+                          <div id="progress-bar"></div>
+                        </div>
+                      </div>
+                    <br>`
+      }
+      $('#mbti_progress').append(temp_html);
+      if(temp_html) {
+        start(MBTI_RESULT);
+      }
+    }
+
+    let i = 0;
+    function start(mbti) {
+        if (i === 0) {
+            i = 1;
+            let elem = document.getElementById("progress-bar");
+            let width = 0;
+            let id = setInterval(frame, 10);
+ 
+            function frame() {
+                if (width === 100) {
+                    i = 0;
+                    temp_html = `<div>
+                                  MBTI 결과는 ${mbti} 입니다.
+                                </div>
+                                <br>
+                                <a href="#"><input type="button" value="다음" /><a>`
+                    $('#mbti_result').append(temp_html);
+                  clearInterval(id)
+                } else {
+                    width++;
+                    elem.style.width = width + "%";
+                    elem.innerHTML = width + "%";
+                }
+            }
+        }
+    }
+  </script>
+</html>
