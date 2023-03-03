@@ -74,13 +74,13 @@ class TeamRepository {
   deleteTeamMember = async (teamMemberId) => {
     // teamMemberId == projectUserId(TeamModel's PK)
     try {
-      const deletedTeamMember = await this.teamModel.destroy({
+      await this.teamModel.destroy({
         where: {
           id: teamMemberId,
         },
       });
-      console.log(deletedTeamMember);
-      return deletedTeamMember;
+
+      return { status: 200, message: '팀원 삭제 성공!' };
     } catch (error) {
       error.status = 500;
       throw error;

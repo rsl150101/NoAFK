@@ -59,20 +59,14 @@ class TeamService {
         position,
         task
       );
-
-      return updatedTeamMemberInfo;
     } catch (error) {
       throw error;
     }
   };
 
-  deleteTeamMember = async (teamMemberId) => {
+  deleteMember = async (memberId) => {
     try {
-      const deletedTeamMember = await this.teamRepository.deleteTeamMember(
-        teamMemberId
-      );
-
-      return deletedTeamMember;
+      return await this.teamRepository.deleteTeamMember(memberId);
     } catch (error) {
       throw error;
     }

@@ -16,6 +16,6 @@ router.patch('/:teamId', teamController.updateTeam);
 // 팀원 정보 수정: 1. 팀페이지 => task, position, 2. 모집페이지(팀신청수락) => position = 0 에서 1로 수정
 router.patch('/:teamId/:memberId', teamController.updateTeamMember);
 // 팀원 삭제
-//*router.delete('/:teamId/:memberId', teamController.deleteTeamMember);
+router.delete('/:teamId/:memberId', teamController.deleteTeamMember);
 
 module.exports = router;

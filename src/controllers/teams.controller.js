@@ -65,6 +65,14 @@ class TeamController {
 
     return res.status(200).json({ updatedMember });
   };
+
+  deleteTeamMember = async (req, res, next) => {
+    const { teamId, memberId } = req.params;
+
+    const deletedMember = await this.teamService.deleteMember(memberId);
+
+    return res.status(200).json({ deletedMember });
+  };
 }
 
 module.exports = TeamController;
