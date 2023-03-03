@@ -1,3 +1,5 @@
+const { userInfo } = require('os');
+
 class UserRepository {
   constructor(UserModel) {
     this.userModel = UserModel;
@@ -5,10 +7,9 @@ class UserRepository {
 
   findByEmail = async (email) => {
     try {
-      const userByEmail = await this.userModel.findAll({
+      return await this.userModel.findAll({
         where: { email },
       });
-      return userByEmail;
     } catch (error) {
       error.status = 500;
       throw error;
@@ -17,27 +18,35 @@ class UserRepository {
 
   findByNickname = async (nickname) => {
     try {
-      const userByNickname = await this.userModel.findAll({
+      return await this.userModel.findAll({
         where: { nickname },
       });
-      return userByNickname;
     } catch (error) {
       error.status = 500;
       throw error;
     }
   };
 
-  createUser = async (email, hashed, nickname) => {
+  createUser = async (userInfo) => {
     try {
-      const userData = await this.userModel.create({
-        email,
-        password: hashed,
-        nickname,
+      await this.userModel.create({
+        email: userInfo.email,
+        password: userInfo.password,
+        nickname: userInfo.nickname,
       });
 
-      console.log(userData);
+      return { status: 200, message: '회원가입에 성공하였습니다.' };
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
 
-      return userData;
+  getAllUserInfo = async () => {
+    try {
+      const users = await this.userModel.findAll({});
+
+      return users;
     } catch (error) {
       error.status = 500;
       throw error;

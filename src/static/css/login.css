@@ -42,9 +42,9 @@
   height: 60%;
 }
 
-.login-button {
-  margin: auto;
-  display: flex;
+.border-button {
+  margin: 3%;
+  display: inline-block;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -53,13 +53,21 @@
   padding: 2px;
 }
 
-.join-button {
+.border-none-button {
   margin: auto;
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border: none;
   background-color: transparent;
   padding: 2px;
+}
+
+.text-align-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 5%;
 }

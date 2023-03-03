@@ -7,8 +7,13 @@
       </div>
       <div class="login-box">
         <div class="form-floating form-margin form-margin-top">
-          <input type="id" class="form-control" id="id" placeholder="Id" />
-          <label for="id"></label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="Email"
+          />
+          <label for="email"></label>
         </div>
         <div class="form-floating form-margin">
           <input
@@ -19,20 +24,31 @@
           />
           <label for="password"></label>
         </div>
-        <button class="login-button" type="button" onclick="login()">
-          Login
-        </button>
-        <div>
-          <button
-            type="button"
-            class="join-button"
-            onclick="location.href='/join'"
-          >
-            회원이 아니신가요??
+        <div class="text-align">
+          <button class="border-button" id="login-btn" type="button">
+            Login
           </button>
+          <div class="kakaoLogin">
+            <a href="http://localhost:3000/api/auth/kakao"
+              ><img
+                src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+              />
+            </a>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="border-none-button"
+              onclick="location.href='/join'"
+            >
+              회원이 아니신가요??
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </main>
+
+<script src="./js/login.js"></script>
 {% endblock %}

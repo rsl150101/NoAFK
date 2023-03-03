@@ -1,0 +1,77 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  background: ghostwhite;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0px;
+}
+
+tr {
+  padding: 10px;
+  border: 2px solid black;
+}
+
+thead th {
+  font-size: large;
+  padding: 10px;
+  border: 2px solid black;
+}
+
+tbody th {
+  color: #3333337c;
+  padding: 10px;
+  border: 2px solid black;
+}
+
+#myteam-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 100%;
+  margin: auto;
+}
+
+#myteam-title {
+  padding: 20px;
+}
+
+#myteam__searching-new {
+  width: 100%;
+}
+
+#myteam__searching-new > div {
+  align-self: flex-end;
+}
+
+#myteam__project-status {
+  padding: 20px;
+  border: 2px solid black;
+}
+
+#myteam__project-status__title {
+  padding: 10px;
+}
+
+#myteam__project-status__buttons {
+  padding: 30px;
+}
+
+.myteam__project-status__arrow {
+  padding: 20px;
+}
+
+#myteam__project-status__footer {
+  width: 100%;
+}
+
+#myteam__project-status__footer > div {
+  align-self: flex-end;
+}

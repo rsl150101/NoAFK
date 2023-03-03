@@ -1,0 +1,61 @@
+{% extends "loginIndex.html" %} {% block content %}
+<main>
+  <div class="text-align form-margin-top">
+    <div>
+      <h1>회원가입</h1>
+    </div>
+    <div class="join-box">
+      <div class="form-floating form-margin">
+        <label for="email">email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="aaa@aaa.aaa 이메일 양식을 지켜주세요."
+        />
+      </div>
+      <div class="form-floating form-margin">
+        <label for="password">password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="비밀번호는 영어 대소문자와 숫자를 사용한 3글자 이상만 가능합니다."
+        />
+      </div>
+      <div class="form-floating form-margin">
+        <label for="passwordCheck">password check</label>
+        <input
+          type="password"
+          class="form-control"
+          id="passwordCheck"
+          placeholder="입력한 비밀번호와 동일하게 입력해주세요."
+        />
+      </div>
+      <div class="form-floating form-margin">
+        <label for="nickname">nickname</label>
+        <input
+          type="nickname"
+          class="form-control"
+          id="nickname"
+          placeholder="닉네임은 한글,영어 대소문자,숫자만 사용가능합니다."
+        />
+      </div>
+      <div class="text-align-row">
+        <button
+          class="border-button"
+          type="button"
+          onclick="location.href='/login'"
+        >
+          뒤로
+        </button>
+        <button class="border-button" id="join-btn" type="button">
+          회원가입
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="./js/join.js"></script>
+{% endblock %}

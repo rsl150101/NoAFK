@@ -1,22 +1,35 @@
 const express = require('express');
 const UserController = require('../controllers/users.controller');
-const TeamController = require('../controllers/teams.controller');
+const TeamsController = require('../controllers/teams.controller');
 const ProjectController = require('../controllers/projects.controller');
+const { notLogin } = require('../middlewares/auth');
+const { alreayLogin } = require('../static/js/customError');
 
 const router = express.Router();
 const userController = new UserController();
-const teamController = new TeamController();
+const teamsController = new TeamsController();
 const projectController = new ProjectController();
 
 router.get('/');
 router.get('/users');
 router.get('/projects');
-router.get('/teams');
+router.get('/teams/:teamid', (req, res, next) => {
+  // 추후 auth 미들웨어로 추가
+  return res.render('myteam');
+});
 
-router.get('/login', (req, res) => {
+router.get('/login', notLogin, (req, res) => {
+  if (res.locals.user) {
+    const error = new alreayLogin();
+    return res.status(403).json({ message: error.message });
+  }
   res.render('login.html');
 });
-router.get('/join', (req, res) => {
+router.get('/join', notLogin, (req, res) => {
+  if (res.locals.user) {
+    const error = new alreayLogin();
+    return res.status(403).json({ message: error.message });
+  }
   res.render('join.html');
 });
 
