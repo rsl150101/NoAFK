@@ -1,40 +1,28 @@
 <!DOCTYPE html>
 <html lang="ko">
   <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <title>noAFK | 회원관리</title>
-    <link rel="stylesheet" href="../static/css/admin.css" />
+    <link rel="stylesheet" href="css/admin.css" />
   </head>
   <body>
     <header id="hd">
       <div id="hd_top">
         <div id="logo">
-          <a href="http://127.0.0.1:5500/src/views/adminUser.html"
-            >어드민 페이지</a
-          >
+          <a href="/adminUser">어드민 페이지</a>
         </div>
 
         <div id="tnb">
           <ul>
             <li class="tnb_li">
-              <a
-                href="http://127.0.0.1:5500/src/views/adminUser.html"
-                class="tnb_service"
-                >회원관리</a
-              >
+              <a href="/adminUser" class="tnb_service">회원관리</a>
             </li>
             <li class="tnb_li">
-              <a
-                href="http://127.0.0.1:5500/src/views/adminUser.html"
-                class="tnb_service"
-                >공고관리</a
-              >
+              <a href="/adminUser" class="tnb_service">공고관리</a>
             </li>
             <li class="tnb_li_logout">
-              <a
-                href="http://127.0.0.1:5500/src/views/adminUser.html"
-                class="tnb_service"
-                >로그아웃</a
-              >
+              <a href="/adminUser" class="tnb_service">로그아웃</a>
             </li>
           </ul>
         </div>
@@ -88,9 +76,7 @@
               <table>
                 <thead>
                   <tr>
-                    <th scope="col" class="user_list_id" class="td_mng_s">
-                      회원번호
-                    </th>
+                    <th scope="col" class="user_list_id td_mng_s">회원번호</th>
                     <th scope="col" class="user_list_email">이메일</th>
                     <th scope="col" class="user_list_nickname">닉네임</th>
                     <th scope="col" class="user_list_introduction">자기소개</th>
@@ -105,100 +91,10 @@
                     >
                       권한등급
                     </th>
-                    <th scope="col" id="user_list_control" class="td_mng_s">
-                      관리
-                    </th>
+                    <th scope="col" class="user_list_control td_mng_s">관리</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr class="bg0">
-                    <td headers="user_list_id" class="user_id">1</td>
-                    <td headers="user_list_email" class="user_id">1@1.com</td>
-                    <td headers="user_list_nickname" class="user_nickname">
-                      닉네임인것
-                    </td>
-                    <td
-                      headers="user_list_introduction"
-                      class="user_introduction"
-                    >
-                      자기소개임
-                    </td>
-                    <td
-                      headers="user_list_test_result"
-                      class="user_test_result"
-                    >
-                      ISTJ
-                    </td>
-                    <td headers="user_list_expired_at" class="user_expired_at">
-                      2023-12-31
-                    </td>
-                    <td headers="user_list_auth_level" class="user_auth_level">
-                      99
-                    </td>
-                    <td headers="user_list_control" class="user_control">
-                      <a class="btn btn_03">수정</a>
-                      <a class="btn btn_02">삭제</a>
-                    </td>
-                  </tr>
-                  <tr class="bg0">
-                    <td headers="user_list_id" class="user_id">1</td>
-                    <td headers="user_list_email" class="user_id">1@1.com</td>
-                    <td headers="user_list_nickname" class="user_nickname">
-                      닉네임인것
-                    </td>
-                    <td
-                      headers="user_list_introduction"
-                      class="user_introduction"
-                    >
-                      자기소개임
-                    </td>
-                    <td
-                      headers="user_list_test_result"
-                      class="user_test_result"
-                    >
-                      ISTJ
-                    </td>
-                    <td headers="user_list_expired_at" class="user_expired_at">
-                      2023-12-31
-                    </td>
-                    <td headers="user_list_auth_level" class="user_auth_level">
-                      99
-                    </td>
-                    <td headers="user_list_control" class="user_control">
-                      <a class="btn btn_03">수정</a>
-                      <a class="btn btn_02">삭제</a>
-                    </td>
-                  </tr>
-                  <tr class="bg0">
-                    <td headers="user_list_id" class="user_id">1</td>
-                    <td headers="user_list_email" class="user_id">1@1.com</td>
-                    <td headers="user_list_nickname" class="user_nickname">
-                      닉네임인것
-                    </td>
-                    <td
-                      headers="user_list_introduction"
-                      class="user_introduction"
-                    >
-                      자기소개임
-                    </td>
-                    <td
-                      headers="user_list_test_result"
-                      class="user_test_result"
-                    >
-                      ISTJ
-                    </td>
-                    <td headers="user_list_expired_at" class="user_expired_at">
-                      2023-12-31
-                    </td>
-                    <td headers="user_list_auth_level" class="user_auth_level">
-                      99
-                    </td>
-                    <td headers="user_list_control" class="user_control">
-                      <a class="btn btn_03">수정</a>
-                      <a class="btn btn_02">삭제</a>
-                    </td>
-                  </tr>
-                </tbody>
+                <tbody id="usersList"></tbody>
               </table>
             </div>
           </form>
@@ -208,5 +104,116 @@
         </footer>
       </div>
     </div>
+    <script>
+      $(document).ready(function () {
+        getUserList();
+      });
+
+      function getUserList() {
+        $.ajax({
+          type: 'GET',
+          url: '/users',
+          data: {},
+          success: function (response) {
+            let rows = response;
+            for (let i = 0; i < rows.length; i++) {
+              let id = rows[i]['id'];
+              let email = rows[i]['email'];
+              let nickname = rows[i]['nickname'];
+              let introduction = rows[i]['introduction'];
+              let test_result = rows[i]['test_result'];
+              let expired_at = rows[i]['expired_at'];
+              let auth_level = rows[i]['auth_level'];
+              if (0 === test_result && null === expired_at) {
+                let test_result = '미완료';
+                let expired_at = '미가입';
+                appendTempHtml(
+                  id,
+                  email,
+                  nickname,
+                  introduction,
+                  test_result,
+                  expired_at,
+                  auth_level
+                );
+              } else if (0 !== test_result && null === expired_at) {
+                let expired_at = '미가입';
+                appendTempHtml(
+                  id,
+                  email,
+                  nickname,
+                  introduction,
+                  test_result,
+                  expired_at,
+                  auth_level
+                );
+              } else if (0 === test_result && null !== expired_at) {
+                let test_result = '미완료';
+                appendTempHtml(
+                  id,
+                  email,
+                  nickname,
+                  introduction,
+                  test_result,
+                  expired_at,
+                  auth_level
+                );
+              } else {
+                appendTempHtml(
+                  id,
+                  email,
+                  nickname,
+                  introduction,
+                  test_result,
+                  expired_at,
+                  auth_level
+                );
+              }
+            }
+          },
+        });
+      }
+
+      function appendTempHtml(
+        id,
+        email,
+        nickname,
+        introduction,
+        test_result,
+        expired_at,
+        auth_level
+      ) {
+        let temp_html = `<tr>
+                          <td headers="user_list_id" class="user_id">${id}</td>
+                          <td headers="user_list_email" class="user_email">${email}</td>
+                          <td headers="user_list_nickname" class="user_nickname">
+                            ${nickname}
+                          </td>
+                          <td
+                            headers="user_list_introduction"
+                            class="user_introduction"
+                          >
+                          ${introduction}
+                          </td>
+                          <td
+                            headers="user_list_test_result"
+                            class="user_test_result"
+                          >
+                          ${test_result}
+                          </td>
+                          <td headers="user_list_expired_at" class="user_expired_at">
+                            ${expired_at}
+                          </td>
+                          <td headers="user_list_auth_level" class="user_auth_level">
+                            ${auth_level}
+                          </td>
+                          <td headers="user_list_control" class="user_control">
+                            <a class="btn btn_03">차단</a>
+                            <a class="btn btn_02">삭제</a>
+                          </td>
+                        </tr>`;
+        $('#usersList').append(temp_html);
+      }
+    </script>
   </body>
 </html>
