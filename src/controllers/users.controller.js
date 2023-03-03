@@ -3,7 +3,12 @@ const UserService = require('../services/users.service');
 class UsersController {
   userService = new UserService();
 
-  //* 회원 전체 조회 (email, nickname, auth_level, test_result, introduction, expired_at)
+  //* 백오피스 회원관리 페이지 렌더링
+  renderAdminUserPage = (req, res) => {
+    return res.status(200).render('adminUser');
+  };
+
+  //* 회원 전체 조회
   getAllUserInfo = async (req, res) => {
     try {
       const findAllUserInfo = await this.userService.findAllUserInfo();
