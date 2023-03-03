@@ -20,8 +20,6 @@ class TeamController {
   };
 
   postTeamMember = async (req, res, next) => {
-    console.log('@@@@@@@ postTeamMember @@@@@@@');
-
     const teamId = req.params.teamId;
     const { nickname, position } = req.body;
 
