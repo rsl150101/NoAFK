@@ -30,9 +30,7 @@ class UserRepository {
   createUser = async (userInfo) => {
     try {
       await this.userModel.create({
-        email: userInfo.email,
-        password: userInfo.password,
-        nickname: userInfo.nickname,
+        ...userInfo,
       });
 
       return { status: 200, message: '회원가입에 성공하였습니다.' };
