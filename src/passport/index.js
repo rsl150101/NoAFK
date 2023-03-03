@@ -20,8 +20,10 @@ module.exports = (app) => {
       // profile: 카카오가 보내준 유저 정보. profile의 정보를 바탕으로 회원가입
       async (accessToken, refreshToken, profile, done) => {
         try {
+          const { email } = profile._json.kakao_account;
+          const { provider, id, username } = profile;
           const exUser = await User.findOne({
-            where: { email: profile._json.kakao_account.email },
+            where: { email },
           });
 
           // 이미 가입된 카카오 프로필이면 성공
@@ -30,18 +32,14 @@ module.exports = (app) => {
           } else {
             // 가입되지 않는 유저면 회원가입 시키고 로그인을 시킨다
             const newUser = await User.create({
-              email: profile._json.kakao_account.email,
-              password: await bcrypt.hash(
-                `${profile.provider}_${profile.id}`,
-                12
-              ),
-              nickname: `${profile.username} for ${profile.provider}`,
+              email,
+              password: await bcrypt.hash(`${provider}_${id}`, 12),
+              nickname: `${username} for ${provider}`,
             });
 
             done(null, newUser); // 회원가입하고 로그인 인증 완료
           }
         } catch (error) {
-          console.error(error);
           done(error);
         }
       }

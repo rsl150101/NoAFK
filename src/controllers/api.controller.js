@@ -47,11 +47,13 @@ class ApiController {
 
   // 소셜로그인
   socialLogin = async (req, res) => {
+    const { id, email, nickname } = req.user;
+
     const accessToken = jwt.sign(
       {
-        id: req.user.id,
-        email: req.user.email,
-        nickname: req.user.nickname,
+        id,
+        email,
+        nickname,
       },
       process.env.KAKAO_SECRET,
       {

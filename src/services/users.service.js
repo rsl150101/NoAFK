@@ -5,10 +5,10 @@ const bcrypt = require('bcrypt');
 
 // customError
 const {
-  emailExist,
-  nicknameExist,
-  userNotFound,
-  incorrectPassword,
+  EmailExist,
+  NicknameExist,
+  UserNotFound,
+  IncorrectPassword,
 } = require('../utility/customError');
 
 class UserService {
@@ -20,7 +20,7 @@ class UserService {
       const userByEmail = await this.userRepository.findByEmail(userInfo.email);
 
       if (userByEmail.length > 0) {
-        const error = new emailExist();
+        const error = new EmailExist();
         throw error;
       }
 
@@ -29,7 +29,7 @@ class UserService {
       );
 
       if (userByNickname.length > 0) {
-        const error = new nicknameExist();
+        const error = new NicknameExist();
         throw error;
       }
 
@@ -49,27 +49,26 @@ class UserService {
       const userByEmail = await this.userRepository.findByEmail(userInfo.email);
 
       if (userByEmail.length === 0) {
-        const error = new userNotFound();
+        const error = new UserNotFound();
         throw error;
       }
 
+      const { id, email, nickname, password } = userByEmail[0];
+
       // 비밀번호 체크
-      const checkPassword = await bcrypt.compare(
-        userInfo.password,
-        userByEmail[0].password
-      );
+      const checkPassword = await bcrypt.compare(userInfo.password, password);
 
       if (!checkPassword) {
-        const error = new incorrectPassword();
+        const error = new IncorrectPassword();
         throw error;
       }
 
       // access token
       const accessToken = jwt.sign(
         {
-          id: userByEmail[0].id,
-          email: userByEmail[0].email,
-          nickname: userByEmail[0].nickname,
+          id,
+          email,
+          nickname,
         },
         process.env.KAKAO_SECRET,
         {

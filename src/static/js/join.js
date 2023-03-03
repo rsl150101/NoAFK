@@ -39,7 +39,6 @@ const join = async () => {
     body: JSON.stringify(userInfo),
   });
 
-  console.log(response);
   if (response.status === 200) {
     window.location.href = '/login';
   }
