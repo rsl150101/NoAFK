@@ -3,6 +3,11 @@ const UserService = require('../services/users.service');
 //joi
 const { joinDataValidation, loginDataValidation } = require('../static/js/joi');
 
+// 소셜로그인
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config();
+
 class ApiController {
   userService = new UserService();
   // 회원가입(id 동일하면 안됨!)
@@ -36,8 +41,25 @@ class ApiController {
   logout = async (req, res) => {
     res.clearCookie('accessToken');
     // 카카오소셜로그인 쿠키
-    // res.clearCookie('connect.sid');
+    res.clearCookie('connect.sid');
     return res.json({ message: '로그아웃 성공.' });
+  };
+
+  // 소셜로그인
+  socialLogin = async (req, res) => {
+    const accessToken = jwt.sign(
+      {
+        id: req.user.id,
+        email: req.user.email,
+        nickname: req.user.nickname,
+      },
+      process.env.KAKAO_SECRET,
+      {
+        expiresIn: '1d',
+      }
+    );
+    res.cookie('accessToken', accessToken);
+    res.redirect('/');
   };
 }
 
