@@ -1,47 +1,47 @@
-class emailExist extends Error {
+class EmailExist extends Error {
   constructor(message) {
     super(message);
-    this.name = 'emailExist';
+    this.name = 'EmailExist';
     this.message = '이미 존재하는 이메일입니다.';
   }
 }
 
-class nicknameExist extends Error {
+class NicknameExist extends Error {
   constructor(message) {
     super(message);
-    this.name = 'nicknameExist';
+    this.name = 'NicknameExist';
     this.message = '이미 존재하는 닉네임입니다.';
   }
 }
 
-class userNotFound extends Error {
+class UserNotFound extends Error {
   constructor(message) {
     super(message);
-    this.name = 'userNotFound';
+    this.name = 'UserNotFound';
     this.message = '유저가 존재하지 않습니다.';
   }
 }
 
-class incorrectPassword extends Error {
+class IncorrectPassword extends Error {
   constructor(message) {
     super(message);
-    this.name = 'incorrectPassword';
+    this.name = 'IncorrectPassword';
     this.message = '비밀번호가 틀렸습니다.';
   }
 }
 
-class alreayLogin extends Error {
+class AlreayLogin extends Error {
   constructor(message) {
     super(message);
-    this.name = 'alreayLogin';
+    this.name = 'AlreayLogin';
     this.message = '이미 로그인되어 있습니다.';
   }
 }
 
 module.exports = {
-  emailExist,
-  nicknameExist,
-  userNotFound,
-  incorrectPassword,
-  alreayLogin,
+  EmailExist,
+  NicknameExist,
+  UserNotFound,
+  IncorrectPassword,
+  AlreayLogin,
 };

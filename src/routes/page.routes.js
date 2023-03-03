@@ -3,7 +3,7 @@ const UserController = require('../controllers/users.controller');
 const TeamsController = require('../controllers/teams.controller');
 const ProjectController = require('../controllers/projects.controller');
 const { notLogin } = require('../middlewares/auth');
-const { alreayLogin } = require('../utility/customError');
+const { AlreayLogin } = require('../utility/customError');
 
 const router = express.Router();
 const userController = new UserController();
@@ -20,14 +20,14 @@ router.get('/teams/:teamid', (req, res, next) => {
 
 router.get('/login', notLogin, (req, res) => {
   if (res.locals.user) {
-    const error = new alreayLogin();
+    const error = new AlreayLogin();
     return res.status(403).json({ message: error.message });
   }
   res.render('login.html');
 });
 router.get('/join', notLogin, (req, res) => {
   if (res.locals.user) {
-    const error = new alreayLogin();
+    const error = new AlreayLogin();
     return res.status(403).json({ message: error.message });
   }
   res.render('join.html');

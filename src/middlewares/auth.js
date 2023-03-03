@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
-const { userNotFound } = require('../utility/customError');
+const { UserNotFound } = require('../utility/customError');
 
 // 로그인이 되어있는지 확인
 const notLogin = async (req, res, next) => {
@@ -30,7 +30,7 @@ const notLogin = async (req, res, next) => {
 
     // 해당하는 회원이 존재하지 않을 때
     if (!user) {
-      const error = new userNotFound();
+      const error = new UserNotFound();
       return res.status(401).json({ message: error.message });
     }
 
