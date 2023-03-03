@@ -52,18 +52,13 @@ class TeamService {
     }
   };
 
-  updateTeamMember = async (teamMemberInfo) => {
+  updateMember = async (memberId, position, task) => {
     try {
-      const updatedTeamMember = await this.teamRepository.updateTeamMember(
-        teamMemberInfo
+      return await this.teamRepository.updateTeamMember(
+        memberId,
+        position,
+        task
       );
-
-      const updatedTeamMemberInfo = updatedTeamMember.map((updatedMember) => {
-        return {
-          position: updatedMember.position,
-          task: updatedMember.task,
-        };
-      });
 
       return updatedTeamMemberInfo;
     } catch (error) {

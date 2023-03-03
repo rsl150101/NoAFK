@@ -10,10 +10,9 @@ class TeamRepository {
 
   findByTeamMemberId = async (teamMemberId) => {
     try {
-      const teamMemberById = await this.teamModel.findOne({
+      return await this.teamModel.findOne({
         where: { teamMemberId },
       });
-      return teamMemberById;
     } catch (error) {
       error.status = 500;
       throw error;
@@ -23,10 +22,9 @@ class TeamRepository {
   findAllByTeamId = async (teamId) => {
     // teamId == projectId
     try {
-      const allByTeamId = await this.teamModel.findAll({
+      return await this.teamModel.findAll({
         where: { project_id: teamId },
       });
-      return allByTeamId;
     } catch (error) {
       error.status = 500;
       throw error;
@@ -35,13 +33,17 @@ class TeamRepository {
 
   createTeamMember = async (position, userId, teamId) => {
     try {
-      const newTeamMember = await this.teamModel.create({
+      let task = '팀원';
+      if (position === 3) {
+        task = '리더';
+      }
+      await this.teamModel.create({
         position: position, // 0 == 신청자, 1 == 팀페이지에서 바로 추가
-        task: '팀원',
+        task,
         user_id: userId,
         project_id: teamId,
       });
-      console.log('createTeamMember => position:', position);
+
       if (position === 0) {
         return { status: 201, message: '팀 합류 신청 성공!' };
       }
@@ -52,18 +54,18 @@ class TeamRepository {
     }
   };
 
-  updateTeamMember = async (teamMemberId, position, task) => {
+  updateTeamMember = async (memberId, position, task) => {
     try {
-      const updatedTeamMember = await this.TeamModel.update(
+      await this.teamModel.update(
         {
           position,
           task,
         },
         {
-          where: { id: teamMemberId },
+          where: { id: memberId },
         }
       );
-      return updatedTeamMember;
+      return { status: 200, message: '팀원 정보 수정 성공!' };
     } catch (error) {
       throw error;
     }
