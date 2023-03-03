@@ -12,9 +12,11 @@ class TeamController {
 
     // const teamName = await this.ProjectService.get팀이름(teamId)
     // const projectStatus = await this.ProjectService.get프로젝트진행상태(teamId)
+    const teamName = 'jin'; // 'joo', 'bin', 'soo'
+    const projectStatus = 0;
     const memberList = await this.teamService.findAllByTeamId(teamId);
 
-    return res.status(200).json({ memberList });
+    return res.status(200).json({ teamName, projectStatus, memberList });
   };
 
   postTeamMember = async (req, res, next) => {
@@ -39,14 +41,10 @@ class TeamController {
   };
 
   updateTeam = async (req, res, next) => {
-    // const { MemberList, projectStatus } = req.body
-    const { MemberList } = req.body;
+    const { status } = req.body;
+    // const updatedStatus = await this.projectService.팀상태변경(status)
 
-    for (let i = 0; i < MemberList.length; i++) {
-      await this.teamService.updateTeamMember(MemberList[i]);
-    }
-
-    return res.status(200).json({ msg: success });
+    return res.status(200).json(updatedStatus);
   };
 
   deleteTeam = async (req, res, next) => {};

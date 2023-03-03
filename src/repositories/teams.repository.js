@@ -24,7 +24,7 @@ class TeamRepository {
     // teamId == projectId
     try {
       const allByTeamId = await this.teamModel.findAll({
-        where: { teamId },
+        where: { project_id: teamId },
       });
       return allByTeamId;
     } catch (error) {

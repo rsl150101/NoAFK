@@ -31,36 +31,22 @@ class TeamService {
 
   findAllByTeamId = async (teamId) => {
     try {
-      const allByTeamId = await this.teamRepository.findAllByTeamId(teamId);
-
-      const allInfo = allByTeamId.map((all) => {
-        return {
-          id: all.teamMember.id,
-          position: all.teamMember.position,
-          task: all.teamMember.task,
-          createdAt: all.teamMember.createdAt,
-        };
-      });
-
-      return allInfo;
+      return await this.teamRepository.findAllByTeamId(teamId);
     } catch (error) {
       throw error;
     }
   };
 
-  // 완성
   addNewMember = async (position, userId, teamId) => {
     try {
       console.log(
         `position, userId, teamId: ${position}, ${userId}, ${teamId}`
       );
-      const newMember = await this.teamRepository.createTeamMember(
+      return await this.teamRepository.createTeamMember(
         position,
         userId,
         teamId
       );
-
-      return newMember;
     } catch (error) {
       throw error;
     }
