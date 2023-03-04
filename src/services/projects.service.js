@@ -65,7 +65,9 @@ class ProjectService {
         status
       );
 
-      return { pageArr, projects };
+      const pageInfo = { pageArr, totalPage };
+
+      return { pageInfo, projects };
     } catch (error) {
       throw error;
     }

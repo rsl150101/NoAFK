@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>Projects | NoAFK</title>
   </head>
   <body>
     <h1>Project notices page</h1>
-    <form action="" method="post">
+    <!-- <form action="" method="post">
       <input
         type="datetime-local"
         name="recruitDeadline"
@@ -17,11 +18,13 @@
       <input type="datetime-local" name="projectStart" id="projectStart" />
       <input type="datetime-local" name="projectEnd" id="projectEnd" />
       <input type="submit" value="send" />
-    </form>
-    <script>
-      const urlSearch = new URLSearchParams(location.search);
-      const page = urlSearch.get('page') || 1;
-      fetch(`http://localhost:3000/api/projects?page=${page}`);
-    </script>
+    </form> -->
+    <ul id="projectsBox"></ul>
+    <div id="pagination"></div>
+    <script src="js/pagination.js"></script>
+    <script
+      src="https://kit.fontawesome.com/d1f609d41d.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
