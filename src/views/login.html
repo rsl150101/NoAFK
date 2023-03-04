@@ -1,0 +1,54 @@
+{% extends "loginIndex.html" %} {% block content %}
+<main>
+  <div>
+    <div class="text-align form-margin-top">
+      <div>
+        <h1>로그인</h1>
+      </div>
+      <div class="login-box">
+        <div class="form-floating form-margin form-margin-top">
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="Email"
+          />
+          <label for="email"></label>
+        </div>
+        <div class="form-floating form-margin">
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Password"
+          />
+          <label for="password"></label>
+        </div>
+        <div class="text-align">
+          <button class="border-button" id="login-btn" type="button">
+            Login
+          </button>
+          <div class="kakaoLogin">
+            <a href="http://localhost:3000/api/auth/kakao"
+              ><img
+                src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+              />
+            </a>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="border-none-button"
+              onclick="location.href='/join'"
+            >
+              회원이 아니신가요??
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="./js/login.js"></script>
+{% endblock %}
