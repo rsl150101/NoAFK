@@ -4,6 +4,7 @@ const paginationBox = document.getElementById('pagination');
 
 const page = urlSearch.get('page') || 1;
 
+//+ 클라이언트가 임의로 접속하는 URL 에 대한 처리
 if (page === null || page <= 0) {
   page = 1;
 }
@@ -33,13 +34,13 @@ if (page) {
         const ownerSpan = document.createElement('span');
         const createdAtSpan = document.createElement('span');
 
-        //todo <김우중> <2023.03.03> : 프로필 이미지는 추후 유저 조회 기능이 합쳐졌을 때 추가하겠습니다.
+        //todo <김우중> <2023.03.03> : 프로필 이미지는 추후 유저 조회 기능이 합쳐졌을 때 수정하겠습니다.
         // const img = document.createElement('img');
 
         h1.textContent = project.title;
         p.textContent = project.content;
 
-        //todo <김우중> <2023.03.03> : 프로젝트 소유자 칼럼이 추가되면 추가하겠습니다.
+        //todo <김우중> <2023.03.03> : 프로젝트 소유자 칼럼이 추가되면 수정하겠습니다.
         // ownerSpan.textContent = project.owner
 
         ownerSpan.textContent = '소유자'; //- 임시구현
@@ -55,8 +56,20 @@ if (page) {
       lastPageBtn.href = `?page=${totalPage}&site=notices`;
       lastPageBtn.classList.add('fa-solid', 'fa-angles-right');
 
+      //+ 편의를 위해서 임시 구현
+      //todo <김우중> <2023.03.04> : 추후에 버튼 이벤트로 페이지네이션 이전, 다음 기능 통합해서 클린 코드하기
+      if (page <= 10) {
+        prevPageBtn.addEventListener('click', () => {
+          alert('이전 페이지가 없습니다. 첫 페이지 : 1');
+          return;
+        });
+      }
       if (nextPage > totalPage) {
         nextPage = Math.floor(totalPage / 10) * 10 + 1;
+        nextPageBtn.addEventListener('click', () => {
+          alert(`다음 페이지가 없습니다. 마지막 페이지 : ${totalPage}`);
+          return;
+        });
       }
 
       prevPageBtn.href = `?page=${prevPage}&site=notices`;
