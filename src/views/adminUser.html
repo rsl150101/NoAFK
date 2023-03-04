@@ -119,16 +119,17 @@
             $('.ov_num').append(allUserCount);
             for (let i = 0; i < rows.length; i++) {
               const fd = rows[i];
-              if (0 === fd.test_result && null === fd.expired_at) {
+              const { test_result, expired_at } = fd;
+              if (0 === test_result && null === expired_at) {
                 Object.assign(fd, {
                   test_result: '미완료',
                   expired_at: '미완료',
                 });
                 appendTempHtml({ ...fd });
-              } else if (0 !== fd.test_result && null === fd.expired_at) {
+              } else if (0 !== test_result && null === expired_at) {
                 Object.assign(fd, { expired_at: '미완료' });
                 appendTempHtml({ ...fd });
-              } else if (0 === fd.test_result && null !== fd.expired_at) {
+              } else if (0 === test_result && null !== expired_at) {
                 Object.assign(fd, { test_result: '미완료' });
                 appendTempHtml({ ...fd });
               } else {
