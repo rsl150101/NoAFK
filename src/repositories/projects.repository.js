@@ -7,7 +7,6 @@ class ProjectRepository {
     try {
       return await this.projectModel.findAll({ where: { id: projectId } });
     } catch (error) {
-      error.status = 500;
       throw error;
     }
   };
@@ -15,9 +14,17 @@ class ProjectRepository {
   updateProject = async (projectId, projectInfo) => {
     try {
       await this.projectModel.update(projectInfo, { where: { id: projectId } });
-      return { status: 200, message: '공고 수정 성공!' };
+      return { message: '공고 수정 성공!' };
     } catch (error) {
-      error.status = 500;
+      throw error;
+    }
+  };
+
+  deleteProject = async (projectId) => {
+    try {
+      await this.projectModel.destroy({ where: { id: projectId } });
+      return { message: '공고 삭제 성공!' };
+    } catch (error) {
       throw error;
     }
   };

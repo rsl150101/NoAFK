@@ -30,6 +30,18 @@ class ProjectController {
       return res.status(400).json({ message: error.message });
     }
   };
+
+  deleteProject = async (req, res) => {
+    try {
+      const { projectId } = req.params;
+
+      const deleteProject = await this.projectService.deleteProject(projectId);
+
+      return res.status(200).json({ deleteProject });
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  };
 }
 
 module.exports = ProjectController;

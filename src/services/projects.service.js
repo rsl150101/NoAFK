@@ -25,6 +25,14 @@ class ProjectService {
       throw error;
     }
   };
+
+  deleteProject = async (projectId) => {
+    try {
+      return await this.projectRepository.deleteProject(projectId);
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = ProjectService;
