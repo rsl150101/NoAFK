@@ -35,9 +35,8 @@
         <div class="container_wr">
           <div class="local_ov01 local_ov">
             <span class="btn_ov01"
-              ><span class="ov_txt">총회원수 </span
-              ><span class="ov_num"> 000명 </span></span
-            >
+              ><span class="ov_txt">총회원수 </span><span class="ov_num"></span
+            ></span>
           </div>
 
           <form
@@ -116,8 +115,10 @@
           data: {},
           success: function (response) {
             let rows = response;
+            let allUserCount = rows.length;
+            $('.ov_num').append(allUserCount);
             for (let i = 0; i < rows.length; i++) {
-              let id = rows[i]['id'];
+              let userId = rows[i]['id'];
               let email = rows[i]['email'];
               let nickname = rows[i]['nickname'];
               let introduction = rows[i]['introduction'];
@@ -128,7 +129,7 @@
                 let test_result = '미완료';
                 let expired_at = '미가입';
                 appendTempHtml(
-                  id,
+                  userId,
                   email,
                   nickname,
                   introduction,
@@ -139,7 +140,7 @@
               } else if (0 !== test_result && null === expired_at) {
                 let expired_at = '미가입';
                 appendTempHtml(
-                  id,
+                  userId,
                   email,
                   nickname,
                   introduction,
@@ -150,7 +151,7 @@
               } else if (0 === test_result && null !== expired_at) {
                 let test_result = '미완료';
                 appendTempHtml(
-                  id,
+                  userId,
                   email,
                   nickname,
                   introduction,
@@ -160,7 +161,7 @@
                 );
               } else {
                 appendTempHtml(
-                  id,
+                  userId,
                   email,
                   nickname,
                   introduction,
@@ -175,7 +176,7 @@
       }
 
       function appendTempHtml(
-        id,
+        userId,
         email,
         nickname,
         introduction,
@@ -183,8 +184,8 @@
         expired_at,
         auth_level
       ) {
-        let temp_html = `<tr>
-                          <td headers="user_list_id" class="user_id">${id}</td>
+        let temp_html = `<tr class="block${auth_level}">
+                          <td headers="user_list_id" class="user_id">${userId}</td>
                           <td headers="user_list_email" class="user_email">${email}</td>
                           <td headers="user_list_nickname" class="user_nickname">
                             ${nickname}
@@ -208,11 +209,35 @@
                             ${auth_level}
                           </td>
                           <td headers="user_list_control" class="user_control">
-                            <a class="btn btn_03">차단</a>
-                            <a class="btn btn_02">삭제</a>
+                            <a class="btn btn_03" onclick="blockUser(${userId})">차단</a>
+                            <a class="btn btn_02" onclick="deleteUser(${userId})">삭제</a>
                           </td>
                         </tr>`;
         $('#usersList').append(temp_html);
+      }
+
+      function blockUser(userId) {
+        $.ajax({
+          type: 'PATCH',
+          url: `/users/${userId}`,
+          data: {},
+          success: function (response) {
+            alert(response['message']);
+            location.reload();
+          },
+        });
+      }
+
+      function deleteUser(userId) {
+        $.ajax({
+          type: 'DELETE',
+          url: `/users/${userId}`,
+          data: {},
+          success: function (response) {
+            alert(response['message']);
+            location.reload();
+          },
+        });
       }
     </script>
   </body>
