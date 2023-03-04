@@ -14,6 +14,22 @@ class ProjectController {
       return res.status(400).json({ message: error.message });
     }
   };
+
+  updateProject = async (req, res) => {
+    try {
+      const { projectId } = req.params;
+      const projectInfo = req.body;
+
+      const updateProject = await this.projectService.updateProject(
+        projectId,
+        projectInfo
+      );
+
+      return res.status(200).json({ updateProject });
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  };
 }
 
 module.exports = ProjectController;

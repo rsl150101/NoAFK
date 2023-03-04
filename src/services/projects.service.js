@@ -17,6 +17,14 @@ class ProjectService {
       throw error;
     }
   };
+
+  updateProject = async (projectId, projectInfo) => {
+    try {
+      return await this.projectRepository.updateProject(projectId, projectInfo);
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = ProjectService;

@@ -11,6 +11,16 @@ class ProjectRepository {
       throw error;
     }
   };
+
+  updateProject = async (projectId, projectInfo) => {
+    try {
+      await this.projectModel.update(projectInfo, { where: { id: projectId } });
+      return { status: 200, message: '공고 수정 성공!' };
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
 }
 
 module.exports = ProjectRepository;

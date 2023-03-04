@@ -7,7 +7,7 @@ const projectController = new ProjectController();
 // 모집공고 상세 보기
 router.get('/:projectId', projectController.getProject);
 // 모집공고 수정
-// router.patch('/:projectId', projectController.updateProject);
+router.patch('/:projectId', projectController.updateProject);
 // 모집공고 삭제
 // router.delete('/:projectId', projectController);
 
