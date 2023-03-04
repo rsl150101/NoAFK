@@ -119,7 +119,6 @@
             $('.ov_num').append(allUserCount);
             for (let i = 0; i < rows.length; i++) {
               const fd = rows[i];
-              console.log({ ...fd });
               if (0 === fd.test_result && null === fd.expired_at) {
                 Object.assign(fd, {
                   test_result: '미완료',
