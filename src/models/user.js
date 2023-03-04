@@ -36,9 +36,13 @@ module.exports = (sequelize, DataTypes) => {
       },
       test_result: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
       },
       introduction: {
         type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: '',
       },
       image: {
         type: DataTypes.STRING,

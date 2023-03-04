@@ -6,18 +6,19 @@ const { notLogin } = require('../middlewares/auth');
 const { AlreayLogin } = require('../utility/customError');
 
 const router = express.Router();
-const userController = new UserController();
+const usersController = new UserController();
 const teamsController = new TeamsController();
 const projectController = new ProjectController();
 
 router.get('/');
 router.get('/users');
 router.get('/projects');
+router.get('/teams');
+router.get('/adminUser', usersController.renderAdminUserPage);
 router.get('/teams/:teamid', (req, res, next) => {
   // 추후 auth 미들웨어로 추가
   return res.render('myteam');
 });
-
 router.get('/login', notLogin, (req, res) => {
   if (res.locals.user) {
     const error = new AlreayLogin();

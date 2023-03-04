@@ -30,9 +30,13 @@ module.exports = {
       },
       test_result: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
       },
       introduction: {
         type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: '',
       },
       image: {
         type: Sequelize.STRING,
