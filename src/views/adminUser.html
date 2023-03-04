@@ -118,108 +118,65 @@
             let allUserCount = rows.length;
             $('.ov_num').append(allUserCount);
             for (let i = 0; i < rows.length; i++) {
-              let userId = rows[i]['id'];
-              let email = rows[i]['email'];
-              let nickname = rows[i]['nickname'];
-              let introduction = rows[i]['introduction'];
-              let test_result = rows[i]['test_result'];
-              let expired_at = rows[i]['expired_at'];
-              let auth_level = rows[i]['auth_level'];
-              if (0 === test_result && null === expired_at) {
-                let test_result = '미완료';
-                let expired_at = '미가입';
-                appendTempHtml(
-                  userId,
-                  email,
-                  nickname,
-                  introduction,
-                  test_result,
-                  expired_at,
-                  auth_level
-                );
-              } else if (0 !== test_result && null === expired_at) {
-                let expired_at = '미가입';
-                appendTempHtml(
-                  userId,
-                  email,
-                  nickname,
-                  introduction,
-                  test_result,
-                  expired_at,
-                  auth_level
-                );
-              } else if (0 === test_result && null !== expired_at) {
-                let test_result = '미완료';
-                appendTempHtml(
-                  userId,
-                  email,
-                  nickname,
-                  introduction,
-                  test_result,
-                  expired_at,
-                  auth_level
-                );
+              const fd = rows[i];
+              console.log({ ...fd });
+              if (0 === fd.test_result && null === fd.expired_at) {
+                Object.assign(fd, {
+                  test_result: '미완료',
+                  expired_at: '미완료',
+                });
+                appendTempHtml({ ...fd });
+              } else if (0 !== fd.test_result && null === fd.expired_at) {
+                Object.assign(fd, { expired_at: '미완료' });
+                appendTempHtml({ ...fd });
+              } else if (0 === fd.test_result && null !== fd.expired_at) {
+                Object.assign(fd, { test_result: '미완료' });
+                appendTempHtml({ ...fd });
               } else {
-                appendTempHtml(
-                  userId,
-                  email,
-                  nickname,
-                  introduction,
-                  test_result,
-                  expired_at,
-                  auth_level
-                );
+                appendTempHtml({ ...fd });
               }
             }
           },
         });
       }
 
-      function appendTempHtml(
-        userId,
-        email,
-        nickname,
-        introduction,
-        test_result,
-        expired_at,
-        auth_level
-      ) {
-        let temp_html = `<tr class="block${auth_level}">
-                          <td headers="user_list_id" class="user_id">${userId}</td>
-                          <td headers="user_list_email" class="user_email">${email}</td>
+      function appendTempHtml({ ...fd }) {
+        let temp_html = `<tr class="block${fd.auth_level}">
+                          <td headers="user_list_id" class="user_id">${fd.id}</td>
+                          <td headers="user_list_email" class="user_email">${fd.email}</td>
                           <td headers="user_list_nickname" class="user_nickname">
-                            ${nickname}
+                            ${fd.nickname}
                           </td>
                           <td
                             headers="user_list_introduction"
                             class="user_introduction"
                           >
-                          ${introduction}
+                          ${fd.introduction}
                           </td>
                           <td
                             headers="user_list_test_result"
                             class="user_test_result"
                           >
-                          ${test_result}
+                          ${fd.test_result}
                           </td>
                           <td headers="user_list_expired_at" class="user_expired_at">
-                            ${expired_at}
+                            ${fd.expired_at}
                           </td>
                           <td headers="user_list_auth_level" class="user_auth_level">
-                            ${auth_level}
+                            ${fd.auth_level}
                           </td>
                           <td headers="user_list_control" class="user_control">
-                            <a class="btn btn_03" onclick="blockUser(${userId})">차단</a>
-                            <a class="btn btn_02" onclick="deleteUser(${userId})">삭제</a>
+                            <a class="btn btn_03" onclick="blockUser(${fd.id})">차단</a>
+                            <a class="btn btn_02" onclick="deleteUser(${fd.id})">삭제</a>
                           </td>
                         </tr>`;
         $('#usersList').append(temp_html);
       }
 
-      function blockUser(userId) {
+      function blockUser(id) {
         $.ajax({
           type: 'PATCH',
-          url: `/users/${userId}`,
+          url: `/users/${id}`,
           data: {},
           success: function (response) {
             alert(response['message']);
@@ -228,10 +185,10 @@
         });
       }
 
-      function deleteUser(userId) {
+      function deleteUser(id) {
         $.ajax({
           type: 'DELETE',
-          url: `/users/${userId}`,
+          url: `/users/${id}`,
           data: {},
           success: function (response) {
             alert(response['message']);
