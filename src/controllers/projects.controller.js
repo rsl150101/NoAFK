@@ -9,7 +9,7 @@ class ProjectController {
 
       const project = await this.projectService.findProjectById(projectId);
 
-      return res.status(200).json({ project });
+      return res.status(200).json(project);
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
@@ -25,7 +25,7 @@ class ProjectController {
         projectInfo
       );
 
-      return res.status(200).json({ updateProject });
+      return res.status(200).json(updateProject);
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
@@ -37,7 +37,7 @@ class ProjectController {
 
       const deleteProject = await this.projectService.deleteProject(projectId);
 
-      return res.status(200).json({ deleteProject });
+      return res.status(200).json(deleteProject);
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
