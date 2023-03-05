@@ -31,6 +31,8 @@ class ProjectService {
           break;
       }
 
+      //todo <김우중> <2023.03.05> : 추후에 홈페이지에서 get 요청 올시 가져오는 데이터 수정 필요, 페이지네이션 이전, 다음 버튼 서버에서 처리 필요
+
       //+ 상태에 따른 프로젝트 총 갯수 가져오기
       const total = await this.projectRepository.findAllProjectCount(status);
 
