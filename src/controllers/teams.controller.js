@@ -8,19 +8,26 @@ class TeamsController {
   userService = new UserService();
 
   getTeam = async (req, res, next) => {
+    console.log('getTeamS');
     const { teamId } = req.params;
 
-    const teamName = 'jin'; // 임시구현
-    const projectStatus = 0; // 임시구현
+    const projectInfo = await this.teamService.findTeamNameAndStatusByTeamId(
+      teamId
+    );
+    const teamName = projectInfo.team_name;
+    const projectStatus = projectInfo.status;
+
+    if (projectStatus == 5) {
+      return res.render('deletedTeam');
+    }
+
     const memberList = await this.teamService.findAllByTeamId(teamId);
     const memberListHasNickname = JSON.parse(JSON.stringify(memberList));
     for (let i = 0; i < memberList.length; i++) {
       const userId = memberList[i].user_id;
       memberListHasNickname[i].nickname = `닉네임임시구현 ${userId}`;
     }
-    // return res
-    //   .status(200)
-    //   .json({ teamName, projectStatus, memberListHasNickname });
+    // return res.status(200).json({ projectInfo, memberListHasNickname });
     return res.render('myteam', {
       teamName,
       projectStatus,
@@ -32,7 +39,8 @@ class TeamsController {
     const { teamId } = req.params;
     const { nickname, position } = req.body;
 
-    const userId = 2; // 임시구현
+    const user = await this.teamService.findUserByNickname(nickname);
+    const userId = user.id;
     const newMember = await this.teamService.addNewMember(
       position,
       userId,
@@ -44,17 +52,15 @@ class TeamsController {
 
   updateTeam = async (req, res, next) => {
     const { teamId } = req.params;
-    let status = 5; // 소프트 삭제 상태
-    if (req.body.status) {
-      status = req.body.status;
-    }
+    const { status } = req.body;
+    // status == 5 => 소프트 삭제 상태
 
     const updatedTeamStatus = await this.teamService.updateStatus(
       teamId,
       status
     );
 
-    return res.status(200).json({ msg: 'updateTeam success' }); // 임시구현
+    return res.status(200).json({ updatedTeamStatus }); // 임시구현
   };
 
   updateTeamMember = async (req, res, next) => {

@@ -17,7 +17,7 @@
       <section>
         <div id="myteam-title"><h1>{{teamName}}</h1></div>
       </section>
-      <section>
+      <section id="myteam__membaerList">
         <table>
           <thead>
             <tr>
@@ -27,20 +27,39 @@
               <th>직책</th>
               <th>담당업무</th>
               <th>귓속말</th>
+              <th>설정</th>
             </tr>
           </thead>
           <tbody>
             {% set position = ['신청자', '팀원', '부리더', '리더'] %} {% for
             member in memberListHasNickname %} {% if member.position !== 0 %}
-            <tr>
+            <tr id="row-{{member.id}}">
               <th>{{member.id}}</th>
               <th>{{member.nickname}}</th>
               <th>{{member.createdAt}}</th>
 
-              <th>{{position[member.position]}}</th>
+              <th
+                class="myteam__memberList__position"
+                data-value="{{member.position}}"
+              >
+                {{position[member.position]}}
+              </th>
 
-              <th>{{member.task}}</th>
-              <th><button>귓속말</button></th>
+              <th class="myteam__memberList__task">{{member.task}}</th>
+              <th><button class="myteam__memberList__chat">귓속말</button></th>
+              <th>
+                <button
+                  class="myteam__memberList__update"
+                  onclick="updateMember({{member.id}})"
+                >
+                  수정</button
+                ><button
+                  class="myteam__memberList__emit"
+                  onclick="emitMember({{member.id}})"
+                >
+                  방출
+                </button>
+              </th>
             </tr>
             {% endif %} {% endfor %}
           </tbody>
@@ -54,7 +73,6 @@
       </section>
       <section id="myteam__project-status">
         <h2 id="myteam__project-status__title">프로젝트 현재 진행 상태</h2>
-        <div>{{projectStatus}}</div>
         <div id="myteam__project-status__buttons">
           <button class="status-btn" data-num="0" onclick="updateTeamStatus(0)">
             모집마감</button
@@ -92,12 +110,13 @@
 
       <section id="myteam__project-status__footer">
         <div>
+          <button id="deleteTeam" onclick="updateTeamStatus(5)">팀 삭제</button>
           <button>팀 채팅</button>
         </div>
       </section>
     </main>
     <script>
-      const nowStatus = document.querySelector(
+      let nowStatus = document.querySelector(
         '.status-btn[data-num="{{projectStatus}}"]'
       );
       console.log(nowStatus);
@@ -124,26 +143,49 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data);
             location.reload;
           });
       });
 
-      function updateTeamStatus(num) {
-        console.log('updateTeamStatus');
+      function updateTeamStatus(status) {
         fetch(url, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            status: num,
+            status,
           }),
         })
           .then((response) => response.json())
           .then((data) => {
-            alert(data.msg);
-            console.log(data.status);
+            alert(data.updatedTeamStatus.message);
+            console.log(data.updatedTeamStatus.status);
+            nowStatus.classList.remove('now_team_status');
+            nowStatus = document.querySelector(
+              `.status-btn[data-num="${num}"]`
+            );
+            nowStatus.classList.add('now_team_status');
+          });
+      }
+
+      function updateMember(memberId) {
+        const tr = document.querySelector(`#row-${memberId}`);
+        console.log(tr);
+      }
+
+      function emitMember(memberId) {
+        fetch(url + `/${memberId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({}),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            alert(`${memberId}번 팀원을 삭제했습니다.`);
+            location.reload;
           });
       }
     </script>

@@ -66,11 +66,11 @@ class TeamRepository {
     }
   };
 
-  deleteTeamMember = async (teamMemberId) => {
+  deleteTeamMember = async (memberId) => {
     try {
       await this.teamModel.destroy({
         where: {
-          id: teamMemberId,
+          id: memberId,
         },
       });
 
