@@ -5,12 +5,12 @@ class CommentsController {
 
   postComment = async (req, res) => {
     try {
-      const { projectId } = req.params;
+      const { id } = req.params;
       const { content } = req.body;
       const userId = 5; // 임시 Todo <정지우> 미들웨어사용
 
       const comment = await this.commentService.createComment(
-        projectId,
+        id,
         userId,
         content
       );
@@ -23,9 +23,9 @@ class CommentsController {
 
   getComments = async (req, res) => {
     try {
-      const { projectId } = req.params;
+      const { id } = req.params;
 
-      const comments = await this.commentService.findCommentsById(projectId);
+      const comments = await this.commentService.findCommentsByProjectId(id);
 
       return res.status(200).json(comments);
     } catch (error) {

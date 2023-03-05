@@ -4,21 +4,17 @@ const { Comment } = require('../models');
 class CommentService {
   commentsRepository = new CommentRepository(Comment);
 
-  createComment = async (projectId, userId, content) => {
+  createComment = async (id, userId, content) => {
     try {
-      return await this.commentsRepository.createComment(
-        projectId,
-        userId,
-        content
-      );
+      return await this.commentsRepository.createComment(id, userId, content);
     } catch (error) {
       throw error;
     }
   };
 
-  findCommentsById = async (projectId) => {
+  findCommentsByProjectId = async (id) => {
     try {
-      return await this.commentsRepository.findCommentsById(projectId);
+      return await this.commentsRepository.findCommentsByProjectId(id);
     } catch (error) {
       throw error;
     }
