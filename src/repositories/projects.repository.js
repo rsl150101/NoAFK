@@ -3,26 +3,26 @@ class ProjectRepository {
     this.projectModel = ProjectModel;
   }
 
-  findProjectById = async (projectId) => {
+  findProjectById = async (id) => {
     try {
-      return await this.projectModel.findAll({ where: { id: projectId } });
+      return await this.projectModel.findAll({ where: { id } });
     } catch (error) {
       throw error;
     }
   };
 
-  updateProject = async (projectId, projectInfo) => {
+  updateProject = async (id, projectInfo) => {
     try {
-      await this.projectModel.update(projectInfo, { where: { id: projectId } });
+      await this.projectModel.update(projectInfo, { where: { id } });
       return { message: '공고 수정 성공!' };
     } catch (error) {
       throw error;
     }
   };
 
-  deleteProject = async (projectId) => {
+  deleteProject = async (id) => {
     try {
-      return await this.projectModel.destroy({ where: { id: projectId } });
+      return await this.projectModel.destroy({ where: { id } });
     } catch (error) {
       throw error;
     }

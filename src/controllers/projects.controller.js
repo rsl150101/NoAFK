@@ -5,9 +5,9 @@ class ProjectController {
 
   getProject = async (req, res) => {
     try {
-      const { projectId } = req.params;
+      const { id } = req.params;
 
-      const project = await this.projectService.findProjectById(projectId);
+      const project = await this.projectService.findProjectById(id);
 
       return res.status(200).json(project);
     } catch (error) {
@@ -17,11 +17,11 @@ class ProjectController {
 
   updateProject = async (req, res) => {
     try {
-      const { projectId } = req.params;
+      const { id } = req.params;
       const projectInfo = req.body;
 
       const updateProject = await this.projectService.updateProject(
-        projectId,
+        id,
         projectInfo
       );
 
@@ -33,9 +33,9 @@ class ProjectController {
 
   deleteProject = async (req, res) => {
     try {
-      const { projectId } = req.params;
+      const { id } = req.params;
 
-      const deleteProject = await this.projectService.deleteProject(projectId);
+      const deleteProject = await this.projectService.deleteProject(id);
 
       return res.status(204).json(deleteProject);
     } catch (error) {

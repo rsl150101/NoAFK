@@ -8,11 +8,11 @@ const commentsController = new CommentsController();
 
 // Todo <정지우> projectId나 userId 가 없는 경우 처리해야 함.
 // 모집공고 상세 보기
-router.get('/:projectId', projectController.getProject);
+router.get('/:id', projectController.getProject);
 // 모집공고 수정
-router.patch('/:projectId', projectController.updateProject);
+router.patch('/:id', projectController.updateProject);
 // 모집공고 삭제
-router.delete('/:projectId', projectController.deleteProject);
+router.delete('/:id', projectController.deleteProject);
 
 // 모집공고 댓글 작성
 router.post('/:id/comments', commentsController.postComment);

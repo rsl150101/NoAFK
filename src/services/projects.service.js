@@ -10,25 +10,25 @@ class ProjectService {
   commentsRepository = new CommentRepository(Comment);
   userRepository = new UserRepository(User);
 
-  findProjectById = async (projectId) => {
+  findProjectById = async (id) => {
     try {
-      return await this.projectRepository.findProjectById(projectId);
+      return await this.projectRepository.findProjectById(id);
     } catch (error) {
       throw error;
     }
   };
 
-  updateProject = async (projectId, projectInfo) => {
+  updateProject = async (id, projectInfo) => {
     try {
-      return await this.projectRepository.updateProject(projectId, projectInfo);
+      return await this.projectRepository.updateProject(id, projectInfo);
     } catch (error) {
       throw error;
     }
   };
 
-  deleteProject = async (projectId) => {
+  deleteProject = async (id) => {
     try {
-      return await this.projectRepository.deleteProject(projectId);
+      return await this.projectRepository.deleteProject(id);
     } catch (error) {
       throw error;
     }
