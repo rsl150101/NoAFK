@@ -11,13 +11,12 @@
 .detail-top {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
+  justify-content: center;
   align-items: center;
 }
 
 .detail-three {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
 }
