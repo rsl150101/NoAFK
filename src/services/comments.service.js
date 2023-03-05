@@ -23,6 +23,18 @@ class CommentService {
       throw error;
     }
   };
+
+  updateComment = async (commentId, content, projectId) => {
+    try {
+      return await this.commentsRepository.updateComment(
+        commentId,
+        content,
+        projectId
+      );
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = CommentService;

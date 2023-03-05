@@ -19,7 +19,10 @@ router.post('/:projectId/comments', commentsController.postComment);
 // 모집공고 댓글 조회
 router.get('/:projectId/comments', commentsController.getComments);
 // 모집공고 댓글 수정
-router.patch('/:projectId/comments/:commentId');
+router.patch(
+  '/:projectId/comments/:commentId',
+  commentsController.updateComment
+);
 // 모집공고 댓글 삭제
 router.delete('/:projectId/comments/:commentId');
 

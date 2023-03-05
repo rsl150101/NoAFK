@@ -25,6 +25,17 @@ class CommentRepository {
       throw error;
     }
   };
+
+  updateComment = async (commentId, content, projectId) => {
+    try {
+      await this.commentModel.update(content, {
+        where: { id: commentId, project_id: projectId },
+      });
+      return { message: '댓글 수정 성공!' };
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = CommentRepository;
