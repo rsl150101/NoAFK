@@ -1,3 +1,5 @@
+const { userInfo } = require('os');
+
 class UserRepository {
   constructor(UserModel) {
     this.userModel = UserModel;
@@ -5,10 +7,9 @@ class UserRepository {
 
   findByEmail = async (email) => {
     try {
-      const userByEmail = await this.userModel.findAll({
+      return await this.userModel.findAll({
         where: { email },
       });
-      return userByEmail;
     } catch (error) {
       error.status = 500;
       throw error;
@@ -17,25 +18,22 @@ class UserRepository {
 
   findByNickname = async (nickname) => {
     try {
-      const userByNickname = await this.userModel.findAll({
+      return await this.userModel.findAll({
         where: { nickname },
       });
-      return userByNickname;
     } catch (error) {
       error.status = 500;
       throw error;
     }
   };
 
-  createUser = async (email, hashed, nickname) => {
+  createUser = async (userInfo) => {
     try {
-      const userData = await this.userModel.create({
-        email,
-        password: hashed,
-        nickname,
+      await this.userModel.create({
+        ...userInfo,
       });
 
-      return userData;
+      return { status: 200, message: '회원가입에 성공하였습니다.' };
     } catch (error) {
       error.status = 500;
       throw error;
@@ -49,6 +47,31 @@ class UserRepository {
       return users;
     } catch (error) {
       error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 회원 차단
+  blockUser = async (userId) => {
+    try {
+      return await this.userModel.update(
+        { auth_level: 2 }, //* 2 = 차단
+        { where: { id: userId } }
+      );
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //* 회원 삭제
+  deleteUser = async (userId) => {
+    try {
+      return await this.userModel.destroy({
+        where: {
+          id: userId,
+        },
+      });
+    } catch (error) {
       throw error;
     }
   };

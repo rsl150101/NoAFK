@@ -288,6 +288,10 @@ a.btn_03 {
   overflow: hidden !important;
 }
 
+.block2 {
+  background: #d5d5d5;
+}
+
 select {
   height: 35px;
   line-height: 32px;

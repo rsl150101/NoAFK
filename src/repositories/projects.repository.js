@@ -3,6 +3,31 @@ class ProjectRepository {
     this.projectModel = ProjectModel;
   }
 
+  findProjectById = async (id) => {
+    try {
+      return await this.projectModel.findAll({ where: { id } });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  updateProject = async (id, projectInfo) => {
+    try {
+      await this.projectModel.update(projectInfo, { where: { id } });
+      return { message: '공고 수정 성공!' };
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  deleteProject = async (id) => {
+    try {
+      return await this.projectModel.destroy({ where: { id } });
+    } catch (error) {
+      throw error;
+    }
+  };
+
   //* 전체 프로젝트 조회
   findAllProject = async () => {
     try {
@@ -44,25 +69,6 @@ class ProjectRepository {
       throw error;
     }
   };
-
-  //* 프로젝트 상태에 따른 전체 프로젝트 조회 및 총 갯수
-  //! pr 할때 지울 것
-  // findAllProjectAndCount = async (offset, limit, status) => {
-  //   try {
-  //     const count = await this.projectModel.findAndCountAll({
-  //       where: {
-  //         status,
-  //       },
-  //       raw: true,
-  //       offset,
-  //       limit,
-  //     });
-  //     return count;
-  //   } catch (error) {
-  //     error.status = 500;
-  //     throw error;
-  //   }
-  // };
 
   //* 프로젝트 생성
   createProject = async (projectInfo) => {
