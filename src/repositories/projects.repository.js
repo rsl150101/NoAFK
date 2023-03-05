@@ -22,8 +22,7 @@ class ProjectRepository {
 
   deleteProject = async (projectId) => {
     try {
-      await this.projectModel.destroy({ where: { id: projectId } });
-      return { message: '공고 삭제 성공!' };
+      return await this.projectModel.destroy({ where: { id: projectId } });
     } catch (error) {
       throw error;
     }
