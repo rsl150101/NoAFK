@@ -65,7 +65,6 @@ class ProjectsController {
   //* 프로젝트 생성
   createProject = async (req, res) => {
     try {
-      console.log(req.body);
       await this.projectService.createProject(req.body);
       return res.sendStatus(201);
     } catch (error) {
