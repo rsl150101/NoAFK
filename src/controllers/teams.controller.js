@@ -13,8 +13,19 @@ class TeamsController {
     const teamName = 'jin'; // 임시구현
     const projectStatus = 0; // 임시구현
     const memberList = await this.teamService.findAllByTeamId(teamId);
-
-    return res.status(200).json({ teamName, projectStatus, memberList });
+    const memberListHasNickname = JSON.parse(JSON.stringify(memberList));
+    for (let i = 0; i < memberList.length; i++) {
+      const userId = memberList[i].user_id;
+      memberListHasNickname[i].nickname = `닉네임임시구현 ${userId}`;
+    }
+    // return res
+    //   .status(200)
+    //   .json({ teamName, projectStatus, memberListHasNickname });
+    return res.render('myteam', {
+      teamName,
+      projectStatus,
+      memberListHasNickname,
+    });
   };
 
   postTeamMember = async (req, res, next) => {
@@ -38,7 +49,12 @@ class TeamsController {
       status = req.body.status;
     }
 
-    return res.status(200).json({ msg: 'updateTeam success', status }); // 임시구현
+    const updatedTeamStatus = await this.teamService.updateStatus(
+      teamId,
+      status
+    );
+
+    return res.status(200).json({ msg: 'updateTeam success' }); // 임시구현
   };
 
   updateTeamMember = async (req, res, next) => {

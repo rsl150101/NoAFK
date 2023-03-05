@@ -107,7 +107,7 @@
       const inputUserNickname = document.querySelector('#inputUserNickname');
       const addNewMemberBtn = document.querySelector('#addNewMemberBtn');
       addNewMemberBtn.addEventListener('click', () => {
-        const nickname = inputUserNickname.value;
+        let nickname = inputUserNickname.value;
         inputUserNickname.value = '';
         const position = 1;
         console.log(nickname, position);
@@ -125,27 +125,10 @@
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
-            location.reload;
           });
       });
 
-      function updateTeamStatus(num) {
-        console.log('updateTeamStatus');
-        fetch(url, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            status: num,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            alert(data.msg);
-            console.log(data.status);
-          });
-      }
+      function updateTeamStatus(num) {}
     </script>
   </body>
 </html>

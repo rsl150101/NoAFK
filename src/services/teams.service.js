@@ -28,6 +28,14 @@ class TeamService {
     }
   };
 
+  updateStatus = async (teamId, status) => {
+    try {
+      return await this.projectRepository.updateStatus(teamId, status);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   updateMember = async (memberId, position, task) => {
     try {
       return await this.teamRepository.updateTeamMember(

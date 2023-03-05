@@ -19,7 +19,7 @@ const app = express();
 const PORT = 3000;
 
 //* 소셜 로그인 설정
-passportConfig(app);
+// passportConfig(app);
 
 //* 전역 설정
 app.use(morgan('dev'));
@@ -43,11 +43,11 @@ app.use(
 //* middleware
 
 //* Router 설정
-app.use('/', pageRouter);
 app.use('/api', apiRouter);
 app.use('/teams', teamsRouter);
 app.use('/users', usersRouter);
 app.use('/projects', projectsRouter);
+app.use('/', pageRouter);
 
 //* 서버 구동
 app.listen(PORT, () => {

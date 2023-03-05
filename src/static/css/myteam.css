@@ -75,3 +75,7 @@ tbody th {
 #myteam__project-status__footer > div {
   align-self: flex-end;
 }
+
+.now_team_status {
+  border: 5px solid red;
+}

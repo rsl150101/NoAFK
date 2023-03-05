@@ -1,0 +1,29 @@
+<section>
+  <table>
+    <thead>
+      <tr>
+        <th>번호</th>
+        <th>이름</th>
+        <th>참가일</th>
+        <th>직책</th>
+        <th>담당업무</th>
+        <th>귓속말</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% set position = ['신청자', '팀원', '부리더', '리더'] %} {% for member in
+      memberListHasNickname %} {% if member.position !== 0 %}
+      <tr>
+        <th>{{member.id}}</th>
+        <th>{{member.nickname}}</th>
+        <th>{{member.createdAt}}</th>
+
+        <th>{{position[member.position]}}</th>
+
+        <th>{{member.task}}</th>
+        <th><button>귓속말</button></th>
+      </tr>
+      {% endif %} {% endfor %}
+    </tbody>
+  </table>
+</section>
