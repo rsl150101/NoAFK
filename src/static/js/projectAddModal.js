@@ -1,13 +1,6 @@
 const projectAddBtn = document.getElementById('projectAddBtn');
 const projectAddModal = document.getElementById('projectAddModal');
 
-const handleRegisterBtn = (event) => {
-  event.preventDefault();
-};
-const handleCancelBtn = (event) => {
-  event.preventDefault();
-};
-
 const postModalData = async () => {
   if (projectAddModal.returnValue === 'register') {
     const title = document.getElementById('title').value;
