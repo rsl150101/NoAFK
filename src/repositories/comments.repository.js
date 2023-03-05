@@ -36,6 +36,16 @@ class CommentRepository {
       throw error;
     }
   };
+
+  deleteComment = async (projectId, commentId) => {
+    try {
+      return await this.commentModel.destroy({
+        where: { id: commentId, project_id: projectId },
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = CommentRepository;

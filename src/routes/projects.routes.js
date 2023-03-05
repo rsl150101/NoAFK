@@ -24,6 +24,9 @@ router.patch(
   commentsController.updateComment
 );
 // 모집공고 댓글 삭제
-router.delete('/:projectId/comments/:commentId');
+router.delete(
+  '/:projectId/comments/:commentId',
+  commentsController.deleteComment
+);
 
 module.exports = router;

@@ -49,6 +49,21 @@ class CommentsController {
       return res.status(400).json({ message: error.message });
     }
   };
+
+  deleteComment = async (req, res) => {
+    try {
+      const { projectId, commentId } = req.params;
+
+      const deleteComment = await this.commentService.deleteComment(
+        projectId,
+        commentId
+      );
+
+      return res.status(204).json(deleteComment);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  };
 }
 
 module.exports = CommentsController;

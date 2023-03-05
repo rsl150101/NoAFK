@@ -31,6 +31,14 @@ class CommentService {
       throw error;
     }
   };
+
+  deleteComment = async (projectId, commentId) => {
+    try {
+      return await this.commentsRepository.deleteComment(projectId, commentId);
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = CommentService;
