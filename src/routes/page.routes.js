@@ -33,5 +33,8 @@ router.get('/join', notLogin, (req, res) => {
   }
   res.render('join.html');
 });
+router.get('/project', (req, res) => {
+  res.render('projectDetail.html');
+});
 
 module.exports = router;
