@@ -56,6 +56,7 @@ class ProjectsController {
         Number(page),
         site
       );
+
       return res.status(200).json(projectsAndPage);
     } catch (error) {
       return res.status(500).json({ message: error.message });
@@ -66,6 +67,7 @@ class ProjectsController {
   createProject = async (req, res) => {
     try {
       await this.projectService.createProject(req.body);
+
       return res.sendStatus(201);
     } catch (error) {
       return res.status(500).json({ message: error.message });

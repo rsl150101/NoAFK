@@ -2,10 +2,10 @@ const urlSearch = new URLSearchParams(location.search);
 const projectsBox = document.getElementById('projectsBox');
 const paginationBox = document.getElementById('pagination');
 
-const page = urlSearch.get('page') || 1;
+let page = urlSearch.get('page') || 1;
 
 //+ 클라이언트가 임의로 접속하는 URL 에 대한 처리
-if (page === null || page <= 0) {
+if (page <= 0) {
   page = 1;
 }
 
