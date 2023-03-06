@@ -29,21 +29,30 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
       },
-      auth_level: {
+      refreshToken: {
+        type: DataTypes.STRING,
+      },
+      loginMethod: {
+        type: DataTypes.STRING,
+        defaultValue: 'local',
+      },
+      authLevel: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
       },
-      test_result: {
-        type: DataTypes.INTEGER,
+      testResult: {
+        type: DataTypes.STRING,
       },
       introduction: {
         type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: '',
       },
       image: {
         type: DataTypes.STRING,
       },
-      expired_at: {
+      expiredAt: {
         type: DataTypes.DATE,
       },
     },

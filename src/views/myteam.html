@@ -170,8 +170,13 @@
       }
 
       function updateMember(memberId) {
-        const tr = document.querySelector(`#row-${memberId}`);
-        console.log(tr);
+        const thPosition = document.querySelector(
+          `#row-${memberId} > .myteam__memberList__position`
+        );
+        const positionDataValue = thPosition.dataset.value;
+        const thTask = document.querySelector(
+          `#row-${memberId} > .myteam__memberList__chat`
+        );
       }
 
       function emitMember(memberId) {

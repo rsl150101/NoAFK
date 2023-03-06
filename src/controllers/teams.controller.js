@@ -8,7 +8,6 @@ class TeamsController {
   userService = new UserService();
 
   getTeam = async (req, res, next) => {
-    console.log('getTeamS');
     const { teamId } = req.params;
 
     const projectInfo = await this.teamService.findTeamNameAndStatusByTeamId(
