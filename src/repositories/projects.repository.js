@@ -75,8 +75,6 @@ class ProjectRepository {
     try {
       await this.projectModel.create({
         ...projectInfo,
-        // status: 0,
-        // recommendLevel: 0,
       });
     } catch (error) {
       error.status = 500;
