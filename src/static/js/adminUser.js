@@ -11,16 +11,16 @@ function getUserList() {
       document.querySelector('.ov_num').textContent = res.length;
       for (let i = 0; i < res.length; i++) {
         const fd = res[i];
-        const { test_result, expired_at } = fd;
-        const isTestNotComplete = test_result === 0;
-        const isExpired = expired_at !== null;
+        const { testResult, expiredAt } = fd;
+        const isTestNotComplete = testResult === 0;
+        const isExpired = expiredAt !== null;
         if (isTestNotComplete) {
-          fd.test_result = '미완료';
+          fd.testResult = '미완료';
           if (!isExpired) {
-            fd.expired_at = '미완료';
+            fd.expiredAt = '미완료';
           }
         } else if (!isExpired) {
-          fd.expired_at = '미완료';
+          fd.expiredAt = '미완료';
         }
         appendTempHtml({ ...fd });
       }
@@ -28,7 +28,7 @@ function getUserList() {
 }
 
 function appendTempHtml({ ...fd }) {
-  let temp_html = `<tr class="block${fd.auth_level}">
+  let temp_html = `<tr class="block${fd.authLevel}">
                     <td headers="user_list_id" class="user_id">${fd.id}</td>
                     <td headers="user_list_email" class="user_email">${fd.email}</td>
                     <td headers="user_list_nickname" class="user_nickname">
@@ -44,13 +44,13 @@ function appendTempHtml({ ...fd }) {
                       headers="user_list_test_result"
                       class="user_test_result"
                     >
-                    ${fd.test_result}
+                    ${fd.testResult}
                     </td>
                     <td headers="user_list_expired_at" class="user_expired_at">
-                      ${fd.expired_at}
+                      ${fd.expiredAt}
                     </td>
                     <td headers="user_list_auth_level" class="user_auth_level">
-                      ${fd.auth_level}
+                      ${fd.authLevel}
                     </td>
                     <td headers="user_list_control" class="user_control">
                       <a class="btn btn_03" onclick="blockUser(${fd.id})">차단</a>
