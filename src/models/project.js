@@ -26,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      owner: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       person: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -49,10 +53,12 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 0,
       },
       recommendLevel: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 0,
       },
     },
     {

@@ -29,15 +29,20 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
       },
+      refreshToken: {
+        type: DataTypes.STRING,
+      },
+      loginMethod: {
+        type: DataTypes.STRING,
+        defaultValue: 'local',
+      },
       authLevel: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
       },
       testResult: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
+        type: DataTypes.STRING,
       },
       introduction: {
         type: DataTypes.STRING,

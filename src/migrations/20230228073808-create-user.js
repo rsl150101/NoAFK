@@ -29,9 +29,7 @@ module.exports = {
         defaultValue: 0,
       },
       test_result: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
+        type: Sequelize.STRING,
       },
       introduction: {
         type: Sequelize.STRING,
