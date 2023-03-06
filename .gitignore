@@ -142,5 +142,6 @@ dist
 .svelte-kit
 
 # project settings
+*.rest
 
 # End of https://www.toptal.com/developers/gitignore/api/node

@@ -1,18 +1,18 @@
 const express = require('express');
 const UserController = require('../controllers/users.controller');
 const TeamsController = require('../controllers/teams.controller');
-const ProjectController = require('../controllers/projects.controller');
+const ProjectsController = require('../controllers/projects.controller');
 const { notLogin } = require('../middlewares/auth');
 const { AlreayLogin } = require('../utility/customError');
 
 const router = express.Router();
 const usersController = new UserController();
 const teamsController = new TeamsController();
-const projectController = new ProjectController();
+const projectsController = new ProjectsController();
 
 router.get('/');
 router.get('/users');
-router.get('/projects');
+router.get('/projects', projectsController.renderProjectsPage);
 router.get('/teams');
 router.get('/adminUser', usersController.renderAdminUserPage);
 router.get('/teams/:teamid', (req, res, next) => {
