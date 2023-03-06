@@ -31,8 +31,12 @@ const postModalData = async () => {
       body: JSON.stringify(projectInfo),
     });
 
-    if (response.status === 201) {
+    const { status } = response;
+
+    if (status === 201) {
       alert('공고가 등록되었습니다!');
+    } else {
+      alert('공고 등록에 실패하였습니다!');
     }
   }
 };
