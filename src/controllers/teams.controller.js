@@ -10,10 +10,8 @@ class TeamsController {
   getTeam = async (req, res, next) => {
     const { teamId } = req.params;
 
-    const projectInfo = await this.teamService.findTeamNameAndStatusByTeamId(
-      teamId
-    );
-    const { teamName, status } = projectInfo;
+    const { teamName, status } =
+      await this.teamService.findTeamNameAndStatusByTeamId(teamId);
 
     const isSoftDeletedProject = status === 5;
     if (isSoftDeletedProject) {
