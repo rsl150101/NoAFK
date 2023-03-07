@@ -56,6 +56,66 @@
               <div>
                 {% if project[0].owner === loginUserNickname %}
                 <button id="edit-board-btn" type="button">수정</button>
+                <dialog id="projectEditModal">
+                  <form method="dialog">
+                    <label for="title">프로젝트 명</label>
+                    <input
+                      type="text"
+                      name="title"
+                      id="edit-title"
+                      placeholder="공고 제목을 입력하세요."
+                      value="{{project[0].title}}"
+                    />
+                    <label for="content">프로젝트 내용</label>
+                    <input
+                      type="text"
+                      name="content"
+                      id="edit-content"
+                      placeholder="공고 내용을 입력하세요."
+                      value="{{project[0].content}}"
+                    />
+                    <label for="techStack">기술 스택</label>
+                    <input
+                      type="text"
+                      name="techStack"
+                      id="edit-techStack"
+                      placeholder=", 로 구분해주세요."
+                      value="{{project[0].techStack}}"
+                    />
+                    <label for="person">인원</label>
+                    <input
+                      type="number"
+                      name="person"
+                      id="edit-person"
+                      min="1"
+                      value="{{project[0].person}}"
+                    />
+                    <br />
+                    <label for="recruitDeadline">마감기한</label>
+                    <input
+                      type="datetime-local"
+                      name="recruitDeadline"
+                      id="edit-recruitDeadline"
+                      value="{{project[0].recruitDeadline}}"
+                    />
+                    <label for="projectStart">프로젝트 시작일</label>
+                    <input
+                      type="datetime-local"
+                      name="projectStart"
+                      id="edit-projectStart"
+                      value="{{project[0].projectStart}}"
+                    />
+                    <label for="projectEnd">프로젝트 종료일</label>
+                    <input
+                      type="datetime-local"
+                      name="projectEnd"
+                      id="edit-projectEnd"
+                      value="{{project[0].projectEnd}}"
+                    />
+                    <button value="register">등록</button>
+                    <button value="cancel">취소</button>
+                  </form>
+                </dialog>
                 <button id="delete-board-btn" type="button">삭제</button>
                 {% endif %}
               </div>
@@ -141,7 +201,6 @@
     const commnetList = document.querySelectorAll('.comment-list');
     const applyList = document.querySelectorAll('.apply-list');
     const createCommentBtn = document.getElementById('create-comment-btn');
-    const editBoardBtn = document.getElementById('edit-board-btn');
     const deleteBoardBtn = document.getElementById('delete-board-btn');
     const applyBtn = document.getElementById('apply-btn');
     const logoutBtn = document.getElementById('logout');
@@ -185,10 +244,7 @@
       });
     }
 
-    if (editBoardBtn && deleteBoardBtn) {
-      editBoardBtn.addEventListener('click', () => {
-        editBoard();
-      });
+    if (deleteBoardBtn) {
       deleteBoardBtn.addEventListener('click', () => {
         deleteBoard();
       });
@@ -263,10 +319,8 @@
       window.location.reload();
     };
 
-    // 게시글 수정
-    const editBoard = async () => {};
-
     // 게시글 삭제
     const deleteBoard = async () => {};
   </script>
+  <script src="/js/projectEditModal.js"></script>
 </html>
