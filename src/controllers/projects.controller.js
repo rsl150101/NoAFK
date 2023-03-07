@@ -14,8 +14,6 @@ class ProjectsController {
         loginUserId = res.locals.user.id;
       }
 
-      console.log(loginUserId);
-
       const project = await this.projectService.findProjectById(id);
       const comments = await this.commentService.findCommentsByProjectId(id);
 
@@ -25,7 +23,6 @@ class ProjectsController {
         loginUserId,
       });
     } catch (error) {
-      console.log(error);
       return res.status(400).json({ message: error.message });
     }
   };
