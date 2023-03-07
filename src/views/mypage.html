@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>noAFK | 마이페이지</title>
+    <link rel="stylesheet" href="../static/css/mypage.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <header id="head">
+      <div id="head-top">
+        <div id="top-menu">
+          <ul>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">NoAFK</a></li>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">모집공고</a></li>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">팀</a></li>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">프로젝트</a></li>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">유저조회</a></li>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">내팀</a></li>
+          </ul>
+        </div>
+        <div id="top-menu-right">
+          <ul>
+            <li class="top-menu-list-logout"><a href="#" class="top-menu-list-a">로그아웃</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div id="info">
+      <div id="userInfo">
+        <div id="userInfoContent">
+          프로필사진: {image}
+          <br>
+          <br>
+          email: {email}
+          <br>
+          <br>
+          nickname: {nickname}
+          <br>
+          <br>
+          로그인방법: {loginMethod}
+          <br>
+          <br>
+          MBTI: {mbti}
+          <br>
+          <br>
+          프리미엄 회원 만료일: {expiredAt}
+        </div>
+      </div>
+      <div id="projectInfo">
+        <div id="projectInfoContent">
+          <table class="projectTable">
+            <thead id="projectTitle">
+              <tr>
+                <th scope="col">프로젝트 명</th>
+                <th scope="col">프로젝트 내용</th>
+                <th scope="col">팀이름</th>
+                <th scope="col">팀장</th>
+                <th scope="col">인원수</th>
+                <th scope="col">기술스택</th>
+                <th scope="col">프로젝트 시작일</th>
+                <th scope="col">프로젝트 마감일</th>
+                <th scope="col">프로젝트 남은기간</th>
+              </tr>
+            </thead>
+            <tbody id="projectContent">
+              <tr>
+                <td>${projectName}</td>
+                <td>${projectContent}</td>
+                <td>${teamName}</td>
+                <td>${teamLeader}</td>
+                <td>${peopleNumber}</td>
+                <td>${techStack}</td>
+                <td>${projectStart}</td>
+                <td>${projectEnd}</td>
+                <td>${projectTime}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+
+
+  <script src="../static/js/mypage.js"></script>
+</html>

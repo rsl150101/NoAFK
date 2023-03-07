@@ -27,4 +27,7 @@ router.get(
   apiController.socialLogin
 );
 
+// 검사결과 저장
+router.patch('/test/:id', apiController.test);
+
 module.exports = router;

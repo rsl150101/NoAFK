@@ -63,6 +63,18 @@ class ApiController {
     res.cookie('accessToken', accessToken);
     res.redirect('/');
   };
+
+  // 검사결과 저장
+  test = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { testResult } = req.body;
+      await this.userService.test(id, testResult);
+
+      return res.status(200).json({ message: "검사결과가 저장되었습니다." });
+    } catch (error) {
+    }
+  }
 }
 
 module.exports = ApiController;
