@@ -1,6 +1,7 @@
 const express = require('express');
 const ProjectsController = require('../controllers/projects.controller');
 const CommentsController = require('../controllers/comments.controller');
+const TeamsController = require('../controllers/teams.controller');
 
 // 미들웨어추가
 const { notLogin } = require('../middlewares/auth');
@@ -8,6 +9,7 @@ const { notLogin } = require('../middlewares/auth');
 const router = express.Router();
 const projectsController = new ProjectsController();
 const commentsController = new CommentsController();
+const teamsController = new TeamsController();
 
 router.post('/', projectsController.createProject);
 
@@ -18,6 +20,9 @@ router.get('/:id', notLogin, projectsController.getProject);
 router.patch('/:id', projectsController.updateProject);
 // 모집공고 삭제
 router.delete('/:id', projectsController.deleteProject);
+
+// 모집공고 신청 수락
+router.patch('/:projectId/applys/:userId', teamsController.acceptApply);
 
 // 모집공고 댓글 작성
 router.post('/:id/comments', commentsController.postComment);

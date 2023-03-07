@@ -97,6 +97,21 @@ class TeamRepository {
       throw error;
     }
   };
+
+  // 모집공고 신청 수락
+  acceptApply = async (projectId, userId) => {
+    try {
+      await this.teamModel.update(
+        { position: 1 },
+        {
+          where: { projectId, userId },
+        }
+      );
+      return { message: '신청 수락 성공!' };
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = TeamRepository;

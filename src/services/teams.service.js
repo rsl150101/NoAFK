@@ -66,6 +66,15 @@ class TeamService {
       throw error;
     }
   };
+
+  // 모집공고 신청 수락
+  acceptApply = async (projectId, userId) => {
+    try {
+      return await this.teamRepository.acceptApply(projectId, userId);
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = TeamService;

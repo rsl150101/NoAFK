@@ -128,8 +128,18 @@
   <script>
     const projectId = Number(window.location.pathname.split('/')[2]);
     const commnetList = document.querySelectorAll('.comment-list');
+    const applyList = document.querySelectorAll('.apply-list');
     const createBtn = document.getElementById('create-btn');
     const logoutBtn = document.getElementById('logout');
+
+    applyList.forEach((apply) => {
+      const acceptBtn = apply.querySelector('#accept-btn');
+      const userId = apply.id;
+
+      acceptBtn.addEventListener('click', () => {
+        acceptUser(userId);
+      });
+    });
 
     commnetList.forEach((comment) => {
       const editBtn = comment.querySelector('#edit-btn');
@@ -190,11 +200,20 @@
       window.location.reload();
     };
 
-    //로그아웃
+    // 로그아웃
     const logout = async () => {
       await fetch('/api/auth/logout');
 
       window.location.replace('/login');
+    };
+
+    // 신청 수락
+    const acceptUser = async (userId) => {
+      await fetch(`/projects/${projectId}/applys/${userId}`, {
+        method: 'PATCH',
+      });
+
+      window.location.reload();
     };
   </script>
 </html>
