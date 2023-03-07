@@ -22,7 +22,7 @@ class TeamRepository {
   findAllByTeamId = async (teamId) => {
     try {
       return await this.teamModel.findAll({
-        where: { project_id: teamId },
+        where: { projectId: teamId },
       });
     } catch (error) {
       error.status = 500;
@@ -51,7 +51,6 @@ class TeamRepository {
 
   updateTeamMember = async (memberId, position, task) => {
     try {
-      console.log('teams.repository');
       await this.teamModel.update(
         {
           position,
