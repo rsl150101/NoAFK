@@ -81,6 +81,41 @@ class ProjectRepository {
       throw error;
     }
   };
+
+  // 팀 서비스에서 사용
+  findTeamNameAndStatusByTeamId = async (teamId) => {
+    try {
+      return await this.projectModel.findOne({
+        attributes: ['teamName', 'status'],
+        where: { id: teamId },
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  // 팀 서비스에서 사용
+  updateStatus = async (teamId, status) => {
+    try {
+      await this.projectModel.update(
+        {
+          status,
+        },
+        {
+          where: { id: teamId },
+        }
+      );
+      const isSoftDeletedProject = status === 5;
+      if (isSoftDeletedProject) {
+        return { status: 200, message: '팀 삭제 성공!' };
+      }
+      return { status: 200, message: '프로젝트 진행 상태 수정 성공!' };
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
 }
 
 module.exports = ProjectRepository;

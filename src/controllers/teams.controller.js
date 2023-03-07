@@ -10,18 +10,30 @@ class TeamsController {
   getTeam = async (req, res, next) => {
     const { teamId } = req.params;
 
-    const teamName = 'jin'; // 임시구현
-    const projectStatus = 0; // 임시구현
-    const memberList = await this.teamService.findAllByTeamId(teamId);
+    const { teamName, status } =
+      await this.teamService.findTeamNameAndStatusByTeamId(teamId);
 
-    return res.status(200).json({ teamName, projectStatus, memberList });
+    const isSoftDeletedProject = status === 5;
+    if (isSoftDeletedProject) {
+      return res.render('deletedTeam');
+    }
+
+    const memberList = await this.teamService.findAllByTeamId(teamId);
+    await memberList.map((member) => {
+      member.nickname = this.teamService.findUserByNickname(member.userId);
+    });
+    return res.render('myteam', {
+      teamName,
+      status,
+      memberList,
+    });
   };
 
   postTeamMember = async (req, res, next) => {
     const { teamId } = req.params;
     const { nickname, position } = req.body;
+    const { id: userId } = await this.teamService.findUserByNickname(nickname);
 
-    const userId = 2; // 임시구현
     const newMember = await this.teamService.addNewMember(
       position,
       userId,
@@ -33,12 +45,14 @@ class TeamsController {
 
   updateTeam = async (req, res, next) => {
     const { teamId } = req.params;
-    let status = 5; // 소프트 삭제 상태
-    if (req.body.status) {
-      status = req.body.status;
-    }
+    const { status } = req.body;
 
-    return res.status(200).json({ msg: 'updateTeam success', status }); // 임시구현
+    const updatedTeamStatus = await this.teamService.updateStatus(
+      teamId,
+      status
+    );
+
+    return res.status(200).json({ updatedTeamStatus }); // 임시구현
   };
 
   updateTeamMember = async (req, res, next) => {

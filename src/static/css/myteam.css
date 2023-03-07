@@ -1,4 +1,8 @@
 body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 100vh;
   background: ghostwhite;
@@ -34,8 +38,8 @@ tbody th {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 60%;
-  height: 100%;
+  width: 700px;
+  height: 80%;
   margin: auto;
 }
 
@@ -43,8 +47,22 @@ tbody th {
   padding: 20px;
 }
 
+#myteam__membaerList {
+  font-size: 12px;
+}
+
+thead th {
+  font-size: 16px;
+  height: 20px;
+}
+
+tr th {
+  font-size: 12px;
+  padding: 5px 10px;
+}
+
 #myteam__searching-new {
-  width: 100%;
+  width: 650px;
 }
 
 #myteam__searching-new > div {
@@ -57,11 +75,15 @@ tbody th {
 }
 
 #myteam__project-status__title {
-  padding: 10px;
+  padding: 5px;
+}
+
+h2#myteam__project-status__title {
+  font-size: 20px;
 }
 
 #myteam__project-status__buttons {
-  padding: 30px;
+  padding: 20px;
 }
 
 .myteam__project-status__arrow {
@@ -69,9 +91,13 @@ tbody th {
 }
 
 #myteam__project-status__footer {
-  width: 100%;
+  width: 650px;
 }
 
 #myteam__project-status__footer > div {
   align-self: flex-end;
+}
+
+.now_team_status {
+  border: 5px solid red;
 }
