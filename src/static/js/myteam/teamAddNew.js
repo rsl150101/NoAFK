@@ -19,7 +19,7 @@ function addNewMember() {
   })
     .then((response) => response.json())
     .then((data) => {
-      alert(data.newMember.message);
+      alert(data.message);
       location.reload();
     });
 }

@@ -24,6 +24,14 @@ class TeamService {
     }
   };
 
+  findUserById = async (userId) => {
+    try {
+      return await this.userRepository.findNicknameById(userId);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   findUserByNickname = async (nickname) => {
     try {
       return await this.userRepository.findIdByNickname(nickname);

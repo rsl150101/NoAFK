@@ -19,9 +19,11 @@ class TeamsController {
     }
 
     const memberList = await this.teamService.findAllByTeamId(teamId);
-    await memberList.map((member) => {
-      member.nickname = this.teamService.findUserByNickname(member.userId);
-    });
+    for (let member of memberList) {
+      const { nickname } = await this.teamService.findUserById(member.userId);
+      member.nickname = nickname;
+    }
+
     return res.render('myteam', {
       teamName,
       status,
