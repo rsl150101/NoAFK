@@ -320,7 +320,21 @@
     };
 
     // 게시글 삭제
-    const deleteBoard = async () => {};
+    const deleteBoard = async () => {
+      const response = await fetch(`/projects/${projectId}`, {
+        method: 'DELETE',
+      });
+
+      const { status } = response;
+
+      if (status === 204) {
+        alert('공고가 삭제되었습니다!');
+        window.location.href = '/';
+      } else {
+        alert('공고 삭제에 실패하였습니다!');
+        window.location.reload();
+      }
+    };
   </script>
   <script src="/js/projectEditModal.js"></script>
 </html>
