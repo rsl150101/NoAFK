@@ -35,8 +35,8 @@ class TeamRepository {
       await this.teamModel.create({
         position, // 0 == 신청자, 1 == 팀페이지에서 바로 추가
         task: '',
-        user_id: userId,
-        project_id: teamId,
+        userId,
+        projectId: teamId,
       });
 
       if (position === 0) {
@@ -51,6 +51,7 @@ class TeamRepository {
 
   updateTeamMember = async (memberId, position, task) => {
     try {
+      console.log('teams.repository');
       await this.teamModel.update(
         {
           position,

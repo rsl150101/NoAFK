@@ -17,7 +17,7 @@
       <section>
         <div id="myteam-title"><h1>{{teamName}}</h1></div>
       </section>
-      <section id="myteam__membaerList">
+      <section id="myteam__memberList">
         <table>
           <thead>
             <tr>
@@ -47,18 +47,23 @@
 
               <th class="myteam__memberList__task">{{member.task}}</th>
               <th><button class="myteam__memberList__chat">귓속말</button></th>
-              <th>
-                <button
-                  class="myteam__memberList__update"
-                  onclick="updateMember({{member.id}})"
-                >
-                  수정</button
-                ><button
-                  class="myteam__memberList__emit"
-                  onclick="emitMember({{member.id}})"
-                >
-                  방출
-                </button>
+              <th class="myteam__memberList__config">
+                <div>
+                  <button
+                    class="myteam__memberList__update"
+                    onclick="updateMember({{member.id}})"
+                  >
+                    수정
+                  </button>
+                </div>
+                <div>
+                  <button
+                    class="myteam__memberList__emit"
+                    onclick="emitMember({{member.id}})"
+                  >
+                    방출
+                  </button>
+                </div>
               </th>
             </tr>
             {% endif %} {% endfor %}
@@ -68,7 +73,7 @@
       <section id="myteam__searching-new">
         <div>
           <input id="inputUserNickname" type="text" /><span>팀원 추가하기</span
-          ><button id="addNewMemberBtn">+</button>
+          ><button id="addNewMemberBtn" onclick="addNewMember()">➕</button>
         </div>
       </section>
       <section id="myteam__project-status">
@@ -119,80 +124,11 @@
       let nowStatus = document.querySelector(
         '.status-btn[data-num="{{projectStatus}}"]'
       );
-      console.log(nowStatus);
       nowStatus.classList.add('now_team_status');
-
-      const url = window.location.pathname;
-      const inputUserNickname = document.querySelector('#inputUserNickname');
-      const addNewMemberBtn = document.querySelector('#addNewMemberBtn');
-      addNewMemberBtn.addEventListener('click', () => {
-        const nickname = inputUserNickname.value;
-        inputUserNickname.value = '';
-        const position = 1;
-        console.log(nickname, position);
-
-        fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            nickname,
-            position,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            location.reload;
-          });
-      });
-
-      function updateTeamStatus(status) {
-        fetch(url, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            status,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            alert(data.updatedTeamStatus.message);
-            console.log(data.updatedTeamStatus.status);
-            nowStatus.classList.remove('now_team_status');
-            nowStatus = document.querySelector(
-              `.status-btn[data-num="${num}"]`
-            );
-            nowStatus.classList.add('now_team_status');
-          });
-      }
-
-      function updateMember(memberId) {
-        const thPosition = document.querySelector(
-          `#row-${memberId} > .myteam__memberList__position`
-        );
-        const positionDataValue = thPosition.dataset.value;
-        const thTask = document.querySelector(
-          `#row-${memberId} > .myteam__memberList__chat`
-        );
-      }
-
-      function emitMember(memberId) {
-        fetch(url + `/${memberId}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({}),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            alert(`${memberId}번 팀원을 삭제했습니다.`);
-            location.reload;
-          });
-      }
     </script>
+    <script src="/js/myteam/teamEditMember.js"></script>
+    <script src="/js/myteam/teamAddNew.js"></script>
+    <script src="/js/myteam/teamUpdateStatus.js"></script>
+    <script src="/js/myteam/teamEmit.js"></script>
   </body>
 </html>

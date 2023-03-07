@@ -13,7 +13,7 @@ class TeamsController {
     const projectInfo = await this.teamService.findTeamNameAndStatusByTeamId(
       teamId
     );
-    const teamName = projectInfo.team_name;
+    const teamName = projectInfo.teamName;
     const projectStatus = projectInfo.status;
 
     if (projectStatus == 5) {
@@ -26,7 +26,6 @@ class TeamsController {
       const userId = memberList[i].user_id;
       memberListHasNickname[i].nickname = `닉네임임시구현 ${userId}`;
     }
-    // return res.status(200).json({ projectInfo, memberListHasNickname });
     return res.render('myteam', {
       teamName,
       projectStatus,
@@ -63,8 +62,10 @@ class TeamsController {
   };
 
   updateTeamMember = async (req, res, next) => {
+    console.log('teams.controller');
     const { teamId, memberId } = req.params;
     const { position, task } = req.body;
+    console.log(position, task);
 
     const updatedMember = await this.teamService.updateMember(
       memberId,

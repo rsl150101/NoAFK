@@ -86,7 +86,7 @@ class ProjectRepository {
   findTeamNameAndStatusByTeamId = async (teamId) => {
     try {
       return await this.projectModel.findOne({
-        attributes: ['team_name', 'status'],
+        attributes: ['teamName', 'status'],
         where: { id: teamId },
       });
     } catch (error) {
