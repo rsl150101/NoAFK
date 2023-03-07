@@ -86,6 +86,17 @@ class TeamRepository {
       throw error;
     }
   };
+
+  // 프로젝트 공고 신청자 조회
+  findApplysByProjectId = async (id) => {
+    try {
+      return await this.teamModel.findAll({
+        where: { projectId: id, position: 0 },
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = TeamRepository;

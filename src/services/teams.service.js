@@ -47,6 +47,15 @@ class TeamService {
       throw error;
     }
   };
+
+  // 프로젝트 공고 신청자 조회
+  findApplysByProjectId = async (id) => {
+    try {
+      return await this.teamRepository.findApplysByProjectId(id);
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = TeamService;

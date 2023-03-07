@@ -1,9 +1,11 @@
 const ProjectService = require('../services/projects.service');
 const CommentService = require('../services/comments.service');
+const TeamService = require('../services/teams.service');
 
 class ProjectsController {
   projectService = new ProjectService();
   commentService = new CommentService();
+  teamService = new TeamService();
 
   getProject = async (req, res) => {
     try {
@@ -16,11 +18,13 @@ class ProjectsController {
 
       const project = await this.projectService.findProjectById(id);
       const comments = await this.commentService.findCommentsByProjectId(id);
+      const applys = await this.teamService.findApplysByProjectId(id);
 
       return res.render('projectDetail.html', {
         project,
         comments,
         loginUserId,
+        applys,
       });
     } catch (error) {
       return res.status(400).json({ message: error.message });
