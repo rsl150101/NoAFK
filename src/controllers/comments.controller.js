@@ -37,6 +37,7 @@ class CommentsController {
     try {
       const { projectId, commentId } = req.params;
       const content = req.body;
+      console.log(projectId, commentId, content);
 
       const updateComment = await this.commentService.updateComment(
         commentId,

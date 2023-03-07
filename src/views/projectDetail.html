@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>noAFK | 공고상세보기</title>
-    <link rel="stylesheet" href="./css/test.css" />
-    <link rel="stylesheet" href="./css/projectDetail.css" />
+    <link rel="stylesheet" href="/css/test.css" />
+    <link rel="stylesheet" href="/css/projectDetail.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   </head>
   <body>
@@ -46,66 +46,127 @@
 
     <div class="project-detail-box">
       <div class="project-detail-border">
-        <div id="project-board"></div>
+        <div id="project-board">
+          <div class="detail-top project-detail-border">
+            <div class="detail-title" id="title">{{project[0].title}}</div>
+            <div class="detail-owner" id="owner">{{project[0].owner}}</div>
+          </div>
+          <div class="detail-middle project-detail-border">
+            <div class="detail-three">
+              <div
+                class="detail-person project-detail-border detail-margin detail-padding"
+                id="person"
+              >
+                {{project[0].person}}
+              </div>
+              <div
+                class="detail-deadline project-detail-border detail-margin detail-padding"
+                id="deadline"
+              >
+                {{project[0].recruitDeadline}}
+              </div>
+              <div
+                class="detail-period project-detail-border detail-margin detail-padding"
+                id="period"
+              >
+                {{project[0].projectStart}} ~ {{project[0].projectEnd}}
+              </div>
+            </div>
+            <div class="detail-stack project-detail-border" id="tech-stack">
+              {{project[0].techStack}}
+            </div>
+            <div class="detail-content project-detail-border" id="content">
+              {{project[0].content}}
+            </div>
+          </div>
+        </div>
 
         <div class="detail-apply project-detail-border" id="apply-list">
           apply-list
         </div>
         <div class="detail-chat project-detail-border" id="detail-comment">
-          <textarea>로그인 후 이용 가능합니다.</textarea><button>작성</button>
+          <textarea id="create-comment">로그인 후 이용 가능합니다.</textarea
+          ><button id="create-btn" type="button">작성</button>
         </div>
         <div
           class="detail-comment project-detail-border"
           id="detail-comment-list"
-        ></div>
+        >
+          {% for comment in comments %}
+          <li class="comment-list" id="{{comment.id}}">
+            <input
+              type="text"
+              id="new-comment"
+              value="{{comment.content}}"
+              required
+            />{{comment.createdAt}}<button id="edit-btn" type="button">
+              수정</button
+            ><button id="delete-btn" type="button">삭제</button>
+          </li>
+          {% endfor %}
+        </div>
       </div>
     </div>
   </body>
   <script>
-    document.addEventListener('DOMContentLoaded', GetProjectDetail);
-    const projectId = Number(window.location.pathname.split('/')[1]);
+    const projectId = Number(window.location.pathname.split('/')[2]);
+    const commnetList = document.querySelectorAll('.comment-list');
+    const createBtn = document.getElementById('create-btn');
 
-    const GetProjectDetail = async () => {
-      const project = await fetch(`/projects/${projectId}`, {
-        method: 'GET',
+    commnetList.forEach((comment) => {
+      const editBtn = comment.querySelector('#edit-btn');
+      const deleteBtn = comment.querySelector('#delete-btn');
+      const commentId = comment.id;
+      console.log(commentId);
+
+      editBtn.addEventListener('click', () => {
+        const content = comment.querySelector('#new-comment').value;
+
+        editComment(content, commentId);
+      });
+      deleteBtn.addEventListener('click', () => {
+        deleteComment(commentId);
+      });
+    });
+
+    createBtn.addEventListener('click', () => {
+      createComment();
+    });
+
+    // 댓글 생성
+    const createComment = async () => {
+      const content = document.getElementById('create-comment').value;
+
+      await fetch(`/projects/${projectId}/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content }),
       });
 
-      document.getElementById('userData').innerHTML = '';
-      let tempHtml = ``;
+      window.location.reload();
+    };
 
-      tempHtml += `
-      <div class="detail-top project-detail-border">
-          <div class="detail-title" id="title">title</div>
-          <div class="detail-leader" id="leader">leader</div>
-        </div>
-        <div class="detail-middle project-detail-border">
-          <div class="detail-three">
-            <div
-              class="detail-person project-detail-border detail-margin detail-padding"
-              id="person"
-            >
-              person
-            </div>
-            <div
-              class="detail-deadline project-detail-border detail-margin detail-padding"
-              id="deadline"
-            >
-              deadline
-            </div>
-            <div
-              class="detail-period project-detail-border detail-margin detail-padding"
-              id="period"
-            >
-              period
-            </div>
-          </div>
-          <div class="detail-stack project-detail-border" id="stack">stack</div>
-          <div class="detail-content project-detail-border" id="content">
-            content
-          </div>
-      `;
+    // 댓글 수정
+    const editComment = async (content, commentId) => {
+      await fetch(`/projects/${projectId}/comments/${commentId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content }),
+      });
+      window.location.reload();
+    };
 
-      $('#project-board').append(tempHtml);
+    // 댓글 삭제
+    const deleteComment = async (commentId) => {
+      await fetch(`/projects/${projectId}/comments/${commentId}`, {
+        method: 'DELETE',
+      });
+
+      window.location.reload();
     };
   </script>
 </html>

@@ -1,15 +1,18 @@
 const ProjectService = require('../services/projects.service');
+const CommentService = require('../services/comments.service');
 
 class ProjectsController {
   projectService = new ProjectService();
+  commentService = new CommentService();
 
   getProject = async (req, res) => {
     try {
       const { id } = req.params;
 
       const project = await this.projectService.findProjectById(id);
+      const comments = await this.commentService.findCommentsByProjectId(id);
 
-      return res.status(200).json(project);
+      return res.render('projectDetail.html', { project, comments });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
