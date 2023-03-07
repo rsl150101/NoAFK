@@ -38,10 +38,10 @@ class AlreayLogin extends Error {
   }
 }
 
-class AlreayApply extends Error {
+class AlreadyApply extends Error {
   constructor(message) {
     super(message);
-    this.name = 'AlreayApply';
+    this.name = 'AlreadyApply';
     this.message = '이미 신청했습니다.';
   }
 }
@@ -52,5 +52,5 @@ module.exports = {
   UserNotFound,
   IncorrectPassword,
   AlreayLogin,
-  AlreayApply,
+  AlreadyApply,
 };

@@ -2,7 +2,7 @@ const TeamRepository = require('../repositories/teams.repository');
 const ProjectRepository = require('../repositories/projects.repository');
 const UserRepository = require('../repositories/users.repository');
 const { Project, ProjectUser, User } = require('../models');
-const { AlreayApply } = require('../utility/customError');
+const { AlreadyApply } = require('../utility/customError');
 
 class TeamService {
   teamRepository = new TeamRepository(ProjectUser);
@@ -77,7 +77,7 @@ class TeamService {
       );
 
       if (applyUser.length !== 0) {
-        const error = new AlreayApply();
+        const error = new AlreadyApply();
         throw error;
       }
 
