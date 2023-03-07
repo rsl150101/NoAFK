@@ -98,6 +98,21 @@ class TeamRepository {
     }
   };
 
+  // 모집공고 참가 신청
+  apply = async (projectId, userId) => {
+    try {
+      await this.teamModel.create({
+        position: 0,
+        task: '담당업무를 정해주세요.',
+        projectId,
+        userId,
+      });
+      return { message: '신청 수락 성공!' };
+    } catch (error) {
+      throw error;
+    }
+  };
+
   // 모집공고 신청 수락
   acceptApply = async (projectId, userId) => {
     try {

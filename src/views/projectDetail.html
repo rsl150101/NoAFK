@@ -53,6 +53,12 @@
             </div>
             <div class="detail-owner" id="owner">
               <p>by {{project[0].owner}}</p>
+              <div>
+                {% if project[0].owner === loginUserNickname %}
+                <button id="edit-board-btn" type="button">수정</button>
+                <button id="delete-board-btn" type="button">삭제</button>
+                {% endif %}
+              </div>
             </div>
           </div>
           <div class="detail-middle project-detail-border">
@@ -101,7 +107,7 @@
         {% if loginUserId %}
         <div class="detail-chat project-detail-border" id="detail-comment">
           <textarea id="create-comment">이곳에 댓글을 작성해주세요.</textarea
-          ><button id="create-btn" type="button">작성</button>
+          ><button id="create-comment-btn" type="button">작성</button>
         </div>
         {% endif %}
         <div
@@ -116,12 +122,17 @@
               value="{{comment.content}}"
               required
             />{{comment.createdAt}} {% if comment.userId === loginUserId %}
-            <button id="edit-btn" type="button">수정</button
-            ><button id="delete-btn" type="button">삭제</button>
+            <button id="edit-comment-btn" type="button">수정</button
+            ><button id="delete-comment-btn" type="button">삭제</button>
             {% endif %}
           </li>
           {% endfor %}
         </div>
+      </div>
+      <div>
+        {% if project[0].owner !== loginUserNickname %}
+        <button id="apply-btn" type="button">신청하기</button>
+        {% endif %}
       </div>
     </div>
   </body>
@@ -129,36 +140,59 @@
     const projectId = Number(window.location.pathname.split('/')[2]);
     const commnetList = document.querySelectorAll('.comment-list');
     const applyList = document.querySelectorAll('.apply-list');
-    const createBtn = document.getElementById('create-btn');
+    const createCommentBtn = document.getElementById('create-comment-btn');
+    const editBoardBtn = document.getElementById('edit-board-btn');
+    const deleteBoardBtn = document.getElementById('delete-board-btn');
+    const applyBtn = document.getElementById('apply-btn');
     const logoutBtn = document.getElementById('logout');
 
     applyList.forEach((apply) => {
       const acceptBtn = apply.querySelector('#accept-btn');
-      const userId = apply.id;
+      if (acceptBtn) {
+        const userId = apply.id;
 
-      acceptBtn.addEventListener('click', () => {
-        acceptUser(userId);
-      });
+        acceptBtn.addEventListener('click', () => {
+          acceptUser(userId);
+        });
+      }
     });
 
     commnetList.forEach((comment) => {
-      const editBtn = comment.querySelector('#edit-btn');
-      const deleteBtn = comment.querySelector('#delete-btn');
+      const editCommentBtn = comment.querySelector('#edit-comment-btn');
+      const deleteCommentBtn = comment.querySelector('#delete-comment-btn');
       const commentId = comment.id;
 
-      editBtn.addEventListener('click', () => {
-        const content = comment.querySelector('#new-comment').value;
-
-        editComment(content, commentId);
-      });
-      deleteBtn.addEventListener('click', () => {
-        deleteComment(commentId);
-      });
+      if (editCommentBtn && deleteCommentBtn) {
+        editCommentBtn.addEventListener('click', () => {
+          const content = comment.querySelector('#new-comment').value;
+          editComment(content, commentId);
+        });
+        deleteCommentBtn.addEventListener('click', () => {
+          deleteComment(commentId);
+        });
+      }
     });
 
-    createBtn.addEventListener('click', () => {
-      createComment();
-    });
+    if (createCommentBtn) {
+      createCommentBtn.addEventListener('click', () => {
+        createComment();
+      });
+    }
+
+    if (applyBtn) {
+      applyBtn.addEventListener('click', () => {
+        apply();
+      });
+    }
+
+    if (editBoardBtn && deleteBoardBtn) {
+      editBoardBtn.addEventListener('click', () => {
+        editBoard();
+      });
+      deleteBoardBtn.addEventListener('click', () => {
+        deleteBoard();
+      });
+    }
 
     logoutBtn.addEventListener('click', () => {
       logout();
@@ -207,7 +241,7 @@
       window.location.replace('/login');
     };
 
-    // 신청 수락
+    // 참가 신청 수락
     const acceptUser = async (userId) => {
       await fetch(`/projects/${projectId}/applys/${userId}`, {
         method: 'PATCH',
@@ -215,5 +249,20 @@
 
       window.location.reload();
     };
+
+    // 참가 신청
+    const apply = async () => {
+      await fetch(`/projects/${projectId}/applys`, {
+        method: 'POST',
+      });
+
+      window.location.reload();
+    };
+
+    // 게시글 수정
+    const editBoard = async () => {};
+
+    // 게시글 삭제
+    const deleteBoard = async () => {};
   </script>
 </html>

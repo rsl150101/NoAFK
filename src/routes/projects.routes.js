@@ -21,6 +21,8 @@ router.patch('/:id', projectsController.updateProject);
 // 모집공고 삭제
 router.delete('/:id', projectsController.deleteProject);
 
+// 모집공고 참여 신청
+router.post('/:projectId/applys', notLogin, teamsController.apply);
 // 모집공고 신청 수락
 router.patch('/:projectId/applys/:userId', teamsController.acceptApply);
 
