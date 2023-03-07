@@ -13,32 +13,29 @@ class TeamsController {
     const projectInfo = await this.teamService.findTeamNameAndStatusByTeamId(
       teamId
     );
-    const teamName = projectInfo.teamName;
-    const projectStatus = projectInfo.status;
+    const { teamName, status } = projectInfo;
 
-    if (projectStatus == 5) {
+    const isSoftDeletedProject = status === 5;
+    if (isSoftDeletedProject) {
       return res.render('deletedTeam');
     }
 
     const memberList = await this.teamService.findAllByTeamId(teamId);
-    const memberListHasNickname = JSON.parse(JSON.stringify(memberList));
-    for (let i = 0; i < memberList.length; i++) {
-      const userId = memberList[i].user_id;
-      memberListHasNickname[i].nickname = `닉네임임시구현 ${userId}`;
-    }
+    await memberList.map((member) => {
+      member.nickname = this.teamService.findUserByNickname(member.userId);
+    });
     return res.render('myteam', {
       teamName,
-      projectStatus,
-      memberListHasNickname,
+      status,
+      memberList,
     });
   };
 
   postTeamMember = async (req, res, next) => {
     const { teamId } = req.params;
     const { nickname, position } = req.body;
+    const { id: userId } = await this.teamService.findUserByNickname(nickname);
 
-    const user = await this.teamService.findUserByNickname(nickname);
-    const userId = user.id;
     const newMember = await this.teamService.addNewMember(
       position,
       userId,
@@ -51,7 +48,6 @@ class TeamsController {
   updateTeam = async (req, res, next) => {
     const { teamId } = req.params;
     const { status } = req.body;
-    // status == 5 => 소프트 삭제 상태
 
     const updatedTeamStatus = await this.teamService.updateStatus(
       teamId,
@@ -62,10 +58,8 @@ class TeamsController {
   };
 
   updateTeamMember = async (req, res, next) => {
-    console.log('teams.controller');
     const { teamId, memberId } = req.params;
     const { position, task } = req.body;
-    console.log(position, task);
 
     const updatedMember = await this.teamService.updateMember(
       memberId,

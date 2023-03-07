@@ -106,7 +106,8 @@ class ProjectRepository {
           where: { id: teamId },
         }
       );
-      if (status == 5) {
+      const isSoftDeletedProject = status === 5;
+      if (isSoftDeletedProject) {
         return { status: 200, message: '팀 삭제 성공!' };
       }
       return { status: 200, message: '프로젝트 진행 상태 수정 성공!' };

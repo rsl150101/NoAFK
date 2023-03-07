@@ -19,7 +19,7 @@ const app = express();
 const PORT = 3000;
 
 //* 소셜 로그인 설정
-// passportConfig(app);
+passportConfig(app);
 
 //* 전역 설정
 app.use(morgan('dev'));

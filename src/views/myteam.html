@@ -32,7 +32,7 @@
           </thead>
           <tbody>
             {% set position = ['신청자', '팀원', '부리더', '리더'] %} {% for
-            member in memberListHasNickname %} {% if member.position !== 0 %}
+            member in memberList %} {% if member.position !== 0 %}
             <tr id="row-{{member.id}}">
               <th>{{member.id}}</th>
               <th>{{member.nickname}}</th>
@@ -122,7 +122,7 @@
     </main>
     <script>
       let nowStatus = document.querySelector(
-        '.status-btn[data-num="{{projectStatus}}"]'
+        '.status-btn[data-num="{{status}}"]'
       );
       nowStatus.classList.add('now_team_status');
     </script>
