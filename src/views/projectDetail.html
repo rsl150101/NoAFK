@@ -37,7 +37,7 @@
         <div id="top-menu-right">
           <ul>
             <li class="top-menu-list-logout">
-              <a href="#" class="top-menu-list-a">로그아웃</a>
+              <a href="#" class="top-menu-list-a" id="logout">로그아웃</a>
             </li>
           </ul>
         </div>
@@ -48,8 +48,12 @@
       <div class="project-detail-border">
         <div id="project-board">
           <div class="detail-top project-detail-border">
-            <div class="detail-title" id="title">{{project[0].title}}</div>
-            <div class="detail-owner" id="owner">{{project[0].owner}}</div>
+            <div class="detail-title" id="title">
+              <h1>프로젝트 '{{project[0].title}}'</h1>
+            </div>
+            <div class="detail-owner" id="owner">
+              <p>by {{project[0].owner}}</p>
+            </div>
           </div>
           <div class="detail-middle project-detail-border">
             <div class="detail-three">
@@ -57,26 +61,29 @@
                 class="detail-person project-detail-border detail-margin detail-padding"
                 id="person"
               >
-                {{project[0].person}}
+                <p>모집인원 : {{project[0].person}}</p>
               </div>
               <div
                 class="detail-deadline project-detail-border detail-margin detail-padding"
                 id="deadline"
               >
-                {{project[0].recruitDeadline}}
+                <p>모집마감 : {{project[0].recruitDeadline}}</p>
               </div>
               <div
                 class="detail-period project-detail-border detail-margin detail-padding"
                 id="period"
               >
-                {{project[0].projectStart}} ~ {{project[0].projectEnd}}
+                <p>
+                  프로젝트 기간 : {{project[0].projectStart}} ~
+                  {{project[0].projectEnd}}
+                </p>
               </div>
             </div>
             <div class="detail-stack project-detail-border" id="tech-stack">
-              {{project[0].techStack}}
+              <p>스택 요구사항 : {{project[0].techStack}}</p>
             </div>
             <div class="detail-content project-detail-border" id="content">
-              {{project[0].content}}
+              <p>프로젝트 설명 : {{project[0].content}}</p>
             </div>
           </div>
         </div>
@@ -84,10 +91,12 @@
         <div class="detail-apply project-detail-border" id="apply-list">
           apply-list
         </div>
+        {% if loginUserId %}
         <div class="detail-chat project-detail-border" id="detail-comment">
-          <textarea id="create-comment">로그인 후 이용 가능합니다.</textarea
+          <textarea id="create-comment">이곳에 댓글을 작성해주세요.</textarea
           ><button id="create-btn" type="button">작성</button>
         </div>
+        {% endif %}
         <div
           class="detail-comment project-detail-border"
           id="detail-comment-list"
@@ -99,9 +108,10 @@
               id="new-comment"
               value="{{comment.content}}"
               required
-            />{{comment.createdAt}}<button id="edit-btn" type="button">
-              수정</button
+            />{{comment.createdAt}} {% if comment.userId === loginUserId %}
+            <button id="edit-btn" type="button">수정</button
             ><button id="delete-btn" type="button">삭제</button>
+            {% endif %}
           </li>
           {% endfor %}
         </div>
@@ -112,12 +122,12 @@
     const projectId = Number(window.location.pathname.split('/')[2]);
     const commnetList = document.querySelectorAll('.comment-list');
     const createBtn = document.getElementById('create-btn');
+    const logoutBtn = document.getElementById('logout');
 
     commnetList.forEach((comment) => {
       const editBtn = comment.querySelector('#edit-btn');
       const deleteBtn = comment.querySelector('#delete-btn');
       const commentId = comment.id;
-      console.log(commentId);
 
       editBtn.addEventListener('click', () => {
         const content = comment.querySelector('#new-comment').value;
@@ -131,6 +141,10 @@
 
     createBtn.addEventListener('click', () => {
       createComment();
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      logout();
     });
 
     // 댓글 생성
@@ -167,6 +181,13 @@
       });
 
       window.location.reload();
+    };
+
+    //로그아웃
+    const logout = async () => {
+      await fetch('/api/auth/logout');
+
+      window.location.replace('/login');
     };
   </script>
 </html>

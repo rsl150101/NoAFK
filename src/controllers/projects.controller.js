@@ -8,12 +8,24 @@ class ProjectsController {
   getProject = async (req, res) => {
     try {
       const { id } = req.params;
+      let loginUserId = null;
+
+      if (res.locals.user) {
+        loginUserId = res.locals.user.id;
+      }
+
+      console.log(loginUserId);
 
       const project = await this.projectService.findProjectById(id);
       const comments = await this.commentService.findCommentsByProjectId(id);
 
-      return res.render('projectDetail.html', { project, comments });
+      return res.render('projectDetail.html', {
+        project,
+        comments,
+        loginUserId,
+      });
     } catch (error) {
+      console.log(error);
       return res.status(400).json({ message: error.message });
     }
   };

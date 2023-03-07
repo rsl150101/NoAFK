@@ -2,6 +2,9 @@ const express = require('express');
 const ProjectsController = require('../controllers/projects.controller');
 const CommentsController = require('../controllers/comments.controller');
 
+// 미들웨어추가
+const { notLogin } = require('../middlewares/auth');
+
 const router = express.Router();
 const projectsController = new ProjectsController();
 const commentsController = new CommentsController();
@@ -10,7 +13,7 @@ router.post('/', projectsController.createProject);
 
 // Todo <정지우> projectId나 userId 가 없는 경우 처리해야 함.
 // 모집공고 상세 보기
-router.get('/:id', projectsController.getProject);
+router.get('/:id', notLogin, projectsController.getProject);
 // 모집공고 수정
 router.patch('/:id', projectsController.updateProject);
 // 모집공고 삭제
