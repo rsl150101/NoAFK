@@ -75,6 +75,20 @@ class UserRepository {
       throw error;
     }
   };
+
+  getUsers = async (start, perPage) => {
+    try {
+      const users = await this.userModel.findAndCountAll({
+        raw: true,
+        offset: start,
+        limit: perPage,
+      });
+
+      return users;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = UserRepository;
