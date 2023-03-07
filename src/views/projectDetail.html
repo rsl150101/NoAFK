@@ -176,12 +176,14 @@
         >
           {% for comment in comments %}
           <li class="comment-list" id="{{comment.id}}">
+            {{comment.nickname}}
             <input
               type="text"
               id="new-comment"
               value="{{comment.content}}"
               required
-            />{{comment.createdAt}} {% if comment.userId === loginUserId %}
+            />
+            {{comment.createdAt}} {% if comment.userId === loginUserId %}
             <button id="edit-comment-btn" type="button">수정</button
             ><button id="delete-comment-btn" type="button">삭제</button>
             {% endif %}

@@ -20,7 +20,9 @@ class ProjectsController {
       }
 
       const project = await this.projectService.findProjectById(id);
-      const comments = await this.commentService.findCommentsByProjectId(id);
+      const { comments } = await this.commentService.findCommentsByProjectId(
+        id
+      );
       const applyUsers = await this.teamService.findApplysByProjectId(id);
 
       return res.render('projectDetail.html', {
