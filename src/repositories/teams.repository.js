@@ -98,6 +98,17 @@ class TeamRepository {
     }
   };
 
+  // 모집공고 참가 신청했는지 확인
+  checkNoApply = async (projectId, userId) => {
+    try {
+      return await this.teamModel.findAll({
+        where: { projectId, userId },
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
   // 모집공고 참가 신청
   apply = async (projectId, userId) => {
     try {

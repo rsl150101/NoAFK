@@ -38,10 +38,19 @@ class AlreayLogin extends Error {
   }
 }
 
+class AlreayApply extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'AlreayApply';
+    this.message = '이미 신청했습니다.';
+  }
+}
+
 module.exports = {
   EmailExist,
   NicknameExist,
   UserNotFound,
   IncorrectPassword,
   AlreayLogin,
+  AlreayApply,
 };

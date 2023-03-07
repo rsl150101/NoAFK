@@ -2,6 +2,7 @@ const TeamRepository = require('../repositories/teams.repository');
 const ProjectRepository = require('../repositories/projects.repository');
 const UserRepository = require('../repositories/users.repository');
 const { Project, ProjectUser, User } = require('../models');
+const { AlreayApply } = require('../utility/customError');
 
 class TeamService {
   teamRepository = new TeamRepository(ProjectUser);
@@ -70,6 +71,16 @@ class TeamService {
   // 모집공고 참가 신청
   apply = async (projectId, userId) => {
     try {
+      const applyUser = await this.teamRepository.checkNoApply(
+        projectId,
+        userId
+      );
+
+      if (applyUser.length !== 0) {
+        const error = new AlreayApply();
+        throw error;
+      }
+
       await this.teamRepository.apply(projectId, userId);
     } catch (error) {
       throw error;

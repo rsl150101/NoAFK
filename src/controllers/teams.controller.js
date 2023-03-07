@@ -76,7 +76,7 @@ class TeamsController {
 
       return res.status(200).json({ message: '참가 신청 완료!' });
     } catch (error) {
-      res.status(400).json({ errorMessage: error.message });
+      res.status(400).json({ message: error.message });
     }
   };
 
