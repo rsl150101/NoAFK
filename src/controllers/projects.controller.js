@@ -22,7 +22,6 @@ class ProjectsController {
       const project = await this.projectService.findProjectById(id);
       const comments = await this.commentService.findCommentsByProjectId(id);
       const applyUsers = await this.teamService.findApplysByProjectId(id);
-      console.log(applyUsers);
 
       return res.render('projectDetail.html', {
         project,
