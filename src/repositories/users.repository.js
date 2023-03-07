@@ -75,6 +75,18 @@ class UserRepository {
       throw error;
     }
   };
+
+  // 유저아이디로 회원 정보 조회
+  findUserInfoByUserId = async (userId) => {
+    try {
+      return await this.userModel.findAll({
+        where: { id: userId },
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
 }
 
 module.exports = UserRepository;

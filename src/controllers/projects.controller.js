@@ -11,20 +11,25 @@ class ProjectsController {
     try {
       const { id } = req.params;
       let loginUserId = null;
+      let loginUserNickname = null;
 
       if (res.locals.user) {
-        loginUserId = res.locals.user.id;
+        const { id, nickname } = res.locals.user;
+        loginUserId = id;
+        loginUserNickname = nickname;
       }
 
       const project = await this.projectService.findProjectById(id);
       const comments = await this.commentService.findCommentsByProjectId(id);
-      const applys = await this.teamService.findApplysByProjectId(id);
+      const applyUsers = await this.teamService.findApplysByProjectId(id);
+      console.log(applyUsers);
 
       return res.render('projectDetail.html', {
         project,
         comments,
         loginUserId,
-        applys,
+        loginUserNickname,
+        applyUsers,
       });
     } catch (error) {
       return res.status(400).json({ message: error.message });

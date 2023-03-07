@@ -58,19 +58,19 @@
           <div class="detail-middle project-detail-border">
             <div class="detail-three">
               <div
-                class="detail-person project-detail-border detail-margin detail-padding"
+                class="detail-person detail-margin detail-padding"
                 id="person"
               >
                 <p>모집인원 : {{project[0].person}}</p>
               </div>
               <div
-                class="detail-deadline project-detail-border detail-margin detail-padding"
+                class="detail-deadline detail-margin detail-padding"
                 id="deadline"
               >
                 <p>모집마감 : {{project[0].recruitDeadline}}</p>
               </div>
               <div
-                class="detail-period project-detail-border detail-margin detail-padding"
+                class="detail-period detail-margin detail-padding"
                 id="period"
               >
                 <p>
@@ -88,9 +88,16 @@
           </div>
         </div>
 
-        <div class="detail-apply project-detail-border" id="apply-list">
-          apply-list
+        <div class="detail-apply project-detail-border">
+          {% for apply in applyUsers %}
+          <li class="apply-list" id="{{apply.id}}">
+            {{apply.nickname}} {% if project[0].owner === loginUserNickname %}
+            <button id="accept-btn" type="button">수락</button>
+            {% endif %}
+          </li>
+          {% endfor %}
         </div>
+
         {% if loginUserId %}
         <div class="detail-chat project-detail-border" id="detail-comment">
           <textarea id="create-comment">이곳에 댓글을 작성해주세요.</textarea
