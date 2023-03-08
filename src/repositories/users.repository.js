@@ -94,6 +94,7 @@ class UserRepository {
               },
             },
           });
+
           return users;
         }
 
@@ -107,7 +108,7 @@ class UserRepository {
             },
           },
         });
-        // console.log(users);
+
         return users;
       } else {
         const users = await this.userModel.findAndCountAll({
@@ -115,6 +116,7 @@ class UserRepository {
           offset: start,
           limit: perPage,
         });
+
         return users;
       }
     } catch (error) {
