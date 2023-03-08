@@ -22,7 +22,7 @@ class TeamRepository {
   findAllByTeamId = async (teamId) => {
     try {
       return await this.teamModel.findAll({
-        where: { project_id: teamId },
+        where: { projectId: teamId },
       });
     } catch (error) {
       error.status = 500;
@@ -32,17 +32,11 @@ class TeamRepository {
 
   createTeamMember = async (position, userId, teamId) => {
     try {
-      const LEADER = '리더';
-      const TEAM_MEMBER = '팀원';
-      let task = TEAM_MEMBER;
-      if (position === 3) {
-        task = LEADER;
-      }
       await this.teamModel.create({
         position, // 0 == 신청자, 1 == 팀페이지에서 바로 추가
-        task,
-        user_id: userId,
-        project_id: teamId,
+        task: '',
+        userId,
+        projectId: teamId,
       });
 
       if (position === 0) {
@@ -72,11 +66,11 @@ class TeamRepository {
     }
   };
 
-  deleteTeamMember = async (teamMemberId) => {
+  deleteTeamMember = async (memberId) => {
     try {
       await this.teamModel.destroy({
         where: {
-          id: teamMemberId,
+          id: memberId,
         },
       });
 

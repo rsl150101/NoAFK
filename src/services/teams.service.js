@@ -17,6 +17,22 @@ class TeamService {
     }
   };
 
+  findTeamNameAndStatusByTeamId = async (teamId) => {
+    try {
+      return await this.projectRepository.findTeamNameAndStatusByTeamId(teamId);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  findUserByNickname = async (nickname) => {
+    try {
+      return await this.userRepository.findIdByNickname(nickname);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   addNewMember = async (position, userId, teamId) => {
     try {
       return await this.teamRepository.createTeamMember(
@@ -24,6 +40,14 @@ class TeamService {
         userId,
         teamId
       );
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  updateStatus = async (teamId, status) => {
+    try {
+      return await this.projectRepository.updateStatus(teamId, status);
     } catch (error) {
       throw error;
     }
