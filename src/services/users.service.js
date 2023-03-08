@@ -91,19 +91,19 @@ class UserService {
           id,
           email,
           nickname,
-          auth_level,
-          test_result,
+          authLevel,
+          testResult,
           introduction,
-          expired_at,
+          expiredAt,
         }) => {
           return {
             id,
             email,
             nickname,
-            auth_level,
-            test_result,
+            authLevel,
+            testResult,
             introduction,
-            expired_at,
+            expiredAt,
           };
         }
       );
@@ -125,6 +125,44 @@ class UserService {
   deleteUser = async (userId) => {
     try {
       return await this.userRepository.deleteUser(userId);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  getUsers = async (currentPage, perPage, sfl, stx) => {
+    try {
+      const start = (currentPage - 1) * perPage;
+      const { count, rows } = await this.userRepository.getUsers(
+        start,
+        perPage,
+        sfl,
+        stx
+      );
+
+      const users = rows.map(
+        ({
+          id,
+          email,
+          nickname,
+          authLevel,
+          testResult,
+          introduction,
+          expiredAt,
+        }) => ({
+          id,
+          email,
+          nickname,
+          authLevel,
+          testResult,
+          introduction,
+          expiredAt,
+        })
+      );
+
+      const totalPages = Math.ceil(count / perPage);
+
+      return { users, totalPages, count };
     } catch (error) {
       throw error;
     }
