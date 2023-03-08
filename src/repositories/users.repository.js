@@ -1,4 +1,5 @@
 const { userInfo } = require('os');
+const { Op } = require('sequelize');
 
 class UserRepository {
   constructor(UserModel) {
@@ -76,15 +77,46 @@ class UserRepository {
     }
   };
 
-  getUsers = async (start, perPage) => {
+  getUsers = async (start, perPage, sfl, stx) => {
     try {
-      const users = await this.userModel.findAndCountAll({
-        raw: true,
-        offset: start,
-        limit: perPage,
-      });
+      const isSearchField = sfl !== undefined;
+      const isSFLEmail = sfl === 'user_email';
 
-      return users;
+      if (isSearchField) {
+        if (isSFLEmail) {
+          const users = await this.userModel.findAndCountAll({
+            raw: true,
+            offset: start,
+            limit: perPage,
+            where: {
+              email: {
+                [Op.like]: `%${stx}%`,
+              },
+            },
+          });
+          return users;
+        }
+
+        const users = await this.userModel.findAndCountAll({
+          raw: true,
+          offset: start,
+          limit: perPage,
+          where: {
+            nickname: {
+              [Op.like]: `%${stx}%`,
+            },
+          },
+        });
+        // console.log(users);
+        return users;
+      } else {
+        const users = await this.userModel.findAndCountAll({
+          raw: true,
+          offset: start,
+          limit: perPage,
+        });
+        return users;
+      }
     } catch (error) {
       throw error;
     }
