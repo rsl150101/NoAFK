@@ -7,7 +7,7 @@ class TeamsController {
   projectService = new ProjectService();
   userService = new UserService();
 
-  getTeam = async (req, res, next) => {
+  renderTeamPage = async (req, res, next) => {
     const { teamId } = req.params;
 
     const { teamName, status } =
@@ -19,10 +19,6 @@ class TeamsController {
     }
 
     const memberList = await this.teamService.findAllByTeamId(teamId);
-    for (let member of memberList) {
-      const { nickname } = await this.teamService.findUserById(member.userId);
-      member.nickname = nickname;
-    }
 
     return res.render('myteam', {
       teamName,

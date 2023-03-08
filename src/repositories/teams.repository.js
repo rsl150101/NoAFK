@@ -1,3 +1,5 @@
+const { User } = require('../models');
+
 class TeamRepository {
   constructor(TeamModel) {
     this.teamModel = TeamModel;
@@ -23,6 +25,12 @@ class TeamRepository {
     try {
       return await this.teamModel.findAll({
         where: { projectId: teamId },
+        include: [
+          {
+            model: User,
+            attributes: ['nickname'],
+          },
+        ],
       });
     } catch (error) {
       error.status = 500;

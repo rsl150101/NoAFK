@@ -13,7 +13,7 @@ const projectsController = new ProjectsController();
 router.get('/');
 router.get('/users');
 router.get('/projects', projectsController.renderProjectsPage);
-router.get('/teams');
+router.get('/teams/:teamId', teamsController.renderTeamPage);
 router.get('/adminUser', usersController.renderAdminUserPage);
 
 router.get('/login', notLogin, (req, res) => {
