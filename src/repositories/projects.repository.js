@@ -1,3 +1,6 @@
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+
 class ProjectRepository {
   constructor(ProjectModel) {
     this.projectModel = ProjectModel;
@@ -45,6 +48,31 @@ class ProjectRepository {
       const projects = await this.projectModel.findAll({
         raw: true,
         offset,
+        limit,
+      });
+      return projects;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 커서 기반 상태별 프로젝트 조회
+  findAllCursorBasedProjectsByStatus = async (
+    cursor,
+    status = 0,
+    limit = 3
+  ) => {
+    try {
+      const projects = await this.projectModel.findAll({
+        where: {
+          [Op.and]: {
+            id: { [Op.gt]: cursor },
+            status,
+            deletedAt: { [Op.eq]: null },
+          },
+        },
+        raw: true,
         limit,
       });
       return projects;

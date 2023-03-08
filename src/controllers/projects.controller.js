@@ -1,4 +1,5 @@
 const ProjectService = require('../services/projects.service');
+const url = require('url');
 
 class ProjectsController {
   projectService = new ProjectService();
@@ -52,6 +53,31 @@ class ProjectsController {
       );
 
       return res.status(200).json(projectsAndPage);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  //* /projects 페이지 렌더링
+  renderProjectsPage = async (req, res) => {
+    try {
+      const { pathname } = url.parse(req.url);
+      const { cursor } = req.query;
+      const { nextCursor, page, projects } =
+        await this.projectService.getCursorBasedProjects(pathname, cursor);
+      return res.status(200).render(page, { nextCursor, projects });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  //* 페이지별 커서 기반 전체 프로젝트 조회 및 페이지네이션
+  getCursorBasedProjects = async (req, res) => {
+    try {
+      const { cursor, site } = req.query;
+      const { nextCursor, projects } =
+        await this.projectService.getCursorBasedProjects(site, cursor);
+      return res.status(200).json({ nextCursor, projects });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

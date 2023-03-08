@@ -85,6 +85,51 @@ class ProjectService {
     }
   };
 
+  //* 페이지별 커서 기반 전체 프로젝트 조회 및 페이지네이션
+  getCursorBasedProjects = async (page, cursor) => {
+    try {
+      if (!page) {
+        throw new Error('url이 올바르지 않습니다.');
+      }
+
+      if (!cursor) {
+        cursor = 0;
+      }
+
+      if (page === '/') {
+        page = 'home';
+      }
+
+      page = page.replace('/', '');
+
+      let limit = 3;
+
+      cursor = Number(cursor);
+      let projects;
+      if (page === 'portfolios') {
+        const status = 5;
+        limit = 6;
+        projects =
+          await this.projectRepository.findAllCursorBasedProjectsByStatus(
+            cursor,
+            status,
+            limit
+          );
+      } else if (page === 'home' || page === 'projects') {
+        projects =
+          await this.projectRepository.findAllCursorBasedProjectsByStatus(
+            cursor
+          );
+      } else {
+        throw new Error('url이 올바르지 않습니다.');
+      }
+      const nextCursor = projects.length === limit ? projects.at(-1).id : null;
+      return { nextCursor, page, projects };
+    } catch (error) {
+      throw error;
+    }
+  };
+
   //* 프로젝트 생성
   createProject = async (projectInfo) => {
     try {

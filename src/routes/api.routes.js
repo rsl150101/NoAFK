@@ -26,4 +26,7 @@ router.get(
   apiController.socialLogin
 );
 
+//* 프로젝트 커서 기반 페이지네이션 조회
+router.get('/projects', projectsController.getCursorBasedProjects);
+
 module.exports = router;
