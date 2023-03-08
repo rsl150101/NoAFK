@@ -41,7 +41,6 @@ class ProjectsController {
     try {
       const { id } = req.params;
       const projectInfo = req.body;
-      console.log(projectInfo);
 
       const updateProject = await this.projectService.updateProject(
         id,
@@ -50,7 +49,6 @@ class ProjectsController {
 
       return res.status(200).json(updateProject);
     } catch (error) {
-      console.log(error);
       return res.status(400).json({ message: error.message });
     }
   };
