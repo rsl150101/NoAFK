@@ -1,8 +1,10 @@
 const express = require('express');
 const ApiController = require('../controllers/api.controller');
+const ProjectsController = require('../controllers/projects.controller');
 
 const router = express.Router();
 const apiController = new ApiController();
+const projectsController = new ProjectsController();
 
 // 소셜로그인
 const passport = require('passport');
@@ -10,6 +12,7 @@ const passport = require('passport');
 router.post('/auth/join', apiController.join);
 router.post('/auth/login', apiController.login);
 router.get('/auth/logout', apiController.logout);
+router.get('/projects', projectsController.getProjects);
 
 // 카카오 소셜로그인
 router.get('/auth/kakao', passport.authenticate('kakao'));
