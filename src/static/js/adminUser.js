@@ -16,6 +16,7 @@ function getUserList(page, sfl, stx) {
       return response.json();
     })
     .then(function (res) {
+      document.querySelector('.ov_num').textContent = res.count;
       for (let i = 0; i < res.users.length; i++) {
         const fd = res.users[i];
         const { testResult, expiredAt } = fd;

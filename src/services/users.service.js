@@ -162,7 +162,7 @@ class UserService {
 
       const totalPages = Math.ceil(count / perPage);
 
-      return { users, totalPages };
+      return { users, totalPages, count };
     } catch (error) {
       throw error;
     }
