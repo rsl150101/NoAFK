@@ -1,3 +1,5 @@
+const { userInfo } = require('os');
+
 class UserRepository {
   constructor(UserModel) {
     this.userModel = UserModel;
@@ -5,10 +7,9 @@ class UserRepository {
 
   findByEmail = async (email) => {
     try {
-      const userByEmail = await this.userModel.findAll({
+      return await this.userModel.findAll({
         where: { email },
       });
-      return userByEmail;
     } catch (error) {
       error.status = 500;
       throw error;
@@ -17,27 +18,97 @@ class UserRepository {
 
   findByNickname = async (nickname) => {
     try {
-      const userByNickname = await this.userModel.findAll({
+      return await this.userModel.findAll({
         where: { nickname },
       });
-      return userByNickname;
     } catch (error) {
       error.status = 500;
       throw error;
     }
   };
 
-  createUser = async (email, hashed, nickname) => {
+  findIdByNickname = async (nickname) => {
     try {
-      const userData = await this.userModel.create({
-        email,
-        password: hashed,
-        nickname,
+      return await this.userModel.findOne({
+        attributes: ['id'],
+        where: { nickname },
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  createUser = async (userInfo) => {
+    try {
+      await this.userModel.create({
+        ...userInfo,
       });
 
-      console.log(userData);
+      return { status: 200, message: '회원가입에 성공하였습니다.' };
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
 
-      return userData;
+  getAllUserInfo = async () => {
+    try {
+      const users = await this.userModel.findAll({});
+
+      return users;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 회원 차단
+  blockUser = async (userId) => {
+    try {
+      return await this.userModel.update(
+        { auth_level: 2 }, //* 2 = 차단
+        { where: { id: userId } }
+      );
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //* 회원 삭제
+  deleteUser = async (userId) => {
+    try {
+      return await this.userModel.destroy({
+        where: {
+          id: userId,
+        },
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // 유저아이디로 회원 정보 조회
+  findUserInfoByUserId = async (userId) => {
+    try {
+      return await this.userModel.findAll({
+        where: { id: userId },
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  // refreshToken 저장
+  refreshToken = async (id, refreshToken) => {
+    try {
+      await this.userModel.update(
+        { refreshToken },
+        {
+          where: { id },
+        }
+      );
     } catch (error) {
       error.status = 500;
       throw error;

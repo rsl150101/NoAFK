@@ -17,6 +17,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      team_name: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
       person: {
         allowNull: false,
         type: Sequelize.INTEGER,

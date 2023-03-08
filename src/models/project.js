@@ -22,33 +22,43 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      teamName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      owner: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       person: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      recruit_deadline: {
+      recruitDeadline: {
         type: DataTypes.DATE,
         allowNull: false,
       },
-      project_start: {
+      projectStart: {
         type: DataTypes.DATE,
         allowNull: false,
       },
-      project_end: {
+      projectEnd: {
         type: DataTypes.DATE,
         allowNull: false,
       },
-      tech_stack: {
+      techStack: {
         type: DataTypes.STRING,
         allowNull: true,
       },
       status: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 0,
       },
-      recommend_level: {
+      recommendLevel: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 0,
       },
     },
     {

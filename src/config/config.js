@@ -8,6 +8,12 @@ const development = {
   host: env.MYSQL_AWS_HOST,
   dialect: 'mysql',
   logging: false,
+  timezone: '+09:00',
+  dialectOptions: {
+    charset: 'utf8mb4',
+    dateStrings: true,
+    typeCast: true,
+  },
 };
 const test = {
   username: 'root',

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/myteam.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.3.js"
+      integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+      crossorigin="anonymous"
+    ></script>
+    <title>my team</title>
+  </head>
+  <body>
+    <main id="myteam-main">
+      <section>
+        <div id="myteam-title"><h1>{{teamName}}</h1></div>
+      </section>
+      <section id="myteam__memberList">
+        <table>
+          <thead>
+            <tr>
+              <th>번호</th>
+              <th>이름</th>
+              <th>참가일</th>
+              <th>직책</th>
+              <th>담당업무</th>
+              <th>귓속말</th>
+              <th>설정</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% set position = ['신청자', '팀원', '부리더', '리더'] %} {% for
+            member in memberList %} {% if member.position !== 0 %}
+            <tr id="row-{{member.id}}">
+              <th>{{member.id}}</th>
+              <th>{{member.nickname}}</th>
+              <th>{{member.createdAt}}</th>
+
+              <th
+                class="myteam__memberList__position"
+                data-value="{{member.position}}"
+              >
+                {{position[member.position]}}
+              </th>
+
+              <th class="myteam__memberList__task">{{member.task}}</th>
+              <th><button class="myteam__memberList__chat">귓속말</button></th>
+              <th class="myteam__memberList__config">
+                <div>
+                  <button
+                    class="myteam__memberList__update"
+                    onclick="updateMember({{member.id}})"
+                  >
+                    수정
+                  </button>
+                </div>
+                <div>
+                  <button
+                    class="myteam__memberList__emit"
+                    onclick="emitMember({{member.id}})"
+                  >
+                    방출
+                  </button>
+                </div>
+              </th>
+            </tr>
+            {% endif %} {% endfor %}
+          </tbody>
+        </table>
+      </section>
+      <section id="myteam__searching-new">
+        <div>
+          <input id="inputUserNickname" type="text" /><span>팀원 추가하기</span
+          ><button id="addNewMemberBtn" onclick="addNewMember()">➕</button>
+        </div>
+      </section>
+      <section id="myteam__project-status">
+        <h2 id="myteam__project-status__title">프로젝트 현재 진행 상태</h2>
+        <div id="myteam__project-status__buttons">
+          <button class="status-btn" data-num="0" onclick="updateTeamStatus(0)">
+            모집마감</button
+          ><span class="myteam__project-status__arrow">➡️</span
+          ><button
+            class="status-btn"
+            data-num="1"
+            onclick="updateTeamStatus(1)"
+          >
+            준비</button
+          ><span class="myteam__project-status__arrow">➡️</span
+          ><button
+            class="status-btn"
+            data-num="2"
+            onclick="updateTeamStatus(2)"
+          >
+            진행중</button
+          ><span class="myteam__project-status__arrow">➡️</span
+          ><button
+            class="status-btn"
+            data-num="3"
+            onclick="updateTeamStatus(3)"
+          >
+            테스트</button
+          ><span class="myteam__project-status__arrow">➡️</span
+          ><button
+            class="status-btn"
+            data-num="4"
+            onclick="updateTeamStatus(4)"
+          >
+            프로젝트 종료
+          </button>
+        </div>
+      </section>
+
+      <section id="myteam__project-status__footer">
+        <div>
+          <button id="deleteTeam" onclick="updateTeamStatus(5)">팀 삭제</button>
+          <button>팀 채팅</button>
+        </div>
+      </section>
+    </main>
+    <script>
+      let nowStatus = document.querySelector(
+        '.status-btn[data-num="{{status}}"]'
+      );
+      nowStatus.classList.add('now_team_status');
+    </script>
+    <script src="/js/myteam/teamEditMember.js"></script>
+    <script src="/js/myteam/teamAddNew.js"></script>
+    <script src="/js/myteam/teamUpdateStatus.js"></script>
+    <script src="/js/myteam/teamEmit.js"></script>
+  </body>
+</html>
