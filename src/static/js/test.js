@@ -1,4 +1,4 @@
-function submit() {
+function submit(id) {
   let IE = document.getElementsByName('IE');
   let NS = document.getElementsByName('NS');
   let TF = document.getElementsByName('TF');
@@ -38,23 +38,23 @@ function submit() {
   }
   $('#mbti_progress').append(temp_html);
   if(temp_html) {
-    start(MBTI_RESULT);
+    start(MBTI_RESULT, id);
   }
 }
 
 let i = 0;
-function start(mbti) {
+function start(mbti, id) {
     if (i === 0) {
         i = 1;
         let elem = document.getElementById("progress-bar");
         let width = 0;
-        let id = setInterval(frame, 10);
+        let ide = setInterval(frame, 10);
 
         function frame() {
             if (width === 100) {
                 i = 0;
                 testResult = mbti
-                fetch(`/api/test/:id`, {
+                fetch(`/api/test/${id}`, {
                   method: 'PATCH',
                   headers: {
                     'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ function start(mbti) {
                             <br>
                             <a href="http://localhost:3000"><input type="button" value="다음" /></a>`
                 $('#mbti_result').append(temp_html);
-              clearInterval(id)
+              clearInterval(ide)
             } else {
                 width++;
                 elem.style.width = width + "%";

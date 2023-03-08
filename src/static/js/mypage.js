@@ -1,4 +1,4 @@
-fetch(`/users/:id`)
+fetch(`/users/${id}`)
   .then((response) => response.json())
   .then((data) => {
     const { email, nickname, login_method, test_result, introduction, image, expired_at } = data;
@@ -25,3 +25,34 @@ fetch(`/users/:id`)
                 </div>`
     $('#userInfo').append(temp_html);
   });
+
+
+function updatePassword(id, password) {
+  fetch(`/users/${id}/password`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ password }),
+  });
+}
+
+function updateNickname(id, nickname) {
+  fetch(`/users/${id}/nickname`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ nickname }),
+  });
+}
+
+function updateIntroduction(id, introduction) {
+  fetch(`/users/${id}/introduction`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ introduction }),
+  });
+}
