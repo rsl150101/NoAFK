@@ -46,6 +46,22 @@ class AlreadyApply extends Error {
   }
 }
 
+class RefreshTokenNotFound extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'RefreshTokenNotFound';
+    this.message = '저장된 RefreshToken 과 다릅니다.';
+  }
+}
+
+class TokenExpired extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'TokenExpired';
+    this.message = '만료된 Token 입니다.';
+  }
+}
+
 module.exports = {
   EmailExist,
   NicknameExist,
@@ -53,4 +69,6 @@ module.exports = {
   IncorrectPassword,
   AlreayLogin,
   AlreadyApply,
+  RefreshTokenNotFound,
+  TokenExpired,
 };

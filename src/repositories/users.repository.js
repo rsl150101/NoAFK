@@ -99,6 +99,21 @@ class UserRepository {
       throw error;
     }
   };
+
+  // refreshToken 저장
+  refreshToken = async (id, refreshToken) => {
+    try {
+      await this.userModel.update(
+        { refreshToken },
+        {
+          where: { id },
+        }
+      );
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
 }
 
 module.exports = UserRepository;
