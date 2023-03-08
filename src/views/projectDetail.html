@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="/css/projectDetail.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   </head>
+  <style>
+    li {
+      list-style: none;
+    }
+
+    .after-click {
+      display: none;
+    }
+  </style>
   <body>
     <header id="head">
       <div id="head-top">
@@ -52,7 +61,11 @@
               <h1>프로젝트 '{{project[0].title}}'</h1>
             </div>
             <div class="detail-owner" id="owner">
-              <p>by {{project[0].owner}}</p>
+              <p>
+                by '{{project[0].owner}}' {% if project[0].createdAt ===
+                project[0].updatedAt %} {{project[0].createdAt}} {% else %}
+                {{project[0].updatedAt}} (수정됨) {% endif %}
+              </p>
               <div>
                 {% if project[0].owner === loginUserNickname %}
                 <button id="edit-board-btn" type="button">수정</button>
@@ -66,6 +79,7 @@
                       placeholder="공고 제목을 입력하세요."
                       value="{{project[0].title}}"
                     />
+                    <br />
                     <label for="content">프로젝트 내용</label>
                     <input
                       type="text"
@@ -74,6 +88,7 @@
                       placeholder="공고 내용을 입력하세요."
                       value="{{project[0].content}}"
                     />
+                    <br />
                     <label for="techStack">기술 스택</label>
                     <input
                       type="text"
@@ -98,6 +113,7 @@
                       id="edit-recruitDeadline"
                       value="{{project[0].recruitDeadline}}"
                     />
+                    <br />
                     <label for="projectStart">프로젝트 시작일</label>
                     <input
                       type="datetime-local"
@@ -112,6 +128,7 @@
                       id="edit-projectEnd"
                       value="{{project[0].projectEnd}}"
                     />
+                    <br />
                     <button value="register">등록</button>
                     <button value="cancel">취소</button>
                   </form>
@@ -176,17 +193,32 @@
         >
           {% for comment in comments %}
           <li class="comment-list" id="{{comment.id}}">
-            {{comment.nickname}}
-            <input
-              type="text"
-              id="new-comment"
-              value="{{comment.content}}"
-              required
-            />
-            {{comment.createdAt}} {% if comment.userId === loginUserId %}
-            <button id="edit-comment-btn" type="button">수정</button
-            ><button id="delete-comment-btn" type="button">삭제</button>
-            {% endif %}
+            <div class="container">
+              <div>
+                {{comment.nickname}}
+                <div class="before-click">{{comment.content}}</div>
+                <div class="after-click">
+                  <input
+                    type="text"
+                    id="new-comment"
+                    value="{{comment.content}}"
+                    required
+                  />
+                </div>
+                {% if comment.createdAt === comment.updatedAt %}
+                {{comment.createdAt}} {% else %} {{comment.updatedAt}} (수정됨)
+                {% endif %} {% if comment.userId === loginUserId %}
+                <div class="before-click">
+                  <button id="check-edit-btn" type="button">수정</button>
+                  <button id="delete-comment-btn" type="button">삭제</button>
+                </div>
+                <div class="after-click">
+                  <button id="edit-comment-btn" type="button">등록</button
+                  ><button id="cancel-edit-btn" type="button">취소</button>
+                </div>
+                {% endif %}
+              </div>
+            </div>
           </li>
           {% endfor %}
         </div>
@@ -206,6 +238,10 @@
     const deleteBoardBtn = document.getElementById('delete-board-btn');
     const applyBtn = document.getElementById('apply-btn');
     const logoutBtn = document.getElementById('logout');
+    const checkBtn = document.getElementById('check-edit-btn');
+    const cancelBtn = document.getElementById('cancel-edit-btn');
+    const afterBtn = document.querySelectorAll('.after-click');
+    const beforeBtn = document.querySelectorAll('.before-click');
 
     applyList.forEach((apply) => {
       const acceptBtn = apply.querySelector('#accept-btn');
@@ -249,6 +285,28 @@
     if (deleteBoardBtn) {
       deleteBoardBtn.addEventListener('click', () => {
         deleteBoard();
+      });
+    }
+
+    if (checkBtn) {
+      checkBtn.addEventListener('click', () => {
+        Array.from(afterBtn).forEach((x) => {
+          x.style.display = 'block';
+        });
+        Array.from(beforeBtn).forEach((x) => {
+          x.style.display = 'none';
+        });
+      });
+    }
+
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', () => {
+        Array.from(afterBtn).forEach((x) => {
+          x.style.display = 'none';
+        });
+        Array.from(beforeBtn).forEach((x) => {
+          x.style.display = 'block';
+        });
       });
     }
 
