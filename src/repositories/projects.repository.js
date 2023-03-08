@@ -39,11 +39,10 @@ class ProjectRepository {
     }
   };
 
-  //* 상태에 따른 페이지별 전체 프로젝트 조회
-  findAllByProjectStatus = async (offset, limit, status) => {
+  //* 오프셋 기반 전체 프로젝트 조회
+  findAllOffsetBasedProjects = async (offset, limit) => {
     try {
       const projects = await this.projectModel.findAll({
-        where: { status },
         raw: true,
         offset,
         limit,
@@ -56,13 +55,9 @@ class ProjectRepository {
   };
 
   //* 프로젝트 총 갯수
-  findAllProjectCount = async (status) => {
+  findAllProjectCount = async () => {
     try {
-      const count = await this.projectModel.count({
-        where: {
-          status,
-        },
-      });
+      const count = await this.projectModel.count();
       return count;
     } catch (error) {
       error.status = 500;

@@ -43,18 +43,12 @@ class ProjectsController {
     }
   };
 
-  //* 전체 프로젝트 페이지 렌더링
-  renderProjectsPage = (req, res) => {
-    return res.status(200).render('projects');
-  };
-
-  //* 전체 프로젝트 데이터 조회
-  getProjects = async (req, res) => {
+  //* 오프셋 기반 전체 프로젝트 조회 및 페이지네이션
+  getOffsetBasedProjects = async (req, res) => {
     try {
-      const { page, site } = req.query;
-      const projectsAndPage = await this.projectService.getProjects(
-        Number(page),
-        site
+      const { page } = req.query;
+      const projectsAndPage = await this.projectService.getOffsetBasedProjects(
+        Number(page)
       );
 
       return res.status(200).json(projectsAndPage);
