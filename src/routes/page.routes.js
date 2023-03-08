@@ -11,11 +11,15 @@ const teamsController = new TeamsController();
 const projectsController = new ProjectsController();
 
 router.get('/');
-router.get('/users');
 router.get('/projects', projectsController.renderProjectsPage);
 router.get('/teams');
 router.get('/adminUser', usersController.renderAdminUserPage);
-
+router.get('/test', (req, res) => {
+  return res.status(200).render('test');
+});
+router.get('/mypage', (req, res) => {
+  return res.status(200).render('mypage');
+});
 router.get('/login', notLogin, (req, res) => {
   if (res.locals.user) {
     const error = new AlreayLogin();

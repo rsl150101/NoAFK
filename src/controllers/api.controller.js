@@ -69,10 +69,15 @@ class ApiController {
     try {
       const { id } = req.params;
       const { testResult } = req.body;
+      // MBTI 결과가 존재할 경우 에러 발생. 중복 검사 방지
+      if (testResult.length === 4) {
+        throw error;
+      }
       await this.userService.test(id, testResult);
 
       return res.status(200).json({ message: "검사결과가 저장되었습니다." });
     } catch (error) {
+      return res.status(400).json({ errorMessage: '테스트 결과 저장 실패.' });
     }
   }
 }

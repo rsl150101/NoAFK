@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>noAFK | 마이페이지</title>
-    <link rel="stylesheet" href="../static/css/mypage.css">
+    <link rel="stylesheet" href="/./css/mypage.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   </head>
   <body>
@@ -30,26 +30,7 @@
     </header>
 
     <div id="info">
-      <div id="userInfo">
-        <div id="userInfoContent">
-          프로필사진: {image}
-          <br>
-          <br>
-          email: {email}
-          <br>
-          <br>
-          nickname: {nickname}
-          <br>
-          <br>
-          로그인방법: {loginMethod}
-          <br>
-          <br>
-          MBTI: {mbti}
-          <br>
-          <br>
-          프리미엄 회원 만료일: {expiredAt}
-        </div>
-      </div>
+      <div id="userInfo"></div>
       <div id="projectInfo">
         <div id="projectInfoContent">
           <table class="projectTable">
@@ -68,15 +49,15 @@
             </thead>
             <tbody id="projectContent">
               <tr>
-                <td>${projectName}</td>
-                <td>${projectContent}</td>
-                <td>${teamName}</td>
-                <td>${teamLeader}</td>
-                <td>${peopleNumber}</td>
-                <td>${techStack}</td>
-                <td>${projectStart}</td>
-                <td>${projectEnd}</td>
-                <td>${projectTime}</td>
+                <td>{{projectName}}</td>
+                <td>{{projectContent}}</td>
+                <td>{{teamName}}</td>
+                <td>{{teamLeader}}</td>
+                <td>{{peopleNumber}}</td>
+                <td>{{techStack}}</td>
+                <td>{{projectStart}}</td>
+                <td>{{projectEnd}}</td>
+                <td>{{projectTime}}</td>
               </tr>
             </tbody>
           </table>
@@ -86,5 +67,5 @@
   </body>
 
 
-  <script src="../static/js/mypage.js"></script>
+  <script src="/./js/mypage.js"></script>
 </html>

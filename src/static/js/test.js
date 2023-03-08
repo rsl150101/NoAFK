@@ -53,11 +53,19 @@ function start(mbti) {
         function frame() {
             if (width === 100) {
                 i = 0;
+                testResult = mbti
+                fetch(`/api/test/:id`, {
+                  method: 'PATCH',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ testResult }),
+                });
                 temp_html = `<div>
                               MBTI 결과는 ${mbti} 입니다.
                             </div>
                             <br>
-                            <a href="#"><input type="button" value="다음" /><a>`
+                            <a href="http://localhost:3000"><input type="button" value="다음" /></a>`
                 $('#mbti_result').append(temp_html);
               clearInterval(id)
             } else {
