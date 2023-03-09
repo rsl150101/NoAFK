@@ -73,6 +73,40 @@ class TeamsController {
 
     return res.status(200).json({ deletedMember });
   };
+
+  // 모집공고 참가 신청
+  apply = async (req, res) => {
+    try {
+      const { projectId } = req.params;
+
+      if (!res.locals.user) {
+        return res.render('login.html');
+      }
+      const userId = res.locals.user.id;
+
+      await this.teamService.apply(projectId, userId);
+
+      return res.status(200).json({ message: '참가 신청 완료!' });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  };
+
+  // 모집공고 신청 수락
+  acceptApply = async (req, res) => {
+    try {
+      const { projectId, userId } = req.params;
+
+      const acceptResult = await this.teamService.acceptApply(
+        projectId,
+        userId
+      );
+
+      return res.status(200).json(acceptResult);
+    } catch (error) {
+      res.status(400).json({ errorMessage: error.message });
+    }
+  };
 }
 
 module.exports = TeamsController;
