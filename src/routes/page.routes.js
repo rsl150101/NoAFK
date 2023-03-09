@@ -16,24 +16,7 @@ router.get('/projects', projectsController.renderProjectsPage);
 router.get('/teams/:teamId', teamsController.renderTeamPage);
 router.get('/adminUser', usersController.renderAdminUserPage);
 
-router.get('/login', notLogin, (req, res) => {
-  if (res.locals.user) {
-    const error = new AlreayLogin();
-    return res.status(403).json({ message: error.message });
-  }
-  res.render('login.html');
-});
-
-router.get('/join', notLogin, (req, res) => {
-  if (res.locals.user) {
-    const error = new AlreayLogin();
-    return res.status(403).json({ message: error.message });
-  }
-  res.render('join.html');
-});
-
-router.get('/project', (req, res) => {
-  res.render('projectDetail.html');
-});
+router.get('/login', checkToken, apiController.renderLoginPage);
+router.get('/join', checkToken, apiController.renderJoinPage);
 
 module.exports = router;
