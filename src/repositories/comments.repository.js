@@ -7,8 +7,8 @@ class CommentRepository {
     try {
       await this.commentModel.create({
         content,
-        user_id: userId,
-        project_id: id,
+        userId,
+        projectId: id,
       });
       return { message: '댓글 작성 성공!' };
     } catch (error) {
@@ -19,7 +19,7 @@ class CommentRepository {
   findCommentsByProjectId = async (id) => {
     try {
       return await this.commentModel.findAll({
-        where: { project_id: id },
+        where: { projectId: id },
       });
     } catch (error) {
       throw error;
@@ -29,7 +29,7 @@ class CommentRepository {
   updateComment = async (commentId, content, projectId) => {
     try {
       await this.commentModel.update(content, {
-        where: { id: commentId, project_id: projectId },
+        where: { id: commentId, projectId },
       });
       return { message: '댓글 수정 성공!' };
     } catch (error) {
@@ -40,7 +40,7 @@ class CommentRepository {
   deleteComment = async (projectId, commentId) => {
     try {
       return await this.commentModel.destroy({
-        where: { id: commentId, project_id: projectId },
+        where: { id: commentId, projectId },
       });
     } catch (error) {
       throw error;

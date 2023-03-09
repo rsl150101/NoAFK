@@ -4,8 +4,8 @@
 function addNewMember() {
   const inputUserNickname = document.querySelector('#inputUserNickname');
   const nickname = inputUserNickname.value;
-  inputUserNickname.value = '';
   const position = 1;
+  inputUserNickname.value = '';
 
   fetch(url, {
     method: 'POST',
@@ -19,7 +19,7 @@ function addNewMember() {
   })
     .then((response) => response.json())
     .then((data) => {
-      alert(data.newMember.message);
+      alert(data.message);
       location.reload();
     });
 }
