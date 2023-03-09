@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
   <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <title>noAFK | 회원관리</title>
     <link rel="stylesheet" href="css/admin.css" />
   </head>
@@ -104,41 +102,33 @@
       </div>
     </div>
     <script>
-      $(document).ready(function () {
-        getUserList();
-      });
+      (async function () {
+        await getUserList();
+      })();
 
       function getUserList() {
-        $.ajax({
-          type: 'GET',
-          url: '/users',
-          data: {},
-          success: function (response) {
-            let allUserCount = response.length;
-            $('.ov_num').append(allUserCount);
-            for (let i = 0; i < response.length; i++) {
-              const fd = response[i];
+        fetch('/users')
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (res) {
+            document.querySelector('.ov_num').textContent = res.length;
+            for (let i = 0; i < res.length; i++) {
+              const fd = res[i];
               const { test_result, expired_at } = fd;
-              const isTestNotComplete = test_result === 0; //추후 DB 데이터유형 int => string 변경
+              const isTestNotComplete = test_result === 0;
               const isExpired = expired_at !== null;
-              if (isTestNotComplete && !isExpired) {
-                Object.assign(fd, {
-                  test_result: '미완료',
-                  expired_at: '미완료',
-                });
-                appendTempHtml({ ...fd });
-              } else if (!isTestNotComplete && !isExpired) {
-                Object.assign(fd, { expired_at: '미완료' });
-                appendTempHtml({ ...fd });
-              } else if (isTestNotComplete && isExpired) {
-                Object.assign(fd, { test_result: '미완료' });
-                appendTempHtml({ ...fd });
-              } else {
-                appendTempHtml({ ...fd });
+              if (isTestNotComplete) {
+                fd.test_result = '미완료';
+                if (!isExpired) {
+                  fd.expired_at = '미완료';
+                }
+              } else if (!isExpired) {
+                fd.expired_at = '미완료';
               }
+              appendTempHtml({ ...fd });
             }
-          },
-        });
+          });
       }
 
       function appendTempHtml({ ...fd }) {
@@ -171,31 +161,29 @@
                             <a class="btn btn_02" onclick="deleteUser(${fd.id})">삭제</a>
                           </td>
                         </tr>`;
-        $('#usersList').append(temp_html);
+        document.getElementById('usersList').innerHTML += temp_html;
       }
 
       function blockUser(id) {
-        $.ajax({
-          type: 'PATCH',
-          url: `/users/${id}`,
-          data: {},
-          success: function (response) {
-            alert(response['message']);
+        fetch(`/users/${id}`, {
+          method: 'PATCH',
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            alert(data.message);
             location.reload();
-          },
-        });
+          });
       }
 
       function deleteUser(id) {
-        $.ajax({
-          type: 'DELETE',
-          url: `/users/${id}`,
-          data: {},
-          success: function (response) {
-            alert(response['message']);
+        fetch(`/users/${id}`, {
+          method: 'DELETE',
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            alert(data.message);
             location.reload();
-          },
-        });
+          });
       }
     </script>
   </body>
