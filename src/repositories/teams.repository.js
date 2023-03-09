@@ -1,3 +1,5 @@
+const { User } = require('../models');
+
 class TeamRepository {
   constructor(TeamModel) {
     this.teamModel = TeamModel;
@@ -23,6 +25,12 @@ class TeamRepository {
     try {
       return await this.teamModel.findAll({
         where: { projectId: teamId },
+        include: [
+          {
+            model: User,
+            attributes: ['nickname'],
+          },
+        ],
       });
     } catch (error) {
       error.status = 500;
@@ -34,7 +42,6 @@ class TeamRepository {
     try {
       await this.teamModel.create({
         position, // 0 == 신청자, 1 == 팀페이지에서 바로 추가
-        task: '',
         userId,
         projectId: teamId,
       });

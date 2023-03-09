@@ -7,7 +7,7 @@ class TeamsController {
   projectService = new ProjectService();
   userService = new UserService();
 
-  getTeam = async (req, res, next) => {
+  renderTeamPage = async (req, res, next) => {
     const { teamId } = req.params;
 
     const { teamName, status } =
@@ -19,9 +19,7 @@ class TeamsController {
     }
 
     const memberList = await this.teamService.findAllByTeamId(teamId);
-    await memberList.map((member) => {
-      member.nickname = this.teamService.findUserByNickname(member.userId);
-    });
+
     return res.render('myteam', {
       teamName,
       status,
@@ -52,7 +50,7 @@ class TeamsController {
       status
     );
 
-    return res.status(200).json({ updatedTeamStatus }); // 임시구현
+    return res.status(200).json({ updatedTeamStatus });
   };
 
   updateTeamMember = async (req, res, next) => {

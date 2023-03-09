@@ -39,6 +39,18 @@ class UserRepository {
     }
   };
 
+  findNicknameById = async (id) => {
+    try {
+      return await this.userModel.findOne({
+        attributes: ['nickname'],
+        where: { id },
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
   createUser = async (userInfo) => {
     try {
       await this.userModel.create({
