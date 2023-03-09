@@ -12,7 +12,6 @@ const passport = require('passport');
 router.post('/auth/join', apiController.join);
 router.post('/auth/login', apiController.login);
 router.get('/auth/logout', apiController.logout);
-router.get('/projects', projectsController.getProjects);
 
 // 카카오 소셜로그인
 router.get('/auth/kakao', passport.authenticate('kakao'));
@@ -26,5 +25,8 @@ router.get(
   // kakaoStrategy에서 성공한다면 콜백 실행
   apiController.socialLogin
 );
+
+//* 프로젝트 커서 기반 페이지네이션 조회
+router.get('/projects', projectsController.getCursorBasedProjects);
 
 module.exports = router;

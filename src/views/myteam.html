@@ -35,19 +35,16 @@
             member in memberList %} {% if member.position !== 0 %}
             <tr id="row-{{member.id}}">
               <th>{{member.id}}</th>
-              <th>{{member.nickname}}</th>
+              <th>{{member.User.nickname}}</th>
               <th>{{member.createdAt}}</th>
 
-              <th
-                class="myteam__memberList__position"
-                data-value="{{member.position}}"
-              >
+              <th id="position-{{member.id}}" data-value="{{member.position}}">
                 {{position[member.position]}}
               </th>
 
-              <th class="myteam__memberList__task">{{member.task}}</th>
-              <th><button class="myteam__memberList__chat">귓속말</button></th>
-              <th class="myteam__memberList__config">
+              <th id="task-{{member.id}}">{{member.task}}</th>
+              <th><button id="chat-{{member.id}}">귓속말</button></th>
+              <th id="config-{{member.id}}">
                 <div>
                   <button
                     class="myteam__memberList__update"

@@ -5,9 +5,6 @@ const router = express.Router();
 const teamsController = new TeamsController();
 
 // teamId == projectId
-// 팀 조회: 팀 이름, 팀 상태, 팀원 목록
-router.get('/:teamId', teamsController.getTeam);
-
 // 팀멤버 추가: 1.팀페이지 => position == 1, 2.모집페이지(팀합류신청) => position == 0
 router.post('/:teamId', teamsController.postTeamMember);
 

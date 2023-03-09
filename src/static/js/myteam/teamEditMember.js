@@ -1,16 +1,10 @@
-const url = window.location.pathname;
+const url = location.pathname;
 
 // 수정할 내용 입력
 function updateMember(memberId) {
-  const thPosition = document.querySelector(
-    `#row-${memberId} > .myteam__memberList__position`
-  );
-  const thTask = document.querySelector(
-    `#row-${memberId} > .myteam__memberList__task`
-  );
-  const thConfig = document.querySelector(
-    `#row-${memberId} > .myteam__memberList__config`
-  );
+  const thPosition = document.querySelector(`#position-${memberId}`);
+  const thTask = document.querySelector(`#task-${memberId}`);
+  const thConfig = document.querySelector(`#config-${memberId}`);
 
   // 직책 - select 태그 조작
   const positionDataValue = thPosition.dataset.value;
@@ -27,9 +21,6 @@ function updateMember(memberId) {
 
   // 담당업무 - input 태그 조작
   let thTaskValue = thTask.textContent;
-  if (thTaskValue === undefined) {
-    thTaskValue = '';
-  }
   thTask.innerHTML = `<input type='text' value='${thTaskValue}'/>`;
 
   // 설정: 수정버튼 > 적용버튼

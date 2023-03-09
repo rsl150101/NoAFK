@@ -34,37 +34,18 @@ class ProjectService {
     }
   };
 
-  //* 전체 프로젝트 조회 및 페이지별 페이지네이션
-  getProjects = async (page, site) => {
-    if (!page || !site) {
-      throw new Error('page 또는 site 가 정의되지 않았습니다.');
+  //* 오프셋 기반 전체 프로젝트 조회 및 페이지네이션
+  getOffsetBasedProjects = async (page) => {
+    if (!page) {
+      page = 1;
     }
     try {
-      let limit;
-      let status = 0;
-      switch (site) {
-        case 'home':
-          limit = 6;
-          break;
-
-        case 'notices':
-          limit = 3;
-          break;
-
-        case 'projects':
-          limit = 5;
-          status = 5;
-          break;
-
-        case 'admin':
-          limit = 10;
-          break;
-      }
+      const limit = 10;
 
       //todo <김우중> <2023.03.05> : 추후에 홈페이지에서 get 요청 올시 가져오는 데이터 수정 필요, 페이지네이션 이전, 다음 버튼 서버에서 처리 필요
 
-      //+ 상태에 따른 프로젝트 총 갯수 가져오기
-      const total = await this.projectRepository.findAllProjectCount(status);
+      //+ 프로젝트 총 갯수 가져오기
+      const total = await this.projectRepository.findAllProjectCount();
 
       const totalPage = Math.ceil(total / limit);
 
@@ -91,15 +72,59 @@ class ProjectService {
       const offset = (page - 1) * limit;
 
       //+ 해당 status 와 limit 갯수만큼 프로젝트들 조회
-      const projects = await this.projectRepository.findAllByProjectStatus(
+      const projects = await this.projectRepository.findAllOffsetBasedProjects(
         offset,
-        limit,
-        status
+        limit
       );
 
       const pageInfo = { pageArr, totalPage };
 
       return { pageInfo, projects };
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //* 페이지별 커서 기반 전체 프로젝트 조회 및 페이지네이션
+  getCursorBasedProjects = async (page, cursor) => {
+    try {
+      if (!page) {
+        throw new Error('url이 올바르지 않습니다.');
+      }
+
+      if (!cursor) {
+        cursor = 0;
+      }
+
+      if (page === '/') {
+        page = 'home';
+      }
+
+      page = page.replace('/', '');
+
+      let limit = 3;
+
+      cursor = Number(cursor);
+      let projects;
+      if (page === 'portfolios') {
+        const status = 5;
+        limit = 6;
+        projects =
+          await this.projectRepository.findAllCursorBasedProjectsByStatus(
+            cursor,
+            status,
+            limit
+          );
+      } else if (page === 'home' || page === 'projects') {
+        projects =
+          await this.projectRepository.findAllCursorBasedProjectsByStatus(
+            cursor
+          );
+      } else {
+        throw new Error('url이 올바르지 않습니다.');
+      }
+      const nextCursor = projects.length === limit ? projects.at(-1).id : null;
+      return { nextCursor, page, projects };
     } catch (error) {
       throw error;
     }
