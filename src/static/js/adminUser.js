@@ -1,10 +1,17 @@
 (function () {
   const page = new URLSearchParams(location.search).get('page') || 1;
-  getUserList(page);
+  const sfl = new URLSearchParams(location.search).get('sfl');
+  const stx = new URLSearchParams(location.search).get('stx');
+  getUserList(page, sfl, stx);
 })();
 
-function getUserList(page) {
-  fetch(`/users/page?page=${page}`)
+function getUserList(page, sfl, stx) {
+  const isSearchParams = stx ? `${sfl}=${stx}` : null;
+  let endPoint = `/users/page?page=${page}`;
+  if (isSearchParams) {
+    endPoint = `/users/page?page=${page}&sfl=${sfl}&stx=${stx}`;
+  }
+  fetch(endPoint)
     .then(function (response) {
       return response.json();
     })
@@ -41,9 +48,15 @@ function getUserList(page) {
 
       // 페이지 그룹의 마지막 페이지까지 페이지 숫자 렌더링 하기
       for (let i = 1; i <= totalPages; i++) {
-        pages.push(
-          `<li class="page-item"><a class="page-link" href='?page=${i}'>${i}</a></li>`
-        );
+        if (isSearchParams) {
+          pages.push(
+            `<li class="page-item"><a class="page-link" href='?page=${i}&sfl=${sfl}&stx=${stx}'>${i}</a></li>`
+          );
+        } else {
+          pages.push(
+            `<li class="page-item"><a class="page-link" href='?page=${i}'>${i}</a></li>`
+          );
+        }
       }
 
       // 페이지 그룹의 마지막 페이지가 총 마지막 페이지보다 작을 때 다음 화살 만들기
