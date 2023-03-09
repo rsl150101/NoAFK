@@ -1,3 +1,6 @@
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+
 class ProjectRepository {
   constructor(ProjectModel) {
     this.projectModel = ProjectModel;
@@ -39,11 +42,10 @@ class ProjectRepository {
     }
   };
 
-  //* 상태에 따른 페이지별 전체 프로젝트 조회
-  findAllByProjectStatus = async (offset, limit, status) => {
+  //* 오프셋 기반 전체 프로젝트 조회
+  findAllOffsetBasedProjects = async (offset, limit) => {
     try {
       const projects = await this.projectModel.findAll({
-        where: { status },
         raw: true,
         offset,
         limit,
@@ -55,14 +57,35 @@ class ProjectRepository {
     }
   };
 
-  //* 프로젝트 총 갯수
-  findAllProjectCount = async (status) => {
+  //* 커서 기반 상태별 프로젝트 조회
+  findAllCursorBasedProjectsByStatus = async (
+    cursor,
+    status = 0,
+    limit = 3
+  ) => {
     try {
-      const count = await this.projectModel.count({
+      const projects = await this.projectModel.findAll({
         where: {
-          status,
+          [Op.and]: {
+            id: { [Op.gt]: cursor },
+            status,
+            deletedAt: { [Op.eq]: null },
+          },
         },
+        raw: true,
+        limit,
       });
+      return projects;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 프로젝트 총 갯수
+  findAllProjectCount = async () => {
+    try {
+      const count = await this.projectModel.count();
       return count;
     } catch (error) {
       error.status = 500;

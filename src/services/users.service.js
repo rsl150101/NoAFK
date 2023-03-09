@@ -127,19 +127,19 @@ class UserService {
           id,
           email,
           nickname,
-          auth_level,
-          test_result,
+          authLevel,
+          testResult,
           introduction,
-          expired_at,
+          expiredAt,
         }) => {
           return {
             id,
             email,
             nickname,
-            auth_level,
-            test_result,
+            authLevel,
+            testResult,
             introduction,
-            expired_at,
+            expiredAt,
           };
         }
       );
@@ -215,10 +215,50 @@ class UserService {
     }
   };
 
+
   //* 검사결과 저장
   test = async (id, testResult) => {
     try {
       return await this.userRepository.test(id, testResult);
+    } catch (error) {
+      throw error
+    }
+  };
+
+  //Todo <장빈> [임시] 회원관리 페이지 페이지네이션
+  getUsers = async (currentPage, perPage, sfl, stx) => {
+    try {
+      const start = (currentPage - 1) * perPage;
+      const { count, rows } = await this.userRepository.getUsers(
+        start,
+        perPage,
+        sfl,
+        stx
+      );
+
+      const users = rows.map(
+        ({
+          id,
+          email,
+          nickname,
+          authLevel,
+          testResult,
+          introduction,
+          expiredAt,
+        }) => ({
+          id,
+          email,
+          nickname,
+          authLevel,
+          testResult,
+          introduction,
+          expiredAt,
+        })
+      );
+
+      const totalPages = Math.ceil(count / perPage);
+
+      return { users, totalPages, count };
     } catch (error) {
       throw error;
     }
