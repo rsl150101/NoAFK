@@ -1,16 +1,38 @@
 const ProjectService = require('../services/projects.service');
+const CommentService = require('../services/comments.service');
+const TeamService = require('../services/teams.service');
 const url = require('url');
 
 class ProjectsController {
   projectService = new ProjectService();
+  commentService = new CommentService();
+  teamService = new TeamService();
 
   getProject = async (req, res) => {
     try {
       const { id } = req.params;
+      let loginUserId = null;
+      let loginUserNickname = null;
+
+      if (res.locals.user) {
+        const { id, nickname } = res.locals.user;
+        loginUserId = id;
+        loginUserNickname = nickname;
+      }
 
       const project = await this.projectService.findProjectById(id);
+      const { comments } = await this.commentService.findCommentsByProjectId(
+        id
+      );
+      const applyUsers = await this.teamService.findApplysByProjectId(id);
 
-      return res.status(200).json(project);
+      return res.render('projectDetail.html', {
+        project,
+        comments,
+        loginUserId,
+        loginUserNickname,
+        applyUsers,
+      });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }

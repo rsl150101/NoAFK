@@ -39,6 +39,18 @@ class UserRepository {
     }
   };
 
+  findNicknameById = async (id) => {
+    try {
+      return await this.userModel.findOne({
+        attributes: ['nickname'],
+        where: { id },
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
   createUser = async (userInfo) => {
     try {
       await this.userModel.create({
@@ -84,6 +96,33 @@ class UserRepository {
         },
       });
     } catch (error) {
+      throw error;
+    }
+  };
+
+  // 유저아이디로 회원 정보 조회
+  findUserInfoByUserId = async (userId) => {
+    try {
+      return await this.userModel.findAll({
+        where: { id: userId },
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  // refreshToken 저장
+  refreshToken = async (id, refreshToken) => {
+    try {
+      await this.userModel.update(
+        { refreshToken },
+        {
+          where: { id },
+        }
+      );
+    } catch (error) {
+      error.status = 500;
       throw error;
     }
   };
