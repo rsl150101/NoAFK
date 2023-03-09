@@ -1,8 +1,10 @@
 const CommentRepository = require('../repositories/comments.repository');
-const { Comment } = require('../models');
+const UserRepository = require('../repositories/users.repository');
+const { Comment, User } = require('../models');
 
 class CommentService {
   commentsRepository = new CommentRepository(Comment);
+  userRepository = new UserRepository(User);
 
   createComment = async (id, userId, content) => {
     try {
@@ -14,7 +16,19 @@ class CommentService {
 
   findCommentsByProjectId = async (id) => {
     try {
-      return await this.commentsRepository.findCommentsByProjectId(id);
+      const comments = await this.commentsRepository.findCommentsByProjectId(
+        id
+      );
+
+      await Promise.all(
+        comments.map(async (comment) => {
+          const userId = comment.userId;
+          const user = await this.userRepository.findUserInfoByUserId(userId);
+          return (comment.nickname = user[0].nickname);
+        })
+      );
+
+      return { comments };
     } catch (error) {
       throw error;
     }

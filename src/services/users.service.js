@@ -72,11 +72,46 @@ class UserService {
         },
         process.env.KAKAO_SECRET,
         {
-          expiresIn: '1d',
+          expiresIn: '2h',
         }
       );
 
-      return { status: 200, accessToken };
+      // refresh token
+      const refreshToken = jwt.sign({ id }, process.env.KAKAO_SECRET, {
+        expiresIn: '14d',
+      });
+
+      await this.userRepository.refreshToken(id, refreshToken);
+
+      return { accessToken, refreshToken };
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  socialLogin = async (id, email, nickname) => {
+    try {
+      // access token
+      const accessToken = jwt.sign(
+        {
+          id,
+          email,
+          nickname,
+        },
+        process.env.KAKAO_SECRET,
+        {
+          expiresIn: '2h',
+        }
+      );
+
+      // refresh token
+      const refreshToken = jwt.sign({ id }, process.env.KAKAO_SECRET, {
+        expiresIn: '14d',
+      });
+
+      await this.userRepository.refreshToken(id, refreshToken);
+
+      return { accessToken, refreshToken };
     } catch (error) {
       throw error;
     }
@@ -130,6 +165,7 @@ class UserService {
     }
   };
 
+  //Todo <장빈> [임시] 회원관리 페이지 페이지네이션
   getUsers = async (currentPage, perPage, sfl, stx) => {
     try {
       const start = (currentPage - 1) * perPage;

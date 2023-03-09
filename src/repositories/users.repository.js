@@ -28,6 +28,30 @@ class UserRepository {
     }
   };
 
+  findIdByNickname = async (nickname) => {
+    try {
+      return await this.userModel.findOne({
+        attributes: ['id'],
+        where: { nickname },
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  findNicknameById = async (id) => {
+    try {
+      return await this.userModel.findOne({
+        attributes: ['nickname'],
+        where: { id },
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
   createUser = async (userInfo) => {
     try {
       await this.userModel.create({
@@ -77,6 +101,34 @@ class UserRepository {
     }
   };
 
+  // 유저아이디로 회원 정보 조회
+  findUserInfoByUserId = async (userId) => {
+    try {
+      return await this.userModel.findAll({
+        where: { id: userId },
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  // refreshToken 저장
+  refreshToken = async (id, refreshToken) => {
+    try {
+      await this.userModel.update(
+        { refreshToken },
+        {
+          where: { id },
+        }
+      );
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //Todo <장빈> [임시] 회원관리 페이지 페이지네이션
   getUsers = async (start, perPage, sfl, stx) => {
     try {
       const isSearchField = sfl !== undefined;
@@ -108,7 +160,6 @@ class UserRepository {
             },
           },
         });
-
         return users;
       } else {
         const users = await this.userModel.findAndCountAll({

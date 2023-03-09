@@ -7,7 +7,11 @@ class CommentsController {
     try {
       const { id } = req.params;
       const { content } = req.body;
-      const userId = 5; // 임시 Todo <정지우> 미들웨어사용
+
+      if (!res.locals.user) {
+        return res.render('login.html');
+      }
+      const userId = res.locals.user.id;
 
       const comment = await this.commentService.createComment(
         id,
