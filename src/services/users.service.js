@@ -164,6 +164,42 @@ class UserService {
       throw error;
     }
   };
+
+  getUsers = async (currentPage, perPage) => {
+    try {
+      const start = (currentPage - 1) * perPage;
+      const { count, rows } = await this.userRepository.getUsers(
+        start,
+        perPage
+      );
+
+      const users = rows.map(
+        ({
+          id,
+          email,
+          nickname,
+          authLevel,
+          testResult,
+          introduction,
+          expiredAt,
+        }) => ({
+          id,
+          email,
+          nickname,
+          authLevel,
+          testResult,
+          introduction,
+          expiredAt,
+        })
+      );
+
+      const totalPages = Math.ceil(count / perPage);
+
+      return { users, totalPages };
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = UserService;

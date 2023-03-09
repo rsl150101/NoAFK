@@ -44,6 +44,22 @@ class UsersController {
       return res.status(400).json({ message: error.message });
     }
   };
+
+  getUserList = async (req, res, next) => {
+    try {
+      const currentPage = parseInt(req.query.page, 10) || 1;
+      const perPage = parseInt(req.query.perPage, 10) || 10;
+
+      const { users, totalPages } = await this.userService.getUsers(
+        currentPage,
+        perPage
+      );
+
+      res.status(200).json({ users, currentPage, totalPages });
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  };
 }
 
 module.exports = UsersController;
