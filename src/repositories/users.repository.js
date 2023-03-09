@@ -145,6 +145,7 @@ class UserRepository {
               },
             },
           });
+
           return users;
         }
 
@@ -165,6 +166,7 @@ class UserRepository {
           offset: start,
           limit: perPage,
         });
+
         return users;
       }
     } catch (error) {
