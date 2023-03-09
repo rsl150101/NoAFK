@@ -124,6 +124,7 @@ class UserRepository {
       );
     } catch (error) {
       error.status = 500;
+      throw error;
     }
   };
 
