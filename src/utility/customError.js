@@ -38,10 +38,37 @@ class AlreayLogin extends Error {
   }
 }
 
+class AlreadyApply extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'AlreadyApply';
+    this.message = '이미 신청했습니다.';
+  }
+}
+
+class RefreshTokenNotFound extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'RefreshTokenNotFound';
+    this.message = '저장된 RefreshToken 과 다릅니다.';
+  }
+}
+
+class TokenExpired extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'TokenExpired';
+    this.message = '만료된 Token 입니다.';
+  }
+}
+
 module.exports = {
   EmailExist,
   NicknameExist,
   UserNotFound,
   IncorrectPassword,
   AlreayLogin,
+  AlreadyApply,
+  RefreshTokenNotFound,
+  TokenExpired,
 };
