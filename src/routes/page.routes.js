@@ -12,29 +12,15 @@ const teamsController = new TeamsController();
 const projectsController = new ProjectsController();
 
 router.get('/');
+router.get('/users');
 router.get('/projects', projectsController.renderProjectsPage);
 router.get('/teams/:teamId', teamsController.renderTeamPage);
 router.get('/adminUser', usersController.renderAdminUserPage);
-router.get('/test', (req, res) => {
-  return res.status(200).render('test');
-});
-router.get('/mypage', (req, res) => {
-  return res.status(200).render('mypage');
-});
-router.get('/login', notLogin, (req, res) => {
-  if (res.locals.user) {
-    const error = new AlreayLogin();
-    return res.status(403).json({ message: error.message });
-  }
-  res.render('login.html');
-});
-router.get('/join', notLogin, (req, res) => {
-  if (res.locals.user) {
-    const error = new AlreayLogin();
-    return res.status(403).json({ message: error.message });
-  }
-  res.render('join.html');
-});
+router.get('/login', checkToken, apiController.renderLoginPage);
+router.get('/join', checkToken, apiController.renderJoinPage);
+router.get('/test', apiController.renderTestPage);
+router.get('/mypage', usersController.renderMypage);
+
 router.get('/project', (req, res) => {
   res.render('projectDetail.html');
 });

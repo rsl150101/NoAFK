@@ -26,6 +26,19 @@ fetch(`/users/${id}`)
     $('#userInfo').append(temp_html);
   });
 
+fetch(`/projects/${id}/project`)
+  .then((response) => response.json())
+  .then((data) => {
+    for (let i = 0; i < data.length; i++) {
+      const { Project, position } = data[i];
+      let temp_html = `<tr>
+                        <td>${ Project.title }</td>
+                        <td>${ Project.content }</td>
+                        <td>${ position }</td>
+                      </tr>`
+      $('#projectContent').append(temp_html);
+    }
+  })  
 
 function updatePassword(id, password) {
   fetch(`/users/${id}/password`, {

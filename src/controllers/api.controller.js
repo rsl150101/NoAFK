@@ -105,6 +105,11 @@ class ApiController {
     }
     return res.status(200).render('join.html');
   };
+
+  // 검사 페이지
+  renderTestPage = (req, res) => {
+    return res.status(200).render('test');
+  };
 }
 
 module.exports = ApiController;

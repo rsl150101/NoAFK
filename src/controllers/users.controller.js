@@ -98,6 +98,11 @@ class UsersController {
       return res.status(400).json({ message: error.message });
     }
   };
+
+  // 마이페이지
+  renderMypage = (req, res) => {
+    return res.status(200).render('mypage');
+  }
 }
 
 module.exports = UsersController;

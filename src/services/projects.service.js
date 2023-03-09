@@ -117,11 +117,9 @@ class ProjectService {
   //* 해당 유저의 프로젝트 보기
   findProjectByUser = async (id) => {
     try {
-      const projectByUser = await this.projectRepository.projectByUser(id);
+      const allProjectInfoByUser = await this.teamRepository.projectByUser(id);
 
-      return projectByUser.map((
-        
-      ) => {})
+      return allProjectInfoByUser;
     } catch (error) {
       throw error;
     }
