@@ -1,18 +1,18 @@
 (function () {
-  getUserList();
+  const page = new URLSearchParams(location.search).get('page') || 1;
+  getUserList(page);
 })();
 
-function getUserList() {
-  fetch('/users')
+function getUserList(page) {
+  fetch(`/users/page?page=${page}`)
     .then(function (response) {
       return response.json();
     })
     .then(function (res) {
-      document.querySelector('.ov_num').textContent = res.length;
-      for (let i = 0; i < res.length; i++) {
-        const fd = res[i];
+      for (let i = 0; i < res.users.length; i++) {
+        const fd = res.users[i];
         const { testResult, expiredAt } = fd;
-        const isTestNotComplete = testResult === 0;
+        const isTestNotComplete = testResult === null;
         const isExpired = expiredAt !== null;
         if (isTestNotComplete) {
           fd.testResult = '미완료';
@@ -24,6 +24,38 @@ function getUserList() {
         }
         appendTempHtml({ ...fd });
       }
+
+      const { currentPage, totalPages } = res;
+      const pages = [];
+
+      // 페이지 그룹의 첫번 째 페이지가 1보다 크면 이전 화살 만들기
+      if (currentPage > 1) {
+        pages.push(`<li class="page-item">
+        <a class="page-link" href="?page=${
+          currentPage - 1
+        }" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>`);
+      }
+
+      // 페이지 그룹의 마지막 페이지까지 페이지 숫자 렌더링 하기
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(
+          `<li class="page-item"><a class="page-link" href='?page=${i}'>${i}</a></li>`
+        );
+      }
+
+      // 페이지 그룹의 마지막 페이지가 총 마지막 페이지보다 작을 때 다음 화살 만들기
+      if (currentPage < totalPages) {
+        pages.push(`<li class="page-item">
+        <a class="page-link" href='?page=${currentPage + 1}' aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>`);
+      }
+
+      $('#pagination-wrap').append(pages.join(''));
     });
 }
 
