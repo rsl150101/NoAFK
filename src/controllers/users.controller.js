@@ -49,10 +49,13 @@ class UsersController {
     try {
       const currentPage = parseInt(req.query.page, 10) || 1;
       const perPage = parseInt(req.query.perPage, 10) || 10;
+      const { sfl, stx } = req.query;
 
       const { users, totalPages } = await this.userService.getUsers(
         currentPage,
-        perPage
+        perPage,
+        sfl,
+        stx
       );
 
       res.status(200).json({ users, currentPage, totalPages });
