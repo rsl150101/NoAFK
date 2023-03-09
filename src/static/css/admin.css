@@ -240,15 +240,14 @@ a.btn {
   vertical-align: middle;
 }
 
-.btn_02,
-a.btn_02 {
+a.btn.btn_02 {
   background: red;
   color: white;
 }
-.btn_03,
-a.btn_03 {
-  background: #142aa8;
-  color: #fff;
+
+a.btn.btn_03 {
+  background: blue;
+  color: white;
 }
 
 .btn_ov01 {
