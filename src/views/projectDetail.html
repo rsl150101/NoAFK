@@ -58,16 +58,16 @@
         <div id="project-board">
           <div class="detail-top project-detail-border">
             <div class="detail-title" id="title">
-              <h1>프로젝트 '{{project[0].title}}'</h1>
+              <h1>프로젝트 '{{project.title}}'</h1>
             </div>
             <div class="detail-owner" id="owner">
               <p>
-                by '{{project[0].owner}}' {% if project[0].createdAt ===
-                project[0].updatedAt %} {{project[0].createdAt}} {% else %}
-                {{project[0].updatedAt}} (수정됨) {% endif %}
+                by '{{project.owner}}' {% if project.createdAt ===
+                project.updatedAt %} {{project.createdAt}} {% else %}
+                {{project.updatedAt}} (수정됨) {% endif %}
               </p>
               <div>
-                {% if project[0].owner === loginUserNickname %}
+                {% if project.owner === loginUserNickname %}
                 <button id="edit-board-btn" type="button">수정</button>
                 <dialog id="projectEditModal">
                   <form method="dialog">
@@ -77,7 +77,7 @@
                       name="title"
                       id="edit-title"
                       placeholder="공고 제목을 입력하세요."
-                      value="{{project[0].title}}"
+                      value="{{project.title}}"
                     />
                     <br />
                     <label for="content">프로젝트 내용</label>
@@ -86,7 +86,7 @@
                       name="content"
                       id="edit-content"
                       placeholder="공고 내용을 입력하세요."
-                      value="{{project[0].content}}"
+                      value="{{project.content}}"
                     />
                     <br />
                     <label for="techStack">기술 스택</label>
@@ -95,7 +95,7 @@
                       name="techStack"
                       id="edit-techStack"
                       placeholder=", 로 구분해주세요."
-                      value="{{project[0].techStack}}"
+                      value="{{project.techStack}}"
                     />
                     <label for="person">인원</label>
                     <input
@@ -103,7 +103,7 @@
                       name="person"
                       id="edit-person"
                       min="1"
-                      value="{{project[0].person}}"
+                      value="{{project.person}}"
                     />
                     <br />
                     <label for="recruitDeadline">마감기한</label>
@@ -111,7 +111,7 @@
                       type="datetime-local"
                       name="recruitDeadline"
                       id="edit-recruitDeadline"
-                      value="{{project[0].recruitDeadline}}"
+                      value="{{project.recruitDeadline}}"
                     />
                     <br />
                     <label for="projectStart">프로젝트 시작일</label>
@@ -119,14 +119,14 @@
                       type="datetime-local"
                       name="projectStart"
                       id="edit-projectStart"
-                      value="{{project[0].projectStart}}"
+                      value="{{project.projectStart}}"
                     />
                     <label for="projectEnd">프로젝트 종료일</label>
                     <input
                       type="datetime-local"
                       name="projectEnd"
                       id="edit-projectEnd"
-                      value="{{project[0].projectEnd}}"
+                      value="{{project.projectEnd}}"
                     />
                     <br />
                     <button value="register">등록</button>
@@ -144,29 +144,29 @@
                 class="detail-person detail-margin detail-padding"
                 id="person"
               >
-                <p>모집인원 : {{project[0].person}}</p>
+                <p>모집인원 : {{project.person}}</p>
               </div>
               <div
                 class="detail-deadline detail-margin detail-padding"
                 id="deadline"
               >
-                <p>모집마감 : {{project[0].recruitDeadline}}</p>
+                <p>모집마감 : {{project.recruitDeadline}}</p>
               </div>
               <div
                 class="detail-period detail-margin detail-padding"
                 id="period"
               >
                 <p>
-                  프로젝트 기간 : {{project[0].projectStart}} ~
-                  {{project[0].projectEnd}}
+                  프로젝트 기간 : {{project.projectStart}} ~
+                  {{project.projectEnd}}
                 </p>
               </div>
             </div>
             <div class="detail-stack project-detail-border" id="tech-stack">
-              <p>스택 요구사항 : {{project[0].techStack}}</p>
+              <p>스택 요구사항 : {{project.techStack}}</p>
             </div>
             <div class="detail-content project-detail-border" id="content">
-              <p>프로젝트 설명 : {{project[0].content}}</p>
+              <p>프로젝트 설명 : {{project.content}}</p>
             </div>
           </div>
         </div>
@@ -174,7 +174,7 @@
         <div class="detail-apply project-detail-border">
           {% for apply in applyUsers %}
           <li class="apply-list" id="{{apply.id}}">
-            {{apply.nickname}} {% if project[0].owner === loginUserNickname %}
+            {{apply.nickname}} {% if project.owner === loginUserNickname %}
             <button id="accept-btn" type="button">수락</button>
             {% endif %}
           </li>
@@ -224,7 +224,7 @@
         </div>
       </div>
       <div>
-        {% if project[0].owner !== loginUserNickname %}
+        {% if project.owner !== loginUserNickname %}
         <button id="apply-btn" type="button">신청하기</button>
         {% endif %}
       </div>

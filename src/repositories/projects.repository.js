@@ -8,7 +8,7 @@ class ProjectRepository {
 
   findProjectById = async (id) => {
     try {
-      return await this.projectModel.findAll({ where: { id } });
+      return await this.projectModel.findOne({ where: { id } });
     } catch (error) {
       throw error;
     }
