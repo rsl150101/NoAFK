@@ -126,19 +126,19 @@ class UserService {
           id,
           email,
           nickname,
-          auth_level,
-          test_result,
+          authLevel,
+          testResult,
           introduction,
-          expired_at,
+          expiredAt,
         }) => {
           return {
             id,
             email,
             nickname,
-            auth_level,
-            test_result,
+            authLevel,
+            testResult,
             introduction,
-            expired_at,
+            expiredAt,
           };
         }
       );
