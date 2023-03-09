@@ -49,6 +49,7 @@ class ProjectRepository {
         raw: true,
         offset,
         limit,
+        paranoid: false,
       });
       return projects;
     } catch (error) {

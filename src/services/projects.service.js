@@ -58,7 +58,18 @@ class ProjectService {
       const currentPageGroup = Math.ceil(page / pageLimit);
       const firstPage = (currentPageGroup - 1) * pageLimit + 1;
       let lastPage = currentPageGroup * pageLimit;
+      let prevPage =
+        page > pageLimit ? Math.floor(page / pageLimit) * 10 : null;
+      let nextPage = (Math.floor(page / pageLimit) + 1) * 10 + 1;
       const pageArr = [];
+
+      if (nextPage > totalPage) {
+        nextPage = null;
+      }
+
+      if (totalPage <= pageLimit) {
+        prevPage = null;
+      }
 
       //+ 마지막 페이지가 총 페이지 수보다 높을 때 예외 처리
       if (lastPage > totalPage) {
@@ -71,13 +82,13 @@ class ProjectService {
 
       const offset = (page - 1) * limit;
 
-      //+ 해당 status 와 limit 갯수만큼 프로젝트들 조회
+      //+ 해당 offset 부터 limit 갯수만큼 프로젝트들 조회
       const projects = await this.projectRepository.findAllOffsetBasedProjects(
         offset,
         limit
       );
 
-      const pageInfo = { pageArr, totalPage };
+      const pageInfo = { pageArr, prevPage, nextPage, totalPage };
 
       return { pageInfo, projects };
     } catch (error) {
