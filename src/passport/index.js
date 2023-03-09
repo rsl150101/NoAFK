@@ -34,7 +34,8 @@ module.exports = (app) => {
             const newUser = await User.create({
               email,
               password: await bcrypt.hash(`${provider}_${id}`, 12),
-              nickname: `${username} for ${provider}`,
+              nickname: `${username}`,
+              loginMethod: 'kakao',
             });
 
             done(null, newUser); // 회원가입하고 로그인 인증 완료
