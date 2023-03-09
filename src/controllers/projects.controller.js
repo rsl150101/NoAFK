@@ -66,7 +66,7 @@ class ProjectsController {
     }
   };
 
-  //* 오프셋 기반 전체 프로젝트 조회 및 페이지네이션
+  //* /admin/projects 페이지 렌더링, 오프셋 기반 전체 프로젝트 조회 및 페이지네이션
   getOffsetBasedProjects = async (req, res) => {
     try {
       const { page } = req.query;
