@@ -42,7 +42,7 @@ class TeamRepository {
     try {
       await this.teamModel.create({
         position, // 0 == 신청자, 1 == 팀페이지에서 바로 추가
-        task: '',
+        task: '담당업무를 정해주세요.',
         userId,
         projectId: teamId,
       });

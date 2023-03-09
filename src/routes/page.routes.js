@@ -23,6 +23,7 @@ router.get('/login', notLogin, (req, res) => {
   }
   res.render('login.html');
 });
+
 router.get('/join', notLogin, (req, res) => {
   if (res.locals.user) {
     const error = new AlreayLogin();
@@ -30,6 +31,7 @@ router.get('/join', notLogin, (req, res) => {
   }
   res.render('join.html');
 });
+
 router.get('/project', (req, res) => {
   res.render('projectDetail.html');
 });

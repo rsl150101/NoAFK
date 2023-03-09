@@ -50,7 +50,7 @@ class TeamsController {
       status
     );
 
-    return res.status(200).json({ updatedTeamStatus }); // 임시구현
+    return res.status(200).json({ updatedTeamStatus });
   };
 
   updateTeamMember = async (req, res, next) => {
