@@ -113,6 +113,19 @@ class ProjectService {
       throw error;
     }
   };
+
+  //* 해당 유저의 프로젝트 보기
+  findProjectByUser = async (id) => {
+    try {
+      const projectByUser = await this.projectRepository.projectByUser(id);
+
+      return projectByUser.map((
+        
+      ) => {})
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = ProjectService;

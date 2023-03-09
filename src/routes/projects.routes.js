@@ -31,4 +31,6 @@ router.delete(
   commentsController.deleteComment
 );
 
+//* 해당 유저의 프로젝트 보기
+router.get('/:id/project', projectsController.getProjectByUser);
 module.exports = router;
