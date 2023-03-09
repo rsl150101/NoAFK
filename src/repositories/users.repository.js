@@ -1,4 +1,5 @@
 const { userInfo } = require('os');
+const { Op } = require('sequelize');
 
 class UserRepository {
   constructor(UserModel) {
@@ -144,7 +145,6 @@ class UserRepository {
               },
             },
           });
-
           return users;
         }
 
@@ -158,7 +158,6 @@ class UserRepository {
             },
           },
         });
-
         return users;
       } else {
         const users = await this.userModel.findAndCountAll({
@@ -166,7 +165,6 @@ class UserRepository {
           offset: start,
           limit: perPage,
         });
-
         return users;
       }
     } catch (error) {
