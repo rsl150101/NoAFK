@@ -38,64 +38,43 @@
             ></span>
           </div>
 
-          <form
-            id="fsearch"
-            name="fsearch"
-            class="local_sch01 local_sch"
-            method="get"
-          >
-            <label for="sfl" class="sound_only">검색대상</label>
+          <form id="fsearch" class="local_sch01 local_sch">
             <select name="sfl" id="sfl">
-              <option value="mb_email">이메일</option>
-              <option value="mb_nick">닉네임</option>
+              <option value="user_email">이메일</option>
+              <option value="user_nick">닉네임</option>
             </select>
-            <label for="stx" class="sound_only"
-              >검색어<strong class="sound_only"> 필수</strong></label
-            >
             <input
               type="text"
               name="stx"
-              value=""
               id="stx"
+              placeholder="검색어를 입력하세요"
               required
               class="required frm_input"
             />
-            <input type="submit" class="btn_submit" value="검색" />
+            <input type="submit" value="검색" class="btn_submit" />
           </form>
 
-          <form
-            name="fmemberlist"
-            id="fmemberlist"
-            action="./member_list_update.php"
-            onsubmit="return fmemberlist_submit(this);"
-            method="post"
-          >
-            <div class="tbl_head01 tbl_wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th scope="col" class="user_list_id td_mng_s">회원번호</th>
-                    <th scope="col" class="user_list_email">이메일</th>
-                    <th scope="col" class="user_list_nickname">닉네임</th>
-                    <th scope="col" class="user_list_introduction">자기소개</th>
-                    <th scope="col" class="user_list_test_result">성격유형</th>
-                    <th scope="col" class="user_list_expired_at">
-                      멤버쉽 만료일
-                    </th>
-                    <th
-                      scope="col"
-                      class="user_list_auth_level"
-                      class="td_mng_s"
-                    >
-                      권한등급
-                    </th>
-                    <th scope="col" class="user_list_control td_mng_s">관리</th>
-                  </tr>
-                </thead>
-                <tbody id="usersList"></tbody>
-              </table>
-            </div>
-          </form>
+          <div class="tbl_head01 tbl_wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col" class="user_list_id td_mng_s">회원번호</th>
+                  <th scope="col" class="user_list_email">이메일</th>
+                  <th scope="col" class="user_list_nickname">닉네임</th>
+                  <th scope="col" class="user_list_introduction">자기소개</th>
+                  <th scope="col" class="user_list_test_result">성격유형</th>
+                  <th scope="col" class="user_list_expired_at">
+                    멤버쉽 만료일
+                  </th>
+                  <th scope="col" class="user_list_auth_level" class="td_mng_s">
+                    권한등급
+                  </th>
+                  <th scope="col" class="user_list_control td_mng_s">관리</th>
+                </tr>
+              </thead>
+              <tbody id="usersList"></tbody>
+            </table>
+          </div>
           <nav aria-label="Page navigation">
             <ul
               class="pagination justify-content-center"
