@@ -51,14 +51,14 @@ class UsersController {
       const perPage = parseInt(req.query.perPage, 10) || 10;
       const { sfl, stx } = req.query;
 
-      const { users, totalPages } = await this.userService.getUsers(
+      const { users, totalPages, count } = await this.userService.getUsers(
         currentPage,
         perPage,
         sfl,
         stx
       );
 
-      res.status(200).json({ users, currentPage, totalPages });
+      res.status(200).json({ users, currentPage, totalPages, count });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
