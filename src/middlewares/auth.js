@@ -49,25 +49,26 @@ const checkToken = async (req, res, next) => {
         // case1: access token과 refresh token 모두만료
         const error = new TokenExpired();
         return res.status(401).json({ message: error.message });
-      }
-      // case2: access token은 만료됐지만, refresh token은 유효한 경우 => 새로 accessToken 발급
-      let userId = checkRefresh.id;
-      let { id, email, nickname } = await User.findAll({
-        where: { id: userId },
-      });
+      } else {
+        // case2: access token은 만료됐지만, refresh token은 유효한 경우 => 새로 accessToken 발급
+        let userId = checkRefresh.id;
+        let { id, email, nickname } = await User.findAll({
+          where: { id: userId },
+        });
 
-      const newAccessToken = jwt.sign(
-        {
-          id,
-          email,
-          nickname,
-        },
-        process.env.KAKAO_SECRET,
-        {
-          expiresIn: '2h',
-        }
-      );
-      res.cookie('accessToken', newAccessToken);
+        const newAccessToken = jwt.sign(
+          {
+            id,
+            email,
+            nickname,
+          },
+          process.env.KAKAO_SECRET,
+          {
+            expiresIn: '2h',
+          }
+        );
+        res.cookie('accessToken', newAccessToken);
+      }
     } else {
       if (checkRefresh === null) {
         // case3: access token은 유효하지만, refresh token은 만료된 경우 => 새로 refreshToken 발급
