@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
   <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    {% include "head.html" %}
     <title>noAFK | 회원관리</title>
     <link rel="stylesheet" href="css/admin.css" />
   </head>
@@ -39,164 +38,55 @@
             ></span>
           </div>
 
-          <form
-            id="fsearch"
-            name="fsearch"
-            class="local_sch01 local_sch"
-            method="get"
-          >
-            <label for="sfl" class="sound_only">검색대상</label>
+          <form id="fsearch" class="local_sch01 local_sch">
             <select name="sfl" id="sfl">
-              <option value="mb_email">이메일</option>
-              <option value="mb_nick">닉네임</option>
+              <option value="user_email">이메일</option>
+              <option value="user_nick">닉네임</option>
             </select>
-            <label for="stx" class="sound_only"
-              >검색어<strong class="sound_only"> 필수</strong></label
-            >
             <input
               type="text"
               name="stx"
-              value=""
               id="stx"
+              placeholder="검색어를 입력하세요"
               required
               class="required frm_input"
             />
-            <input type="submit" class="btn_submit" value="검색" />
+            <input type="submit" value="검색" class="btn_submit" />
           </form>
 
-          <form
-            name="fmemberlist"
-            id="fmemberlist"
-            action="./member_list_update.php"
-            onsubmit="return fmemberlist_submit(this);"
-            method="post"
-          >
-            <div class="tbl_head01 tbl_wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th scope="col" class="user_list_id td_mng_s">회원번호</th>
-                    <th scope="col" class="user_list_email">이메일</th>
-                    <th scope="col" class="user_list_nickname">닉네임</th>
-                    <th scope="col" class="user_list_introduction">자기소개</th>
-                    <th scope="col" class="user_list_test_result">성격유형</th>
-                    <th scope="col" class="user_list_expired_at">
-                      멤버쉽 만료일
-                    </th>
-                    <th
-                      scope="col"
-                      class="user_list_auth_level"
-                      class="td_mng_s"
-                    >
-                      권한등급
-                    </th>
-                    <th scope="col" class="user_list_control td_mng_s">관리</th>
-                  </tr>
-                </thead>
-                <tbody id="usersList"></tbody>
-              </table>
-            </div>
-          </form>
+          <div class="tbl_head01 tbl_wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col" class="user_list_id td_mng_s">회원번호</th>
+                  <th scope="col" class="user_list_email">이메일</th>
+                  <th scope="col" class="user_list_nickname">닉네임</th>
+                  <th scope="col" class="user_list_introduction">자기소개</th>
+                  <th scope="col" class="user_list_test_result">성격유형</th>
+                  <th scope="col" class="user_list_expired_at">
+                    멤버쉽 만료일
+                  </th>
+                  <th scope="col" class="user_list_auth_level" class="td_mng_s">
+                    권한등급
+                  </th>
+                  <th scope="col" class="user_list_control td_mng_s">관리</th>
+                </tr>
+              </thead>
+              <tbody id="usersList"></tbody>
+            </table>
+          </div>
+          <nav aria-label="Page navigation">
+            <ul
+              class="pagination justify-content-center"
+              id="pagination-wrap"
+            ></ul>
+          </nav>
         </div>
         <footer id="ft">
           <p>Copyright &copy; noAFK All rights reserved.<br /></p>
         </footer>
       </div>
     </div>
-    <script>
-      $(document).ready(function () {
-        getUserList();
-      });
-
-      function getUserList() {
-        $.ajax({
-          type: 'GET',
-          url: '/users',
-          data: {},
-          success: function (response) {
-            let allUserCount = response.length;
-            $('.ov_num').append(allUserCount);
-            for (let i = 0; i < response.length; i++) {
-              const fd = response[i];
-              const { test_result, expired_at } = fd;
-              const isTestNotComplete = test_result === 0; //추후 DB 데이터유형 int => string 변경
-              const isExpired = expired_at !== null;
-              if (isTestNotComplete && !isExpired) {
-                Object.assign(fd, {
-                  test_result: '미완료',
-                  expired_at: '미완료',
-                });
-                appendTempHtml({ ...fd });
-              } else if (!isTestNotComplete && !isExpired) {
-                Object.assign(fd, { expired_at: '미완료' });
-                appendTempHtml({ ...fd });
-              } else if (isTestNotComplete && isExpired) {
-                Object.assign(fd, { test_result: '미완료' });
-                appendTempHtml({ ...fd });
-              } else {
-                appendTempHtml({ ...fd });
-              }
-            }
-          },
-        });
-      }
-
-      function appendTempHtml({ ...fd }) {
-        let temp_html = `<tr class="block${fd.auth_level}">
-                          <td headers="user_list_id" class="user_id">${fd.id}</td>
-                          <td headers="user_list_email" class="user_email">${fd.email}</td>
-                          <td headers="user_list_nickname" class="user_nickname">
-                            ${fd.nickname}
-                          </td>
-                          <td
-                            headers="user_list_introduction"
-                            class="user_introduction"
-                          >
-                          ${fd.introduction}
-                          </td>
-                          <td
-                            headers="user_list_test_result"
-                            class="user_test_result"
-                          >
-                          ${fd.test_result}
-                          </td>
-                          <td headers="user_list_expired_at" class="user_expired_at">
-                            ${fd.expired_at}
-                          </td>
-                          <td headers="user_list_auth_level" class="user_auth_level">
-                            ${fd.auth_level}
-                          </td>
-                          <td headers="user_list_control" class="user_control">
-                            <a class="btn btn_03" onclick="blockUser(${fd.id})">차단</a>
-                            <a class="btn btn_02" onclick="deleteUser(${fd.id})">삭제</a>
-                          </td>
-                        </tr>`;
-        $('#usersList').append(temp_html);
-      }
-
-      function blockUser(id) {
-        $.ajax({
-          type: 'PATCH',
-          url: `/users/${id}`,
-          data: {},
-          success: function (response) {
-            alert(response['message']);
-            location.reload();
-          },
-        });
-      }
-
-      function deleteUser(id) {
-        $.ajax({
-          type: 'DELETE',
-          url: `/users/${id}`,
-          data: {},
-          success: function (response) {
-            alert(response['message']);
-            location.reload();
-          },
-        });
-      }
-    </script>
+    <script src="js/adminUser.js"></script>
   </body>
 </html>
