@@ -71,19 +71,18 @@ class ProjectsController {
     try {
       const { page } = req.query;
       const {
-        pageInfo: { pageArr, prevPage, nextPage, totalPage },
+        pageInfo: { curPage, pageArr, prevPage, nextPage, totalPage },
         projects,
       } = await this.projectService.getOffsetBasedProjects(Number(page));
 
-      return res
-        .status(200)
-        .render('adminProjects', {
-          pageArr,
-          prevPage,
-          nextPage,
-          totalPage,
-          projects,
-        });
+      return res.status(200).render('adminProjects', {
+        curPage,
+        pageArr,
+        prevPage,
+        nextPage,
+        totalPage,
+        projects,
+      });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

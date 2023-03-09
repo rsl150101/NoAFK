@@ -60,7 +60,7 @@ class ProjectService {
       let lastPage = currentPageGroup * pageLimit;
       let prevPage =
         page > pageLimit ? Math.floor(page / pageLimit) * 10 : null;
-      let nextPage = (Math.floor(page / pageLimit) + 1) * 10 + 1;
+      let nextPage = Math.ceil(page / pageLimit) * 10 + 1;
       const pageArr = [];
 
       if (nextPage > totalPage) {
@@ -88,7 +88,13 @@ class ProjectService {
         limit
       );
 
-      const pageInfo = { pageArr, prevPage, nextPage, totalPage };
+      const pageInfo = {
+        curPage: page,
+        pageArr,
+        prevPage,
+        nextPage,
+        totalPage,
+      };
 
       return { pageInfo, projects };
     } catch (error) {
