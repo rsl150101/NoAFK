@@ -165,12 +165,14 @@ class UserService {
     }
   };
 
-  getUsers = async (currentPage, perPage) => {
+  getUsers = async (currentPage, perPage, sfl, stx) => {
     try {
       const start = (currentPage - 1) * perPage;
       const { count, rows } = await this.userRepository.getUsers(
         start,
-        perPage
+        perPage,
+        sfl,
+        stx
       );
 
       const users = rows.map(
