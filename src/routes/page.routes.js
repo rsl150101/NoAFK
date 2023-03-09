@@ -21,8 +21,4 @@ router.get('/join', checkToken, apiController.renderJoinPage);
 router.get('/test', apiController.renderTestPage);
 router.get('/mypage', usersController.renderMypage);
 
-router.get('/project', (req, res) => {
-  res.render('projectDetail.html');
-});
-
 module.exports = router;
