@@ -1,0 +1,86 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 0.75em;
+  font-family: 'Malgun Gothic', '맑은 고딕', AppleGothic, Dotum, '돋움',
+    sans-serif;
+  background: #f3f3f3;
+  height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 1em;
+  font-family: 'Malgun Gothic', '맑은 고딕', AppleGothic, Dotum, '돋움',
+    sans-serif;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+a:link {
+  color: #000;
+  text-decoration: none;
+}
+
+#head-top li {
+  list-style: none;
+}
+
+#top-menu {
+  float: left;
+  padding: 10px;
+}
+
+#top-menu li {
+  float: left;
+  position: relative;
+  margin-left: 3px;
+}
+
+#top-menu a {
+  display: block;
+}
+
+#top-menu .top-menu-list-a {
+  border-radius: 3px;
+  background: #fad7ac;
+  color: #000000;
+  padding: 0 10px;
+  text-align: left;
+  height: 30px;
+  line-height: 30px;
+}
+
+#top-menu-right {
+  float: right;
+  padding: 10px;
+}
+
+#top-menu-right li {
+  position: relative;
+  margin-left: 3px;
+}
+
+#top-menu-right a {
+  color: white;
+  padding: 0 10px;
+  display: block;
+  line-height: 30px;
+}
+
+#top-menu-right .top-menu-list-a {
+  border-radius: 3px;
+  background: #fad7ac;
+  color: black;
+  padding: 0 10px;
+  text-align: left;
+  height: 30px;
+  line-height: 30px;
+}
