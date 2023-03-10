@@ -1,7 +1,10 @@
 const UserService = require('../services/users.service');
 
 // joi
-const { modifyPasswordDataValidation, modifyNicknameDataValidation } = require('../utility/joi');
+const {
+  modifyPasswordDataValidation,
+  modifyNicknameDataValidation,
+} = require('../utility/joi');
 
 class UsersController {
   userService = new UserService();
@@ -9,6 +12,11 @@ class UsersController {
   //* 백오피스 회원관리 페이지 렌더링
   renderAdminUserPage = (req, res) => {
     return res.status(200).render('adminUser');
+  };
+
+  //* 유저조회 페이지 렌더링
+  renderSearchUserPage = (req, res) => {
+    return res.status(200).render('members');
   };
 
   //* 회원 전체 조회
@@ -32,46 +40,59 @@ class UsersController {
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
-  }
+  };
 
   //* 회원 정보 수정 (password)
   updateUserPassword = async (req, res) => {
     try {
       const { id } = req.params;
-      const { password } = await modifyPasswordDataValidation.validateAsync(req.body);
-      const { status, message } = await this.userService.updateUserPassword(id, password);
+      const { password } = await modifyPasswordDataValidation.validateAsync(
+        req.body
+      );
+      const { status, message } = await this.userService.updateUserPassword(
+        id,
+        password
+      );
 
       res.status(status).json({ message });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
-  }
+  };
 
   //* 회원 정보 수정 (nickname)
   updateUserNickname = async (req, res) => {
     try {
       const { id } = req.params;
-      const { nickname } = await modifyNicknameDataValidation.validateAsync(req.body);
-      const { status, message } = await this.userService.updateUserNickname(id, nickname);
+      const { nickname } = await modifyNicknameDataValidation.validateAsync(
+        req.body
+      );
+      const { status, message } = await this.userService.updateUserNickname(
+        id,
+        nickname
+      );
 
       res.status(status).json({ message });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
-  }
+  };
 
   //* 회원 정보 수정 (introduction)
   updateUserIntroduction = async (req, res) => {
     try {
       const { id } = req.params;
       const { introduction } = req.body;
-      const { status, message } = await this.userService.updateUserIntroduction(id, introduction);
+      const { status, message } = await this.userService.updateUserIntroduction(
+        id,
+        introduction
+      );
 
       res.status(status).json({ message });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
-  }
+  };
 
   //* 회원 차단
   blockUser = async (req, res, next) => {
@@ -102,8 +123,8 @@ class UsersController {
   // 마이페이지
   renderMypage = (req, res) => {
     return res.status(200).render('mypage');
-  }
-  
+  };
+
   getUserList = async (req, res, next) => {
     try {
       const currentPage = parseInt(req.query.page, 10) || 1;
