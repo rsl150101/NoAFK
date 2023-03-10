@@ -122,6 +122,12 @@ class UsersController {
       return res.status(400).json({ message: error.message });
     }
   };
+
+  // 프로필 사진 업로드
+  uploadProfileImage = async (req, res) => {
+    const { id } = req.params;
+    const { image } = req.body;
+  }
 }
 
 module.exports = UsersController;

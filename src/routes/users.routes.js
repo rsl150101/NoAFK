@@ -1,5 +1,6 @@
 const express = require('express');
 const UserController = require('../controllers/users.controller');
+const uploadImage = require('../middlewares/uploads');
 
 const router = express.Router();
 const usersController = new UserController();
@@ -27,5 +28,8 @@ router.delete('/:userId', usersController.deleteUser);
 
 // ! 전체 회원 조회 (페이지네이션) 임시구현
 router.get('/page', usersController.getUserList);
+
+//* 프로필사진 업로드
+router.patch('/:id/uploads', uploadImage.single('img'), usersController.uploadProfileImage);
 
 module.exports = router;
