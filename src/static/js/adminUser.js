@@ -59,9 +59,9 @@ function setCookie(name, value) {
 
 function getUserList(page, sfl, stx) {
   const isSearchParams = stx ? `${sfl}=${stx}` : null;
-  let endPoint = `/users/page?page=${page}`;
+  let endPoint = `/users?page=${page}`;
   if (isSearchParams) {
-    endPoint = `/users/page?page=${page}&sfl=${sfl}&stx=${stx}`;
+    endPoint = `/users?page=${page}&sfl=${sfl}&stx=${stx}`;
   }
   fetch(endPoint)
     .then(function (response) {

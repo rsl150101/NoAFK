@@ -5,7 +5,8 @@ const router = express.Router();
 const usersController = new UserController();
 
 //* 회원 전체 조회
-router.get('/', usersController.getAllUserInfo);
+// ! 회원 정보 조회와 endpoint가 겹쳐 주석처리함
+// router.get('/', usersController.getAllUserInfo);
 
 //* 회원 정보 조회
 router.get('/:id', usersController.getUserInfo);
@@ -26,6 +27,7 @@ router.patch('/:userId', usersController.blockUser);
 router.delete('/:userId', usersController.deleteUser);
 
 // ! 전체 회원 조회 (페이지네이션) 임시구현
-router.get('/page', usersController.getUserList);
+// ? 임시로 endpoint 수정
+router.get('/', usersController.getUserList);
 
 module.exports = router;
