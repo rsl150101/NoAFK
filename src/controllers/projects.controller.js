@@ -115,6 +115,18 @@ class ProjectsController {
       return res.status(500).json({ message: error.message });
     }
   };
+
+  //* 해당 유저의 프로젝트 보기
+  getProjectByUser = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const findProjectByUser = await this.projectService.findProjectByUser(id);
+
+      res.status(200).json(findProjectByUser);
+    } catch (error) {
+      return res.status(500).json({ message: error.message })
+    }
+  }
 }
 
 module.exports = ProjectsController;

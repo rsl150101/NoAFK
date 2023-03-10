@@ -117,6 +117,7 @@ class UserService {
     }
   };
 
+  //* 회원 전체 조회
   findAllUserInfo = async () => {
     try {
       const allUserInfo = await this.userRepository.getAllUserInfo();
@@ -147,6 +148,55 @@ class UserService {
     }
   };
 
+  //* 회원 정보 조회
+  findUserInfo = async (id) => {
+    try {
+      const userInfo = await this.userRepository.userInfo(id);
+
+      return userInfo;
+    } catch (error) {
+      throw error;
+    }
+  }
+  
+  //* 회원 정보 수정 (password)
+  updateUserPassword = async (id, password) => {
+    try {
+      // 비밀번호 암호화
+      const hashPassword = await bcrypt.hash(password, 12);
+      password = hashPassword;
+
+      return await this.userRepository.updateUserPassword(id, password);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  //* 회원 정보 수정 (nickname)
+  updateUserNickname = async (id, nickname) => {
+    try {
+      // 닉네임 중복 체크
+      const checkByUserNickname = await this.userRepository.findByNickname(nickname);
+      if (checkByUserNickname.length > 0) {
+        const error = new NicknameExist();
+        throw error;
+      }
+
+      return await this.userRepository.updateUserNickname(id, nickname);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  //* 회원 정보 수정 (introduction)
+  updateUserIntroduction = async (id, introduction) => {
+    try {
+      return await this.userRepository.updateUserIntroduction(id, introduction);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   //* 회원 차단
   blockUser = async (userId) => {
     try {
@@ -162,6 +212,16 @@ class UserService {
       return await this.userRepository.deleteUser(userId);
     } catch (error) {
       throw error;
+    }
+  };
+
+
+  //* 검사결과 저장
+  test = async (id, testResult) => {
+    try {
+      return await this.userRepository.test(id, testResult);
+    } catch (error) {
+      throw error
     }
   };
 
