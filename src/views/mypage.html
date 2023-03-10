@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>noAFK | 마이페이지</title>
+    <link rel="stylesheet" href="/./css/mypage.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <header id="head">
+      <div id="head-top">
+        <div id="top-menu">
+          <ul>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">NoAFK</a></li>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">모집공고</a></li>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">팀</a></li>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">프로젝트</a></li>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">유저조회</a></li>
+            <li class="top-menu-list"><a href="#" class="top-menu-list-a">내팀</a></li>
+          </ul>
+        </div>
+        <div id="top-menu-right">
+          <ul>
+            <li class="top-menu-list-logout"><a href="#" class="top-menu-list-a">로그아웃</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div id="info">
+      <div id="userInfo"></div>
+      <div id="projectInfo">
+        <div id="projectInfoContent">
+          <table class="projectTable">
+            <thead id="projectTitle">
+              <tr>
+                <th scope="col">프로젝트 이름</th>
+                <th scope="col">프로젝트 내용</th>
+                <th scope="col">포지션</th>
+              </tr>
+            </thead>
+            <tbody id="projectContent">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+
+
+  <script src="/./js/mypage.js"></script>
+</html>
