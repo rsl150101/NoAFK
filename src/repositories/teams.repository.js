@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Project } = require('../models');
 
 class TeamRepository {
   constructor(TeamModel) {
@@ -139,6 +139,23 @@ class TeamRepository {
       throw error;
     }
   };
+
+  projectByUser = async (id) => {
+    try {
+      return await this.teamModel.findAll({
+        attributes: ['position'], 
+        where: { user_id: id },
+        include: [
+          {
+            model: Project,
+            attributes: ['title', 'content'],
+          },
+        ],
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = TeamRepository;

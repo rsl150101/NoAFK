@@ -26,6 +26,9 @@ router.get(
   apiController.socialLogin
 );
 
+// 검사결과 저장
+router.patch('/test/:id', apiController.test);
+
 //* 프로젝트 커서 기반 페이지네이션 조회
 router.get('/projects', projectsController.getCursorBasedProjects);
 
