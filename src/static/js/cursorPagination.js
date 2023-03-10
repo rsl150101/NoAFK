@@ -3,6 +3,10 @@ const pagination = document.getElementById('pagination');
 
 const handleScroll = async () => {
   let end = projectsBox.clientHeight + projectsBox.scrollTop;
+  if (!cursor) {
+    projectsBox.removeEventListener('scroll', handleScroll);
+    return;
+  }
   if (end === projectsBox.scrollHeight) {
     const response = await fetch(
       `http://localhost:3000/api/projects?cursor=${cursor}&site=${site}`

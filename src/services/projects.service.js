@@ -155,6 +155,17 @@ class ProjectService {
       throw error;
     }
   };
+
+  //* 해당 유저의 프로젝트 보기
+  findProjectByUser = async (id) => {
+    try {
+      const allProjectInfoByUser = await this.teamRepository.projectByUser(id);
+
+      return allProjectInfoByUser;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = ProjectService;

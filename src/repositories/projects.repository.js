@@ -70,7 +70,6 @@ class ProjectRepository {
           [Op.and]: {
             id: { [Op.gt]: cursor },
             status,
-            deletedAt: { [Op.eq]: null },
           },
         },
         raw: true,
