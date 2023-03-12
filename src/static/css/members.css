@@ -14,7 +14,6 @@ h3,
 h4,
 h5,
 h6 {
-  font-size: 1em;
   font-family: 'Malgun Gothic', '맑은 고딕', AppleGothic, Dotum, '돋움',
     sans-serif;
 }
@@ -24,7 +23,7 @@ ul {
   padding: 0;
 }
 
-a:link {
+a {
   color: #000;
   text-decoration: none;
 }
@@ -93,4 +92,52 @@ a:link {
   text-align: left;
   height: 30px;
   line-height: 30px;
+}
+
+#wrapper {
+  margin: 60px 10px 0;
+}
+
+#stx.required.frm_input {
+  margin-bottom: 20px;
+}
+
+.middles {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.ml-3 {
+  width: 150px;
+  border-radius: 50px;
+  margin-left: 0rem !important;
+  /* margin-top: -0.25rem !important; */
+}
+
+.media {
+  padding: 1rem;
+  margin-bottom: 1.2rem;
+  background-color: #ffdfdf;
+  border-radius: 25px;
+  box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.media-body {
+  margin: 0 10px;
+}
+
+#ft {
+  background: #f3f3f3;
+  padding: 0 25px;
+  color: #777;
+  text-align: center;
+}
+#ft p {
+  line-height: 50px;
 }
