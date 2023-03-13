@@ -123,10 +123,13 @@ class UsersController {
     }
   };
 
-  // 프로필 사진 업로드
-  uploadProfileImage = async (req, res) => {
-    const { id } = req.params;
-    const { image } = req.body;
+  // 이미지 업로드
+  uploadImage = async (req, res) => {
+    try {
+      return res.status(200).json({ imgae: req.file.location });
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
   }
 }
 
