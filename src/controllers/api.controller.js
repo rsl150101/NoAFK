@@ -80,20 +80,21 @@ class ApiController {
       }
       await this.userService.test(id, testResult);
 
-      return res.status(200).json({ message: "검사결과가 저장되었습니다." });
+      return res.status(200).json({ message: '검사결과가 저장되었습니다.' });
     } catch (error) {
       return res.status(400).json({ errorMessage: '테스트 결과 저장 실패.' });
     }
-  }
+  };
   // 로그인 페이지
   renderLoginPage = (req, res) => {
     if (res.locals.user) {
       const error = new AlreayLogin();
       res.status(403).json({ message: error.message });
-      res.redirect('/'); // 임시구현 => home으로
+      return res.redirect('/'); // 임시구현 => home으로
     }
 
-    return res.status(200).render('login.html');
+    const pageTitle = '로그인';
+    return res.status(200).render('login.html', { pageTitle });
   };
 
   // 회원가입 페이지
@@ -101,9 +102,11 @@ class ApiController {
     if (res.locals.user) {
       const error = new AlreayLogin();
       res.status(403).json({ message: error.message });
-      res.redirect('/'); // 임시구현 => home으로
+      return res.redirect('/'); // 임시구현 => home으로
     }
-    return res.status(200).render('join.html');
+
+    const pageTitle = '회원가입';
+    return res.status(200).render('join.html', { pageTitle });
   };
 
   // 검사 페이지

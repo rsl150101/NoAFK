@@ -25,6 +25,7 @@ class ProjectsController {
         id
       );
       const applyUsers = await this.teamService.findApplysByProjectId(id);
+      const pageTitle = '공고 상세 페이지';
 
       return res.render('projectDetail.html', {
         project,
@@ -32,6 +33,7 @@ class ProjectsController {
         loginUserId,
         loginUserNickname,
         applyUsers,
+        pageTitle,
       });
     } catch (error) {
       return res.status(400).json({ message: error.message });
@@ -124,9 +126,9 @@ class ProjectsController {
 
       res.status(200).json(findProjectByUser);
     } catch (error) {
-      return res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message });
     }
-  }
+  };
 }
 
 module.exports = ProjectsController;
