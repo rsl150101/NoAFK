@@ -34,6 +34,15 @@ class ProjectService {
     }
   };
 
+  hardDeleteProject = (id) => {
+    try {
+      this.projectRepository.hardDeleteProject(id);
+      return;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   //* 오프셋 기반 전체 프로젝트 조회 및 페이지네이션
   getOffsetBasedProjects = async (page) => {
     if (!page) {
@@ -41,8 +50,6 @@ class ProjectService {
     }
     try {
       const limit = 10;
-
-      //todo <김우중> <2023.03.05> : 추후에 홈페이지에서 get 요청 올시 가져오는 데이터 수정 필요, 페이지네이션 이전, 다음 버튼 서버에서 처리 필요
 
       //+ 프로젝트 총 갯수 가져오기
       const total = await this.projectRepository.findAllProjectCount();
@@ -165,7 +172,7 @@ class ProjectService {
     } catch (error) {
       throw error;
     }
-  }
+  };
 }
 
 module.exports = ProjectService;

@@ -27,7 +27,7 @@
             <h2>공고가 없습니다.</h2>
           </tr>
           {% else %} {% for project in projects %}
-          <tr>
+          <tr id="projectRow">
             <td><span>{{project.title}}</span></td>
             <td><span>{{project.owner}}</span></td>
             <td><span>{{project.person}}</span></td>
@@ -35,7 +35,7 @@
             <td>
               <span>{{project.projectStart}} ~ {{project.projectEnd}}</span>
             </td>
-            <td><button>삭제</button></td>
+            <td><button data-id="{{project.id}}">삭제</button></td>
           </tr>
           {% endfor%} {% endif%}
         </tbody>
@@ -62,6 +62,7 @@
         {% endif%}
       </div>
     </main>
+    <script src="../js/adminProjectsSection.js"></script>
     <script
       src="https://kit.fontawesome.com/d1f609d41d.js"
       crossorigin="anonymous"

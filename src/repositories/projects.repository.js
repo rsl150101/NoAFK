@@ -31,6 +31,15 @@ class ProjectRepository {
     }
   };
 
+  hardDeleteProject = (id) => {
+    try {
+      this.projectModel.destroy({ where: { id }, force: true });
+      return;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   //* 전체 프로젝트 조회
   findAllProject = async () => {
     try {

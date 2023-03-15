@@ -66,6 +66,16 @@ class ProjectsController {
     }
   };
 
+  hardDeleteProject = (req, res) => {
+    try {
+      const { id } = req.params;
+      this.projectService.hardDeleteProject(id);
+      return res.sendStatus(204);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
   //* /admin/projects 페이지 렌더링, 오프셋 기반 전체 프로젝트 조회 및 페이지네이션
   getOffsetBasedProjects = async (req, res) => {
     try {
@@ -132,9 +142,9 @@ class ProjectsController {
 
       res.status(200).json(findProjectByUser);
     } catch (error) {
-      return res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message });
     }
-  }
+  };
 }
 
 module.exports = ProjectsController;
