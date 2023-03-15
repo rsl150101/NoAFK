@@ -2,6 +2,7 @@ const passport = require('passport');
 const KakaoStrategy = require('passport-kakao').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GitHubStrategy = require('passport-github').Strategy;
+const NaverStrategy = require('passport-naver').Strategy;
 const bcrypt = require('bcrypt');
 
 const { User } = require('../models');
@@ -78,11 +79,9 @@ module.exports = (app) => {
             where: { nickname: displayName },
           });
 
-          // 이미 가입된 카카오 프로필이면 성공
           if (exUser) {
-            done(null, exUser); // 로그인 인증 완료
+            done(null, exUser);
           } else {
-            // 가입되지 않는 유저면 회원가입 시키고 로그인을 시킨다
             const newUser = await User.create({
               email: `${username}@github.com`,
               password: await bcrypt.hash(`${provider}_${id}`, 12),
@@ -90,7 +89,7 @@ module.exports = (app) => {
               loginMethod: `${provider}`,
             });
 
-            done(null, newUser); // 회원가입하고 로그인 인증 완료
+            done(null, newUser);
           }
         } catch (error) {
           done(error);
@@ -109,18 +108,15 @@ module.exports = (app) => {
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
-          console.log(profile);
-          const { email } = profile.emails[0].value;
+          const email = profile.emails[0].value;
           const { provider, id, displayName } = profile;
           const exUser = await User.findOne({
             where: { email },
           });
 
-          // 이미 가입된 카카오 프로필이면 성공
           if (exUser) {
-            done(null, exUser); // 로그인 인증 완료
+            done(null, exUser);
           } else {
-            // 가입되지 않는 유저면 회원가입 시키고 로그인을 시킨다
             const newUser = await User.create({
               email,
               password: await bcrypt.hash(`${provider}_${id}`, 12),
@@ -128,7 +124,42 @@ module.exports = (app) => {
               loginMethod: `${provider}`,
             });
 
-            done(null, newUser); // 회원가입하고 로그인 인증 완료
+            done(null, newUser);
+          }
+        } catch (error) {
+          done(error);
+        }
+      }
+    )
+  );
+
+  /*네이버 로그인*/
+  passport.use(
+    new NaverStrategy(
+      {
+        clientID: process.env.NAVER_ID,
+        clientSecret: process.env.NAVER_SECRET,
+        callbackURL: process.env.NAVER_URL,
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        try {
+          const email = profile._json.email;
+          const { provider, id, displayName } = profile;
+          const exUser = await User.findOne({
+            where: { email },
+          });
+
+          if (exUser) {
+            done(null, exUser);
+          } else {
+            const newUser = await User.create({
+              email,
+              password: await bcrypt.hash(`${provider}_${id}`, 12),
+              nickname: `${displayName}`,
+              loginMethod: `${provider}`,
+            });
+
+            done(null, newUser);
           }
         } catch (error) {
           done(error);

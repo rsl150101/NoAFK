@@ -51,6 +51,20 @@ router.get(
   apiController.socialLogin
 );
 
+// 네이버 소셜로그인
+router.get(
+  '/auth/naver',
+  passport.authenticate('naver', { scope: ['profile'] })
+);
+
+router.get(
+  '/auth/naver/callback',
+  passport.authenticate('naver', {
+    failureRedirect: '/login',
+  }),
+  apiController.socialLogin
+);
+
 // 검사결과 저장
 router.patch('/test/:id', apiController.test);
 
