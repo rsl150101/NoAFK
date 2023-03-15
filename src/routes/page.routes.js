@@ -11,7 +11,7 @@ const usersController = new UserController();
 const teamsController = new TeamsController();
 const projectsController = new ProjectsController();
 
-router.get('/');
+router.get('/', projectsController.renderProjectsPage);
 router.get('/users');
 router.get('/projects', projectsController.renderProjectsPage);
 router.get('/teams/:teamId', teamsController.renderTeamPage);

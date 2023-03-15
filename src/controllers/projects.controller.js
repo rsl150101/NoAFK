@@ -124,9 +124,9 @@ class ProjectsController {
 
       res.status(200).json(findProjectByUser);
     } catch (error) {
-      return res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message });
     }
-  }
+  };
 }
 
 module.exports = ProjectsController;
