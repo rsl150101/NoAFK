@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css" /> -->
     <link rel="stylesheet" href="/css/myteam.css" />
     <script
       src="https://code.jquery.com/jquery-3.6.3.js"
@@ -113,7 +114,17 @@
       <section id="myteam__project-status__footer">
         <div>
           <button id="deleteTeam" onclick="updateTeamStatus(5)">팀 삭제</button>
-          <button>팀 채팅</button>
+          <button id="team-chat-btn">팀 채팅</button>
+
+          <iframe
+            id="chatting-frame"
+            src="http://localhost:3000/chat"
+            style="display: block"
+            width="300px"
+            height="600px"
+          >
+            {% include "chat.html" %}
+          </iframe>
         </div>
       </section>
     </main>
