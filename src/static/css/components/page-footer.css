@@ -1,0 +1,32 @@
+.page-footer {
+  width: 70%;
+  text-align: center;
+  border-top: 1px solid var(--light-gray);
+}
+
+.page-footer span {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.page-footer ul {
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0 15px;
+}
+
+.page-footer ul li:first-child {
+  text-align: left;
+  flex: auto;
+}
+
+.page-footer a {
+  font-size: 0.9em;
+}
+
+.page-footer small {
+  font-size: 0.8em;
+  color: var(--light-gray);
+}

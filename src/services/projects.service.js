@@ -124,7 +124,8 @@ class ProjectService {
         throw new Error('url이 올바르지 않습니다.');
       }
       const nextCursor = projects.length === limit ? projects.at(-1).id : null;
-      return { nextCursor, page, projects };
+      const pageTitle = page.replace(/^[a-z]/, (char) => char.toUpperCase());
+      return { nextCursor, page, projects, pageTitle };
     } catch (error) {
       throw error;
     }
@@ -148,7 +149,7 @@ class ProjectService {
     } catch (error) {
       throw error;
     }
-  }
+  };
 }
 
 module.exports = ProjectService;

@@ -6,10 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/style.css" />
-    <title>Home | NoAFK</title>
+    <title>{{pageTitle}} | NoAFK</title>
   </head>
   <body>
-    <header class="page-header"></header>
-    <footer class="page-footer"></footer>
+    {% include "partials/page-header.html"%}
+    <main></main>
+    {% include "partials/page-footer.html"%}
+    <script
+      src="https://kit.fontawesome.com/d1f609d41d.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
