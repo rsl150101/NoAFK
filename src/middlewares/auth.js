@@ -18,12 +18,16 @@ const verifyToken = (token) => {
 
 const checkToken = async (req, res, next) => {
   try {
+    // url 가져오기
+    const { url } = req;
     // cookie 들고오기
     const { cookie } = req.headers;
 
     // cookie 없음
-    if (!cookie) {
+    if (!cookie && url === '/login') {
       return res.render('login.html');
+    } else if (!cookie && url === '/join') {
+      return res.render('join.html');
     }
 
     let accessToken = '';
