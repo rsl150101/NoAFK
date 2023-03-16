@@ -115,11 +115,23 @@ class ProjectService {
             status,
             limit
           );
-      } else if (page === 'home' || page === 'projects') {
+      } else if (page === 'projects') {
         projects =
           await this.projectRepository.findAllCursorBasedProjectsByStatus(
             cursor
           );
+      } else if (page === 'home') {
+        const allProjects = await this.projectRepository.findAllProject();
+        let end = 0;
+        const randomProjects = [];
+        while (end !== 12) {
+          const randomNum = Math.floor(Math.random() * allProjects.length);
+          randomProjects.push(allProjects[randomNum]);
+          allProjects.splice(randomNum, 1);
+          end += 1;
+        }
+
+        projects = randomProjects;
       } else {
         throw new Error('url이 올바르지 않습니다.');
       }
