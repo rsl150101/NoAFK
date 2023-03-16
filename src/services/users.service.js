@@ -157,8 +157,8 @@ class UserService {
     } catch (error) {
       throw error;
     }
-  }
-  
+  };
+
   //* 회원 정보 수정 (password)
   updateUserPassword = async (id, password) => {
     try {
@@ -170,13 +170,15 @@ class UserService {
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   //* 회원 정보 수정 (nickname)
   updateUserNickname = async (id, nickname) => {
     try {
       // 닉네임 중복 체크
-      const checkByUserNickname = await this.userRepository.findByNickname(nickname);
+      const checkByUserNickname = await this.userRepository.findByNickname(
+        nickname
+      );
       if (checkByUserNickname.length > 0) {
         const error = new NicknameExist();
         throw error;
@@ -186,7 +188,7 @@ class UserService {
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   //* 회원 정보 수정 (introduction)
   updateUserIntroduction = async (id, introduction) => {
@@ -195,7 +197,7 @@ class UserService {
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   //* 회원 차단
   blockUser = async (userId) => {
@@ -215,13 +217,12 @@ class UserService {
     }
   };
 
-
   //* 검사결과 저장
   test = async (id, testResult) => {
     try {
       return await this.userRepository.test(id, testResult);
     } catch (error) {
-      throw error
+      throw error;
     }
   };
 
@@ -259,6 +260,17 @@ class UserService {
       const totalPages = Math.ceil(count / perPage);
 
       return { users, totalPages, count };
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // Todo <장빈> [서비스] 유저조회
+  getSearchUser = async (sfl, stx) => {
+    try {
+      const users = await this.userRepository.getSearchUser(sfl, stx);
+
+      return users;
     } catch (error) {
       throw error;
     }

@@ -83,14 +83,22 @@ class UserRepository {
     try {
       const userInfo = await this.userModel.findOne({
         where: { id },
-        attributes: ["email", "nickname", "login_method", "test_result", "introduction", "image", "expired_at"],
-      })
+        attributes: [
+          'email',
+          'nickname',
+          'login_method',
+          'test_result',
+          'introduction',
+          'image',
+          'expired_at',
+        ],
+      });
 
       return userInfo;
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   //* 회원 정보 수정 (passowrd)
   updateUserPassword = async (id, password) => {
@@ -101,7 +109,7 @@ class UserRepository {
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   //* 회원 정보 수정 (nickname)
   updateUserNickname = async (id, nickname) => {
@@ -112,18 +120,18 @@ class UserRepository {
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   //* 회원 정보 수정 (introduction)
   updateUserIntroduction = async (id, introduction) => {
     try {
       await this.userModel.update({ introduction }, { where: { id } });
-    
+
       return { status: 201, message: '자기소개가 수정되었습니다.' };
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   //* 회원 차단
   blockUser = async (userId) => {
@@ -157,7 +165,7 @@ class UserRepository {
     } catch (error) {
       throw error;
     }
-  }
+  };
   // 유저아이디로 회원 정보 조회
   findUserInfoByUserId = async (userId) => {
     try {
@@ -203,6 +211,7 @@ class UserRepository {
               },
             },
           });
+          console.log('🚀  file: users.repository.js:214  users:', users);
 
           return users;
         }
@@ -227,6 +236,42 @@ class UserRepository {
 
         return users;
       }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // Todo <장빈> [레포지토리] 유저조회
+  getSearchUser = async (sfl, stx) => {
+    try {
+      const isSearchField = sfl !== undefined;
+      const isSFLEmail = sfl === 'user_email';
+      const isSFLNickname = sfl === 'user_nickname';
+
+      const baseSQL = {
+        raw: true,
+        attributes: [
+          'email',
+          'nickname',
+          'testResult',
+          'introduction',
+          'image',
+        ],
+        order: [['id', 'ASC']],
+      };
+
+      if (isSearchField) {
+        if (isSFLEmail) {
+          baseSQL.where = { email: { [Op.like]: `%${stx}%` } };
+        } else if (isSFLNickname) {
+          baseSQL.where = { nickname: { [Op.like]: `%${stx}%` } };
+        } else {
+          baseSQL.where = { testResult: { [Op.like]: `%${stx}%` } };
+        }
+      }
+
+      const users = await this.userModel.findAll(baseSQL);
+      return users;
     } catch (error) {
       throw error;
     }
