@@ -97,6 +97,40 @@ a:hover {
   margin: 60px 10px 0;
 }
 
+select {
+  height: 30px;
+  line-height: 32px;
+  border: 1px solid #d5d5d5;
+}
+
+.local_sch:after,
+.local_sch div:after {
+  display: block;
+  visibility: hidden;
+  clear: both;
+  content: '';
+}
+
+.local_sch01 {
+  margin: 10px 0;
+}
+
+.local_sch01 .frm_input {
+  height: 30px;
+  border: 1px solid #dcdcdc;
+  padding: 0 5px;
+}
+
+.local_sch01 .btn_submit {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #dcdcdc;
+  padding: 0;
+  background: url(../images/sch_btn.png) no-repeat 50% 50% #eee;
+  text-indent: -999px;
+  overflow: hidden;
+}
+
 #stx.required.frm_input {
   margin-bottom: 20px;
 }
