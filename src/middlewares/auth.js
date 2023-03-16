@@ -25,9 +25,11 @@ const checkToken = async (req, res, next) => {
 
     // cookie 없음
     if (!cookie && url === '/login') {
-      return res.render('login.html');
+      const pageTitle = 'Login';
+      return res.render('login.html', { pageTitle });
     } else if (!cookie && url === '/join') {
-      return res.render('join.html');
+      const pageTitle = 'Join';
+      return res.render('join.html', { pageTitle });
     }
 
     let accessToken = '';

@@ -93,7 +93,7 @@ class ApiController {
       return res.redirect('/'); // 임시구현 => home으로
     }
 
-    const pageTitle = '로그인';
+    const pageTitle = 'Login';
     return res.status(200).render('login.html', { pageTitle });
   };
 
@@ -105,7 +105,7 @@ class ApiController {
       return res.redirect('/'); // 임시구현 => home으로
     }
 
-    const pageTitle = '회원가입';
+    const pageTitle = 'Join';
     return res.status(200).render('join.html', { pageTitle });
   };
 

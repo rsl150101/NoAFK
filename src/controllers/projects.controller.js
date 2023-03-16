@@ -25,7 +25,7 @@ class ProjectsController {
         id
       );
       const applyUsers = await this.teamService.findApplysByProjectId(id);
-      const pageTitle = '공고 상세 페이지';
+      const pageTitle = `project #${id}`;
 
       return res.render('projectDetail.html', {
         project,
