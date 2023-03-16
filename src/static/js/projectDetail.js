@@ -5,10 +5,6 @@ const createCommentBtn = document.getElementById('create-comment-btn');
 const deleteBoardBtn = document.getElementById('delete-board-btn');
 const applyBtn = document.getElementById('apply-btn');
 const logoutBtn = document.getElementById('logout');
-const checkBtn = document.getElementById('check-edit-btn');
-const cancelBtn = document.getElementById('cancel-edit-btn');
-const afterBtn = document.querySelectorAll('.after-click');
-const beforeBtn = document.querySelectorAll('.before-click');
 
 applyList.forEach((apply) => {
   const acceptBtn = apply.querySelector('#accept-btn');
@@ -22,17 +18,47 @@ applyList.forEach((apply) => {
 });
 
 commnetList.forEach((comment) => {
-  const editCommentBtn = comment.querySelector('#edit-comment-btn');
-  const deleteCommentBtn = comment.querySelector('#delete-comment-btn');
   const commentId = comment.id;
+  const checkBtn = comment.querySelector(`#check-edit-btn-${commentId}`);
+  const cancelBtn = comment.querySelector(`#cancel-edit-btn-${commentId}`);
+  const afterBtn = comment.querySelectorAll(`.after-click-${commentId}`);
+  const beforeBtn = comment.querySelectorAll(`.before-click-${commentId}`);
+  const editCommentBtn = comment.querySelector(
+    `#edit-comment-btn-${commentId}`
+  );
+  const deleteCommentBtn = comment.querySelector(
+    `#delete-comment-btn-${commentId}`
+  );
 
   if (editCommentBtn && deleteCommentBtn) {
     editCommentBtn.addEventListener('click', () => {
-      const content = comment.querySelector('#new-comment').value;
+      const content = comment.querySelector(`#new-comment-${commentId}`).value;
       editComment(content, commentId);
     });
     deleteCommentBtn.addEventListener('click', () => {
       deleteComment(commentId);
+    });
+  }
+
+  if (checkBtn) {
+    checkBtn.addEventListener('click', () => {
+      Array.from(afterBtn).forEach((x) => {
+        x.style.display = 'block';
+      });
+      Array.from(beforeBtn).forEach((x) => {
+        x.style.display = 'none';
+      });
+    });
+  }
+
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', () => {
+      Array.from(afterBtn).forEach((x) => {
+        x.style.display = 'none';
+      });
+      Array.from(beforeBtn).forEach((x) => {
+        x.style.display = 'block';
+      });
     });
   }
 });
@@ -52,28 +78,6 @@ if (applyBtn) {
 if (deleteBoardBtn) {
   deleteBoardBtn.addEventListener('click', () => {
     deleteBoard();
-  });
-}
-
-if (checkBtn) {
-  checkBtn.addEventListener('click', () => {
-    Array.from(afterBtn).forEach((x) => {
-      x.style.display = 'block';
-    });
-    Array.from(beforeBtn).forEach((x) => {
-      x.style.display = 'none';
-    });
-  });
-}
-
-if (cancelBtn) {
-  cancelBtn.addEventListener('click', () => {
-    Array.from(afterBtn).forEach((x) => {
-      x.style.display = 'none';
-    });
-    Array.from(beforeBtn).forEach((x) => {
-      x.style.display = 'block';
-    });
   });
 }
 

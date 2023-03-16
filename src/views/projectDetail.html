@@ -187,11 +187,13 @@
             <div class="container">
               <div>
                 {{comment.nickname}}
-                <div class="before-click">{{comment.content}}</div>
-                <div class="after-click">
+                <div class="before-click-{{comment.id}}">
+                  {{comment.content}}
+                </div>
+                <div class="after-click-{{comment.id}}" style="display: none">
                   <input
                     type="text"
-                    id="new-comment"
+                    id="new-comment-{{comment.id}}"
                     value="{{comment.content}}"
                     required
                   />
@@ -199,13 +201,20 @@
                 {% if comment.createdAt === comment.updatedAt %}
                 {{comment.createdAt}} {% else %} {{comment.updatedAt}} (수정됨)
                 {% endif %} {% if comment.userId === loginUserId %}
-                <div class="before-click">
-                  <button id="check-edit-btn" type="button">수정</button>
-                  <button id="delete-comment-btn" type="button">삭제</button>
+                <div class="before-click-{{comment.id}}">
+                  <button id="check-edit-btn-{{comment.id}}" type="button">
+                    수정
+                  </button>
+                  <button id="delete-comment-btn-{{comment.id}}" type="button">
+                    삭제
+                  </button>
                 </div>
-                <div class="after-click">
-                  <button id="edit-comment-btn" type="button">등록</button
-                  ><button id="cancel-edit-btn" type="button">취소</button>
+                <div class="after-click-{{comment.id}}" style="display: none">
+                  <button id="edit-comment-btn-{{comment.id}}" type="button">
+                    등록</button
+                  ><button id="cancel-edit-btn-{{comment.id}}" type="button">
+                    취소
+                  </button>
                 </div>
                 {% endif %}
               </div>
@@ -215,7 +224,9 @@
         </div>
       </div>
       <div>
-        {% if project.owner !== loginUserNickname %}
+        {% if loginUserNickname === null %}
+        <button><a href="/login">신청하기</a></button>
+        {% elif project.owner !== loginUserNickname %}
         <button id="apply-btn" type="button">신청하기</button>
         {% endif %}
       </div>

@@ -18,6 +18,8 @@ class ProjectsController {
         const { id, nickname } = res.locals.user;
         loginUserId = id;
         loginUserNickname = nickname;
+      } else {
+        loginUserNickname = null;
       }
 
       const project = await this.projectService.findProjectById(id);
