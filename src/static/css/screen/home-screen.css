@@ -2,9 +2,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   width: 70%;
   height: 100%;
   padding: 20px 0;
+  gap: 20px;
 }
 
 .home-screen section header {
@@ -22,7 +24,21 @@
   height: 200px;
 }
 
+.more-projects {
+  position: relative;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.more-projects::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
 .more-projects header {
+  background-color: white;
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
 }
@@ -35,13 +51,21 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  justify-items: center;
+  grid-auto-rows: 280px;
+  gap: 40px;
+}
+
+.more-projects__item a {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .more-projects__item img {
-  width: 200px;
-  height: 150px;
+  width: 320px;
+  height: 200px;
 }
 
 .more-projects__item h3 {
