@@ -25,6 +25,7 @@ class ProjectsController {
         id
       );
       const applyUsers = await this.teamService.findApplysByProjectId(id);
+      const pageTitle = `project #${id}`;
 
       return res.render('projectDetail.html', {
         project,
@@ -32,6 +33,7 @@ class ProjectsController {
         loginUserId,
         loginUserNickname,
         applyUsers,
+        pageTitle,
       });
     } catch (error) {
       return res.status(400).json({ message: error.message });
