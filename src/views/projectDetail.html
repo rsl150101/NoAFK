@@ -224,7 +224,9 @@
         </div>
       </div>
       <div>
-        {% if project.owner !== loginUserNickname %}
+        {% if loginUserNickname === null %}
+        <button><a href="/login">신청하기</a></button>
+        {% elif project.owner !== loginUserNickname %}
         <button id="apply-btn" type="button">신청하기</button>
         {% endif %}
       </div>
