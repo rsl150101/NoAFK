@@ -84,14 +84,14 @@ class ProjectsController {
     }
   };
 
-  //* /projects 페이지 렌더링
+  //* 프로젝트 조회 관련 페이지 렌더링
   renderProjectsPage = async (req, res) => {
     try {
       const { pathname } = url.parse(req.url);
       const { cursor } = req.query;
-      const { nextCursor, page, projects } =
+      const { nextCursor, page, projects, pageTitle } =
         await this.projectService.getCursorBasedProjects(pathname, cursor);
-      return res.status(200).render(page, { nextCursor, projects });
+      return res.status(200).render(page, { pageTitle, nextCursor, projects });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
