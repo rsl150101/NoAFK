@@ -10,7 +10,19 @@
   </head>
   <body>
     {% include "partials/page-header.html"%}
-    <main></main>
+    <main class="main-screen home-screen">
+      <section class="popular">
+        <h1>실시간 인기 프로젝트</h1>
+      </section>
+      <section class="enterprise">
+        <h1>기업 공고 프로젝트</h1>
+      </section>
+      <div class="ad"><img src="images/ad-img.png" /></div>
+      <section class="more-projects">
+        <h1>더 많은 프로젝트 보기</h1>
+        <a href="/projects">더보기</a>
+      </section>
+    </main>
     {% include "partials/page-footer.html"%}
     <script
       src="https://kit.fontawesome.com/d1f609d41d.js"
