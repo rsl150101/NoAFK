@@ -43,20 +43,22 @@
     <div id="wrapper">
       <div id="container">
         <div class="container_wr">
-          <select name="sfl" id="sfl">
-            <option value="user_email">이메일</option>
-            <option value="user_nick">닉네임</option>
-            <option value="user_mbti">성격유형</option>
-          </select>
-          <input
-            type="text"
-            name="stx"
-            id="stx"
-            placeholder="검색어를 입력하세요"
-            required
-            class="required frm_input"
-          />
-          <input type="submit" value="검색" class="btn_submit" />
+          <form id="fsearch" class="local_sch01 local_sch">
+            <select name="sfl" id="sfl">
+              <option value="user_email">이메일</option>
+              <option value="user_nick">닉네임</option>
+              <option value="user_mbti">성격유형</option>
+            </select>
+            <input
+              type="text"
+              name="stx"
+              id="stx"
+              placeholder="검색어를 입력하세요"
+              required
+              class="required frm_input"
+            />
+            <input type="submit" value="검색" class="btn_submit" />
+          </form>
 
           <div class="user_wr">
             <div class="user-card">
