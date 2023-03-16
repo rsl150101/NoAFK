@@ -33,7 +33,6 @@ commnetList.forEach((comment) => {
   if (editCommentBtn && deleteCommentBtn) {
     editCommentBtn.addEventListener('click', () => {
       const content = comment.querySelector(`#new-comment-${commentId}`).value;
-      console.log(content);
       editComment(content, commentId);
     });
     deleteCommentBtn.addEventListener('click', () => {

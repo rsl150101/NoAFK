@@ -22,7 +22,6 @@ class ProjectsController {
         loginUserNickname = null;
       }
 
-      console.log(loginUserNickname);
       const project = await this.projectService.findProjectById(id);
       const { comments } = await this.commentService.findCommentsByProjectId(
         id
