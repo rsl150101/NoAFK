@@ -7,7 +7,7 @@
   padding: 20px 0;
 }
 
-.home-screen section {
+.home-screen section header {
   padding-bottom: 20px;
   border-bottom: 1px solid var(--light-gray);
 }
@@ -17,12 +17,39 @@
   font-weight: bold;
 }
 
-.more-projects {
+.ad img {
+  width: 100%;
+  height: 200px;
+}
+
+.more-projects header {
   display: flex;
   justify-content: space-between;
 }
 
-.ad img {
+.more-projects main {
+  padding: 50px 0;
+}
+
+.more-projects__list {
   width: 100%;
-  height: 200px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  justify-items: center;
+}
+
+.more-projects__item img {
+  width: 200px;
+  height: 150px;
+}
+
+.more-projects__item h3 {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.more-projects__item small {
+  font-size: 0.9em;
+  color: var(--light-gray);
 }
