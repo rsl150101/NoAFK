@@ -15,7 +15,8 @@ class UsersController {
   };
 
   //* 유저조회 페이지 렌더링
-  renderSearchUserPage = (req, res) => {
+  // Todo <장빈> [컨트롤러] 유저조회 페이지 렌더, 유저조회
+  renderSearchUserPage = async (req, res) => {
     return res.status(200).render('members');
   };
 
@@ -139,6 +140,18 @@ class UsersController {
       );
 
       res.status(200).json({ users, currentPage, totalPages, count });
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  };
+
+  // Todo <장빈> [컨트롤러] 유저조회
+  getSearchUser = async (req, res) => {
+    try {
+      const { sfl, stx } = req.query;
+      const users = await this.userService.getSearchUser(sfl, stx);
+
+      res.status(200).json({ users });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }

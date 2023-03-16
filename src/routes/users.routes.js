@@ -30,4 +30,7 @@ router.delete('/:userId', usersController.deleteUser);
 // ? 임시로 endpoint 수정
 router.get('/', usersController.getUserList);
 
+// // Todo < 장빈 > 유저조회;
+router.get('/p/a/g/e', usersController.getSearchUser);
+
 module.exports = router;
