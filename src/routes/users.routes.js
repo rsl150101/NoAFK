@@ -26,11 +26,7 @@ router.patch('/:userId', usersController.blockUser);
 //* 회원 삭제
 router.delete('/:userId', usersController.deleteUser);
 
-// ! 전체 회원 조회 (페이지네이션) 임시구현
-// ? 임시로 endpoint 수정
-router.get('/', usersController.getUserList);
-
-// // Todo < 장빈 > 유저조회;
-router.get('/p/a/g/e', usersController.getSearchUser);
+// ! 유저조회,백오피스-회원조회 (페이지네이션) 임시구현
+router.get('/', usersController.getSearchUser);
 
 module.exports = router;

@@ -126,32 +126,22 @@ class UsersController {
     return res.status(200).render('mypage');
   };
 
-  getUserList = async (req, res, next) => {
+  // Todo <장빈> 유저조회,백오피스-회원조회
+  getSearchUser = async (req, res, next) => {
     try {
       const currentPage = parseInt(req.query.page, 10) || 1;
       const perPage = parseInt(req.query.perPage, 10) || 10;
-      const { sfl, stx } = req.query;
+      const { pathUrl, sfl, stx } = req.query;
 
-      const { users, totalPages, count } = await this.userService.getUsers(
+      const { users, totalPages, count } = await this.userService.getSearchUser(
         currentPage,
         perPage,
+        pathUrl,
         sfl,
         stx
       );
 
-      res.status(200).json({ users, currentPage, totalPages, count });
-    } catch (error) {
-      return res.status(400).json({ message: error.message });
-    }
-  };
-
-  // Todo <장빈> [컨트롤러] 유저조회
-  getSearchUser = async (req, res) => {
-    try {
-      const { sfl, stx } = req.query;
-      const users = await this.userService.getSearchUser(sfl, stx);
-
-      res.status(200).json({ users });
+      res.status(200).json({ users, currentPage, totalPages, count, pathUrl });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }

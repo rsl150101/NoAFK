@@ -226,51 +226,54 @@ class UserService {
     }
   };
 
-  //Todo <장빈> [임시] 회원관리 페이지 페이지네이션
-  getUsers = async (currentPage, perPage, sfl, stx) => {
+  // Todo <장빈> 유저조회,백오피스-회원조회
+  getSearchUser = async (currentPage, perPage, pathUrl, sfl, stx) => {
     try {
       const start = (currentPage - 1) * perPage;
-      const { count, rows } = await this.userRepository.getUsers(
+      const { count, rows } = await this.userRepository.getSearchUser(
         start,
         perPage,
         sfl,
         stx
       );
 
-      const users = rows.map(
-        ({
-          id,
-          email,
-          nickname,
-          authLevel,
-          testResult,
-          introduction,
-          expiredAt,
-        }) => ({
-          id,
-          email,
-          nickname,
-          authLevel,
-          testResult,
-          introduction,
-          expiredAt,
-        })
-      );
-
       const totalPages = Math.ceil(count / perPage);
 
-      return { users, totalPages, count };
-    } catch (error) {
-      throw error;
-    }
-  };
+      if (pathUrl === 'members') {
+        const users = rows.map(
+          ({ email, nickname, testResult, introduction, image }) => ({
+            email,
+            nickname,
+            testResult,
+            introduction,
+            image,
+          })
+        );
 
-  // Todo <장빈> [서비스] 유저조회
-  getSearchUser = async (sfl, stx) => {
-    try {
-      const users = await this.userRepository.getSearchUser(sfl, stx);
+        return { users, totalPages, count };
+      } else {
+        const users = rows.map(
+          ({
+            id,
+            email,
+            nickname,
+            authLevel,
+            testResult,
+            introduction,
+            expiredAt,
+          }) => ({
+            id,
+            email,
+            nickname,
+            authLevel,
+            testResult,
+            introduction,
+            expiredAt,
+          })
+        );
 
-      return users;
+        return { users, totalPages, count };
+      }
     } catch (error) {
       throw error;
     }
