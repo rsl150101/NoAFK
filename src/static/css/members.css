@@ -4,7 +4,7 @@ body {
   font-size: 0.75em;
   font-family: 'Malgun Gothic', '맑은 고딕', AppleGothic, Dotum, '돋움',
     sans-serif;
-  background: #f3f3f3;
+  background: white;
   height: 100%;
 }
 
@@ -23,8 +23,7 @@ ul {
   padding: 0;
 }
 
-a {
-  color: #000;
+a:hover {
   text-decoration: none;
 }
 
@@ -102,7 +101,7 @@ a {
   margin-bottom: 20px;
 }
 
-.middles {
+.user_wr {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -116,20 +115,23 @@ a {
   /* margin-top: -0.25rem !important; */
 }
 
-.media {
+.user-card {
   padding: 1rem;
   margin-bottom: 1.2rem;
   background-color: #ffdfdf;
   border-radius: 25px;
   box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
-
   display: flex;
   flex-direction: row;
   align-items: flex-start;
 }
 
-.media-body {
+.user-card-body {
   margin: 0 10px;
+}
+
+.d-flex {
+  align-items: center;
 }
 
 #ft {
