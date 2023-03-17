@@ -297,6 +297,13 @@ select {
   border: 1px solid #d5d5d5;
 }
 
+.pagination {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
 #ft {
   background: #f3f3f3;
   padding: 0 25px;

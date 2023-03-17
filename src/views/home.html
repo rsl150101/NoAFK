@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>{{pageTitle}} | NoAFK</title>
+  </head>
+  <body>
+    {% include "partials/page-header.html"%}
+    <main class="main-screen home-screen">
+      <section class="popular">
+        <header>
+          <h1>실시간 인기 프로젝트</h1>
+        </header>
+      </section>
+      <section class="enterprise">
+        <header>
+          <h1>기업 공고 프로젝트</h1>
+        </header>
+      </section>
+      <div class="ad"><img src="images/ad-img.png" /></div>
+      <section class="more-projects">
+        <header class="more-projects__header">
+          <h1>더 많은 프로젝트 보기</h1>
+          <a href="/projects">더보기</a>
+        </header>
+        <main>
+          <ul class="more-projects__list">
+            {% for project in projects%}
+            <li class="more-projects__item">
+              <a href="/projects/{{project.id}}">
+                <img src="#" />
+                <h3>{{project.title}}</h3>
+                <small>{{project.techStack}}</small>
+              </a>
+            </li>
+            {% endfor%}
+          </ul>
+        </main>
+      </section>
+    </main>
+    {% include "partials/page-footer.html"%}
+    <script
+      src="https://kit.fontawesome.com/d1f609d41d.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

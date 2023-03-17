@@ -115,16 +115,29 @@ class ProjectService {
             status,
             limit
           );
-      } else if (page === 'home' || page === 'projects') {
+      } else if (page === 'projects') {
         projects =
           await this.projectRepository.findAllCursorBasedProjectsByStatus(
             cursor
           );
+      } else if (page === 'home') {
+        const allProjects = await this.projectRepository.findAllProject();
+        let end = 0;
+        const randomProjects = [];
+        while (end !== 12) {
+          const randomNum = Math.floor(Math.random() * allProjects.length);
+          randomProjects.push(allProjects[randomNum]);
+          allProjects.splice(randomNum, 1);
+          end += 1;
+        }
+
+        projects = randomProjects;
       } else {
         throw new Error('url이 올바르지 않습니다.');
       }
       const nextCursor = projects.length === limit ? projects.at(-1).id : null;
-      return { nextCursor, page, projects };
+      const pageTitle = page.replace(/^[a-z]/, (char) => char.toUpperCase());
+      return { nextCursor, page, projects, pageTitle };
     } catch (error) {
       throw error;
     }
@@ -148,7 +161,7 @@ class ProjectService {
     } catch (error) {
       throw error;
     }
-  }
+  };
 }
 
 module.exports = ProjectService;

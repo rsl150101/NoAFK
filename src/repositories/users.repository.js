@@ -83,14 +83,22 @@ class UserRepository {
     try {
       const userInfo = await this.userModel.findOne({
         where: { id },
-        attributes: ["email", "nickname", "login_method", "test_result", "introduction", "image", "expired_at"],
-      })
+        attributes: [
+          'email',
+          'nickname',
+          'login_method',
+          'test_result',
+          'introduction',
+          'image',
+          'expired_at',
+        ],
+      });
 
       return userInfo;
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   //* 회원 정보 수정 (passowrd)
   updateUserPassword = async (id, password) => {
@@ -101,7 +109,7 @@ class UserRepository {
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   //* 회원 정보 수정 (nickname)
   updateUserNickname = async (id, nickname) => {
@@ -112,18 +120,18 @@ class UserRepository {
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   //* 회원 정보 수정 (introduction)
   updateUserIntroduction = async (id, introduction) => {
     try {
       await this.userModel.update({ introduction }, { where: { id } });
-    
+
       return { status: 201, message: '자기소개가 수정되었습니다.' };
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   //* 회원 차단
   blockUser = async (userId) => {
@@ -157,7 +165,7 @@ class UserRepository {
     } catch (error) {
       throw error;
     }
-  }
+  };
   // 유저아이디로 회원 정보 조회
   findUserInfoByUserId = async (userId) => {
     try {
@@ -185,48 +193,42 @@ class UserRepository {
     }
   };
 
-  //Todo <장빈> [임시] 회원관리 페이지 페이지네이션
-  getUsers = async (start, perPage, sfl, stx) => {
+  // Todo <장빈> 유저조회,백오피스-회원조회
+  getSearchUser = async (start, perPage, sfl, stx) => {
     try {
       const isSearchField = sfl !== undefined;
       const isSFLEmail = sfl === 'user_email';
+      const isSFLNickname = sfl === 'user_nickname';
+
+      const baseSQL = {
+        raw: true,
+        offset: start,
+        limit: perPage,
+        attributes: [
+          'id',
+          'email',
+          'nickname',
+          'testResult',
+          'introduction',
+          'image',
+          'expiredAt',
+          'authLevel',
+        ],
+        order: [['id', 'ASC']],
+      };
 
       if (isSearchField) {
         if (isSFLEmail) {
-          const users = await this.userModel.findAndCountAll({
-            raw: true,
-            offset: start,
-            limit: perPage,
-            where: {
-              email: {
-                [Op.like]: `%${stx}%`,
-              },
-            },
-          });
-
-          return users;
+          baseSQL.where = { email: { [Op.like]: `%${stx}%` } };
+        } else if (isSFLNickname) {
+          baseSQL.where = { nickname: { [Op.like]: `%${stx}%` } };
+        } else {
+          baseSQL.where = { testResult: { [Op.like]: `%${stx}%` } };
         }
-
-        const users = await this.userModel.findAndCountAll({
-          raw: true,
-          offset: start,
-          limit: perPage,
-          where: {
-            nickname: {
-              [Op.like]: `%${stx}%`,
-            },
-          },
-        });
-        return users;
-      } else {
-        const users = await this.userModel.findAndCountAll({
-          raw: true,
-          offset: start,
-          limit: perPage,
-        });
-
-        return users;
       }
+
+      const users = await this.userModel.findAndCountAll(baseSQL);
+      return users;
     } catch (error) {
       throw error;
     }
