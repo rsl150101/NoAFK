@@ -15,7 +15,8 @@ class TeamsController {
         await this.teamService.findTeamNameAndStatusByTeamId(teamId);
       const memberList = await this.teamService.findAllByTeamId(teamId);
 
-      return res.render('myteam', {
+      return res.render('myTeam', {
+        pageTitle: 'My Team',
         teamName,
         status,
         memberList,
@@ -27,9 +28,8 @@ class TeamsController {
 
   getAllTeam = async (req, res, next) => {
     const allTeam = await this.teamService.findAllTeam();
-    // teamName, owner, status(프로젝트 진행상태), tech_stack, recruit_deadline, project_start, project_end
-    console.log(allTeam);
-    return res.render('allteam', {
+    return res.render('allTeam', {
+      pageTitle: 'My Team',
       allTeam,
     });
   };

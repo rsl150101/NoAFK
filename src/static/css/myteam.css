@@ -1,36 +1,5 @@
 body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
   background: ghostwhite;
-}
-
-section {
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  align-items: center;
-  margin: 15px 0px;
-}
-
-tr {
-  padding: 10px;
-  border: 2px solid black;
-}
-
-thead th {
-  font-size: large;
-  padding: 10px;
-  border: 2px solid black;
-}
-
-tbody th {
-  color: #3333337c;
-  padding: 10px;
-  border: 2px solid black;
 }
 
 #myteam-main {
@@ -43,39 +12,66 @@ tbody th {
   margin: 0 auto;
 }
 
+thead th {
+  text-align: center;
+  line-height: 20px;
+  font-size: 16px;
+  height: 20px;
+  padding: 10px;
+  border: 2px solid black;
+  background: rgba(255, 182, 193, 0.2);
+}
+
+tbody th {
+  font-size: 12px;
+  text-align: center;
+  line-height: 20px;
+  color: #3333337c;
+  padding: 0px 10px;
+  border: 2px solid black;
+}
+
+.myteam__memberList__config-btn > div {
+  display: inline-block;
+  padding: 5px;
+}
+
 #myteam__memberList {
   font-size: 12px;
 }
 
-thead th {
-  font-size: 16px;
-  height: 20px;
-}
-
-tr th {
-  font-size: 12px;
-  padding: 0px 10px;
-}
-
 #myteam__searching-new {
-  width: 650px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
-#myteam__searching-new > div {
-  align-self: flex-end;
+#myteam__searching-new input {
+  margin: 10px;
+}
+
+#myteam__searching-new button {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background-color: lightpink;
 }
 
 #myteam__project-status {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 10px;
   border: 2px solid black;
 }
 
 #myteam__project-status__title {
-  padding: 5px;
-}
-
-h2#myteam__project-status__title {
-  font-size: 16px;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: bolder;
 }
 
 #myteam__project-status__buttons {
@@ -87,11 +83,9 @@ h2#myteam__project-status__title {
 }
 
 #myteam__footer {
-  width: 650px;
-}
-
-#myteam__footer > div {
-  align-self: flex-end;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .now_team_status {

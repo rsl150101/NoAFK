@@ -4,16 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/css/myteam.css" />
-    <script
-      src="https://code.jquery.com/jquery-3.6.3.js"
-      integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-      crossorigin="anonymous"
-    ></script>
-    <title>my team</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>{{pageTitle}} | NoAFK</title>
   </head>
   <body>
-    <main id="myteam-main">
+    {% include "partials/page-header.html"%}
+    <main class="main-screen home-screen" id="myteam-main">
       <section>
         <div id="myteam-title"><h1>{{teamName}}</h1></div>
       </section>
@@ -21,7 +19,7 @@
         <table>
           <thead>
             <tr>
-              <th>번호</th>
+              <!-- <th>번호</th> -->
               <th>이름</th>
               <th>참가일</th>
               <th>직책</th>
@@ -34,7 +32,7 @@
             {% set position = ['신청자', '팀원', '부리더', '리더'] %} {% for
             member in memberList %} {% if member.position !== 0 %}
             <tr id="row-{{member.id}}">
-              <th>{{member.id}}</th>
+              <!-- <th>{{member.id}}</th> -->
               <th>{{member.User.nickname}}</th>
               <th>{{member.createdAt}}</th>
 
@@ -44,7 +42,10 @@
 
               <th id="task-{{member.id}}">{{member.task}}</th>
               <th><button id="chat-{{member.id}}">귓속말</button></th>
-              <th id="config-{{member.id}}">
+              <th
+                class="myteam__memberList__config-btn"
+                id="config-{{member.id}}"
+              >
                 <div>
                   <button
                     class="myteam__memberList__update"
@@ -80,6 +81,7 @@
       </section>
       <section id="myteam__project-status">
         <h2 id="myteam__project-status__title">프로젝트 현재 진행 상태</h2>
+
         <div id="myteam__project-status__buttons">
           <button class="status-btn" data-num="0" onclick="updateTeamStatus(0)">
             모집마감</button
@@ -122,6 +124,11 @@
         </div>
       </section>
     </main>
+    {% include "partials/page-footer.html"%}
+    <script
+      src="https://kit.fontawesome.com/d1f609d41d.js"
+      crossorigin="anonymous"
+    ></script>
     <script>
       let nowStatus = document.querySelector(
         '.status-btn[data-num="{{status}}"]'
