@@ -30,8 +30,8 @@
             </tr>
           </thead>
           <tbody>
-            {% set status = ['모집마감', '준비', '진행중', '테스트', '종료'] %}
-            {% for team in allTeam %}
+            {% set status = ['모집', '준비', '진행중', '테스트', '종료'] %} {%
+            for team in allTeam %}
             <tr class="allteam__rows" id="allteam__row-{{allTeam.id}}">
               <th>{{team.teamName}}</th>
               {% if team.owner === '' %}
