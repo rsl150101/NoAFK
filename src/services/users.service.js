@@ -278,6 +278,15 @@ class UserService {
       throw error;
     }
   };
+
+  //* 회원 정보 수정 (image)
+  updateUserImage = async (id, image) => {
+    try {
+      return await this.userRepository.updateUserImage(id, image);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = UserService;

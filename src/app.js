@@ -13,6 +13,7 @@ const apiRouter = require('./routes/api.routes');
 const teamsRouter = require('./routes/teams.routes');
 const usersRouter = require('./routes/users.routes');
 const projectsRouter = require('./routes/projects.routes');
+const adminRouter = require('./routes/admin.routes');
 
 //* 할당
 const app = express();
@@ -48,6 +49,7 @@ app.use('/api', apiRouter);
 app.use('/teams', teamsRouter);
 app.use('/users', usersRouter);
 app.use('/projects', projectsRouter);
+app.use('/admin', adminRouter);
 
 //* 서버 구동
 app.listen(PORT, () => {
