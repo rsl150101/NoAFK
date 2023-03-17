@@ -146,6 +146,28 @@ class UsersController {
       return res.status(400).json({ message: error.message });
     }
   };
+
+  // 이미지 업로드
+  uploadImage = async (req, res) => {
+    try {
+      return res.status(200).json({ image: req.file.location });
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  }
+
+  //* 회원 정보 수정 (image)
+  updateUserImage = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { image } = req.body;
+      const { status, message } = await this.userService.updateUserImage(id, image);
+
+      res.status(status).json({ message });
+    } catch (error) {
+      return res.status(400).json({ message: error.message })
+    }
+  }
 }
 
 module.exports = UsersController;
