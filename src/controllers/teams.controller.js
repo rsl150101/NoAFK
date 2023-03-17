@@ -29,7 +29,7 @@ class TeamsController {
   getAllTeam = async (req, res, next) => {
     const allTeam = await this.teamService.findAllTeam();
     return res.render('allTeam', {
-      pageTitle: 'My Team',
+      pageTitle: 'All Team',
       allTeam,
     });
   };
