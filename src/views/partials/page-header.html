@@ -1,0 +1,25 @@
+<header class="page-header">
+  <nav class="page-header__nav">
+    <ul>
+      <li><a href="/">NoAFK</a></li>
+      <li><a href="/projects">모집공고</a></li>
+      <li><a href="/teams">팀</a></li>
+      <li><a href="#">프로젝트</a></li>
+      <li class="page-header__nav__search-bar">
+        <!-- todo <김우중> <2023.03.15> : 검색바 프론트 구현할 것, 검색시 /projects?search= 로 -->
+        <form action="/projects" , method="get">
+          <input
+            type="text"
+            name="search"
+            id="searchProject"
+            placeholder="&#xf002; 프로젝트 검색"
+            style="font-family: Arial, FontAwesome"
+            maxlength="100"
+          />
+        </form>
+      </li>
+      <li><a href="/join">JOIN</a></li>
+      <li><a href="/login">LOGIN</a></li>
+    </ul>
+  </nav>
+</header>

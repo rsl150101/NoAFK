@@ -8,7 +8,7 @@ class ProjectRepository {
 
   findProjectById = async (id) => {
     try {
-      return await this.projectModel.findAll({ where: { id } });
+      return await this.projectModel.findOne({ where: { id } });
     } catch (error) {
       throw error;
     }
@@ -43,7 +43,7 @@ class ProjectRepository {
   //* 전체 프로젝트 조회
   findAllProject = async () => {
     try {
-      const projects = await this.projectModel.findAll();
+      const projects = await this.projectModel.findAll({ raw: true });
       return projects;
     } catch (error) {
       error.status = 500;

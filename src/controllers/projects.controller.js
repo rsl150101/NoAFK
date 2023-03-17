@@ -18,6 +18,8 @@ class ProjectsController {
         const { id, nickname } = res.locals.user;
         loginUserId = id;
         loginUserNickname = nickname;
+      } else {
+        loginUserNickname = null;
       }
 
       const project = await this.projectService.findProjectById(id);
@@ -25,6 +27,7 @@ class ProjectsController {
         id
       );
       const applyUsers = await this.teamService.findApplysByProjectId(id);
+      const pageTitle = `project #${id}`;
 
       return res.render('projectDetail.html', {
         project,
@@ -32,6 +35,7 @@ class ProjectsController {
         loginUserId,
         loginUserNickname,
         applyUsers,
+        pageTitle,
       });
     } catch (error) {
       return res.status(400).json({ message: error.message });
@@ -98,14 +102,14 @@ class ProjectsController {
     }
   };
 
-  //* /projects 페이지 렌더링
+  //* 프로젝트 조회 관련 페이지 렌더링
   renderProjectsPage = async (req, res) => {
     try {
       const { pathname } = url.parse(req.url);
       const { cursor } = req.query;
-      const { nextCursor, page, projects } =
+      const { nextCursor, page, projects, pageTitle } =
         await this.projectService.getCursorBasedProjects(pathname, cursor);
-      return res.status(200).render(page, { nextCursor, projects });
+      return res.status(200).render(page, { pageTitle, nextCursor, projects });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
