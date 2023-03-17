@@ -231,6 +231,17 @@ class UserRepository {
       throw error;
     }
   };
+
+  //* 회원 정보 수정 (image)
+  updateUserImage = async (id, image) => {
+    try {
+      await this.userModel.update({ image }, { where: { id } });
+    
+      return { status: 201, message: '프로필사진이 수정되었습니다.' };
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = UserRepository;

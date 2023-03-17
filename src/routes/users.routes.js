@@ -20,6 +20,9 @@ router.patch('/:id/nickname', usersController.updateUserNickname);
 //* 회원 정보 수정 (introduction)
 router.patch('/:id/introduction', usersController.updateUserIntroduction);
 
+//* 회원 정보 수정 (profileImage)
+router.patch('/:id/image', usersController.updateUserImage);
+
 //* 회원 차단
 router.patch('/:userId', usersController.blockUser);
 
@@ -30,5 +33,5 @@ router.delete('/:userId', usersController.deleteUser);
 router.get('/page', usersController.getUserList);
 
 // 이미지 업로드
-router.post('/image', uploads.single('image'), usersController.uploadImage)
+router.post('/image', uploads.single('file'), usersController.uploadImage)
 module.exports = router;
