@@ -2,33 +2,37 @@
   const page = new URLSearchParams(location.search).get('page') || 1;
   const sfl = new URLSearchParams(location.search).get('sfl');
   const stx = new URLSearchParams(location.search).get('stx');
-  const cookieSearchAdminUsers = document.cookie.replace(
-    /(?:(?:^|.*;\s*)searchAdminUsers\s*\=\s*([^;]*).*$)|^.*$/,
+
+  const cookieSearchUsers = document.cookie.replace(
+    /(?:(?:^|.*;\s*)searchUsers\s*\=\s*([^;]*).*$)|^.*$/,
     '$1'
   );
-  if (cookieSearchAdminUsers !== 'null') {
-    document.getElementById('stx').value = decodeURIComponent(
-      cookieSearchAdminUsers
-    );
+  if (cookieSearchUsers !== 'null') {
+    document.getElementById('stx').value =
+      decodeURIComponent(cookieSearchUsers);
   }
 
-  const cookieSelectedAdminUsers = document.cookie.replace(
-    /(?:(?:^|.*;\s*)selectedAdminUsers\s*\=\s*([^;]*).*$)|^.*$/,
+  const cookieSelectedUsers = document.cookie.replace(
+    /(?:(?:^|.*;\s*)selectedUsers\s*\=\s*([^;]*).*$)|^.*$/,
     '$1'
   );
-  if (cookieSelectedAdminUsers !== '') {
+  if (cookieSelectedUsers !== '') {
     const selectElement = document.getElementById('sfl');
     for (let i = 0; i < selectElement.options.length; i++) {
       if (
         selectElement.options[i].value ===
-        decodeURIComponent(cookieSelectedAdminUsers)
+        decodeURIComponent(cookieSelectedUsers)
       ) {
         selectElement.selectedIndex = i;
         break;
       }
     }
   }
-  getUserList(page, sfl, stx);
+
+  const pathUrl = document.URL.split('?')[0].split('/').filter(Boolean).pop();
+  history.pushState({}, null, `/${pathUrl}`);
+
+  getSearchUser(pathUrl, page, sfl, stx);
 })();
 
 const searchForm = document.getElementById('fsearch');
@@ -36,12 +40,12 @@ const selectElement = document.getElementById('sfl');
 
 searchForm.addEventListener('submit', () => {
   const searchValue = document.getElementById('stx').value;
-  setCookie('searchAdminUsers', searchValue);
+  setCookie('searchUsers', searchValue);
 });
 
 selectElement.addEventListener('change', () => {
   const selectedValue = selectElement.value;
-  document.cookie = 'selectedAdminUsers=' + encodeURIComponent(selectedValue);
+  document.cookie = 'selectedUsers=' + encodeURIComponent(selectedValue);
   //* 검색 셀렉트폼은 쿠키값에 저장해서 상태 유지!
 });
 
@@ -57,32 +61,85 @@ function setCookie(name, value) {
     ';path=/';
 }
 
-function getUserList(page, sfl, stx) {
+function getSearchUser(pathUrl, page, sfl, stx) {
   const isSearchParams = stx ? `${sfl}=${stx}` : null;
-  let endPoint = `/users/page?page=${page}`;
+  let endPoint = `/users?pathUrl=${pathUrl}&page=${page}`;
   if (isSearchParams) {
-    endPoint = `/users/page?page=${page}&sfl=${sfl}&stx=${stx}`;
+    endPoint += `&sfl=${sfl}&stx=${stx}`;
   }
   fetch(endPoint)
     .then(function (response) {
       return response.json();
     })
     .then(function (res) {
-      document.querySelector('.ov_num').textContent = res.count;
-      for (let i = 0; i < res.users.length; i++) {
-        const fd = res.users[i];
-        const { testResult, expiredAt } = fd;
-        const isTestNotComplete = testResult === null;
-        const isExpired = expiredAt !== null;
-        if (isTestNotComplete) {
-          fd.testResult = '미완료';
-          if (!isExpired) {
+      const Url = res.pathUrl;
+      if (Url === 'members') {
+        for (let i = 0; i < res.users.length; i++) {
+          const fd = res.users[i];
+          const { nickname, email, testResult, introduction, image } = fd;
+          const isTestNotComplete = testResult === null;
+          if (isTestNotComplete) {
+            fd.testResult = '미완료';
+          }
+          let temp_html = `
+            <div class="user-card">
+              ${
+                i % 2 === 0
+                  ? `
+                  <div class="user-card-body">
+                    <div class="d-flex bd-highlight">
+                      <div class="order-1 p-2 bd-highlight">
+                        <h5>${nickname}</h5>
+                      </div>
+                      <div class="order-2 p-2 flex-grow-1 bd-highlight">
+                        <h6>${email}</h6>
+                      </div>
+                      <div class="order-3 p-2 bd-highlight">
+                        <h5>${fd.testResult}</h5>
+                      </div>
+                    </div>
+                    ${introduction}
+                  </div>
+                  <img src="${image}" class="ml-3" alt="..." />
+                `
+                  : `
+                  <img src="${image}" class="ml-3" alt="..." />
+                  <div class="user-card-body">
+                    <div class="d-flex bd-highlight">
+                      <div class="order-1 p-2 bd-highlight">
+                        <h5>${nickname}</h5>
+                      </div>
+                      <div class="order-2 p-2 flex-grow-1 bd-highlight">
+                        <h6>${email}</h6>
+                      </div>
+                      <div class="order-3 p-2 bd-highlight">
+                        <h5>${fd.testResult}</h5>
+                      </div>
+                    </div>
+                    ${introduction}
+                  </div>
+                `
+              }
+            </div>`;
+          document.getElementById('user_wr').innerHTML += temp_html;
+        }
+      } else {
+        document.querySelector('.ov_num').textContent = res.count;
+        for (let i = 0; i < res.users.length; i++) {
+          const fd = res.users[i];
+          const { testResult, expiredAt } = fd;
+          const isTestNotComplete = testResult === null;
+          const isExpired = expiredAt !== null;
+          if (isTestNotComplete) {
+            fd.testResult = '미완료';
+            if (!isExpired) {
+              fd.expiredAt = '미완료';
+            }
+          } else if (!isExpired) {
             fd.expiredAt = '미완료';
           }
-        } else if (!isExpired) {
-          fd.expiredAt = '미완료';
+          appendTempHtml({ ...fd });
         }
-        appendTempHtml({ ...fd });
       }
 
       const { currentPage, totalPages } = res;
@@ -94,7 +151,7 @@ function getUserList(page, sfl, stx) {
         <a class="page-link" href="?page=${
           currentPage - 1
         }" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
+          <span aria-hidden="true">◀</span>
         </a>
       </li>`);
       }
@@ -116,12 +173,12 @@ function getUserList(page, sfl, stx) {
       if (currentPage < totalPages) {
         pages.push(`<li class="page-item">
         <a class="page-link" href='?page=${currentPage + 1}' aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
+          <span aria-hidden="true">▶</span>
         </a>
       </li>`);
       }
 
-      $('#pagination-wrap').append(pages.join(''));
+      document.getElementById('pagination-wrap').innerHTML = pages.join('');
     });
 }
 
