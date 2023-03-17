@@ -10,20 +10,27 @@ class TeamsController {
   renderTeamPage = async (req, res, next) => {
     const { teamId } = req.params;
 
-    const { teamName, status } =
-      await this.teamService.findTeamNameAndStatusByTeamId(teamId);
+    try {
+      const { teamName, status } =
+        await this.teamService.findTeamNameAndStatusByTeamId(teamId);
+      const memberList = await this.teamService.findAllByTeamId(teamId);
 
-    const isSoftDeletedProject = status === 5;
-    if (isSoftDeletedProject) {
+      return res.render('myteam', {
+        teamName,
+        status,
+        memberList,
+      });
+    } catch (error) {
       return res.render('deletedTeam');
     }
+  };
 
-    const memberList = await this.teamService.findAllByTeamId(teamId);
-
-    return res.render('myteam', {
-      teamName,
-      status,
-      memberList,
+  getAllTeam = async (req, res, next) => {
+    const allTeam = await this.teamService.findAllTeam();
+    // teamName, owner, status(프로젝트 진행상태), tech_stack, recruit_deadline, project_start, project_end
+    console.log(allTeam);
+    return res.render('allteam', {
+      allTeam,
     });
   };
 
@@ -51,6 +58,14 @@ class TeamsController {
     );
 
     return res.status(200).json({ updatedTeamStatus });
+  };
+
+  deleteTeam = async (req, res, next) => {
+    const { teamId } = req.params;
+
+    const deletedTeam = await this.teamService.deleteTeam(teamId);
+
+    return res.status(200).json({ message: '팀 삭제 성공!' });
   };
 
   updateTeamMember = async (req, res, next) => {

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>all team</title>
+  </head>
+  <body>
+    <div>all team list</div>
+
+    <ul>
+      <li style="display: flex">
+        <div>팀이름</div>
+        <div>팀장</div>
+        <div>진행상태</div>
+        <div>기술스택</div>
+        <div>모집마감</div>
+        <div>시작일</div>
+        <div>마감일</div>
+      </li>
+      {% for team in allTeam %}
+      <li
+        class="team__rows"
+        id="team__row-{{allTeam.id}}"
+        style="display: flex"
+      >
+        <div>{{team.teamName}}</div>
+        {% if team.owner === '' %}
+        <div>미정</div>
+        {% endif %}
+        <div>{{team.owner}}</div>
+        <div>{{team.status}}</div>
+        <div>{{team.techStack}}</div>
+        <div>{{team.recruitDeadline}}</div>
+        <div>{{team.projectStart}}</div>
+        <div>{{team.projectEnd}}</div>
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

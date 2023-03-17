@@ -72,6 +72,7 @@ tr th {
 #myteam__project-status {
   padding: 20px;
   border: 2px solid black;
+  visibility: hidden;
 }
 
 #myteam__project-status__title {
@@ -90,11 +91,11 @@ h2#myteam__project-status__title {
   padding: 20px;
 }
 
-#myteam__project-status__footer {
+#myteam__footer {
   width: 650px;
 }
 
-#myteam__project-status__footer > div {
+#myteam__footer > div {
   align-self: flex-end;
 }
 

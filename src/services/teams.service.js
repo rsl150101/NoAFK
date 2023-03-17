@@ -9,6 +9,14 @@ class TeamService {
   projectRepository = new ProjectRepository(Project);
   userRepository = new UserRepository(User);
 
+  findAllTeam = async () => {
+    try {
+      return await this.projectRepository.findAllProject();
+    } catch (error) {
+      throw error;
+    }
+  };
+
   findAllByTeamId = async (teamId) => {
     try {
       return await this.teamRepository.findAllByTeamId(teamId);
@@ -56,6 +64,14 @@ class TeamService {
   updateStatus = async (teamId, status) => {
     try {
       return await this.projectRepository.updateStatus(teamId, status);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  deleteTeam = async (teamId) => {
+    try {
+      return await this.projectRepository.deleteProject(teamId);
     } catch (error) {
       throw error;
     }
