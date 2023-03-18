@@ -1,0 +1,25 @@
+#allteam__header {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#allteam__List {
+  overflow-y: scroll;
+}
+
+#allteam__List::-webkit-scrollbar {
+  width: 0px;
+}
+
+table th {
+  padding: 10px;
+  line-height: 16px;
+}
+
+thead {
+  background-color: rgba(255, 182, 193, 0.2);
+}
+
+th {
+  border: 1px solid black;
+}
