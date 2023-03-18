@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Project } = require('../models');
 
 class TeamRepository {
   constructor(TeamModel) {
@@ -135,6 +135,23 @@ class TeamRepository {
         }
       );
       return { message: '신청 수락 성공!' };
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  projectByUser = async (id) => {
+    try {
+      return await this.teamModel.findAll({
+        attributes: ['position'],
+        where: { user_id: id },
+        include: [
+          {
+            model: Project,
+            attributes: ['title', 'content'],
+          },
+        ],
+      });
     } catch (error) {
       throw error;
     }

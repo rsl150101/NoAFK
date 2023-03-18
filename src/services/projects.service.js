@@ -34,6 +34,15 @@ class ProjectService {
     }
   };
 
+  hardDeleteProject = (id) => {
+    try {
+      this.projectRepository.hardDeleteProject(id);
+      return;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   //* 오프셋 기반 전체 프로젝트 조회 및 페이지네이션
   getOffsetBasedProjects = async (page) => {
     if (!page) {
@@ -41,8 +50,6 @@ class ProjectService {
     }
     try {
       const limit = 10;
-
-      //todo <김우중> <2023.03.05> : 추후에 홈페이지에서 get 요청 올시 가져오는 데이터 수정 필요, 페이지네이션 이전, 다음 버튼 서버에서 처리 필요
 
       //+ 프로젝트 총 갯수 가져오기
       const total = await this.projectRepository.findAllProjectCount();
@@ -58,7 +65,18 @@ class ProjectService {
       const currentPageGroup = Math.ceil(page / pageLimit);
       const firstPage = (currentPageGroup - 1) * pageLimit + 1;
       let lastPage = currentPageGroup * pageLimit;
+      let prevPage =
+        page > pageLimit ? Math.floor(page / pageLimit) * 10 : null;
+      let nextPage = Math.ceil(page / pageLimit) * 10 + 1;
       const pageArr = [];
+
+      if (nextPage > totalPage) {
+        nextPage = null;
+      }
+
+      if (totalPage <= pageLimit) {
+        prevPage = null;
+      }
 
       //+ 마지막 페이지가 총 페이지 수보다 높을 때 예외 처리
       if (lastPage > totalPage) {
@@ -71,13 +89,19 @@ class ProjectService {
 
       const offset = (page - 1) * limit;
 
-      //+ 해당 status 와 limit 갯수만큼 프로젝트들 조회
+      //+ 해당 offset 부터 limit 갯수만큼 프로젝트들 조회
       const projects = await this.projectRepository.findAllOffsetBasedProjects(
         offset,
         limit
       );
 
-      const pageInfo = { pageArr, totalPage };
+      const pageInfo = {
+        curPage: page,
+        pageArr,
+        prevPage,
+        nextPage,
+        totalPage,
+      };
 
       return { pageInfo, projects };
     } catch (error) {
@@ -115,16 +139,29 @@ class ProjectService {
             status,
             limit
           );
-      } else if (page === 'home' || page === 'projects') {
+      } else if (page === 'projects') {
         projects =
           await this.projectRepository.findAllCursorBasedProjectsByStatus(
             cursor
           );
+      } else if (page === 'home') {
+        const allProjects = await this.projectRepository.findAllProject();
+        let end = 0;
+        const randomProjects = [];
+        while (end !== 12) {
+          const randomNum = Math.floor(Math.random() * allProjects.length);
+          randomProjects.push(allProjects[randomNum]);
+          allProjects.splice(randomNum, 1);
+          end += 1;
+        }
+
+        projects = randomProjects;
       } else {
         throw new Error('url이 올바르지 않습니다.');
       }
       const nextCursor = projects.length === limit ? projects.at(-1).id : null;
-      return { nextCursor, page, projects };
+      const pageTitle = page.replace(/^[a-z]/, (char) => char.toUpperCase());
+      return { nextCursor, page, projects, pageTitle };
     } catch (error) {
       throw error;
     }
@@ -134,6 +171,17 @@ class ProjectService {
   createProject = async (projectInfo) => {
     try {
       await this.projectRepository.createProject(projectInfo);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //* 해당 유저의 프로젝트 보기
+  findProjectByUser = async (id) => {
+    try {
+      const allProjectInfoByUser = await this.teamRepository.projectByUser(id);
+
+      return allProjectInfoByUser;
     } catch (error) {
       throw error;
     }

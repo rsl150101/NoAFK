@@ -26,6 +26,48 @@ router.get(
   apiController.socialLogin
 );
 
+// 깃허브 소셜로그인
+router.get('/auth/github', passport.authenticate('github'));
+
+router.get(
+  '/auth/github/callback',
+  passport.authenticate('github', {
+    failureRedirect: '/login',
+  }),
+  apiController.socialLogin
+);
+
+// 구글 소셜로그인
+router.get(
+  '/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+router.get(
+  '/auth/google/callback',
+  passport.authenticate('google', {
+    failureRedirect: '/login',
+  }),
+  apiController.socialLogin
+);
+
+// 네이버 소셜로그인
+router.get(
+  '/auth/naver',
+  passport.authenticate('naver', { scope: ['profile'] })
+);
+
+router.get(
+  '/auth/naver/callback',
+  passport.authenticate('naver', {
+    failureRedirect: '/login',
+  }),
+  apiController.socialLogin
+);
+
+// 검사결과 저장
+router.patch('/test/:id', apiController.test);
+
 //* 프로젝트 커서 기반 페이지네이션 조회
 router.get('/projects', projectsController.getCursorBasedProjects);
 

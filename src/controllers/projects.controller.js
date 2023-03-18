@@ -18,6 +18,8 @@ class ProjectsController {
         const { id, nickname } = res.locals.user;
         loginUserId = id;
         loginUserNickname = nickname;
+      } else {
+        loginUserNickname = null;
       }
 
       const project = await this.projectService.findProjectById(id);
@@ -25,6 +27,7 @@ class ProjectsController {
         id
       );
       const applyUsers = await this.teamService.findApplysByProjectId(id);
+      const pageTitle = `project #${id}`;
 
       return res.render('projectDetail.html', {
         project,
@@ -32,6 +35,7 @@ class ProjectsController {
         loginUserId,
         loginUserNickname,
         applyUsers,
+        pageTitle,
       });
     } catch (error) {
       return res.status(400).json({ message: error.message });
@@ -66,28 +70,46 @@ class ProjectsController {
     }
   };
 
-  //* 오프셋 기반 전체 프로젝트 조회 및 페이지네이션
-  getOffsetBasedProjects = async (req, res) => {
+  hardDeleteProject = (req, res) => {
     try {
-      const { page } = req.query;
-      const projectsAndPage = await this.projectService.getOffsetBasedProjects(
-        Number(page)
-      );
-
-      return res.status(200).json(projectsAndPage);
+      const { id } = req.params;
+      this.projectService.hardDeleteProject(id);
+      return res.sendStatus(204);
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
   };
 
-  //* /projects 페이지 렌더링
+  //* /admin/projects 페이지 렌더링, 오프셋 기반 전체 프로젝트 조회 및 페이지네이션
+  getOffsetBasedProjects = async (req, res) => {
+    try {
+      const { page } = req.query;
+      const {
+        pageInfo: { curPage, pageArr, prevPage, nextPage, totalPage },
+        projects,
+      } = await this.projectService.getOffsetBasedProjects(Number(page));
+
+      return res.status(200).render('adminProjects', {
+        curPage,
+        pageArr,
+        prevPage,
+        nextPage,
+        totalPage,
+        projects,
+      });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  //* 프로젝트 조회 관련 페이지 렌더링
   renderProjectsPage = async (req, res) => {
     try {
       const { pathname } = url.parse(req.url);
       const { cursor } = req.query;
-      const { nextCursor, page, projects } =
+      const { nextCursor, page, projects, pageTitle } =
         await this.projectService.getCursorBasedProjects(pathname, cursor);
-      return res.status(200).render(page, { nextCursor, projects });
+      return res.status(200).render(page, { pageTitle, nextCursor, projects });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
@@ -111,6 +133,18 @@ class ProjectsController {
       await this.projectService.createProject(req.body);
 
       return res.sendStatus(201);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  //* 해당 유저의 프로젝트 보기
+  getProjectByUser = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const findProjectByUser = await this.projectService.findProjectByUser(id);
+
+      res.status(200).json(findProjectByUser);
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

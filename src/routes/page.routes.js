@@ -11,12 +11,15 @@ const usersController = new UserController();
 const teamsController = new TeamsController();
 const projectsController = new ProjectsController();
 
-router.get('/');
+router.get('/', projectsController.renderProjectsPage);
 router.get('/users');
 router.get('/projects', projectsController.renderProjectsPage);
 router.get('/teams/:teamId', teamsController.renderTeamPage);
 router.get('/adminUser', usersController.renderAdminUserPage);
 router.get('/login', checkToken, apiController.renderLoginPage);
 router.get('/join', checkToken, apiController.renderJoinPage);
+router.get('/test', apiController.renderTestPage);
+router.get('/mypage', usersController.renderMypage);
+router.get('/members', usersController.renderSearchUserPage);
 
 module.exports = router;

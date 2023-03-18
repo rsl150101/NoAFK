@@ -2,8 +2,13 @@ const projectsBox = document.getElementById('projectsBox');
 const pagination = document.getElementById('pagination');
 
 const handleScroll = async () => {
-  let end = projectsBox.clientHeight + projectsBox.scrollTop;
-  if (end === projectsBox.scrollHeight) {
+  let end = projectsBox.clientHeight + Math.round(projectsBox.scrollTop);
+  if (!cursor) {
+    projectsBox.removeEventListener('scroll', handleScroll);
+    return;
+  }
+  if (end >= projectsBox.scrollHeight) {
+    projectsBox.removeEventListener('scroll', handleScroll);
     const response = await fetch(
       `http://localhost:3000/api/projects?cursor=${cursor}&site=${site}`
     );
@@ -29,6 +34,8 @@ const handleScroll = async () => {
       div.append(ownerh4, ownerSpan, createdAth4, createdAtSpan);
       li.append(h1, pre, div);
       projectsBox.appendChild(li);
+
+      projectsBox.addEventListener('scroll', handleScroll);
     });
   }
 };

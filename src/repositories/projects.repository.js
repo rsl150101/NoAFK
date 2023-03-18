@@ -8,7 +8,7 @@ class ProjectRepository {
 
   findProjectById = async (id) => {
     try {
-      return await this.projectModel.findAll({ where: { id } });
+      return await this.projectModel.findOne({ where: { id } });
     } catch (error) {
       throw error;
     }
@@ -31,10 +31,19 @@ class ProjectRepository {
     }
   };
 
+  hardDeleteProject = (id) => {
+    try {
+      this.projectModel.destroy({ where: { id }, force: true });
+      return;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   //* 전체 프로젝트 조회
   findAllProject = async () => {
     try {
-      const projects = await this.projectModel.findAll();
+      const projects = await this.projectModel.findAll({ raw: true });
       return projects;
     } catch (error) {
       error.status = 500;
@@ -49,6 +58,7 @@ class ProjectRepository {
         raw: true,
         offset,
         limit,
+        paranoid: false,
       });
       return projects;
     } catch (error) {
@@ -69,7 +79,6 @@ class ProjectRepository {
           [Op.and]: {
             id: { [Op.gt]: cursor },
             status,
-            deletedAt: { [Op.eq]: null },
           },
         },
         raw: true,
@@ -129,10 +138,6 @@ class ProjectRepository {
           where: { id: teamId },
         }
       );
-      const isSoftDeletedProject = status === 5;
-      if (isSoftDeletedProject) {
-        return { status: 200, message: '팀 삭제 성공!' };
-      }
       return { status: 200, message: '프로젝트 진행 상태 수정 성공!' };
     } catch (error) {
       error.status = 500;
