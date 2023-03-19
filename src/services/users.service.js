@@ -220,6 +220,10 @@ class UserService {
   //* 검사결과 저장
   test = async (id, testResult) => {
     try {
+      const userInfo = await this.userRepository.loginUserInfo(id);
+      if (userInfo.testResult) {
+        throw error;
+      }
       return await this.userRepository.test(id, testResult);
     } catch (error) {
       throw error;
@@ -283,6 +287,17 @@ class UserService {
   updateUserImage = async (id, image) => {
     try {
       return await this.userRepository.updateUserImage(id, image);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  //* 마이페이지 유저정보 렌더링
+  userInfo = async (id) => {
+    try {
+      const userInfo = await this.userRepository.loginUserInfo(id);
+      
+      return userInfo;
     } catch (error) {
       throw error;
     }

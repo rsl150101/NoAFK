@@ -18,8 +18,8 @@ router.get('/teams/:teamId', teamsController.renderTeamPage);
 router.get('/adminUser', usersController.renderAdminUserPage);
 router.get('/login', checkToken, apiController.renderLoginPage);
 router.get('/join', checkToken, apiController.renderJoinPage);
-router.get('/test', apiController.renderTestPage);
-router.get('/mypage', usersController.renderMypage);
+router.get('/test', checkToken, apiController.renderTestPage);
+router.get('/mypage', checkToken, usersController.renderMypage);
 router.get('/members', usersController.renderSearchUserPage);
 
 module.exports = router;

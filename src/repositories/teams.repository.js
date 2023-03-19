@@ -148,7 +148,7 @@ class TeamRepository {
         include: [
           {
             model: Project,
-            attributes: ['title', 'content'],
+            attributes: ['title', 'content', 'teamName', 'owner', 'person', 'projectEnd'],
           },
         ],
       });
