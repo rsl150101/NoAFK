@@ -178,21 +178,6 @@ class UserRepository {
     }
   };
 
-  // refreshToken 저장
-  refreshToken = async (id, refreshToken) => {
-    try {
-      await this.userModel.update(
-        { refreshToken },
-        {
-          where: { id },
-        }
-      );
-    } catch (error) {
-      error.status = 500;
-      throw error;
-    }
-  };
-
   // Todo <장빈> 유저조회,백오피스-회원조회
   getSearchUser = async (start, perPage, sfl, stx) => {
     try {
@@ -238,12 +223,12 @@ class UserRepository {
   updateUserImage = async (id, image) => {
     try {
       await this.userModel.update({ image }, { where: { id } });
-    
+
       return { status: 201, message: '프로필사진이 수정되었습니다.' };
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   //* 마이페이지 유저정보 렌더링
   loginUserInfo = async (id) => {
@@ -266,7 +251,7 @@ class UserRepository {
     } catch (error) {
       throw error;
     }
-  }
+  };
 }
 
 module.exports = UserRepository;

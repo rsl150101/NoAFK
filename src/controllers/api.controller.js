@@ -6,11 +6,6 @@ const { joinDataValidation, loginDataValidation } = require('../utility/joi');
 // customError
 const { AlreayLogin } = require('../utility/customError');
 
-// 소셜로그인
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-dotenv.config();
-
 class ApiController {
   userService = new UserService();
 
@@ -110,9 +105,9 @@ class ApiController {
     try {
       const { id } = res.locals.user;
 
-      res.status(200).render('test', {id, pageTitle: "Test"})
+      res.status(200).render('test', { id, pageTitle: 'Test' });
     } catch (error) {
-      return res.status(400).json({ message: "로그인 후 이용부탁드립니다." });
+      return res.status(400).json({ message: '로그인 후 이용부탁드립니다.' });
     }
   };
 }

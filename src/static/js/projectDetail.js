@@ -104,7 +104,6 @@ const createComment = async () => {
 
 // 댓글 수정
 const editComment = async (content, commentId) => {
-  console.log(content, commentId);
   await fetch(`/projects/${projectId}/comments/${commentId}`, {
     method: 'PATCH',
     headers: {

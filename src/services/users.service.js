@@ -11,6 +11,9 @@ const {
   IncorrectPassword,
 } = require('../utility/customError');
 
+// redis
+const redisClient = require('../utility/redis');
+
 class UserService {
   userRepository = new UserRepository(User);
 
@@ -81,7 +84,8 @@ class UserService {
         expiresIn: '14d',
       });
 
-      await this.userRepository.refreshToken(id, refreshToken);
+      // 발급한 refresh token을 redis에 key를 user의 id로 하여 저장
+      await redisClient.set(id, refreshToken);
 
       return { accessToken, refreshToken };
     } catch (error) {
@@ -109,7 +113,8 @@ class UserService {
         expiresIn: '14d',
       });
 
-      await this.userRepository.refreshToken(id, refreshToken);
+      // 발급한 refresh token을 redis에 key를 user의 id로 하여 저장
+      await redisClient.set(id, refreshToken);
 
       return { accessToken, refreshToken };
     } catch (error) {
@@ -294,18 +299,18 @@ class UserService {
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   //* 마이페이지 유저정보 렌더링
   userInfo = async (id) => {
     try {
       const userInfo = await this.userRepository.loginUserInfo(id);
-      
+
       return userInfo;
     } catch (error) {
       throw error;
     }
-  }
+  };
 }
 
 module.exports = UserService;
