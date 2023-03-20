@@ -239,7 +239,7 @@ class UserService {
 
       const totalPages = Math.ceil(count / perPage);
 
-      if (pathUrl === 'members') {
+      if (pathUrl === '/members') {
         const users = rows.map(
           ({ email, nickname, testResult, introduction, image }) => ({
             email,
@@ -286,7 +286,7 @@ class UserService {
     } catch (error) {
       throw error;
     }
-  }
+  };
 }
 
 module.exports = UserService;
