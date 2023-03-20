@@ -74,10 +74,6 @@ class ApiController {
     try {
       const { id } = req.params;
       const { testResult } = req.body;
-      // MBTI 결과가 존재할 경우 에러 발생. 중복 검사 방지
-      if (testResult.length === 4) {
-        throw error;
-      }
       await this.userService.test(id, testResult);
 
       return res.status(200).json({ message: '검사결과가 저장되었습니다.' });
@@ -110,8 +106,14 @@ class ApiController {
   };
 
   // 검사 페이지
-  renderTestPage = (req, res) => {
-    return res.status(200).render('test');
+  renderTestPage = async (req, res) => {
+    try {
+      const { id } = res.locals.user;
+
+      res.status(200).render('test', {id, pageTitle: "Test"})
+    } catch (error) {
+      return res.status(400).json({ message: "로그인 후 이용부탁드립니다." });
+    }
   };
 }
 

@@ -121,9 +121,17 @@ class UsersController {
     }
   };
 
-  // 마이페이지
-  renderMypage = (req, res) => {
-    return res.status(200).render('mypage');
+  // 마이페이지 렌더링
+  renderMypage = async (req, res) => {
+    try {
+      const { id } = res.locals.user;
+      const userInfo = await this.userService.userInfo(id);
+      const { email, nickname, loginMethod, testResult, introduction, image, expiredAt } = userInfo;
+
+      res.status(200).render('mypage', {id, email, nickname, loginMethod, testResult, introduction, image, expiredAt, pageTitle: "Mypage"});
+    } catch (error) {
+      return res.status(400).json({ message: "로그인 후 이용부탁드립니다." });
+    }
   };
 
   // Todo <장빈> 유저조회,백오피스-회원조회

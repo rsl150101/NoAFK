@@ -1,75 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>noAFK | 테스트</title>
-    <link rel="stylesheet" href="/./css/test.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/test.css">
+    <title>{{pageTitle}} | NoAFK</title>
   </head>
   <body>
-    <header id="head">
-      <div id="head-top">
-        <div id="top-menu">
-          <ul>
-            <li class="top-menu-list"><a href="#" class="top-menu-list-a">NoAFK</a></li>
-            <li class="top-menu-list"><a href="#" class="top-menu-list-a">모집공고</a></li>
-            <li class="top-menu-list"><a href="#" class="top-menu-list-a">팀</a></li>
-            <li class="top-menu-list"><a href="#" class="top-menu-list-a">프로젝트</a></li>
-            <li class="top-menu-list"><a href="#" class="top-menu-list-a">유저조회</a></li>
-            <li class="top-menu-list"><a href="#" class="top-menu-list-a">내팀</a></li>
-          </ul>
-        </div>
-        <div id="top-menu-right">
-          <ul>
-            <li class="top-menu-list-logout"><a href="#" class="top-menu-list-a">로그아웃</a></li>
-          </ul>
-        </div>
-      </div>
-    </header>
-
-      <div id="question-list">
-        🧑‍💻 나의 성향 TEST <br><br><br>
-        <div class="question1">
-          1. 나는 관심이 가는 사람에게 다가가서 대화를 시작하기가 어렵지 않다.<br><br>
-          <div>
-            예&nbsp;<input type="radio" name="IE" value="E" />&nbsp;&nbsp;
-            아니오&nbsp;<input type="radio" name="IE" value="I" /><br><br><br>
+    {% include "partials/page-header.html"%}
+    <main class="main-screen home-screen">
+      <section class="test">
+        <header class="test-header">
+          <h1>성향테스트</h1>
+          <div id="test-select">
+            <ul id="test-select-button">
+              <li id="test-select-button-content" onclick="reSelect()">다시선택</li>
+              <li id="test-select-button-content" onclick="submitTest({{id}})">선택완료</li>
+            </ul>
           </div>
-        </div>
-        <div class="question2">
-          2. 나는 자유 시간 중 상당 부분을 다양한 관심사를 탐구하는 데 할애한다.<br><br>
-          <div>
-            예&nbsp;<input type="radio" name="NS" value="N" />&nbsp;&nbsp;
-            아니오&nbsp;<input type="radio" name="NS" value="S" /><br><br><br>
-          </div>
-        </div>
-        <div class="question3">
-          3. 나는 자신의 의견과 매우 다른 의견을 이해하기 위해 많은 시간을 할애하곤 한다.<br><br>
-          <div>
-            예&nbsp;<input type="radio" name="TF" value="F" />&nbsp;&nbsp;
-            아니오&nbsp;<input type="radio" name="TF" value="T" /><br><br><br>
-          </div>
-        </div>
-        <div class="question4">
-          4. 나는 여행계획을 세울 때 구체적으로 세우는 편이다.<br><br>
-          <div>
-            예&nbsp;<input type="radio" name="PJ" value="J" />&nbsp;&nbsp;
-            아니오&nbsp;<input type="radio" name="PJ" value="P" /><br><br>
-          </div>
-        </div>
-        <div id="mbti_submit">
-          <input type="button" onclick="submit(`${id}`)" value="제출" />
-        </div>
-        <br>
-        <br>
-        <div id="mbti_progress"></div>
-        <div id="mbti_result"></div>
-      </div>
-
+        </header>
+      </section>
+      <table class="type04">
+        <tr>
+          <th scope="row">1. 나는 관심이 가는 사람에게 다가가서 대화를 시작하기가 어렵지 않다.</th>
+          <td>
+            YES<input type="radio" name="IE" value="E" />
+            <br>
+            NO<input type="radio" name="IE" value="I" />
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">2. 나는 자유 시간 중 상당 부분을 다양한 관심사를 탐구하는 데 할애한다.</th>
+          <td>
+            YES<input type="radio" name="NS" value="N" />
+            <br>
+            NO<input type="radio" name="NS" value="S" />
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">3. 나는 자신의 의견과 매우 다른 의견을 이해하기 위해 많은 시간을 할애하곤 한다.</th>
+          <td>
+            YES<input type="radio" name="TF" value="F" />
+            <br>
+            NO<input type="radio" name="TF" value="T" />
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">4. 나는 여행계획을 세울 때 구체적으로 세우는 편이다.</th>
+          <td>
+            YES<input type="radio" name="PJ" value="J" />
+            <br>
+            NO<input type="radio" name="PJ" value="P" />
+          </td>
+        </tr>
+      </table>
+      <div class="non-content"></div>
+    </main>
+    {% include "partials/page-footer.html"%}
+    <script
+      src="https://kit.fontawesome.com/d1f609d41d.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="js/test.js"
+      ></script>
   </body>
-
-
-  <script src="/./js/test.js"></script>
 </html>

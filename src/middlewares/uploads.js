@@ -20,7 +20,7 @@ const uploads = multer({
     key(req, file, cb) {
       const base = path.basename(file.originalname);
       const ext =  path.extname(file.originalname);
-      cb(null, base + new Date().valueOf() + ext);
+      cb(null, 'profile/' + base + new Date().valueOf() + ext);
     },
   }),
   fileFilter: (req, file, cb) => {
