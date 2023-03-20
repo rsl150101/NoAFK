@@ -110,7 +110,7 @@ class ProjectService {
   };
 
   //* 페이지별 커서 기반 전체 프로젝트 조회 및 페이지네이션
-  getCursorBasedProjects = async (page, cursor) => {
+  getCursorBasedProjects = async (page, cursor, search) => {
     try {
       if (!page) {
         throw new Error('url이 올바르지 않습니다.');
@@ -142,7 +142,8 @@ class ProjectService {
       } else if (page === 'projects') {
         projects =
           await this.projectRepository.findAllCursorBasedProjectsByStatus(
-            cursor
+            cursor,
+            search
           );
       } else if (page === 'home') {
         const allProjects = await this.projectRepository.findAllProject();
