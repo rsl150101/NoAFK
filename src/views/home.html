@@ -1,8 +1,8 @@
 {% extends 'base.html' %} {% block content %}
 <main class="main-screen home-screen">
-  <section class="popular">
+  <section class="push">
     <header>
-      <h1>실시간 인기 프로젝트</h1>
+      <h1>추천 프로젝트</h1>
     </header>
   </section>
   <section class="enterprise">
@@ -10,7 +10,7 @@
       <h1>기업 공고 프로젝트</h1>
     </header>
   </section>
-  <div class="ad"><img src="images/ad-img.png" /></div>
+  <div class="ad"><img src="images/banner.png" /></div>
   <section class="more-projects">
     <header class="more-projects__header">
       <h1>더 많은 프로젝트 보기</h1>
@@ -21,7 +21,9 @@
         {% for project in projects%}
         <li class="more-projects__item">
           <a href="/projects/{{project.id}}">
-            <img src="#" />
+            <div>
+              <img src="#" />
+            </div>
             <h3>{{project.title}}</h3>
             <small>{{project.techStack}}</small>
           </a>

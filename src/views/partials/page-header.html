@@ -2,9 +2,14 @@
   <nav class="page-header__nav">
     <ul>
       <li><a href="/">NoAFK</a></li>
-      <li><a href="/projects">모집공고</a></li>
+      <li><a href="/projects">모집 공고</a></li>
       <li><a href="/teams">팀</a></li>
       <li><a href="#">프로젝트</a></li>
+      <li><a href="#">유저 조회</a></li>
+      {% if user %}
+      <li><a href="#">나의 팀</a></li>
+
+      {% endif %}
       <li class="page-header__nav__search-bar">
         <form action="/projects" , method="get">
           <input
@@ -18,8 +23,13 @@
           />
         </form>
       </li>
+      {% if not user %}
       <li><a href="/join">JOIN</a></li>
       <li><a href="/login">LOGIN</a></li>
+      {% else %}
+      <li><a href="#">개인 정보 수정</a></li>
+      <li><a href="/api/auth/LOGOUT">LOGOUT</a></li>
+      {% endif %}
     </ul>
   </nav>
 </header>
