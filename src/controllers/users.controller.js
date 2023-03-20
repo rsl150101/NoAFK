@@ -9,9 +9,9 @@ const {
 class UsersController {
   userService = new UserService();
 
-  //* 백오피스 회원관리 페이지 렌더링
+  //* 백오피스 - 회원관리 페이지 렌더링
   renderAdminUserPage = (req, res) => {
-    return res.status(200).render('adminUser');
+    return res.status(200).render('admin/users');
   };
 
   //* 유저조회 페이지 렌더링
@@ -154,20 +154,23 @@ class UsersController {
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
-  }
+  };
 
   //* 회원 정보 수정 (image)
   updateUserImage = async (req, res) => {
     try {
       const { id } = req.params;
       const { image } = req.body;
-      const { status, message } = await this.userService.updateUserImage(id, image);
+      const { status, message } = await this.userService.updateUserImage(
+        id,
+        image
+      );
 
       res.status(status).json({ message });
     } catch (error) {
-      return res.status(400).json({ message: error.message })
+      return res.status(400).json({ message: error.message });
     }
-  }
+  };
 }
 
 module.exports = UsersController;
