@@ -128,7 +128,7 @@ class UsersController {
       const userInfo = await this.userService.userInfo(id);
       const { email, nickname, loginMethod, testResult, introduction, image, expiredAt } = userInfo;
 
-      res.status(200).render('mypage', {id, email, nickname, loginMethod, testResult, introduction, image, expiredAt, pageTitle: "Mypage" });
+      res.status(200).render('mypage', {id, email, nickname, loginMethod, testResult, introduction, image, expiredAt, pageTitle: "Mypage"});
     } catch (error) {
       return res.status(400).json({ message: "로그인 후 이용부탁드립니다." });
     }

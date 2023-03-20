@@ -71,7 +71,7 @@ table.type09 thead th {
   border-bottom: 3px solid gray;
 }
 table.type09 tbody th {
-  width: 150px;
+  width: 250px;
   padding: 10px;
   font-weight: bold;
   vertical-align: top;
@@ -79,7 +79,7 @@ table.type09 tbody th {
   background: #eaeaea;
 }
 table.type09 td {
-  width: 350px;
+  width: 250px;
   padding: 10px;
   vertical-align: top;
   border-bottom: 1px solid #ced4da;

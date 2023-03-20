@@ -162,6 +162,10 @@ class UserService {
   //* 회원 정보 수정 (password)
   updateUserPassword = async (id, password) => {
     try {
+      const userInfo = await this.userRepository.loginUserInfo(id);
+      if (userInfo.loginMethod !== 'NoAFK') {
+        throw error;
+      }
       // 비밀번호 암호화
       const hashPassword = await bcrypt.hash(password, 12);
       password = hashPassword;

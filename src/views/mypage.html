@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/mypage.css">
     <title>{{pageTitle}} | NoAFK</title>
   </head>
-  <body>
+  <body onload="getInfo({{id}})">
     {% include "partials/page-header.html"%}
     <main class="main-screen home-screen">
       <section class="user-info">
@@ -115,10 +115,10 @@
         </div>
       <section class="project-info">
         <header>
-          <h1>현재 진행중인 프로젝트 (무한스크롤 구현)</h1>
+          <h1>현재 진행중인 프로젝트</h1>
         </header>
       </section>
-      <div>
+      <div style="overflow-x:hidden; height:300px;">
         <table class="type09">
           <thead>
           <tr>
@@ -130,26 +130,7 @@
             <th scope="cols">마감일</th>
           </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th scope="row">나만할수 있는 APP 구현</th>
-              <td>내용이 들어갑니다.</td>
-              <td>NoAFK</td>
-              <td>사용자2</td>
-              <td>5</td>
-              <td>2023-04-01 21:00</td>
-            </tr>
-            {% for project in myproject %}
-            <tr>
-              <th scope="row">나만할수 있는 APP 구현</th>
-              <td>내용이 들어갑니다.</td>
-              <td>NoAFK</td>
-              <td>사용자2</td>
-              <td>5</td>
-              <td>2023-04-01 21:00</td>
-            </tr>
-            {% endfor %}
-          </tbody>
+          <tbody id="progressUserProject"></tbody>
         </table>
       </div>
     </main>

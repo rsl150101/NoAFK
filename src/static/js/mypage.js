@@ -93,3 +93,22 @@ function submitImage(id) {
     window.location.reload();
   });
 }
+
+function getInfo(id) {
+  fetch('projects/'+ id + '/project')
+    .then((response) => response.json())
+    .then((data) => {
+      for (let i = 0; i < data.length; i++) {
+        const { id, title, content, teamName, owner, person, projectEnd } = data[i].Project;
+        let temp_html = `<tr>
+                          <th scope="row"><a href="/projects/${id}">${title}</a></th>
+                          <td>${content}</td>
+                          <td>${teamName}</td>
+                          <td>${owner}</td>
+                          <td>${person}</td>
+                          <td>${projectEnd}</td>
+                        </tr>`
+        document.getElementById('progressUserProject').innerHTML += temp_html;
+      }
+    })
+}
