@@ -143,7 +143,7 @@ class TeamRepository {
   projectByUser = async (id) => {
     try {
       return await this.teamModel.findAll({
-        attributes: ['position'], 
+        attributes: ['position'],
         where: { user_id: id },
         include: [
           {
@@ -155,7 +155,7 @@ class TeamRepository {
     } catch (error) {
       throw error;
     }
-  }
+  };
 }
 
 module.exports = TeamRepository;
