@@ -1,107 +1,114 @@
-fetch(`/users/${id}`)
-  .then((response) => response.json())
-  .then((data) => {
-    const { email, nickname, login_method, test_result, introduction, image, expired_at } = data;
-    temp_html = `<div id="userInfoContent">
-                  image: ${image}
-                  <br>
-                  <br>
-                  email: ${email}
-                  <br>
-                  <br>
-                  nickname: ${nickname}
-                  <br>
-                  <br>
-                  로그인방법: ${login_method}
-                  <br>
-                  <br>
-                  MBTI: ${test_result}
-                  <br>
-                  <br>
-                  프리미엄 회원 만료일: ${expired_at}
-                  <br>
-                  <br>
-                  자기소개: ${introduction}
-                  <br>
-                  <br>
-                  <input type="button" onclick="updatePassword(id)" value="비밀번호 변경" />
-                  <input type="button" onclick="updateNickname(id)" value="닉네임 변경" />
-                  <input type="button" onclick="updateIntroduction(id)" value="자기소개 변경" />
-                </div>`
-    $('#userInfo').append(temp_html);
-  });
-
-fetch(`/projects/${id}/project`)
-  .then((response) => response.json())
-  .then((data) => {
-    for (let i = 0; i < data.length; i++) {
-      const { Project, position } = data[i];
-      let temp_html = `<tr>
-                        <td>${ Project.title }</td>
-                        <td>${ Project.content }</td>
-                        <td>${ position }</td>
-                      </tr>`
-      $('#projectContent').append(temp_html);
-    }
-  })  
-
-function updatePassword(id) {
-  let inputPassword = prompt("변경할 비밀번호를 입력해주세요.");
-  let password = inputPassword;
-  fetch(`/users/${id}/password`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ password }),
-  });
+function updateNickname() {
+  document.getElementById("nicknameModal").style.display = "block";
+  document.body.style.overflow = "hidden"
+}
+function updatePassword() {
+  document.getElementById("passwordModal").style.display = "block";
+  document.body.style.overflow = "hidden"
+}
+function updateImage() {
+  document.getElementById("imageModal").style.display = "block";
+  document.body.style.overflow = "hidden"
+}
+function updateIntroduction() {
+  document.getElementById("introductionModal").style.display = "block";
+  document.body.style.overflow = "hidden"
 }
 
-function updateNickname(id) {
-  let inputNickname = prompt("변경할 닉네임을 입력해주세요");
-  let nickname = inputNickname;
-  fetch(`/users/${id}/nickname`, {
+// 모달 닫기 함수
+function closeModalNickname() {
+  document.getElementById("nicknameModal").style.display = "none";
+  document.body.style.overflow = "auto"
+}
+function closeModalPassword() {
+  document.getElementById("passwordModal").style.display = "none";
+  document.body.style.overflow = "auto"
+}
+function closeModalImage() {
+  document.getElementById("imageModal").style.display = "none";
+  document.body.style.overflow = "auto"
+}
+function closeModalIntroduction() {
+  document.getElementById("introductionModal").style.display = "none";
+  document.body.style.overflow = "auto"
+}
+
+function submitNickname(id) {
+  let inputNickname = document.getElementsByName('inputNickname');
+  let nickname = inputNickname[0].value;
+  fetch('users/'+id+'/nickname', {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ nickname }),
   });
+  window.location.reload();
 }
 
-function updateIntroduction(id) {
-  let inputIntroduction = prompt("변경할 자기소개를 입력해주세요");
-  let introduction = inputIntroduction;
-  fetch(`/users/${id}/introduction`, {
+function submitPassword(id) {
+  let inputPassword = document.getElementsByName('inputPassword');
+  let password = inputPassword[0].value;
+  fetch('users/'+id+'/password', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ password }),
+  });
+  window.location.reload();
+}
+
+function submitIntroduction(id) {
+  let inputIntroduction = document.getElementsByName('inputIntroduction');
+  let introduction = inputIntroduction[0].value;
+  fetch('users/'+id+'/introduction', {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ introduction }),
   });
+  window.location.reload();
 }
 
-function updateImage() {
-  const inputImage = document.getElementsByName('inputImage').files[0];
-  const profileImage = new FormData();
-  profileImage.append('file', inputImage);
-  
-  fetch(`/users/image`, {
+function submitImage(id) {
+  let inputImage = document.getElementById("inputImage").files[0];
+  let formData = new FormData();
+  formData.append('file', inputImage)
+
+  fetch('/users/image', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ image }),
+    body: formData
   })
+  .then((response) => response.json())
+  .then((data) => {
+    fetch('users/'+id+'/image', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ image: data.image }),
+    });
+    window.location.reload();
+  });
+}
+
+function getInfo(id) {
+  fetch('projects/'+ id + '/project')
     .then((response) => response.json())
     .then((data) => {
-      const { image } = data;
-      fetch(`/users/${id}/image`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ image }),
-      })
+      for (let i = 0; i < data.length; i++) {
+        const { id, title, content, teamName, owner, person, projectEnd } = data[i].Project;
+        let temp_html = `<tr>
+                          <th scope="row"><a href="/projects/${id}">${title}</a></th>
+                          <td>${content}</td>
+                          <td>${teamName}</td>
+                          <td>${owner}</td>
+                          <td>${person}</td>
+                          <td>${projectEnd}</td>
+                        </tr>`
+        document.getElementById('progressUserProject').innerHTML += temp_html;
+      }
     })
 }

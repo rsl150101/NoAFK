@@ -10,7 +10,8 @@ const usersController = new UserController();
 // router.get('/', usersController.getAllUserInfo);
 
 //* 회원 정보 조회
-router.get('/:id', usersController.getUserInfo);
+// ! 페이지 렌더링에서 유저정보 불러오기 때문에 주석처리함.
+// router.get('/:id', usersController.getUserInfo);
 
 //* 회원 정보 수정 (password)
 router.patch('/:id/password', usersController.updateUserPassword);
