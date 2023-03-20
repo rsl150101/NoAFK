@@ -16,7 +16,6 @@ const handleDelBtn = async (id) => {
 
 const handleSearchFormSubmit = (event) => {
   searchFormInput.value = searchFormInput.value.trim();
-  console.log(searchFormInput.value);
   if (searchFormInput.value === '') {
     event.preventDefault();
     searchFormInput.setCustomValidity('공백으로 검색할 수 없습니다.');

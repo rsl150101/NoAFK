@@ -69,7 +69,6 @@ class ProjectRepository {
       });
       return projects;
     } catch (error) {
-      console.log(error);
       error.status = 500;
       throw error;
     }
