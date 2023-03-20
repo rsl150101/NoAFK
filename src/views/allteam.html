@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/allteam.css" />
+
+    <title>{{pageTitle}} | NoAFK</title>
+  </head>
+  <body>
+    {% include "partials/page-header.html"%}
+    <main class="main-screen home-screen">
+      <section id="allteam__header">
+        <div>All Team List</div>
+      </section>
+      <section id="allteam__List">
+        <table>
+          <thead>
+            <tr id="allteam__title-row">
+              <th>팀이름</th>
+              <th>팀장</th>
+              <th>상태</th>
+              <th>기술스택</th>
+              <th>모집마감</th>
+              <th>시작일</th>
+              <th>마감일</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% set status = ['모집', '준비', '진행중', '테스트', '종료'] %} {%
+            for team in allTeam %}
+            <tr class="allteam__rows" id="allteam__row-{{allTeam.id}}">
+              <th>{{team.teamName}}</th>
+              {% if team.owner === '' %}
+              <th>미정</th>
+              {% else %}
+              <th>{{team.owner}}</th>
+              {% endif %}
+
+              <th>{{status[team.status]}}</th>
+              <th>{{team.techStack}}</th>
+              <th>{{team.recruitDeadline}}</th>
+              <th>{{team.projectStart}}</th>
+              <th>{{team.projectEnd}}</th>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+    </main>
+    {% include "partials/page-footer.html"%}
+    <script
+      src="https://kit.fontawesome.com/d1f609d41d.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
