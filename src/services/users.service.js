@@ -247,7 +247,7 @@ class UserService {
 
       const totalPages = Math.ceil(count / perPage);
 
-      if (pathUrl === 'members') {
+      if (pathUrl === '/members') {
         const users = rows.map(
           ({ email, nickname, testResult, introduction, image }) => ({
             email,
@@ -294,18 +294,18 @@ class UserService {
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   //* 마이페이지 유저정보 렌더링
   userInfo = async (id) => {
     try {
       const userInfo = await this.userRepository.loginUserInfo(id);
-      
+
       return userInfo;
     } catch (error) {
       throw error;
     }
-  }
+  };
 }
 
 module.exports = UserService;
