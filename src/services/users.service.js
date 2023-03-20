@@ -85,7 +85,7 @@ class UserService {
       });
 
       // 발급한 refresh token을 redis에 key를 user의 id로 하여 저장
-      await redisClient.set(id, refreshToken);
+      redisClient.set(id, refreshToken);
 
       return { accessToken, refreshToken };
     } catch (error) {
@@ -114,7 +114,7 @@ class UserService {
       });
 
       // 발급한 refresh token을 redis에 key를 user의 id로 하여 저장
-      await redisClient.set(id, refreshToken);
+      redisClient.set(id, refreshToken);
 
       return { accessToken, refreshToken };
     } catch (error) {
