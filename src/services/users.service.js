@@ -162,6 +162,10 @@ class UserService {
   //* 회원 정보 수정 (password)
   updateUserPassword = async (id, password) => {
     try {
+      const userInfo = await this.userRepository.loginUserInfo(id);
+      if (userInfo.loginMethod !== 'NoAFK') {
+        throw error;
+      }
       // 비밀번호 암호화
       const hashPassword = await bcrypt.hash(password, 12);
       password = hashPassword;
@@ -220,6 +224,10 @@ class UserService {
   //* 검사결과 저장
   test = async (id, testResult) => {
     try {
+      const userInfo = await this.userRepository.loginUserInfo(id);
+      if (userInfo.testResult) {
+        throw error;
+      }
       return await this.userRepository.test(id, testResult);
     } catch (error) {
       throw error;
@@ -283,6 +291,17 @@ class UserService {
   updateUserImage = async (id, image) => {
     try {
       return await this.userRepository.updateUserImage(id, image);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //* 마이페이지 유저정보 렌더링
+  userInfo = async (id) => {
+    try {
+      const userInfo = await this.userRepository.loginUserInfo(id);
+
+      return userInfo;
     } catch (error) {
       throw error;
     }

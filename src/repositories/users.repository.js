@@ -244,6 +244,29 @@ class UserRepository {
       throw error;
     }
   }
+
+  //* 마이페이지 유저정보 렌더링
+  loginUserInfo = async (id) => {
+    try {
+      const loginUserInfo = await this.userModel.findOne({
+        where: { id },
+        attributes: [
+          'id',
+          'email',
+          'nickname',
+          'loginMethod',
+          'testResult',
+          'introduction',
+          'image',
+          'expiredAt',
+        ],
+      });
+
+      return loginUserInfo;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = UserRepository;
