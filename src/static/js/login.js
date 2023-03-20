@@ -1,4 +1,34 @@
 const loginBtn = document.getElementById('login-btn');
+const resetPwBtn = document.getElementById('reset-pw-btn');
+const sendEmailModal = document.getElementById('send-email-modal');
+
+const sendEmailModalData = async () => {
+  if (sendEmailModal.returnValue === 'send') {
+    const email = document.getElementById('send-email-input').value;
+
+    const response = await fetch('/api/reset-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    if (response.status === 201) {
+      alert('비밀번호가 재발급되었습니다. 메일을 확인해주세요!');
+    }
+  }
+};
+
+if (resetPwBtn) {
+  resetPwBtn.addEventListener('click', () => {
+    sendEmailModal.showModal();
+  });
+}
+
+if (sendEmailModal) {
+  sendEmailModal.addEventListener('close', sendEmailModalData);
+}
 
 loginBtn.addEventListener('click', () => {
   login();

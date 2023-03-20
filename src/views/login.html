@@ -59,7 +59,7 @@
               <i class="xi-2x xi-naver"></i>
             </button>
           </div>
-          <div>
+          <div class="text-align">
             <button
               type="button"
               class="border-none-button"
@@ -67,6 +67,24 @@
             >
               회원이 아니신가요??
             </button>
+            <button type="button" class="border-none-button" id="reset-pw-btn">
+              비밀번호 재발급
+            </button>
+            <dialog id="send-email-modal">
+              <form method="dialog">
+                <label for="send-email">이메일을 입력해주세요</label>
+                <br />
+                <input
+                  type="text"
+                  name="send-email"
+                  id="send-email-input"
+                  placeholder=""
+                />
+                <br />
+                <button value="send">초기화 메일 보내기</button>
+                <button value="cancel">취소</button>
+              </form>
+            </dialog>
           </div>
         </div>
       </div>

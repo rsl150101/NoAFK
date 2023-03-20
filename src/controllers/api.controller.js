@@ -46,7 +46,7 @@ class ApiController {
     res.clearCookie('refreshToken');
     // 카카오소셜로그인 쿠키
     res.clearCookie('connect.sid');
-    return res.json({ message: '로그아웃 성공.' });
+    return res.redirect('/');
   };
 
   // 소셜로그인
@@ -96,6 +96,20 @@ class ApiController {
       res.status(200).render('test', { id, pageTitle: 'Test' });
     } catch (error) {
       return res.status(400).json({ message: '로그인 후 이용부탁드립니다.' });
+    }
+  };
+
+  // 비밀번호 재발급
+  resetPassword = async (req, res) => {
+    try {
+      const { email } = req.body;
+
+      const { status, message } = await this.userService.sendEmail(email);
+
+      res.status(status).json({ message });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: error.message });
     }
   };
 }
