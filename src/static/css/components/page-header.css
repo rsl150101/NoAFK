@@ -2,7 +2,7 @@
   width: 70%;
   height: 90px;
   border-bottom: 1px solid var(--light-gray);
-  font-size: 16pt;
+  font-size: 1.2em;
 }
 
 .page-header__nav ul {
@@ -12,10 +12,11 @@
   justify-content: space-between;
   align-items: center;
   font-weight: 700;
+  font-size: 1.1em;
 }
 
 .page-header__nav ul li:first-child {
-  font-size: 19pt;
+  font-size: 1.2em;
 }
 
 .page-header__nav__search-bar {
