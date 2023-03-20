@@ -3,25 +3,25 @@
   <head>
     {% include "head.html" %}
     <title>noAFK | 회원관리</title>
-    <link rel="stylesheet" href="css/admin.css" />
+    <link rel="stylesheet" href="/./css/admin.css" />
   </head>
   <body>
     <header id="hd">
       <div id="hd_top">
         <div id="logo">
-          <a href="/adminUser">어드민 페이지</a>
+          <a href="/admin/users">어드민 페이지</a>
         </div>
 
         <div id="tnb">
           <ul>
             <li class="tnb_li">
-              <a href="/adminUser" class="tnb_service">회원관리</a>
+              <a href="/admin/users" class="tnb_service">회원관리</a>
             </li>
             <li class="tnb_li">
-              <a href="/adminUser" class="tnb_service">공고관리</a>
+              <a href="/admin/projects" class="tnb_service">공고관리</a>
             </li>
             <li class="tnb_li_logout">
-              <a href="/adminUser" class="tnb_service">로그아웃</a>
+              <a href="/admin/users" class="tnb_service">로그아웃</a>
             </li>
           </ul>
         </div>
@@ -84,6 +84,8 @@
         </footer>
       </div>
     </div>
+    <script src="/./js/cookieSave.js"></script>
+    <script src="/./js/admin/users.js"></script>
     <script src="/./js/usersPagination.js"></script>
   </body>
 </html>
