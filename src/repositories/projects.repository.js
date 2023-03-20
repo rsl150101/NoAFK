@@ -53,9 +53,15 @@ class ProjectRepository {
   };
 
   //* 오프셋 기반 전체 프로젝트 조회
-  findAllOffsetBasedProjects = async (offset, limit) => {
+  findAllOffsetBasedProjects = async (offset, limit, search) => {
     try {
       const projects = await this.projectModel.findAll({
+        where: {
+          [Op.or]: {
+            title: { [Op.like]: `%${search}%` },
+            owner: { [Op.like]: `%${search}%` },
+          },
+        },
         raw: true,
         offset,
         limit,
@@ -63,6 +69,7 @@ class ProjectRepository {
       });
       return projects;
     } catch (error) {
+      console.log(error);
       error.status = 500;
       throw error;
     }
@@ -71,7 +78,7 @@ class ProjectRepository {
   //* 커서 기반 상태별 프로젝트 조회
   findAllCursorBasedProjectsByStatus = async (
     cursor,
-    search = '',
+    search,
     status = 0,
     limit = 3
   ) => {
@@ -98,9 +105,16 @@ class ProjectRepository {
   };
 
   //* 프로젝트 총 갯수
-  findAllProjectCount = async () => {
+  findAllProjectCount = async (search) => {
     try {
-      const count = await this.projectModel.count();
+      const count = await this.projectModel.count({
+        where: {
+          [Op.or]: {
+            title: { [Op.like]: `%${search}%` },
+            owner: { [Op.like]: `%${search}%` },
+          },
+        },
+      });
       return count;
     } catch (error) {
       error.status = 500;
