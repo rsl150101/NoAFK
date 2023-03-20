@@ -78,24 +78,12 @@ class ApiController {
   };
   // 로그인 페이지
   renderLoginPage = (req, res) => {
-    if (res.locals.user) {
-      const error = new AlreayLogin();
-      res.status(403).json({ message: error.message });
-      return res.redirect('/'); // 임시구현 => home으로
-    }
-
     const pageTitle = 'Login';
     return res.status(200).render('login.html', { pageTitle });
   };
 
   // 회원가입 페이지
   renderJoinPage = (req, res) => {
-    if (res.locals.user) {
-      const error = new AlreayLogin();
-      res.status(403).json({ message: error.message });
-      return res.redirect('/'); // 임시구현 => home으로
-    }
-
     const pageTitle = 'Join';
     return res.status(200).render('join.html', { pageTitle });
   };

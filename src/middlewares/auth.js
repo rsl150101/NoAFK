@@ -22,6 +22,23 @@ const verifyToken = (token) => {
   }
 };
 
+// 로그인되어 있을 때, 로그인, 회원가입페이지로 못 넘어가도록하는 미들웨어
+const checkLogin = async (req, res, next) => {
+  try {
+    // cookie 들고오기
+    const { cookie } = req.headers;
+
+    if (cookie) {
+      return res.status(403).redirect('back');
+    }
+
+    next();
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+// 토큰검증 미들웨어
 const checkToken = async (req, res, next) => {
   try {
     // cookie 들고오기
@@ -120,4 +137,4 @@ const checkToken = async (req, res, next) => {
   }
 };
 
-module.exports = { checkToken };
+module.exports = { checkToken, checkLogin };
