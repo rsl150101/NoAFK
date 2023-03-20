@@ -43,8 +43,12 @@ const postModalData = async () => {
   }
 };
 
-editBoardBtn.addEventListener('click', () => {
-  projectEditModal.showModal();
-});
+if (editBoardBtn) {
+  editBoardBtn.addEventListener('click', () => {
+    projectEditModal.showModal();
+  });
+}
 
-projectEditModal.addEventListener('close', postModalData);
+if (projectEditModal) {
+  projectEditModal.addEventListener('close', postModalData);
+}

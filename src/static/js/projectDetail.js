@@ -81,9 +81,11 @@ if (deleteBoardBtn) {
   });
 }
 
-logoutBtn.addEventListener('click', () => {
-  logout();
-});
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    logout();
+  });
+}
 
 // 댓글 생성
 const createComment = async () => {
@@ -102,6 +104,7 @@ const createComment = async () => {
 
 // 댓글 수정
 const editComment = async (content, commentId) => {
+  console.log(content, commentId);
   await fetch(`/projects/${projectId}/comments/${commentId}`, {
     method: 'PATCH',
     headers: {
