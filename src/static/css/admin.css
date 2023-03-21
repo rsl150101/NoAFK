@@ -376,3 +376,9 @@ select {
 .td_mng_s {
   width: 60px;
 }
+#searchNotFound {
+  display: flex;
+  justify-content: center;
+  font-size: 2.1rem;
+  margin: 1rem;
+}

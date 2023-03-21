@@ -15,7 +15,6 @@ router.get('/', checkToken, projectsController.renderProjectsPage);
 router.get('/users');
 router.get('/projects', projectsController.renderProjectsPage);
 router.get('/teams/:teamId', teamsController.renderTeamPage);
-router.get('/adminUser', usersController.renderAdminUserPage);
 router.get('/login', checkToken, apiController.renderLoginPage);
 router.get('/join', checkToken, apiController.renderJoinPage);
 router.get('/test', checkToken, apiController.renderTestPage);
