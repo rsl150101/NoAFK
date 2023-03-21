@@ -26,7 +26,7 @@
   }
 })();
 
-const searchForm = document.getElementById('fsearch');
+const searchForm = document.getElementById('formSearch');
 const selectElement = document.getElementById('sfl');
 
 searchForm.addEventListener('submit', () => {
