@@ -80,3 +80,7 @@
 .text-dark {
   color: #343a40 !important;
 }
+
+.error-box {
+  display: none;
+}

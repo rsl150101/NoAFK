@@ -4,42 +4,69 @@
     <div>
       <h1>JOIN</h1>
     </div>
-    <div class="join-box">
+    <form class="join-box" id="join-box">
       <div class="form-floating form-margin">
-        <label for="email">email</label>
         <input
           type="email"
           class="form-control"
           id="email"
-          placeholder="aaa@aaa.aaa 이메일 양식을 지켜주세요."
+          placeholder="email"
         />
+        <button class="check-button" id="email-check" type="button">
+          중복체크
+        </button>
+        <button
+          class="check-button"
+          id="send-email"
+          type="button"
+          style="display: none"
+        >
+          인증번호 전송
+        </button>
+        <p class="error-box" id="emailMsg">- 이메일을 확인해주세요.</p>
       </div>
       <div class="form-floating form-margin">
-        <label for="password">password</label>
+        <input
+          type="text"
+          class="form-control"
+          id="emailCheck"
+          placeholder="email check"
+        />
+        <button class="check-button" id="email-auth-check" type="button">
+          인증번호 확인
+        </button>
+      </div>
+      <div class="form-floating form-margin">
         <input
           type="password"
           class="form-control"
           id="password"
-          placeholder="최소 8자 이상으로 영문자 소문자, 숫자, 특수문자가 각각 최소 1개 이상."
+          placeholder="password"
         />
+        <p class="error-box" id="passwordMsg">
+          - 최소 8자 이상으로 영문자 소문자, 숫자, 특수문자가 각각 최소 1개
+          이상.
+        </p>
       </div>
       <div class="form-floating form-margin">
-        <label for="passwordCheck">password check</label>
         <input
           type="password"
           class="form-control"
           id="passwordCheck"
-          placeholder="입력한 비밀번호와 동일하게 입력해주세요."
+          placeholder="password check"
         />
+        <p class="error-box" id="passwordCheckMsg">- 다시 확인해주세요.</p>
       </div>
       <div class="form-floating form-margin">
-        <label for="nickname">nickname</label>
         <input
           type="nickname"
           class="form-control"
           id="nickname"
-          placeholder="닉네임은 한글,영어 대소문자,숫자만 사용가능합니다."
+          placeholder="nickname"
         />
+        <p class="error-box" id="nicknameMsg">
+          - 닉네임은 한글,영어 대소문자,숫자만 사용가능합니다.
+        </p>
       </div>
       <div class="text-align-row">
         <button
@@ -49,11 +76,11 @@
         >
           뒤로
         </button>
-        <button class="border-button" id="join-btn" type="button">
+        <button class="border-button" id="join-btn" onclick="join()">
           회원가입
         </button>
       </div>
-    </div>
+    </form>
   </div>
 </main>
 
