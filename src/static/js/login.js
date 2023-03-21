@@ -1,4 +1,4 @@
-const loginBtn = document.getElementById('login-btn');
+const loginForm = document.getElementById('login-box');
 const resetPwBtn = document.getElementById('reset-pw-btn');
 const sendEmailModal = document.getElementById('send-email-modal');
 
@@ -30,7 +30,8 @@ if (sendEmailModal) {
   sendEmailModal.addEventListener('close', sendEmailModalData);
 }
 
-loginBtn.addEventListener('click', () => {
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
   login();
 });
 
