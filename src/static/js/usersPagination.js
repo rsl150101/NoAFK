@@ -12,7 +12,7 @@ const pages = [];
 if (currentPage > 1) {
   pages.push(`<li class="page-item">
         <a class="page-link" href="?page=${
-          currentPage - 1
+          parseInt(currentPage) - 1
         }" aria-label="Previous">
           <span aria-hidden="true">◀</span>
         </a>
@@ -35,7 +35,9 @@ for (let i = 1; i <= totalPages; i++) {
 // 페이지 그룹의 마지막 페이지가 총 마지막 페이지보다 작을 때 다음 화살 만들기
 if (currentPage < totalPages) {
   pages.push(`<li class="page-item">
-        <a class="page-link" href='?page=${currentPage + 1}' aria-label="Next">
+        <a class="page-link" href='?page=${
+          parseInt(currentPage) + 1
+        }' aria-label="Next">
           <span aria-hidden="true">▶</span>
         </a>
       </li>`);
