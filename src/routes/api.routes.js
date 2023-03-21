@@ -74,4 +74,10 @@ router.get('/projects', projectsController.getCursorBasedProjects);
 // 비밀번호 초기화
 router.post('/reset-password', apiController.resetPassword);
 
+// 이메일 중복체크
+router.post('/find-email', apiController.findEmail);
+
+// 이메일 인증 메일 발송
+router.post('/auth/send-email', apiController.sendEmailAuth);
+
 module.exports = router;

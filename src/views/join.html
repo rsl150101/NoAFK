@@ -10,9 +10,9 @@
           type="email"
           class="form-control"
           id="email"
-          placeholder="email"
+          placeholder="이메일"
         />
-        <button class="check-button" id="email-check" type="button">
+        <button class="check-button" id="email-db-check" type="button">
           중복체크
         </button>
         <button
@@ -30,9 +30,9 @@
           type="text"
           class="form-control"
           id="emailCheck"
-          placeholder="email check"
+          placeholder="인증번호"
         />
-        <button class="check-button" id="email-auth-check" type="button">
+        <button class="check-button" id="send-email-check" type="button">
           인증번호 확인
         </button>
       </div>
@@ -41,7 +41,7 @@
           type="password"
           class="form-control"
           id="password"
-          placeholder="password"
+          placeholder="비밀번호"
         />
         <p class="error-box" id="passwordMsg">
           - 최소 8자 이상으로 영문자 소문자, 숫자, 특수문자가 각각 최소 1개
@@ -53,7 +53,7 @@
           type="password"
           class="form-control"
           id="passwordCheck"
-          placeholder="password check"
+          placeholder="비밀번호확인"
         />
         <p class="error-box" id="passwordCheckMsg">- 다시 확인해주세요.</p>
       </div>
@@ -62,7 +62,7 @@
           type="nickname"
           class="form-control"
           id="nickname"
-          placeholder="nickname"
+          placeholder="닉네임"
         />
         <p class="error-box" id="nicknameMsg">
           - 닉네임은 한글,영어 대소문자,숫자만 사용가능합니다.
@@ -76,9 +76,7 @@
         >
           뒤로
         </button>
-        <button class="border-button" id="join-btn" onclick="join()">
-          회원가입
-        </button>
+        <button class="border-button" id="join-btn">회원가입</button>
       </div>
     </form>
   </div>

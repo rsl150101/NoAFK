@@ -4,7 +4,7 @@ const UserService = require('../services/users.service');
 const { joinDataValidation, loginDataValidation } = require('../utility/joi');
 
 // customError
-const { AlreayLogin } = require('../utility/customError');
+const { AlreayLogin, EmailExist } = require('../utility/customError');
 
 class ApiController {
   userService = new UserService();
@@ -42,6 +42,7 @@ class ApiController {
 
   //로그아웃
   logout = async (req, res) => {
+    res.clearCookie('authString');
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
     // 카카오소셜로그인 쿠키
@@ -104,11 +105,44 @@ class ApiController {
     try {
       const { email } = req.body;
 
-      const { status, message } = await this.userService.sendEmail(email);
+      const { status, message } = await this.userService.sendPasswordEmail(
+        email
+      );
 
       res.status(status).json({ message });
     } catch (error) {
-      console.log(error);
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  // 이메일 중복체크
+  findEmail = async (req, res) => {
+    try {
+      const { email } = req.body;
+
+      const { status, message } = await this.userService.findEmail(email);
+
+      res.status(status).json({ message });
+    } catch (error) {
+      if (error.name === 'EmailExist') {
+        return res.status(409).json({ message: error.message });
+      }
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  // 이메일 인증 메일 발송
+  sendEmailAuth = async (req, res) => {
+    try {
+      const { email } = req.body;
+
+      const { status, message, authString } =
+        await this.userService.sendEmailAuth(email);
+
+      res.clearCookie('authString');
+      res.cookie('authString', authString);
+      res.status(status).json({ message });
+    } catch (error) {
       return res.status(500).json({ message: error.message });
     }
   };
