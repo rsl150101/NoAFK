@@ -1,3 +1,6 @@
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+
 class ProjectRepository {
   constructor(ProjectModel) {
     this.projectModel = ProjectModel;
@@ -5,7 +8,7 @@ class ProjectRepository {
 
   findProjectById = async (id) => {
     try {
-      return await this.projectModel.findAll({ where: { id } });
+      return await this.projectModel.findOne({ where: { id } });
     } catch (error) {
       throw error;
     }
@@ -28,10 +31,20 @@ class ProjectRepository {
     }
   };
 
+  //* 프로젝트 하드 삭제
+  hardDeleteProject = (id) => {
+    try {
+      this.projectModel.destroy({ where: { id }, force: true });
+      return;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   //* 전체 프로젝트 조회
   findAllProject = async () => {
     try {
-      const projects = await this.projectModel.findAll();
+      const projects = await this.projectModel.findAll({ raw: true });
       return projects;
     } catch (error) {
       error.status = 500;
@@ -39,13 +52,48 @@ class ProjectRepository {
     }
   };
 
-  //* 상태에 따른 페이지별 전체 프로젝트 조회
-  findAllByProjectStatus = async (offset, limit, status) => {
+  //* 오프셋 기반 전체 프로젝트 조회
+  findAllOffsetBasedProjects = async (offset, limit, search) => {
     try {
       const projects = await this.projectModel.findAll({
-        where: { status },
+        where: {
+          [Op.or]: {
+            title: { [Op.like]: `%${search}%` },
+            owner: { [Op.like]: `%${search}%` },
+          },
+        },
         raw: true,
         offset,
+        limit,
+        paranoid: false,
+      });
+      return projects;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 커서 기반 상태별 프로젝트 조회
+  findAllCursorBasedProjectsByStatus = async (
+    cursor,
+    search,
+    status = 0,
+    limit = 3
+  ) => {
+    try {
+      const projects = await this.projectModel.findAll({
+        where: {
+          [Op.and]: {
+            id: { [Op.gt]: cursor },
+            status,
+            [Op.or]: {
+              title: { [Op.like]: `%${search}%` },
+              owner: { [Op.like]: `%${search}%` },
+            },
+          },
+        },
+        raw: true,
         limit,
       });
       return projects;
@@ -56,11 +104,14 @@ class ProjectRepository {
   };
 
   //* 프로젝트 총 갯수
-  findAllProjectCount = async (status) => {
+  findAllProjectCount = async (search) => {
     try {
       const count = await this.projectModel.count({
         where: {
-          status,
+          [Op.or]: {
+            title: { [Op.like]: `%${search}%` },
+            owner: { [Op.like]: `%${search}%` },
+          },
         },
       });
       return count;
@@ -106,10 +157,6 @@ class ProjectRepository {
           where: { id: teamId },
         }
       );
-      const isSoftDeletedProject = status === 5;
-      if (isSoftDeletedProject) {
-        return { status: 200, message: '팀 삭제 성공!' };
-      }
       return { status: 200, message: '프로젝트 진행 상태 수정 성공!' };
     } catch (error) {
       error.status = 500;

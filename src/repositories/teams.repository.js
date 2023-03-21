@@ -1,3 +1,5 @@
+const { User, Project } = require('../models');
+
 class TeamRepository {
   constructor(TeamModel) {
     this.teamModel = TeamModel;
@@ -23,6 +25,12 @@ class TeamRepository {
     try {
       return await this.teamModel.findAll({
         where: { projectId: teamId },
+        include: [
+          {
+            model: User,
+            attributes: ['nickname'],
+          },
+        ],
       });
     } catch (error) {
       error.status = 500;
@@ -34,7 +42,6 @@ class TeamRepository {
     try {
       await this.teamModel.create({
         position, // 0 == 신청자, 1 == 팀페이지에서 바로 추가
-        task: '',
         userId,
         projectId: teamId,
       });
@@ -77,6 +84,75 @@ class TeamRepository {
       return { status: 200, message: '팀원 삭제 성공!' };
     } catch (error) {
       error.status = 500;
+      throw error;
+    }
+  };
+
+  // 프로젝트 공고 신청자 조회
+  findApplysByProjectId = async (id) => {
+    try {
+      return await this.teamModel.findAll({
+        where: { projectId: id, position: 0 },
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // 모집공고 참가 신청했는지 확인
+  checkNoApply = async (projectId, userId) => {
+    try {
+      return await this.teamModel.findAll({
+        where: { projectId, userId },
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // 모집공고 참가 신청
+  apply = async (projectId, userId) => {
+    try {
+      await this.teamModel.create({
+        position: 0,
+        task: '담당업무를 정해주세요.',
+        projectId,
+        userId,
+      });
+      return { message: '신청 수락 성공!' };
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // 모집공고 신청 수락
+  acceptApply = async (projectId, userId) => {
+    try {
+      await this.teamModel.update(
+        { position: 1 },
+        {
+          where: { projectId, userId },
+        }
+      );
+      return { message: '신청 수락 성공!' };
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  projectByUser = async (id) => {
+    try {
+      return await this.teamModel.findAll({
+        attributes: ['position'],
+        where: { user_id: id },
+        include: [
+          {
+            model: Project,
+            attributes: ['id', 'title', 'content', 'teamName', 'owner', 'person', 'projectEnd'],
+          },
+        ],
+      });
+    } catch (error) {
       throw error;
     }
   };

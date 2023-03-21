@@ -240,15 +240,14 @@ a.btn {
   vertical-align: middle;
 }
 
-.btn_02,
-a.btn_02 {
+a.btn.btn_02 {
   background: red;
   color: white;
 }
-.btn_03,
-a.btn_03 {
-  background: #142aa8;
-  color: #fff;
+
+a.btn.btn_03 {
+  background: blue;
+  color: white;
 }
 
 .btn_ov01 {
@@ -296,6 +295,13 @@ select {
   height: 35px;
   line-height: 32px;
   border: 1px solid #d5d5d5;
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
 #ft {
@@ -369,4 +375,10 @@ select {
 
 .td_mng_s {
   width: 60px;
+}
+#searchNotFound {
+  display: flex;
+  justify-content: center;
+  font-size: 2.1rem;
+  margin: 1rem;
 }

@@ -3,9 +3,9 @@
   <div>
     <div class="text-align form-margin-top">
       <div>
-        <h1>로그인</h1>
+        <h1>LOGIN</h1>
       </div>
-      <div class="login-box">
+      <form class="login-box" id="login-box">
         <div class="form-floating form-margin form-margin-top">
           <input
             type="email"
@@ -25,17 +25,39 @@
           <label for="password"></label>
         </div>
         <div class="text-align">
-          <button class="border-button" id="login-btn" type="button">
-            Login
-          </button>
-          <div class="kakaoLogin">
-            <a href="http://localhost:3000/api/auth/kakao"
-              ><img
-                src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
-              />
-            </a>
+          <button class="border-button" id="login-btn">Login</button>
+          <p>SNS로 로그인하기</p>
+          <div class="text-align-row">
+            <button
+              class="btn-social-login"
+              style="background: #ffeb00"
+              onclick="location.href='/api/auth/kakao'"
+            >
+              <i class="xi-2x xi-kakaotalk text-dark"></i>
+            </button>
+            <button
+              class="btn-social-login"
+              style="background: #24292e"
+              onclick="location.href='/api/auth/github'"
+            >
+              <i class="xi-2x xi-github"></i>
+            </button>
+            <button
+              class="btn-social-login"
+              style="background: #d93025"
+              onclick="location.href='/api/auth/google'"
+            >
+              <i class="xi-2x xi-google"></i>
+            </button>
+            <button
+              class="btn-social-login"
+              style="background: #1fc700"
+              onclick="location.href='/api/auth/naver'"
+            >
+              <i class="xi-2x xi-naver"></i>
+            </button>
           </div>
-          <div>
+          <div class="text-align">
             <button
               type="button"
               class="border-none-button"
@@ -43,9 +65,27 @@
             >
               회원이 아니신가요??
             </button>
+            <button type="button" class="border-none-button" id="reset-pw-btn">
+              비밀번호 재발급
+            </button>
+            <dialog id="send-email-modal">
+              <form method="dialog">
+                <label for="send-email">이메일을 입력해주세요</label>
+                <br />
+                <input
+                  type="text"
+                  name="send-email"
+                  id="send-email-input"
+                  placeholder=""
+                />
+                <br />
+                <button value="send">초기화 메일 보내기</button>
+                <button value="cancel">취소</button>
+              </form>
+            </dialog>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </main>

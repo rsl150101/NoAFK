@@ -51,6 +51,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       image: {
         type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: '/./images/baseprofile.png',
       },
       expiredAt: {
         type: DataTypes.DATE,

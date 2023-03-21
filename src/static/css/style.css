@@ -1,0 +1,51 @@
+/* config */
+@import './config/variables.css';
+@import './config/reset.css';
+
+/* component */
+@import './components/page-header.css';
+@import './components/page-footer.css';
+
+/* screens */
+@import './screen/home-screen.css';
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400, 700;
+  font-display: swap;
+  src: url('./fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+  unicode-range: U+0041-005A, U+0061-007A;
+}
+
+@font-face {
+  font-family: 'NotoSansKR';
+  font-style: normal;
+  font-display: swap;
+  src: url(./fonts/NotoSansKR-Regular.otf) format('opentype'),
+    url(./fonts/NotoSansKR-Medium.otf) format('opentype'),
+    url(./fonts/NotoSansKR-Bold.otf) format('opentype');
+  unicode-range: U+AC00-D7A3;
+}
+
+body {
+  font-family: 'Montserrat', 'NotoSansKR', sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 0;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}

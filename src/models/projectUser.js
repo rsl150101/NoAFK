@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       task: {
         type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: '담당업무를 정해주세요.',
       },
       userId: {
         type: DataTypes.INTEGER,

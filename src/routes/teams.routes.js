@@ -5,14 +5,17 @@ const router = express.Router();
 const teamsController = new TeamsController();
 
 // teamId == projectId
-// 팀 조회: 팀 이름, 팀 상태, 팀원 목록
-router.get('/:teamId', teamsController.getTeam);
+// 팀 전체 조회
+router.get('/', teamsController.getAllTeam);
 
 // 팀멤버 추가: 1.팀페이지 => position == 1, 2.모집페이지(팀합류신청) => position == 0
 router.post('/:teamId', teamsController.postTeamMember);
 
-// 팀 상태(status) 수정 (소프트삭제 기능 포함)
+// 팀 상태(status) 수정
 router.patch('/:teamId', teamsController.updateTeam);
+
+// 팀 소프트 삭제
+router.delete('/:teamId', teamsController.deleteTeam);
 
 // memberId(teamMemberId) == projectUserId
 // 팀원 정보 수정: 1. 팀페이지 => task, position, 2. 모집페이지(팀신청수락) => position = 0 에서 1로 수정

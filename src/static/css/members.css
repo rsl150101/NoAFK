@@ -1,0 +1,117 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+select {
+  padding: 0 24px;
+  border: 0;
+  background: #fff url(../images/ico_selcet.svg) no-repeat 95% 50%;
+  cursor: pointer;
+  appearance: none;
+  box-sizing: border-box;
+  height: 48px;
+}
+
+.btn_submit {
+  width: 48px;
+  height: 48px;
+  background: #25282b url(../images/sch_btn.png) no-repeat 50% 50%;
+  background-size: 19px 18px;
+  border-radius: 5px;
+  margin-left: 20px;
+  font-size: 0;
+}
+.sch_area {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #eff1f3;
+  border-radius: 10px;
+  padding: 15px 22px;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.sch_area .input.txt {
+  height: 48px;
+  width: 500px;
+  border: 0;
+}
+.input.txt {
+  padding: 14px;
+}
+.sch_area > div {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.last_div {
+  margin-top: 1rem;
+}
+.sch_area .last_div strong {
+  width: 80px;
+  color: #5a6265;
+  font-size: 17px;
+}
+#sfl {
+  width: 500px;
+}
+#searchNotFound {
+  display: flex;
+  justify-content: center;
+  font-size: 2.1rem;
+  margin: 1rem;
+}
+.user_wr {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.ml-3 {
+  width: 150px;
+  height: 150px;
+  border-radius: 50px;
+  margin-left: 0rem !important;
+  /* margin-top: -0.25rem !important; */
+}
+.user-card {
+  padding: 1rem;
+  margin-bottom: 1.2rem;
+  background-color: #ffdfdf;
+  border-radius: 25px;
+  box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.user-card-body {
+  margin: 0 10px;
+}
+.d-flex {
+  align-items: center;
+}
+.pagination {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.page-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+.color_active {
+  color: #37c375;
+}
+.users_num {
+  text-indent: 10px;
+  height: 30px;
+}

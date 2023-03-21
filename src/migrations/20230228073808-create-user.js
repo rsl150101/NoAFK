@@ -38,6 +38,8 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: '/./images/baseprofile.png',
       },
       expired_at: {
         type: Sequelize.DATE,

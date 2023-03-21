@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css" />
+    <title>공고관리 | NoAFK</title>
+  </head>
+  <body>
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th>프로젝트 제목</th>
+            <th>공고자</th>
+            <th>모집 인원</th>
+            <th>모집 마감</th>
+            <th>프로젝트 기간</th>
+            <th>관리</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if projects.length === 0 %}
+          <tr span="6">
+            <h2>공고가 없습니다.</h2>
+          </tr>
+          {% else %} {% for project in projects %}
+          <tr id="projectRow">
+            <td><span>{{project.title}}</span></td>
+            <td><span>{{project.owner}}</span></td>
+            <td><span>{{project.person}}</span></td>
+            <td><span>{{project.recruitDeadline}}</span></td>
+            <td>
+              <span>{{project.projectStart}} ~ {{project.projectEnd}}</span>
+            </td>
+            <td><button data-id="{{project.id}}">삭제</button></td>
+          </tr>
+          {% endfor%} {% endif%}
+        </tbody>
+      </table>
+      <form>
+        <input type="text" name="search" id="" required />
+      </form>
+      <div id="paginationBox">
+        {% if curPage !== 1%}
+        <a href="/admin/projects?page=1&search={{search}}"
+          ><i class="fa-solid fa-angles-left"></i
+        ></a>
+        {% endif %} {% if prevPage %}
+        <a href="/admin/projects?page={{prevPage}}&search={{search}}"
+          ><i class="fa-solid fa-angle-left"></i
+        ></a>
+        {% endif%} {% for page in pageArr%}
+        <a href="/admin/projects?page={{page}}&search={{search}}">{{page}}</a>
+        {% endfor %} {% if nextPage %}
+        <a href="/admin/projects?page={{nextPage}}&search={{search}}"
+          ><i class="fa-solid fa-angle-right"></i
+        ></a>
+        {% endif%} {% if curPage !== totalPage and totalPage !== 0%}
+        <a href="/admin/projects?page={{totalPage}}&search={{search}}"
+          ><i class="fa-solid fa-angles-right"></i
+        ></a>
+        {% endif%}
+      </div>
+    </main>
+    <script src="../js/adminProjectsSection.js"></script>
+    <script src="../js/searchFormTrim.js"></script>
+    <script
+      src="https://kit.fontawesome.com/d1f609d41d.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

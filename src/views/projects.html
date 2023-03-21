@@ -5,12 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <style>
+      #projectsBox {
+        height: 500px;
+        overflow-y: scroll;
+      }
+      #projectAddModal {
+        position: fixed;
+        top: 80%;
+      }
+    </style>
     <title>Projects | NoAFK</title>
   </head>
   <body>
     <h1>Project notices page</h1>
 
-    <ul id="projectsBox"></ul>
+    <ul id="projectsBox">
+      {% for project in projects %}
+      <li>
+        <h1>{{project.title}}</h1>
+        <pre>{{project.content}}</pre>
+        <div>
+          <h4>소유자</h4>
+          <span id="owner">{{project.owner}}</span>
+          <h4>등록일</h4>
+          <span id="createdAt">{{project.createdAt}}</span>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
     <div id="pagination"></div>
     <button id="projectAddBtn">공고 등록</button>
     <dialog id="projectAddModal">
@@ -57,8 +80,13 @@
         <button value="cancel">취소</button>
       </form>
     </dialog>
+    <script>
+      const site = 'projects';
+      const search = '{{search}}';
+      let cursor = '{{nextCursor}}';
+    </script>
+    <script src="js/cursorPagination.js"></script>
     <script src="js/projectAddModal.js"></script>
-    <script src="js/projectsPagination.js"></script>
     <script
       src="https://kit.fontawesome.com/d1f609d41d.js"
       crossorigin="anonymous"

@@ -7,25 +7,30 @@ class TeamsController {
   projectService = new ProjectService();
   userService = new UserService();
 
-  getTeam = async (req, res, next) => {
+  renderTeamPage = async (req, res, next) => {
     const { teamId } = req.params;
 
-    const { teamName, status } =
-      await this.teamService.findTeamNameAndStatusByTeamId(teamId);
+    try {
+      const { teamName, status } =
+        await this.teamService.findTeamNameAndStatusByTeamId(teamId);
+      const memberList = await this.teamService.findAllByTeamId(teamId);
 
-    const isSoftDeletedProject = status === 5;
-    if (isSoftDeletedProject) {
+      return res.render('myTeam', {
+        pageTitle: 'My Team',
+        teamName,
+        status,
+        memberList,
+      });
+    } catch (error) {
       return res.render('deletedTeam');
     }
+  };
 
-    const memberList = await this.teamService.findAllByTeamId(teamId);
-    await memberList.map((member) => {
-      member.nickname = this.teamService.findUserByNickname(member.userId);
-    });
-    return res.render('myteam', {
-      teamName,
-      status,
-      memberList,
+  getAllTeam = async (req, res, next) => {
+    const allTeam = await this.teamService.findAllTeam();
+    return res.render('allTeam', {
+      pageTitle: 'All Team',
+      allTeam,
     });
   };
 
@@ -52,7 +57,15 @@ class TeamsController {
       status
     );
 
-    return res.status(200).json({ updatedTeamStatus }); // 임시구현
+    return res.status(200).json({ updatedTeamStatus });
+  };
+
+  deleteTeam = async (req, res, next) => {
+    const { teamId } = req.params;
+
+    const deletedTeam = await this.teamService.deleteTeam(teamId);
+
+    return res.status(200).json({ message: '팀 삭제 성공!' });
   };
 
   updateTeamMember = async (req, res, next) => {
@@ -74,6 +87,40 @@ class TeamsController {
     const deletedMember = await this.teamService.deleteMember(memberId);
 
     return res.status(200).json({ deletedMember });
+  };
+
+  // 모집공고 참가 신청
+  apply = async (req, res) => {
+    try {
+      const { projectId } = req.params;
+
+      if (!res.locals.user) {
+        return res.render('login.html');
+      }
+      const userId = res.locals.user.id;
+
+      await this.teamService.apply(projectId, userId);
+
+      return res.status(200).json({ message: '참가 신청 완료!' });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  };
+
+  // 모집공고 신청 수락
+  acceptApply = async (req, res) => {
+    try {
+      const { projectId, userId } = req.params;
+
+      const acceptResult = await this.teamService.acceptApply(
+        projectId,
+        userId
+      );
+
+      return res.status(200).json(acceptResult);
+    } catch (error) {
+      res.status(400).json({ errorMessage: error.message });
+    }
   };
 }
 
