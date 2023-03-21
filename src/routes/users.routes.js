@@ -1,6 +1,6 @@
 const express = require('express');
 const UserController = require('../controllers/users.controller');
-const uploads = require('../middlewares/uploads');
+const { uploads, uploadProjectImage } = require('../middlewares/uploads');
 
 const router = express.Router();
 const usersController = new UserController();
