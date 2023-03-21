@@ -81,9 +81,11 @@ if (deleteBoardBtn) {
   });
 }
 
-logoutBtn.addEventListener('click', () => {
-  logout();
-});
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    logout();
+  });
+}
 
 // 댓글 생성
 const createComment = async () => {

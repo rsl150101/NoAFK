@@ -178,21 +178,6 @@ class UserRepository {
     }
   };
 
-  // refreshToken 저장
-  refreshToken = async (id, refreshToken) => {
-    try {
-      await this.userModel.update(
-        { refreshToken },
-        {
-          where: { id },
-        }
-      );
-    } catch (error) {
-      error.status = 500;
-      throw error;
-    }
-  };
-
   // * 유저조회,백오피스-회원조회
   getSearchUser = async (start, perPage, sfl, stx) => {
     try {

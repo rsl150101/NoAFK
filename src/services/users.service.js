@@ -11,8 +11,121 @@ const {
   IncorrectPassword,
 } = require('../utility/customError');
 
+// redis
+const redisClient = require('../utility/redis');
+
+// nodemailer
+const nodemailer = require('nodemailer');
+const transporter = require('../utility/nodemailer');
+
 class UserService {
   userRepository = new UserRepository(User);
+
+  findEmail = async (email) => {
+    try {
+      // 동일한 닉네임, Email 체크
+      const userByEmail = await this.userRepository.findByEmail(email);
+
+      if (userByEmail.length > 0) {
+        const error = new EmailExist();
+        throw error;
+      }
+
+      return { status: 200, message: '사용가능한 이메일입니다.' };
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  sendEmailAuth = async (email) => {
+    try {
+      const generateString = () => {
+        const chars =
+          '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz!@#$%^&*';
+        const stringLength = 8;
+
+        var randomString = '';
+        for (let i = 0; i < stringLength; i++) {
+          let randomNum = Math.floor(Math.random() * chars.length);
+          randomString += chars.substring(randomNum, randomNum + 1);
+        }
+
+        return randomString;
+      };
+
+      const authString = generateString();
+
+      const emailOptions = {
+        //비밀번호 초기화를 보내는 이메일의 Option
+        from: process.env.GMAIL_ID, //관리자 Email
+        to: email, //비밀번호 초기화 요청 유저 Email
+        subject: 'NoAFK - 회원가입 인증번호', //보내는 메일의 제목
+        //보내는 메일의 내용
+        html:
+          '<p>NoAFK 회원가입을 위한 인증번호입니다.</p>' +
+          `<p>인증번호는 ${authString} 입니다.</p> <br />` +
+          '<p>회원가입페이지로 돌아가 입력해주세요.</p>',
+      };
+      transporter.sendMail(emailOptions); //요청 전송
+
+      // 발급한 refresh token을 redis에 key를 user의 email로 하여 저장
+      // redisClient.set(email, authString);
+
+      return {
+        status: 200,
+        message: '회원가입 인증번호가 전송되었습니다.',
+        authString,
+      };
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  sendPasswordEmail = async (email) => {
+    try {
+      // 동일한 닉네임, Email 체크
+      const userByEmail = await this.userRepository.findByEmail(email);
+
+      if (userByEmail.length > 0) {
+        const generatePassword = () => {
+          const chars = '0123456789abcdefghiklmnopqrstuvwxyz!@#$%^&*';
+          const stringLength = 8;
+
+          var randomString = '';
+          for (let i = 0; i < stringLength; i++) {
+            let randomNum = Math.floor(Math.random() * chars.length);
+            randomString += chars.substring(randomNum, randomNum + 1);
+          }
+
+          return randomString;
+        };
+
+        const newPassword = generatePassword() + 'a1#';
+
+        const emailOptions = {
+          //비밀번호 초기화를 보내는 이메일의 Option
+          from: process.env.GMAIL_ID, //관리자 Email
+          to: email, //비밀번호 초기화 요청 유저 Email
+          subject: 'NoAFK - 임시비밀번호 발급', //보내는 메일의 제목
+          //보내는 메일의 내용
+          html:
+            `<p>임시비밀번호는 ${newPassword} 입니다.</p> <br />` +
+            '<p>마이페이지에서 비밀번호를 재설정해주세요!</p>',
+        };
+        transporter.sendMail(emailOptions); //요청 전송
+
+        // 비밀번호 암호화
+        const hashPassword = await bcrypt.hash(newPassword, 12);
+
+        return await this.userRepository.updateUserPassword(
+          userByEmail[0].id,
+          hashPassword
+        );
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
 
   createUser = async (userInfo) => {
     try {
@@ -81,7 +194,8 @@ class UserService {
         expiresIn: '14d',
       });
 
-      await this.userRepository.refreshToken(id, refreshToken);
+      // 발급한 refresh token을 redis에 key를 user의 id로 하여 저장
+      redisClient.set(id, refreshToken);
 
       return { accessToken, refreshToken };
     } catch (error) {
@@ -109,7 +223,8 @@ class UserService {
         expiresIn: '14d',
       });
 
-      await this.userRepository.refreshToken(id, refreshToken);
+      // 발급한 refresh token을 redis에 key를 user의 id로 하여 저장
+      redisClient.set(id, refreshToken);
 
       return { accessToken, refreshToken };
     } catch (error) {
