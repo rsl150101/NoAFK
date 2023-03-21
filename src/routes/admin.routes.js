@@ -11,5 +11,7 @@ router.delete('/projects/:id', projectsController.hardDeleteProject);
 
 //* 백오피스 - 회원관리
 router.get('/users', usersController.renderAdminUserPage);
+router.patch('/users/:id', usersController.blockUser);
+router.delete('/users/:id', usersController.deleteUser);
 
 module.exports = router;
