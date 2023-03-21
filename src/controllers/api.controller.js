@@ -76,14 +76,12 @@ class ApiController {
   };
   // 로그인 페이지
   renderLoginPage = (req, res) => {
-    const pageTitle = 'Login';
-    return res.status(200).render('login.html', { pageTitle });
+    return res.status(200).render('login.html', { pageTitle: 'Login' });
   };
 
   // 회원가입 페이지
   renderJoinPage = (req, res) => {
-    const pageTitle = 'Join';
-    return res.status(200).render('join.html', { pageTitle });
+    return res.status(200).render('join.html', { pageTitle: 'Join' });
   };
 
   // 검사 페이지
