@@ -3,9 +3,6 @@ const UserService = require('../services/users.service');
 // joi
 const { joinDataValidation, loginDataValidation } = require('../utility/joi');
 
-// customError
-const { AlreayLogin, EmailExist } = require('../utility/customError');
-
 class ApiController {
   userService = new UserService();
 
