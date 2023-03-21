@@ -134,11 +134,11 @@ class UserRepository {
   };
 
   //* 회원 차단
-  blockUser = async (userId) => {
+  blockUser = async (id) => {
     try {
       return await this.userModel.update(
-        { auth_level: 2 }, //* 2 = 차단
-        { where: { id: userId } }
+        { authLevel: 2 }, //* 2 = 차단
+        { where: { id } }
       );
     } catch (error) {
       throw error;
@@ -146,11 +146,11 @@ class UserRepository {
   };
 
   //* 회원 삭제
-  deleteUser = async (userId) => {
+  deleteUser = async (id) => {
     try {
       return await this.userModel.destroy({
         where: {
-          id: userId,
+          id,
         },
       });
     } catch (error) {
@@ -178,7 +178,7 @@ class UserRepository {
     }
   };
 
-  // Todo <장빈> 유저조회,백오피스-회원조회
+  // * 유저조회,백오피스-회원조회
   getSearchUser = async (start, perPage, sfl, stx) => {
     try {
       const isSearchField = sfl !== undefined;

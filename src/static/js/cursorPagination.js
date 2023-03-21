@@ -10,7 +10,7 @@ const handleScroll = async () => {
   if (end >= projectsBox.scrollHeight) {
     projectsBox.removeEventListener('scroll', handleScroll);
     const response = await fetch(
-      `http://localhost:3000/api/projects?cursor=${cursor}&site=${site}`
+      `http://localhost:3000/api/projects?cursor=${cursor}&site=${site}&search=${search}`
     );
     const { nextCursor, projects } = await response.json();
     cursor = nextCursor;
