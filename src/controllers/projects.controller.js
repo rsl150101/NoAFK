@@ -83,12 +83,14 @@ class ProjectsController {
   //* /admin/projects 페이지 렌더링, 오프셋 기반 전체 프로젝트 조회 및 페이지네이션
   getOffsetBasedProjects = async (req, res) => {
     try {
-      const { page } = req.query;
+      const { page, search } = req.query;
       const {
         pageInfo: { curPage, pageArr, prevPage, nextPage, totalPage },
         projects,
-      } = await this.projectService.getOffsetBasedProjects(Number(page));
-
+      } = await this.projectService.getOffsetBasedProjects(
+        Number(page),
+        search
+      );
       return res.status(200).render('adminProjects', {
         curPage,
         pageArr,
@@ -96,6 +98,7 @@ class ProjectsController {
         nextPage,
         totalPage,
         projects,
+        search,
       });
     } catch (error) {
       return res.status(500).json({ message: error.message });
@@ -106,10 +109,16 @@ class ProjectsController {
   renderProjectsPage = async (req, res) => {
     try {
       const { pathname } = url.parse(req.url);
-      const { cursor } = req.query;
+      const { cursor, search } = req.query;
       const { nextCursor, page, projects, pageTitle } =
-        await this.projectService.getCursorBasedProjects(pathname, cursor);
-      return res.status(200).render(page, { pageTitle, nextCursor, projects });
+        await this.projectService.getCursorBasedProjects(
+          pathname,
+          cursor,
+          search
+        );
+      return res
+        .status(200)
+        .render(page, { pageTitle, nextCursor, projects, search });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
@@ -118,9 +127,9 @@ class ProjectsController {
   //* 페이지별 커서 기반 전체 프로젝트 조회 및 페이지네이션
   getCursorBasedProjects = async (req, res) => {
     try {
-      const { cursor, site } = req.query;
+      const { cursor, site, search } = req.query;
       const { nextCursor, projects } =
-        await this.projectService.getCursorBasedProjects(site, cursor);
+        await this.projectService.getCursorBasedProjects(site, cursor, search);
       return res.status(200).json({ nextCursor, projects });
     } catch (error) {
       return res.status(500).json({ message: error.message });
