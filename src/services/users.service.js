@@ -204,18 +204,18 @@ class UserService {
   };
 
   //* 회원 차단
-  blockUser = async (userId) => {
+  blockUser = async (id) => {
     try {
-      return await this.userRepository.blockUser(userId);
+      return await this.userRepository.blockUser(id);
     } catch (error) {
       throw error;
     }
   };
 
   //* 회원 삭제
-  deleteUser = async (userId) => {
+  deleteUser = async (id) => {
     try {
-      return await this.userRepository.deleteUser(userId);
+      return await this.userRepository.deleteUser(id);
     } catch (error) {
       throw error;
     }
@@ -234,7 +234,7 @@ class UserService {
     }
   };
 
-  // Todo <장빈> 유저조회,백오피스-회원조회
+  // * 유저조회,백오피스-회원조회
   getSearchUser = async (currentPage, perPage, pathUrl, sfl, stx) => {
     try {
       const start = (currentPage - 1) * perPage;
@@ -247,7 +247,7 @@ class UserService {
 
       const totalPages = Math.ceil(count / perPage);
 
-      if (pathUrl === 'members') {
+      if (pathUrl === '/members') {
         const users = rows.map(
           ({ email, nickname, testResult, introduction, image }) => ({
             email,
@@ -294,18 +294,18 @@ class UserService {
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   //* 마이페이지 유저정보 렌더링
   userInfo = async (id) => {
     try {
       const userInfo = await this.userRepository.loginUserInfo(id);
-      
+
       return userInfo;
     } catch (error) {
       throw error;
     }
-  }
+  };
 }
 
 module.exports = UserService;
