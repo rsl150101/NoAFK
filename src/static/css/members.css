@@ -71,6 +71,7 @@ select {
 }
 .ml-3 {
   width: 150px;
+  height: 150px;
   border-radius: 50px;
   margin-left: 0rem !important;
   /* margin-top: -0.25rem !important; */
