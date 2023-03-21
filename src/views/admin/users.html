@@ -2,7 +2,7 @@
 <html lang="ko">
   <head>
     {% include "head.html" %}
-    <title>noAFK | 회원관리</title>
+    <title>{{pageTitle}} | NoAFK</title>
     <link rel="stylesheet" href="/./css/admin.css" />
   </head>
   <body>
@@ -21,7 +21,7 @@
               <a href="/admin/projects" class="tnb_service">공고관리</a>
             </li>
             <li class="tnb_li_logout">
-              <a href="/admin/users" class="tnb_service">로그아웃</a>
+              <a href="/api/auth/logout" class="tnb_service">로그아웃</a>
             </li>
           </ul>
         </div>
@@ -34,11 +34,12 @@
         <div class="container_wr">
           <div class="local_ov01 local_ov">
             <span class="btn_ov01"
-              ><span class="ov_txt">총회원수 </span><span class="ov_num"></span
-            ></span>
+              ><span class="ov_txt">총회원수 </span
+              ><span class="ov_num">{{count}}</span></span
+            >
           </div>
 
-          <form id="fsearch" class="local_sch01 local_sch">
+          <form id="formSearch" class="local_sch01 local_sch">
             <select name="sfl" id="sfl">
               <option value="user_email">이메일</option>
               <option value="user_nickname">닉네임</option>
@@ -72,7 +73,60 @@
                   <th scope="col" class="user_list_control td_mng_s">관리</th>
                 </tr>
               </thead>
-              <tbody id="usersList"></tbody>
+              {% if users.length > 0 %}
+              <tbody id="usersList">
+                <!-- 유저리스트 -->
+
+                <div id="user_wr">
+                  {% for user in users %}
+                  <tr class="block{{user.authLevel}}">
+                    <td headers="user_list_id" class="user_id">{{user.id}}</td>
+                    <td headers="user_list_email" class="user_email">
+                      {{user.email}}
+                    </td>
+                    <td headers="user_list_nickname" class="user_nickname">
+                      {{user.nickname}}
+                    </td>
+                    <td
+                      headers="user_list_introduction"
+                      class="user_introduction"
+                    >
+                      {{user.introduction}}
+                    </td>
+                    <td
+                      headers="user_list_test_result"
+                      class="user_test_result"
+                    >
+                      {{user.testResult}}
+                    </td>
+                    <td headers="user_list_expired_at" class="user_expired_at">
+                      {{user.expiredAt}}
+                    </td>
+                    <td headers="user_list_auth_level" class="user_auth_level">
+                      {{user.authLevel}}
+                    </td>
+                    <td headers="user_list_control" class="user_control">
+                      <a
+                        class="btn btn_03 block-user"
+                        href="#"
+                        data-user-id="{{ user.id }}"
+                        >차단</a
+                      >
+                      <a
+                        class="btn btn_02 delete-user"
+                        href="#"
+                        data-user-id="{{ user.id }}"
+                        >삭제</a
+                      >
+                    </td>
+                  </tr>
+
+                  {% endfor %}
+                </div>
+              </tbody>
+              {% else %}
+              <h1 id="searchNotFound">검색된 유저정보가 없습니다.</h1>
+              {% endif %}
             </table>
           </div>
           <nav aria-label="Page navigation">
@@ -84,6 +138,10 @@
         </footer>
       </div>
     </div>
+    <script>
+      const currentPage = '{{currentPage}}';
+      const totalPages = '{{totalPages}}';
+    </script>
     <script src="/./js/cookieSave.js"></script>
     <script src="/./js/admin/users.js"></script>
     <script src="/./js/usersPagination.js"></script>
