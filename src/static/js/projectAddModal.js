@@ -21,6 +21,7 @@ const postModalData = async () => {
       recruitDeadline,
       projectStart,
       projectEnd,
+      owner,
     };
 
     const response = await fetch('http://localhost:3000/projects', {
