@@ -1,10 +1,16 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
+
+// customError
 const {
   UserNotFound,
   RefreshTokenNotFound,
   TokenExpired,
 } = require('../utility/customError');
+
+// redis
+const redisClient = require('../utility/redis');
+const { promisify } = require('util');
 
 const verifyToken = (token) => {
   try {
@@ -16,6 +22,23 @@ const verifyToken = (token) => {
   }
 };
 
+// 로그인되어 있을 때, 로그인, 회원가입페이지로 못 넘어가도록하는 미들웨어
+const checkLogin = async (req, res, next) => {
+  try {
+    // cookie 들고오기
+    const { cookie } = req.headers;
+
+    if (cookie) {
+      return res.status(403).redirect('back');
+    }
+
+    next();
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+// 토큰검증 미들웨어
 const checkToken = async (req, res, next) => {
   try {
     // cookie 들고오기
@@ -79,13 +102,7 @@ const checkToken = async (req, res, next) => {
         });
 
         res.cookie('refreshToken', newRefreshToken);
-
-        await User.update(
-          { refreshToken: newRefreshToken },
-          {
-            where: { id },
-          }
-        );
+        redisClient.set(id, refreshToken);
       }
     }
 
@@ -98,8 +115,13 @@ const checkToken = async (req, res, next) => {
       return res.status(401).json({ message: error.message });
     }
 
-    // 저장된 refreshToken 이 아닌 경우
-    if (refreshToken !== user.refreshToken) {
+    // redis에 저장된 refreshToken과 비교
+    /* redis 모듈은 기본적으로 promise를 반환하지 않으므로,
+       promisify를 이용하여 promise를 반환하게 해줍니다.*/
+    const getAsync = promisify(redisClient.get).bind(redisClient);
+    const redisRefresh = await getAsync(id); // refresh token 가져오기
+
+    if (refreshToken !== redisRefresh) {
       const error = new RefreshTokenNotFound();
       res.status(401).json({ message: error.message });
       return res.render('login.html');
@@ -115,4 +137,4 @@ const checkToken = async (req, res, next) => {
   }
 };
 
-module.exports = { checkToken };
+module.exports = { checkToken, checkLogin };

@@ -160,7 +160,7 @@ class TeamRepository {
         include: [
           {
             model: Project,
-            attributes: ['title', 'content'],
+            attributes: ['id', 'title', 'content', 'teamName', 'owner', 'person', 'projectEnd'],
           },
         ],
       });

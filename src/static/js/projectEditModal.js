@@ -1,7 +1,7 @@
 const editBoardBtn = document.getElementById('edit-board-btn');
 const projectEditModal = document.getElementById('projectEditModal');
 
-const postModalData = async () => {
+const editModalData = async () => {
   if (projectEditModal.returnValue === 'register') {
     const title = document.getElementById('edit-title').value;
     const content = document.getElementById('edit-content').value;
@@ -43,8 +43,12 @@ const postModalData = async () => {
   }
 };
 
-editBoardBtn.addEventListener('click', () => {
-  projectEditModal.showModal();
-});
+if (editBoardBtn) {
+  editBoardBtn.addEventListener('click', () => {
+    projectEditModal.showModal();
+  });
+}
 
-projectEditModal.addEventListener('close', postModalData);
+if (projectEditModal) {
+  projectEditModal.addEventListener('close', editModalData);
+}

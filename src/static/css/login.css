@@ -1,8 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-
 .text-align {
   display: flex;
   flex-direction: column;
@@ -11,12 +6,10 @@
 }
 
 .login-box {
-  width: 30%;
   border: 1px solid;
 }
 
 .join-box {
-  width: 30%;
   border: 1px solid;
 }
 
@@ -86,4 +79,8 @@
 }
 .text-dark {
   color: #343a40 !important;
+}
+
+.error-box {
+  display: none;
 }

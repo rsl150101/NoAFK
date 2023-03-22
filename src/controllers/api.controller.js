@@ -3,14 +3,6 @@ const UserService = require('../services/users.service');
 // joi
 const { joinDataValidation, loginDataValidation } = require('../utility/joi');
 
-// customError
-const { AlreayLogin } = require('../utility/customError');
-
-// 소셜로그인
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-dotenv.config();
-
 class ApiController {
   userService = new UserService();
 
@@ -47,11 +39,12 @@ class ApiController {
 
   //로그아웃
   logout = async (req, res) => {
+    res.clearCookie('authString');
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
     // 카카오소셜로그인 쿠키
     res.clearCookie('connect.sid');
-    return res.json({ message: '로그아웃 성공.' });
+    return res.redirect('/');
   };
 
   // 소셜로그인
@@ -74,10 +67,6 @@ class ApiController {
     try {
       const { id } = req.params;
       const { testResult } = req.body;
-      // MBTI 결과가 존재할 경우 에러 발생. 중복 검사 방지
-      if (testResult.length === 4) {
-        throw error;
-      }
       await this.userService.test(id, testResult);
 
       return res.status(200).json({ message: '검사결과가 저장되었습니다.' });
@@ -87,31 +76,70 @@ class ApiController {
   };
   // 로그인 페이지
   renderLoginPage = (req, res) => {
-    if (res.locals.user) {
-      const error = new AlreayLogin();
-      res.status(403).json({ message: error.message });
-      return res.redirect('/'); // 임시구현 => home으로
-    }
-
-    const pageTitle = 'Login';
-    return res.status(200).render('login.html', { pageTitle });
+    return res.status(200).render('login.html', { pageTitle: 'Login' });
   };
 
   // 회원가입 페이지
   renderJoinPage = (req, res) => {
-    if (res.locals.user) {
-      const error = new AlreayLogin();
-      res.status(403).json({ message: error.message });
-      return res.redirect('/'); // 임시구현 => home으로
-    }
-
-    const pageTitle = 'Join';
-    return res.status(200).render('join.html', { pageTitle });
+    return res.status(200).render('join.html', { pageTitle: 'Join' });
   };
 
   // 검사 페이지
-  renderTestPage = (req, res) => {
-    return res.status(200).render('test');
+  renderTestPage = async (req, res) => {
+    try {
+      const { id } = res.locals.user;
+
+      res.status(200).render('test', { id, pageTitle: 'Test' });
+    } catch (error) {
+      return res.status(400).json({ message: '로그인 후 이용부탁드립니다.' });
+    }
+  };
+
+  // 비밀번호 재발급
+  resetPassword = async (req, res) => {
+    try {
+      const { email } = req.body;
+
+      const { status, message } = await this.userService.sendPasswordEmail(
+        email
+      );
+
+      res.status(status).json({ message });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  // 이메일 중복체크
+  findEmail = async (req, res) => {
+    try {
+      const { email } = req.body;
+
+      const { status, message } = await this.userService.findEmail(email);
+
+      res.status(status).json({ message });
+    } catch (error) {
+      if (error.name === 'EmailExist') {
+        return res.status(409).json({ message: error.message });
+      }
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  // 이메일 인증 메일 발송
+  sendEmailAuth = async (req, res) => {
+    try {
+      const { email } = req.body;
+
+      const { status, message, authString } =
+        await this.userService.sendEmailAuth(email);
+
+      res.clearCookie('authString');
+      res.cookie('authString', authString);
+      res.status(status).json({ message });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
   };
 }
 

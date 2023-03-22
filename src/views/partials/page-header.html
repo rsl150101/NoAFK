@@ -2,11 +2,15 @@
   <nav class="page-header__nav">
     <ul>
       <li><a href="/">NoAFK</a></li>
-      <li><a href="/projects">모집공고</a></li>
+      <li><a href="/projects">모집 공고</a></li>
       <li><a href="/teams">팀</a></li>
       <li><a href="#">프로젝트</a></li>
+      <li><a href="/members">유저 조회</a></li>
+      {% if user %}
+      <li><a href="#">나의 팀</a></li>
+
+      {% endif %}
       <li class="page-header__nav__search-bar">
-        <!-- todo <김우중> <2023.03.15> : 검색바 프론트 구현할 것, 검색시 /projects?search= 로 -->
         <form action="/projects" , method="get">
           <input
             type="text"
@@ -15,11 +19,17 @@
             placeholder="&#xf002; 프로젝트 검색"
             style="font-family: Arial, FontAwesome"
             maxlength="100"
+            required
           />
         </form>
       </li>
+      {% if not user %}
       <li><a href="/join">JOIN</a></li>
       <li><a href="/login">LOGIN</a></li>
+      {% else %}
+      <li><a href="#">개인 정보 수정</a></li>
+      <li><a href="/api/auth/LOGOUT">LOGOUT</a></li>
+      {% endif %}
     </ul>
   </nav>
 </header>

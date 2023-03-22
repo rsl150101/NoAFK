@@ -6,7 +6,7 @@
 
 .page-footer span {
   font-size: 1.2em;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .page-footer ul {
@@ -24,9 +24,12 @@
 
 .page-footer a {
   font-size: 0.9em;
+  font-weight: 700;
 }
 
 .page-footer small {
+  font-weight: 500;
   font-size: 0.8em;
   color: var(--light-gray);
+  padding-bottom: 10px;
 }

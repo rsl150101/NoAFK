@@ -11,17 +11,22 @@
   gap: 0 30px;
   justify-content: space-between;
   align-items: center;
+  font-weight: 700;
+  font-size: 1.1em;
 }
 
-.page-header__nav ul li:first-child,
-.page-header__nav ul li:nth-child(6),
-.page-header__nav ul li:last-child {
-  font-weight: bold;
+.page-header__nav ul li:first-child {
+  font-size: 1.2em;
 }
 
 .page-header__nav__search-bar {
   flex: auto;
+  font-weight: 500;
   height: 100%;
+}
+
+.page-header__nav__search-bar input::placeholder {
+  font-weight: 500;
 }
 
 #searchProject {
