@@ -1,5 +1,4 @@
 const projectsBox = document.getElementById('projectsBox');
-const pagination = document.getElementById('pagination');
 
 const handleScroll = async () => {
   let end = projectsBox.clientHeight + Math.round(projectsBox.scrollTop);
