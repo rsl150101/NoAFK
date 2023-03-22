@@ -15,7 +15,7 @@ const chatsController = new ChatsController();
 
 router.get('/', checkToken, projectsController.renderProjectsPage);
 router.get('/users');
-router.get('/projects', projectsController.renderProjectsPage);
+router.get('/projects', checkToken, projectsController.renderProjectsPage);
 router.get('/teams/:teamId', teamsController.renderTeamPage);
 router.get('/login', checkLogin, apiController.renderLoginPage);
 router.get('/join', checkLogin, apiController.renderJoinPage);
