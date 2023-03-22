@@ -9,9 +9,7 @@
 
 #user-info-update-content {
   margin-left: 25px;
-}
-#user-info-update-content:hover {
-  color: orange;
+  cursor: pointer;
 }
 
 #user-profile {
@@ -68,7 +66,7 @@ table.type09 thead th {
   font-weight: bold;
   vertical-align: top;
   color: black;
-  border-bottom: 3px solid gray;
+  border-bottom: 3px solid #ced4da;
 }
 table.type09 tbody th {
   width: 250px;
@@ -76,7 +74,7 @@ table.type09 tbody th {
   font-weight: bold;
   vertical-align: top;
   border-bottom: 1px solid #ced4da;
-  background: #eaeaea;
+  background: #ecf2f8;
 }
 table.type09 td {
   width: 250px;
