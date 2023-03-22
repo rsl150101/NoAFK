@@ -52,6 +52,19 @@ class ProjectRepository {
     }
   };
 
+  findAllProjectByStatus = async (status) => {
+    try {
+      const projects = await this.projectModel.findAll({
+        where: { status },
+        raw: true,
+      });
+      return projects;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
   //* 오프셋 기반 전체 프로젝트 조회
   findAllOffsetBasedProjects = async (offset, limit, search) => {
     try {
