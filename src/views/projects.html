@@ -1,94 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <style>
-      #projectsBox {
-        height: 500px;
-        overflow-y: scroll;
-      }
-      #projectAddModal {
-        position: fixed;
-        top: 80%;
-      }
-    </style>
-    <title>Projects | NoAFK</title>
-  </head>
-  <body>
-    <h1>Project notices page</h1>
-
-    <ul id="projectsBox">
+{% extends 'base.html' %} {% block content %}
+<main class="main-screen projects-screen">
+  <section>
+    <header>
+      <h1>모집 중인 프로젝트</h1>
+    </header>
+    <ul id="projectsBox" class="project-list">
       {% for project in projects %}
       <li>
-        <h1>{{project.title}}</h1>
-        <pre>{{project.content}}</pre>
-        <div>
-          <h4>소유자</h4>
-          <span id="owner">{{project.owner}}</span>
-          <h4>등록일</h4>
-          <span id="createdAt">{{project.createdAt}}</span>
-        </div>
+        <a href="/projects/{{project.id}}">
+          <h1>{{project.title}}</h1>
+          <pre>{{project.content}}</pre>
+          <div>
+            <h4>등록자</h4>
+            <span id="owner">{{project.owner}}</span>
+            <h4>등록일</h4>
+            <span id="createdAt">{{project.createdAt}}</span>
+          </div>
+        </a>
       </li>
       {% endfor %}
     </ul>
+  </section>
+  <section>
     <button id="projectAddBtn">공고 등록</button>
-    <dialog id="projectAddModal">
-      <form method="dialog">
-        <label for="title">프로젝트 명</label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          placeholder="공고 제목을 입력하세요."
-          value="열심히 프로젝트할 인원을 모집합니다."
-        />
-        <label for="content">프로젝트 내용</label>
-        <input
-          type="text"
-          name="content"
-          id="content"
-          placeholder="공고 내용을 입력하세요."
-          value="하루 24시간 작업 필수"
-        />
-        <label for="teamName">팀 명</label>
-        <input type="text" name="teamName" id="teamName" />
-        <label for="techStack">기술 스택</label>
-        <input
-          type="text"
-          name="techStack"
-          id="techStack"
-          placeholder=", 로 구분해주세요."
-        />
-        <label for="person">인원</label>
-        <input type="number" name="person" id="person" min="1" />
-        <br />
-        <label for="recruitDeadline">마감기한</label>
-        <input
-          type="datetime-local"
-          name="recruitDeadline"
-          id="recruitDeadline"
-        />
-        <label for="projectStart">프로젝트 시작일</label>
-        <input type="datetime-local" name="projectStart" id="projectStart" />
-        <label for="projectEnd">프로젝트 종료일</label>
-        <input type="datetime-local" name="projectEnd" id="projectEnd" />
-        <button value="register">등록</button>
-        <button value="cancel">취소</button>
-      </form>
-    </dialog>
-    <script>
-      const site = 'projects';
-      const search = '{{search}}';
-      let cursor = '{{nextCursor}}';
-    </script>
-    <script src="js/cursorPagination.js"></script>
-    <script src="js/projectAddModal.js"></script>
-    <script
-      src="https://kit.fontawesome.com/d1f609d41d.js"
-      crossorigin="anonymous"
-    ></script>
-  </body>
-</html>
+  </section>
+  <dialog id="projectAddModal">
+    <form method="dialog">
+      <label for="title">프로젝트 명</label>
+      <input
+        type="text"
+        name="title"
+        id="title"
+        placeholder="공고 제목을 입력하세요."
+      />
+      <label for="content">프로젝트 내용</label>
+      <input
+        type="text"
+        name="content"
+        id="content"
+        placeholder="공고 내용을 입력하세요."
+      />
+      <label for="teamName">팀 명</label>
+      <input type="text" name="teamName" id="teamName" />
+      <label for="techStack">기술 스택</label>
+      <input
+        type="text"
+        name="techStack"
+        id="techStack"
+        placeholder=", 로 구분해주세요."
+      />
+      <label for="person">인원</label>
+      <input type="number" name="person" id="person" min="1" />
+      <br />
+      <label for="recruitDeadline">마감기한</label>
+      <input
+        type="datetime-local"
+        name="recruitDeadline"
+        id="recruitDeadline"
+      />
+      <label for="projectStart">프로젝트 시작일</label>
+      <input type="datetime-local" name="projectStart" id="projectStart" />
+      <label for="projectEnd">프로젝트 종료일</label>
+      <input type="datetime-local" name="projectEnd" id="projectEnd" />
+      <button value="register">등록</button>
+      <button value="cancel">취소</button>
+    </form>
+  </dialog>
+</main>
+<script>
+  const site = 'projects';
+  const search = '{{search}}';
+  let cursor = '{{nextCursor}}';
+</script>
+<script src="js/cursorPagination.js"></script>
+<script src="js/projectAddModal.js"></script>
+{% endblock%}

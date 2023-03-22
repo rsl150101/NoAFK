@@ -15,6 +15,7 @@ const handleScroll = async () => {
     cursor = nextCursor;
     projects.forEach((project) => {
       const li = document.createElement('li');
+      const a = document.createElement('a');
       const h1 = document.createElement('h1');
       const pre = document.createElement('pre');
       const div = document.createElement('div');
@@ -23,15 +24,17 @@ const handleScroll = async () => {
       const ownerSpan = document.createElement('span');
       const createdAtSpan = document.createElement('span');
 
+      a.href = `/projects/${project.id}`;
       h1.textContent = project.title;
       pre.textContent = project.content;
-      ownerh4.textContent = '소유자';
+      ownerh4.textContent = '등록자';
       createdAth4.textContent = '등록일';
       ownerSpan.textContent = project.owner;
       createdAtSpan.textContent = project.createdAt;
 
       div.append(ownerh4, ownerSpan, createdAth4, createdAtSpan);
-      li.append(h1, pre, div);
+      a.append(h1, pre, div);
+      li.append(a);
       projectsBox.appendChild(li);
 
       projectsBox.addEventListener('scroll', handleScroll);

@@ -5,9 +5,11 @@
 /* component */
 @import './components/page-header.css';
 @import './components/page-footer.css';
+@import './components//main-section-header.css';
 
 /* screens */
 @import './screen/home-screen.css';
+@import './screen/projects.screen.css';
 
 @font-face {
   font-family: 'Montserrat';

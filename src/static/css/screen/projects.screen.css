@@ -1,0 +1,75 @@
+.projects-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 70%;
+  padding: 20px 0;
+  gap: 20px;
+  flex: 1;
+}
+
+.projects-screen h1 {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.project-list {
+  margin: 20px 0;
+  padding: 20px 20px;
+  height: 500px;
+  overflow-y: scroll;
+  gap: 50px;
+  display: grid;
+  grid-auto-rows: 200px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.project-list::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+.project-list li a {
+  height: 100%;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 0 5px 1px var(--light-gray);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-list li a:hover {
+  box-shadow: 0 0 2px 2px lightgrey;
+}
+
+.project-list li a:active {
+  transform: translateY(2px);
+}
+
+.project-list li a pre {
+  white-space: pre-wrap;
+  font-size: 1.1em;
+  flex: 1;
+  padding: 20px 0;
+  overflow: hidden;
+}
+
+.project-list li a div {
+  display: grid;
+  padding-top: 5px;
+  grid-template-columns: 85% minmax(85px, 15%);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 15px;
+  font-size: 0.9em;
+}
+
+.project-list li a div h4 {
+  justify-self: end;
+  font-weight: 700;
+}
+
+.project-list li a div span {
+  justify-self: center;
+}
