@@ -1,55 +1,38 @@
-<div style="display: flex">
-  <div>
-    <div><a href="http://localhost:3000/chat/teamId">팀 채팅</a></div>
-    <div><a href="http://localhost:3000/chat/teamId/memberId">유저 1</a></div>
-    <div><a href="http://localhost:3000/chat/teamId/memberId">유저 2</a></div>
-    <div><a href="http://localhost:3000/chat/teamId/memberId">유저 3</a></div>
-    <div><a href="http://localhost:3000/chat/teamId/memberId">유저 4</a></div>
-  </div>
-  <div>
-    <!-- 메시지 폼 -->
-    <form name="publish">
-      <input type="text" name="message" />
-      <input type="submit" value="send" />
-    </form>
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/teamChat.css">
+  </head>
+  <body>
+    <main class="teamChat__main">
+      <div class="teamChat__column">
+        <div class="teamChat__rooms" onclick="teamChatting()"><div>팀 채팅</div></div>
+        {% for member in memberList %}
+        <div class="teamChat__rooms" onclick="whispering({{member.id}})">
+          <div>{{member.User.nickname}}</div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="teamChat__column">
+        <!-- 수신받을 메시지가 노출될 div -->
+        <div id="messages">
+          {% for chatting in chattingList %}
+          <div>{{chatting.msg}}</div>
+          {% endfor %}
+        </div>
+        <!-- 메시지 폼 -->
+        <form id ="messages-form" name="publish">
+          <input id ="messages-input" type="text" name="message" />
+          <input id ="messages-send" type="submit" value="send" />
+        </form>
+      </div>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-      const socket = io();
-
-      // socket.on 함수로 서버에서 전달하는 신호를 수신
-      socket.on('usercount', (count) => {
-        console.log('현재 ' + count + '명이 서버에 접속해있습니다.');
-      });
-
-      // 폼에 있는 메세지 보내기
-      document.forms.publish.onsubmit = function () {
-        let outgoingMessage = this.message.value;
-        const obj = { type: 'message', params: { value: outgoingMessage } };
-        socket.emit('message', JSON.stringify(obj));
-        return false;
-      };
-
-      // 들어오는 메세지 핸들링
-      socket.on('message', (msg) => {
-        let incomingMessage = msg;
-        showMessage(incomingMessage);
-      });
-
-      socket.on('close', (event) => {
-        console.log(`Closed ${event.code}`);
-      });
-
-      // dev에 메세지 더하기
-      function showMessage(message) {
-        let messageElem = document.createElement('div');
-        const obj = JSON.parse(message);
-        messageElem.textContent = obj.params.value;
-        document.getElementById('messages').prepend(messageElem);
-      }
-    </script>
-
-    <!-- 수신받을 메시지가 노출될 div -->
-    <div id="messages"></div>
-  </div>
-</div>
+    <script src="/js/myteam/teamChat.js"></script>
+    <script src="/js/chatting.js"></script>
+  </body>
+</html>

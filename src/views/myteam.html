@@ -43,7 +43,14 @@
               </th>
 
               <th id="task-{{member.id}}">{{member.task}}</th>
-              <th><button id="chat-{{member.id}}">귓속말</button></th>
+              <th>
+                <button
+                  id="chat-{{member.id}}"
+                  onclick="whispering({{member.id}})"
+                >
+                  귓속말
+                </button>
+              </th>
               <th
                 class="myteam__memberList__config-btn"
                 id="config-{{member.id}}"
@@ -121,23 +128,8 @@
 
       <section id="myteam__footer">
         <div>
-          <<<<<<< HEAD
-          <button id="deleteTeam" onclick="updateTeamStatus(5)">팀 삭제</button>
-          <button id="team-chat-btn">팀 채팅</button>
-
-          <iframe
-            id="chatting-frame"
-            src="http://localhost:3000/chat"
-            style="display: block"
-            width="300px"
-            height="600px"
-          >
-            {% include "chat.html" %}
-          </iframe>
-          =======
           <button id="deleteTeam" onclick="deleteTeam()">팀 삭제</button>
-          <button>팀 채팅</button>
-          >>>>>>> 9904442064f907cdb69285ca0fd6d7f9f7491145
+          <button onclick="teamChatting()">팀 채팅</button>
         </div>
       </section>
     </main>
@@ -157,5 +149,6 @@
     <script src="/js/myteam/teamUpdateStatus.js"></script>
     <script src="/js/myteam/teamEmit.js"></script>
     <script src="/js/myteam/teamDelete.js"></script>
+    <script src="/js/myteam/teamChat.js"></script>
   </body>
 </html>

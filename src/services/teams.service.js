@@ -25,6 +25,17 @@ class TeamService {
     }
   };
 
+  findMemberIdByUserIdAndTeamId = async (userId, teamId) => {
+    try {
+      return await this.teamRepository.findMemberIdByUserIdAndTeamId(
+        userId,
+        teamId
+      );
+    } catch (error) {
+      throw error;
+    }
+  };
+
   findTeamNameAndStatusByTeamId = async (teamId) => {
     try {
       return await this.projectRepository.findTeamNameAndStatusByTeamId(teamId);

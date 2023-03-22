@@ -38,6 +38,18 @@ class TeamRepository {
     }
   };
 
+  findMemberIdByUserIdAndTeamId = async (userId, teamId) => {
+    try {
+      return await this.teamModel.findOne({
+        attributes: ['id'],
+        where: { userId, projectId: teamId },
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
   createTeamMember = async (position, userId, teamId) => {
     try {
       await this.teamModel.create({
