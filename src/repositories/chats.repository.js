@@ -18,7 +18,7 @@ class ChatRepository {
   createChatHistory = async (chatId, userId, message) => {
     try {
       await this.chatModel.create({
-        room: `${chatId}`,
+        room: chatId,
         userId,
         msg: message,
       });
