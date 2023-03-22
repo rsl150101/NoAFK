@@ -9,6 +9,7 @@ const {
   NicknameExist,
   UserNotFound,
   IncorrectPassword,
+  BlackUser,
 } = require('../utility/customError');
 
 // redis
@@ -182,7 +183,12 @@ class UserService {
         throw error;
       }
 
-      const { id, email, nickname, password } = userByEmail[0];
+      const { id, email, nickname, password, authLevel } = userByEmail[0];
+
+      if (authLevel === 2) {
+        const error = new BlackUser();
+        throw error;
+      }
 
       // 비밀번호 체크
       const checkPassword = await bcrypt.compare(userInfo.password, password);

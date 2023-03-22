@@ -62,6 +62,14 @@ class TokenExpired extends Error {
   }
 }
 
+class BlackUser extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'BlackUser';
+    this.message = '차단된 계정입니다.';
+  }
+}
+
 module.exports = {
   EmailExist,
   NicknameExist,
@@ -71,4 +79,5 @@ module.exports = {
   AlreadyApply,
   RefreshTokenNotFound,
   TokenExpired,
+  BlackUser,
 };
