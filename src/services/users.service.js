@@ -9,6 +9,7 @@ const {
   NicknameExist,
   UserNotFound,
   IncorrectPassword,
+  BlackUser,
 } = require('../utility/customError');
 
 // redis
@@ -32,6 +33,22 @@ class UserService {
       }
 
       return { status: 200, message: '사용가능한 이메일입니다.' };
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  findNickname = async (nickname) => {
+    try {
+      // 동일한 닉네임, Email 체크
+      const userByNickname = await this.userRepository.findByNickname(nickname);
+
+      if (userByNickname.length > 0) {
+        const error = new NicknameExist();
+        throw error;
+      }
+
+      return { status: 200, message: '사용가능한 닉네임입니다.' };
     } catch (error) {
       throw error;
     }
@@ -166,7 +183,12 @@ class UserService {
         throw error;
       }
 
-      const { id, email, nickname, password } = userByEmail[0];
+      const { id, email, nickname, password, authLevel } = userByEmail[0];
+
+      if (authLevel === 2) {
+        const error = new BlackUser();
+        throw error;
+      }
 
       // 비밀번호 체크
       const checkPassword = await bcrypt.compare(userInfo.password, password);

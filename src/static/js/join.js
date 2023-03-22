@@ -2,11 +2,15 @@ const joinForm = document.getElementById('join-box');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const nicknameInput = document.getElementById('nickname');
+const passwordTwice = document.getElementById('passwordCheck');
 const emailCheckBtn = document.getElementById('email-db-check');
+const nicknameCheckBtn = document.getElementById('nickname-db-check');
 const emailSendBtn = document.getElementById('send-email');
 const emailAuthCheckBtn = document.getElementById('send-email-check');
-var useEmail = false;
-var passPassword = false;
+let useEmail = false;
+let passEmail = false;
+let passPassword = false;
+let passNickname = false;
 
 function emailCheck() {
   // 이메일: aaa@aaa.aaa
@@ -16,7 +20,14 @@ function emailCheck() {
     return (document.getElementById('emailMsg').style.display = 'block');
   }
 
-  return (document.getElementById('emailMsg').style.display = 'none');
+  passEmail = true;
+  document.getElementById('emailMsg').style.display = 'none';
+}
+
+function emailRecheck() {
+  document.getElementById('email-db-check').style.display = 'block';
+  document.getElementById('send-email').style.display = 'none';
+  emailCheck();
 }
 
 function passwordCheck() {
@@ -28,18 +39,19 @@ function passwordCheck() {
   }
 
   document.getElementById('passwordMsg').style.display = 'none';
+  passwordTwiceCheck();
 
-  const passwordTwice = document.getElementById('passwordCheck');
+  passwordTwice.addEventListener('change', passwordTwiceCheck);
+}
 
-  passwordTwice.addEventListener('change', () => {
-    if (passwordInput.value !== passwordTwice.value) {
-      return (document.getElementById('passwordCheckMsg').style.display =
-        'block');
-    }
+function passwordTwiceCheck() {
+  if (passwordInput.value !== passwordTwice.value) {
+    return (document.getElementById('passwordCheckMsg').style.display =
+      'block');
+  }
 
-    passPassword = true;
-    return (document.getElementById('passwordCheckMsg').style.display = 'none');
-  });
+  passPassword = true;
+  return (document.getElementById('passwordCheckMsg').style.display = 'none');
 }
 
 function nicknameCheck() {
@@ -49,10 +61,23 @@ function nicknameCheck() {
   if (!nicknameCheck.test(nicknameInput.value)) {
     return (document.getElementById('nicknameMsg').style.display = 'block');
   }
+
+  passNickname = true;
   return (document.getElementById('nicknameMsg').style.display = 'none');
 }
 
+function nicknameRecheck() {
+  document.getElementById('nickname-db-check').style.display = 'block';
+  nicknameCheck();
+}
+
 const sendEmailAuth = async () => {
+  emailCheck();
+
+  if (!passEmail) {
+    return alert('이메일이 형식에 맞지않아 메일을 보낼 수 없습니다.');
+  }
+
   let email = emailInput.value;
 
   const response = await fetch('/api/auth/send-email', {
@@ -83,13 +108,19 @@ emailAuthCheckBtn.addEventListener('click', () => {
   return alert('인증되었습니다.');
 });
 
-emailInput.addEventListener('change', emailCheck);
+emailInput.addEventListener('change', emailRecheck);
 
 passwordInput.addEventListener('change', passwordCheck);
 
-nicknameInput.addEventListener('change', nicknameCheck);
+nicknameInput.addEventListener('change', nicknameRecheck);
 
 emailCheckBtn.addEventListener('click', async () => {
+  emailCheck();
+
+  if (!passEmail) {
+    return;
+  }
+
   let email = emailInput.value;
 
   const response = await fetch('/api/find-email', {
@@ -106,6 +137,33 @@ emailCheckBtn.addEventListener('click', async () => {
     document.getElementById('email-db-check').style.display = 'none';
     document.getElementById('send-email').style.display = 'block';
     return;
+  }
+});
+
+nicknameCheckBtn.addEventListener('click', async () => {
+  nicknameCheck();
+
+  if (!passNickname) {
+    return;
+  }
+
+  let nickname = nicknameInput.value;
+
+  const response = await fetch('/api/find-nickname', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ nickname }),
+  });
+
+  if (response.status === 409) {
+    return alert('이미 가입한 닉네임입니다.');
+  } else if (response.status === 200) {
+    document.getElementById('nickname-db-check').style.display = 'none';
+    return;
+  } else if (response.status === 500) {
+    return alert('사용할 수 없는 닉네임이거나 서버오류입니다.');
   }
 });
 
@@ -127,8 +185,8 @@ const join = async () => {
   passwordCheck();
   nicknameCheck();
 
-  if (!passPassword) {
-    return alert('비밀번호를 다시 확인해주세요!');
+  if (!passEmail || !passPassword || !passNickname) {
+    return;
   }
 
   const email = document.getElementById('email').value;
@@ -146,7 +204,8 @@ const join = async () => {
   });
 
   if (response.status === 200) {
-    window.location.href = '/login';
+    alert('회원가입 성공!');
+    return logout();
   }
 };
 
@@ -156,5 +215,5 @@ const logout = async () => {
 };
 
 window.onbeforeunload = function () {
-  logout();
+  return logout();
 };

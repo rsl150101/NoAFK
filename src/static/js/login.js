@@ -52,4 +52,13 @@ const login = async () => {
   if (response.status === 200) {
     window.location.href = '/';
   }
+  if (response.status === 403) {
+    alert('차단된 유저입니다.');
+  }
+  if (response.status === 401) {
+    alert('존재하지 않는 유저입니다.');
+  }
+  if (response.status === 400) {
+    alert('로그인 실패!');
+  }
 };
