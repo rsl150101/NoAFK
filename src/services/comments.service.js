@@ -14,10 +14,21 @@ class CommentService {
     }
   };
 
-  findCommentsByProjectId = async (id) => {
+  findCommentsByProjectId = async (id, cursor) => {
     try {
-      const comments = await this.commentsRepository.findCommentsByProjectId(
-        id
+      if (!cursor) {
+        cursor = 0;
+      }
+
+      const projectId = id;
+      const limit = 3;
+      let comments;
+      cursor = Number(cursor);
+
+      comments = await this.commentsRepository.findCommentsByProjectId(
+        projectId,
+        cursor,
+        limit
       );
 
       await Promise.all(
@@ -28,7 +39,9 @@ class CommentService {
         })
       );
 
-      return { comments };
+      const nextCursor = comments.length === limit ? comments.at(-1).id : null;
+
+      return { comments, nextCursor };
     } catch (error) {
       throw error;
     }
