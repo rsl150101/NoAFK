@@ -11,7 +11,6 @@ class ChatsController {
 
   renderTeamChatPage = async (req, res, next) => {
     const { chatId } = req.params;
-    console.log(typeof chatId);
 
     const memberList = await this.teamService.findAllByTeamId(chatId);
     const chattingList = await this.chatService.findAllMessagesByChatId(chatId);

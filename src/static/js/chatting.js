@@ -5,7 +5,6 @@ const socket = io.connect(`http://localhost:3000/chat`);
 
 socket.on('join', (message) => {
   const incomingNotice = message;
-  console.log(incomingNotice);
   showMessage(incomingNotice);
 });
 

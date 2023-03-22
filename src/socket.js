@@ -31,14 +31,11 @@ module.exports = (http, app) => {
     });
 
     socket.on('message', (msg) => {
-      console.log('Message received: ' + msg);
-
       socket.emit('message', msg);
       socket.to(chatId).emit('message', msg);
     });
 
     socket.on('disconnect', () => {
-      console.log('chat 네임스페이스 접속 해제');
       socket.to(chatId).emit('join', {
         type: 'notice',
         params: { value: `${req.nickname}님이 퇴장하셨습니다.` },
