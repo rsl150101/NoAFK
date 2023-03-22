@@ -2,11 +2,14 @@ const joinForm = document.getElementById('join-box');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const nicknameInput = document.getElementById('nickname');
+const passwordTwice = document.getElementById('passwordCheck');
 const emailCheckBtn = document.getElementById('email-db-check');
 const emailSendBtn = document.getElementById('send-email');
 const emailAuthCheckBtn = document.getElementById('send-email-check');
-var useEmail = false;
-var passPassword = false;
+let useEmail = false;
+let passEmail = false;
+let passPassword = false;
+let passNickname = false;
 
 function emailCheck() {
   // 이메일: aaa@aaa.aaa
@@ -16,6 +19,7 @@ function emailCheck() {
     return (document.getElementById('emailMsg').style.display = 'block');
   }
 
+  passEmail = true;
   return (document.getElementById('emailMsg').style.display = 'none');
 }
 
@@ -28,18 +32,19 @@ function passwordCheck() {
   }
 
   document.getElementById('passwordMsg').style.display = 'none';
+  passwordTwiceCheck();
 
-  const passwordTwice = document.getElementById('passwordCheck');
+  passwordTwice.addEventListener('change', passwordTwiceCheck);
+}
 
-  passwordTwice.addEventListener('change', () => {
-    if (passwordInput.value !== passwordTwice.value) {
-      return (document.getElementById('passwordCheckMsg').style.display =
-        'block');
-    }
+function passwordTwiceCheck() {
+  if (passwordInput.value !== passwordTwice.value) {
+    return (document.getElementById('passwordCheckMsg').style.display =
+      'block');
+  }
 
-    passPassword = true;
-    return (document.getElementById('passwordCheckMsg').style.display = 'none');
-  });
+  passPassword = true;
+  return (document.getElementById('passwordCheckMsg').style.display = 'none');
 }
 
 function nicknameCheck() {
@@ -49,10 +54,18 @@ function nicknameCheck() {
   if (!nicknameCheck.test(nicknameInput.value)) {
     return (document.getElementById('nicknameMsg').style.display = 'block');
   }
+
+  passNickname = true;
   return (document.getElementById('nicknameMsg').style.display = 'none');
 }
 
 const sendEmailAuth = async () => {
+  emailCheck();
+
+  if (!passEmail) {
+    return alert('이메일이 형식에 맞지않아 메일을 보낼 수 없습니다.');
+  }
+
   let email = emailInput.value;
 
   const response = await fetch('/api/auth/send-email', {
@@ -74,6 +87,7 @@ emailAuthCheckBtn.addEventListener('click', () => {
   const emailAuthCheck = document.getElementById('emailCheck').value;
 
   const authString = document.cookie.split('=')[1];
+  console.log(authString);
 
   if (authString !== emailAuthCheck) {
     return alert('인증번호가 틀렸습니다.');
@@ -90,6 +104,12 @@ passwordInput.addEventListener('change', passwordCheck);
 nicknameInput.addEventListener('change', nicknameCheck);
 
 emailCheckBtn.addEventListener('click', async () => {
+  emailCheck();
+
+  if (!passEmail) {
+    return;
+  }
+
   let email = emailInput.value;
 
   const response = await fetch('/api/find-email', {
@@ -127,8 +147,8 @@ const join = async () => {
   passwordCheck();
   nicknameCheck();
 
-  if (!passPassword) {
-    return alert('비밀번호를 다시 확인해주세요!');
+  if (!passEmail || !passPassword || !passNickname) {
+    return;
   }
 
   const email = document.getElementById('email').value;
