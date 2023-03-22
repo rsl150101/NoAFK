@@ -22,12 +22,12 @@
             </div>
             <div class="detail-owner" id="owner">
               <p>
-                by '{{project.owner}}' {% if project.createdAt ===
+                by '{{project.nickname}}' {% if project.createdAt ===
                 project.updatedAt %} {{project.createdAt}} {% else %}
                 {{project.updatedAt}} (수정됨) {% endif %}
               </p>
               <div>
-                {% if project.owner === loginUserNickname %}
+                {% if project.owner === loginUserId %}
                 <button id="edit-board-btn" type="button">수정</button>
                 <dialog id="projectEditModal">
                   <form method="dialog">
@@ -131,15 +131,16 @@
           </div>
         </div>
 
-        <div class="detail-apply project-detail-border">
+        <ul class="detail-apply project-detail-border">
           {% for apply in applyUsers %}
           <li class="apply-list" id="{{apply.id}}">
-            {{apply.nickname}} {% if project.owner === loginUserNickname %}
+            <p>{{apply.nickname}}</p>
+            {% if project.owner === loginUserId %}
             <button id="accept-btn" type="button">수락</button>
             {% endif %}
           </li>
           {% endfor %}
-        </div>
+        </ul>
 
         {% if loginUserId %}
         <div class="detail-chat project-detail-border" id="detail-comment">
@@ -193,9 +194,9 @@
         </ul>
       </div>
       <div>
-        {% if loginUserNickname === null %}
+        {% if loginUserId === null %}
         <button><a href="/login">신청하기</a></button>
-        {% elif project.owner !== loginUserNickname %}
+        {% elif project.owner !== loginUserId %}
         <button id="apply-btn" type="button">신청하기</button>
         {% endif %}
       </div>

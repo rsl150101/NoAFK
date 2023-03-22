@@ -12,14 +12,10 @@ class ProjectsController {
     try {
       const { id } = req.params;
       let loginUserId = null;
-      let loginUserNickname = null;
 
       if (res.locals.user) {
-        const { id, nickname } = res.locals.user;
+        const { id } = res.locals.user;
         loginUserId = id;
-        loginUserNickname = nickname;
-      } else {
-        loginUserNickname = null;
       }
 
       const project = await this.projectService.findProjectById(id);
@@ -28,11 +24,10 @@ class ProjectsController {
       const applyUsers = await this.teamService.findApplysByProjectId(id);
       const pageTitle = `project #${id}`;
 
-      return res.render('projectDetail.html', {
+      return res.render('projectDetail', {
         project,
         comments,
         loginUserId,
-        loginUserNickname,
         applyUsers,
         pageTitle,
         nextCursor,
