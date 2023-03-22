@@ -156,11 +156,25 @@ class ProjectService {
             cursor,
             search
           );
+        projects = await Promise.all(
+          projects.map(async (project) => {
+            let { owner } = project;
+            let { nickname } = await this.userRepository.findNicknameById(
+              owner
+            );
+            return { ...project, owner: nickname };
+          })
+        );
       } else if (page === 'home') {
-        const allProjects = await this.projectRepository.findAllProject();
+        const allProjects = await this.projectRepository.findAllProjectByStatus(
+          0
+        );
         let end = 0;
         const randomProjects = [];
         while (end !== 12) {
+          if (allProjects.length === 0) {
+            break;
+          }
           const randomNum = Math.floor(Math.random() * allProjects.length);
           randomProjects.push(allProjects[randomNum]);
           allProjects.splice(randomNum, 1);
@@ -171,6 +185,7 @@ class ProjectService {
       } else {
         throw new Error('url이 올바르지 않습니다.');
       }
+
       const nextCursor = projects.length === limit ? projects.at(-1).id : null;
       const pageTitle = page.replace(/^[a-z]/, (char) => char.toUpperCase());
       return { nextCursor, page, projects, pageTitle };
