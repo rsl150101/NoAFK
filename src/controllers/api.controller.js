@@ -1,7 +1,11 @@
 const UserService = require('../services/users.service');
 
 // joi
-const { joinDataValidation, loginDataValidation } = require('../utility/joi');
+const {
+  joinDataValidation,
+  loginDataValidation,
+  modifyEmailDataValidation,
+} = require('../utility/joi');
 
 class ApiController {
   userService = new UserService();
@@ -98,7 +102,8 @@ class ApiController {
   // 비밀번호 재발급
   resetPassword = async (req, res) => {
     try {
-      const { email } = req.body;
+      const { email } = await modifyEmailDataValidation.validateAsync(req.body);
+      // const { email } = req.body;
 
       const { status, message } = await this.userService.sendPasswordEmail(
         email
@@ -113,7 +118,7 @@ class ApiController {
   // 이메일 중복체크
   findEmail = async (req, res) => {
     try {
-      const { email } = req.body;
+      const { email } = await modifyEmailDataValidation.validateAsync(req.body);
 
       const { status, message } = await this.userService.findEmail(email);
 
@@ -129,7 +134,7 @@ class ApiController {
   // 이메일 인증 메일 발송
   sendEmailAuth = async (req, res) => {
     try {
-      const { email } = req.body;
+      const { email } = await modifyEmailDataValidation.validateAsync(req.body);
 
       const { status, message, authString } =
         await this.userService.sendEmailAuth(email);
