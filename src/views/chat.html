@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/teamChat.css">
+  </head>
+  <body>
+    <main class="teamChat__main">
+      <div class="teamChat__column">
+        <div class="teamChat__rooms" onclick="teamChatting()"><div>팀 채팅</div></div>
+        {% for member in memberList %}
+        <div class="teamChat__rooms" onclick="whispering({{member.id}})">
+          <div>{{member.User.nickname}}</div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="teamChat__column">
+        <!-- 수신받을 메시지가 노출될 div -->
+        <div id="messages">
+          {% for chatting in chattingList %}
+          <div>{{chatting.msg}}</div>
+          {% endfor %}
+        </div>
+        <!-- 메시지 폼 -->
+        <form id ="messages-form" name="publish">
+          <input id ="messages-input" type="text" name="message" />
+          <input id ="messages-send" type="submit" value="send" />
+        </form>
+      </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/myteam/teamChat.js"></script>
+    <script src="/js/chatting.js"></script>
+  </body>
+</html>
