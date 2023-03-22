@@ -14,10 +14,14 @@ const teamsRouter = require('./routes/teams.routes');
 const usersRouter = require('./routes/users.routes');
 const projectsRouter = require('./routes/projects.routes');
 const adminRouter = require('./routes/admin.routes');
+const chatRouter = require('./routes/chat.routes');
 
 //* 할당
 const app = express();
 const PORT = 3000;
+
+// socket.io
+const webSocket = require('./socket'); // 모듈 불러오기
 
 //* 소셜 로그인 설정
 passportConfig(app);
@@ -50,8 +54,11 @@ app.use('/teams', teamsRouter);
 app.use('/users', usersRouter);
 app.use('/projects', projectsRouter);
 app.use('/admin', adminRouter);
+app.use('/chat', chatRouter);
 
 //* 서버 구동
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`✅ 서버가 연결되었습니다. http://localhost:${PORT}`);
 });
+
+webSocket(server, app);
