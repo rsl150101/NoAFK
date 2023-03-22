@@ -1,0 +1,40 @@
+.teamChat__main {
+  display: flex;
+}
+
+.teamChat__column:first-child {
+  width: 25vw;
+  padding: 5px;
+  border-right: 1px solid black;
+}
+
+.teamChat__column:last-child {
+  padding: 10px;
+  border-right: 1px solid black;
+}
+
+.teamChat__rooms {
+  padding: 15px;
+  margin: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+#messages {
+  margin: 10px;
+  width: 65vw;
+  height: 85vh;
+  border: 1px solid black;
+  overflow-y: scroll;
+}
+
+#messages-form {
+  margin: 10px;
+}
+#messages-input {
+  width: 54vw;
+}
+
+#messages-btn {
+  width: 5vw;
+}
