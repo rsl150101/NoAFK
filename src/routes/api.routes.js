@@ -82,6 +82,9 @@ router.post('/reset-password', apiController.resetPassword);
 // 이메일 중복체크
 router.post('/find-email', apiController.findEmail);
 
+// 닉네임 중복체크
+router.post('/find-nickname', apiController.findNickname);
+
 // 이메일 인증 메일 발송
 router.post('/auth/send-email', apiController.sendEmailAuth);
 

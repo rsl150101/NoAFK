@@ -4,6 +4,7 @@ const passwordInput = document.getElementById('password');
 const nicknameInput = document.getElementById('nickname');
 const passwordTwice = document.getElementById('passwordCheck');
 const emailCheckBtn = document.getElementById('email-db-check');
+const nicknameCheckBtn = document.getElementById('nickname-db-check');
 const emailSendBtn = document.getElementById('send-email');
 const emailAuthCheckBtn = document.getElementById('send-email-check');
 let useEmail = false;
@@ -20,7 +21,13 @@ function emailCheck() {
   }
 
   passEmail = true;
-  return (document.getElementById('emailMsg').style.display = 'none');
+  document.getElementById('emailMsg').style.display = 'none';
+}
+
+function emailRecheck() {
+  document.getElementById('email-db-check').style.display = 'block';
+  document.getElementById('send-email').style.display = 'none';
+  emailCheck();
 }
 
 function passwordCheck() {
@@ -57,6 +64,11 @@ function nicknameCheck() {
 
   passNickname = true;
   return (document.getElementById('nicknameMsg').style.display = 'none');
+}
+
+function nicknameRecheck() {
+  document.getElementById('nickname-db-check').style.display = 'block';
+  nicknameCheck();
 }
 
 const sendEmailAuth = async () => {
@@ -97,11 +109,11 @@ emailAuthCheckBtn.addEventListener('click', () => {
   return alert('인증되었습니다.');
 });
 
-emailInput.addEventListener('change', emailCheck);
+emailInput.addEventListener('change', emailRecheck);
 
 passwordInput.addEventListener('change', passwordCheck);
 
-nicknameInput.addEventListener('change', nicknameCheck);
+nicknameInput.addEventListener('change', nicknameRecheck);
 
 emailCheckBtn.addEventListener('click', async () => {
   emailCheck();
@@ -126,6 +138,33 @@ emailCheckBtn.addEventListener('click', async () => {
     document.getElementById('email-db-check').style.display = 'none';
     document.getElementById('send-email').style.display = 'block';
     return;
+  }
+});
+
+nicknameCheckBtn.addEventListener('click', async () => {
+  nicknameCheck();
+
+  if (!passNickname) {
+    return;
+  }
+
+  let nickname = nicknameInput.value;
+
+  const response = await fetch('/api/find-nickname', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ nickname }),
+  });
+
+  if (response.status === 409) {
+    return alert('이미 가입한 닉네임입니다.');
+  } else if (response.status === 200) {
+    document.getElementById('nickname-db-check').style.display = 'none';
+    return;
+  } else if (response.status === 500) {
+    return alert('사용할 수 없는 닉네임이거나 서버오류입니다.');
   }
 });
 
@@ -166,7 +205,8 @@ const join = async () => {
   });
 
   if (response.status === 200) {
-    window.location.href = '/login';
+    alert('회원가입 성공!');
+    return logout();
   }
 };
 
@@ -176,5 +216,5 @@ const logout = async () => {
 };
 
 window.onbeforeunload = function () {
-  logout();
+  return logout();
 };

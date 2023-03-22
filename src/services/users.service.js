@@ -37,6 +37,22 @@ class UserService {
     }
   };
 
+  findNickname = async (nickname) => {
+    try {
+      // 동일한 닉네임, Email 체크
+      const userByNickname = await this.userRepository.findByNickname(nickname);
+
+      if (userByNickname.length > 0) {
+        const error = new NicknameExist();
+        throw error;
+      }
+
+      return { status: 200, message: '사용가능한 닉네임입니다.' };
+    } catch (error) {
+      throw error;
+    }
+  };
+
   sendEmailAuth = async (email) => {
     try {
       const generateString = () => {

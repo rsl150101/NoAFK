@@ -5,6 +5,7 @@ const {
   joinDataValidation,
   loginDataValidation,
   modifyEmailDataValidation,
+  modifyNicknameDataValidation,
 } = require('../utility/joi');
 
 class ApiController {
@@ -48,7 +49,7 @@ class ApiController {
     res.clearCookie('refreshToken');
     // 카카오소셜로그인 쿠키
     res.clearCookie('connect.sid');
-    return res.redirect('/');
+    return res.redirect('/login');
   };
 
   // 소셜로그인
@@ -127,6 +128,25 @@ class ApiController {
       if (error.name === 'EmailExist') {
         return res.status(409).json({ message: error.message });
       }
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  // 닉네임 중복체크
+  findNickname = async (req, res) => {
+    try {
+      const { nickname } = await modifyNicknameDataValidation.validateAsync(
+        req.body
+      );
+
+      const { status, message } = await this.userService.findNickname(nickname);
+
+      res.status(status).json({ message });
+    } catch (error) {
+      if (error.name === 'NicknameExist') {
+        return res.status(409).json({ message: error.message });
+      }
+
       return res.status(500).json({ message: error.message });
     }
   };
