@@ -12,6 +12,10 @@ if (cursor) {
   moreCommentBtn.style.display = 'block';
 }
 
+Array.from(CommentBox.children).forEach((child) => {
+  plusComment(child);
+});
+
 // 댓글 더보기
 const moreComment = async () => {
   const response = await fetch(
