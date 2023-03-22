@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 function updateNickname() {
   document.getElementById("nicknameModal").style.display = "block";
   document.body.style.overflow = "hidden"
@@ -55,8 +57,13 @@ function submitPassword(id) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ password }),
-  });
-  window.location.reload();
+  })
+  .then(() => {
+    fetch('/api/auth/logout')
+  })
+  .then(() => {
+    window.location.href = '/';
+  })
 }
 
 function submitIntroduction(id) {

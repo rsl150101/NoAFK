@@ -31,8 +31,8 @@ const uploads = multer({
       return cb(new Error('.png, .jpg, .jpeg 파일만 업로드 가능합니다.'));
     }
   },
-  // 이미지 업로드 용량 2MB 제한
-  limits: { fileSize: 2 * 1024 * 1024 },
+  // 이미지 업로드 용량 4MB 제한
+  limits: { fileSize: 4 * 1024 * 1024 },
 })
 
 const uploadProjectImage = multer({
@@ -53,8 +53,8 @@ const uploadProjectImage = multer({
       return cb(new Error('.png, .jpg, .jpeg 파일만 업로드 가능합니다.'));
     }
   },
-  // 이미지 업로드 용량 2MB 제한
-  limits: { fileSize: 5 * 1024 * 1024 },
+  // 이미지 업로드 용량 10MB 제한
+  limits: { fileSize: 10 * 1024 * 1024 },
 })
 
 module.exports = { uploads, uploadProjectImage };

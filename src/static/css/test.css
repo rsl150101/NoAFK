@@ -9,9 +9,7 @@
 
 #test-select-button-content {
   margin-left: 25px;
-}
-#test-select-button-content:hover {
-  color: orange;
+  cursor: pointer;
 }
 
 #question-list {

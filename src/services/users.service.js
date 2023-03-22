@@ -278,7 +278,7 @@ class UserService {
   updateUserPassword = async (id, password) => {
     try {
       const userInfo = await this.userRepository.loginUserInfo(id);
-      if (userInfo.loginMethod !== 'NoAFK') {
+      if (userInfo.loginMethod !== 'local') {
         throw error;
       }
       // 비밀번호 암호화
