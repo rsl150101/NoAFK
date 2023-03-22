@@ -110,7 +110,6 @@ class ApiController {
   resetPassword = async (req, res) => {
     try {
       const { email } = await modifyEmailDataValidation.validateAsync(req.body);
-      // const { email } = req.body;
 
       const { status, message } = await this.userService.sendPasswordEmail(
         email
