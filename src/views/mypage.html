@@ -17,11 +17,18 @@
           <h1>마이페이지</h1>
           <div id="user-info-header-box">
             <ul id="user-info-update">
+              {% if not testResult %}
               <li id="user-info-update-content"><a href="/test">성향테스트</a></li>
               <li id="user-info-update-content" onclick="updateImage()">프로필사진 변경</li>
               <li id="user-info-update-content" onclick="updateNickname()">닉네임 변경</li>
               <li id="user-info-update-content" onclick="updatePassword()">비밀번호 변경</li>
               <li id="user-info-update-content" onclick="updateIntroduction()">자기소개 변경</li>
+              {% else %}
+              <li id="user-info-update-content" onclick="updateImage()">프로필사진 변경</li>
+              <li id="user-info-update-content" onclick="updateNickname()">닉네임 변경</li>
+              <li id="user-info-update-content" onclick="updatePassword()">비밀번호 변경</li>
+              <li id="user-info-update-content" onclick="updateIntroduction()">자기소개 변경</li>
+              {% endif %}
             </ul>
           </div>
         </header>
@@ -79,6 +86,9 @@
               변경할 비밀번호를 입력해주세요.
               <br>
               <br>
+              (변경 후 자동 로그아웃)
+              <br>
+              <br>
               <br>
               <input type="password" name="inputPassword">
               <button class="submit-btn" onclick="submitPassword({{id}})">변경</button>
@@ -91,6 +101,9 @@
             <button class="close-btn" onclick="closeModalImage()">X</button>
             <div id="imageInput">
               변경할 이미지를 넣어주세요.
+              <br>
+              <br>
+              (최대 용량 : 4MB)
               <br>
               <br>
               <br>
