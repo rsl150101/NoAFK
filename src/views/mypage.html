@@ -17,11 +17,18 @@
           <h1>마이페이지</h1>
           <div id="user-info-header-box">
             <ul id="user-info-update">
+              {% if not testResult %}
               <li id="user-info-update-content"><a href="/test">성향테스트</a></li>
               <li id="user-info-update-content" onclick="updateImage()">프로필사진 변경</li>
               <li id="user-info-update-content" onclick="updateNickname()">닉네임 변경</li>
               <li id="user-info-update-content" onclick="updatePassword()">비밀번호 변경</li>
               <li id="user-info-update-content" onclick="updateIntroduction()">자기소개 변경</li>
+              {% else %}
+              <li id="user-info-update-content" onclick="updateImage()">프로필사진 변경</li>
+              <li id="user-info-update-content" onclick="updateNickname()">닉네임 변경</li>
+              <li id="user-info-update-content" onclick="updatePassword()">비밀번호 변경</li>
+              <li id="user-info-update-content" onclick="updateIntroduction()">자기소개 변경</li>
+              {% endif %}
             </ul>
           </div>
         </header>
