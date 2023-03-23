@@ -49,11 +49,19 @@
 }
 
 .project-list li a pre {
+  width: 100%;
   white-space: pre-wrap;
   font-size: 1.1em;
   flex: 1;
-  padding: 20px 0;
+  margin: 20px 0;
   overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* 라인수 */
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  line-height: 1.3em;
+  height: 3.9em;
 }
 
 .project-list li a div {
