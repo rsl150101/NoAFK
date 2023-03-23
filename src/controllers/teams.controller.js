@@ -37,13 +37,39 @@ class TeamsController {
   postTeamMember = async (req, res, next) => {
     const { teamId } = req.params;
     const { nickname, position } = req.body;
-    const { id: userId } = await this.teamService.findUserByNickname(nickname);
 
-    const newMember = await this.teamService.addNewMember(
-      position,
-      userId,
-      teamId
-    );
+    try {
+      const userIdverifiedByNickname = await this.teamService.verifyNickname(
+        nickname
+      );
+      if (!userIdverifiedByNickname) {
+        return res.json({
+          status: 200,
+          message: '오류: 존재하지 않거나 잘못된 닉네임입니다.',
+        });
+      }
+
+      const isAleadyMember =
+        await this.teamService.findMemberIdByUserIdAndTeamId(
+          userIdverifiedByNickname,
+          teamId
+        );
+      if (isAleadyMember) {
+        return res.json({
+          status: 200,
+          message: '오류: 이미 등록된 팀원입니다.',
+        });
+      }
+
+      const newMember = await this.teamService.addNewMember(
+        position,
+        userIdverifiedByNickname,
+        teamId
+      );
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
 
     return res.status(201).json(newMember);
   };

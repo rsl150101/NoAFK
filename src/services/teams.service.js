@@ -60,6 +60,19 @@ class TeamService {
     }
   };
 
+  verifyNickname = async (nickname) => {
+    if (!nickname) {
+      return false;
+    }
+    const UserInfo = await this.userRepository.findIdByNickname(nickname);
+
+    if (!UserInfo) {
+      return false;
+    } else {
+      return UserInfo.id;
+    }
+  };
+
   addNewMember = async (position, userId, teamId) => {
     try {
       return await this.teamRepository.createTeamMember(
