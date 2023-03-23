@@ -28,10 +28,12 @@ class CommentsController {
   getComments = async (req, res) => {
     try {
       const { id } = req.params;
+      const { cursor } = req.query;
 
-      const comments = await this.commentService.findCommentsByProjectId(id);
+      const { comments, nextCursor } =
+        await this.commentService.findCommentsByProjectId(id, cursor);
 
-      return res.status(200).json(comments);
+      return res.status(200).json({ comments, nextCursor });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }

@@ -32,19 +32,23 @@ const modifyPasswordDataValidation = joi.object({
     .max(20)
     .pattern(new RegExp('^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$'))
     .required(),
-})
+});
 const modifyNicknameDataValidation = joi.object({
   nickname: joi
-  .string()
-  .min(1)
-  .max(20)
-  .pattern(new RegExp('^[A-za-z0-9가-힣]*$'))
-  .required(),
-})
+    .string()
+    .min(1)
+    .max(20)
+    .pattern(new RegExp('^[A-za-z0-9가-힣]*$'))
+    .required(),
+});
+const modifyEmailDataValidation = joi.object({
+  email: joi.string().email().required(),
+});
 
 module.exports = {
   joinDataValidation,
   loginDataValidation,
   modifyPasswordDataValidation,
   modifyNicknameDataValidation,
+  modifyEmailDataValidation,
 };

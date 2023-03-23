@@ -28,6 +28,10 @@
   margin: 0 1%;
 }
 
-li {
-  list-style: none;
+.display-none {
+  display: none;
+}
+
+.display-block {
+  display: block;
 }

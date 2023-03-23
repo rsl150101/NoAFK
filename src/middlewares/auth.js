@@ -71,7 +71,7 @@ const checkToken = async (req, res, next) => {
       if (checkRefresh === null) {
         // case1: access token과 refresh token 모두만료
         const error = new TokenExpired();
-        return res.status(401).json({ message: error.message });
+        throw error;
       } else {
         // case2: access token은 만료됐지만, refresh token은 유효한 경우 => 새로 accessToken 발급
         let userId = checkRefresh.id;
@@ -112,7 +112,7 @@ const checkToken = async (req, res, next) => {
     // 해당하는 회원이 존재하지 않을 때
     if (!user) {
       const error = new UserNotFound();
-      return res.status(401).json({ message: error.message });
+      throw error;
     }
 
     // redis에 저장된 refreshToken과 비교
@@ -123,8 +123,7 @@ const checkToken = async (req, res, next) => {
 
     if (refreshToken !== redisRefresh) {
       const error = new RefreshTokenNotFound();
-      res.status(401).json({ message: error.message });
-      return res.render('login.html');
+      throw error;
     }
 
     res.locals.user = user;

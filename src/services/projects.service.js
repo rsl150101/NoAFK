@@ -12,7 +12,13 @@ class ProjectService {
 
   findProjectById = async (id) => {
     try {
-      return await this.projectRepository.findProjectById(id);
+      const projectById = await this.projectRepository.findProjectById(id);
+      const ownerId = Number(projectById.owner);
+
+      const NicknameById = await this.userRepository.findNicknameById(ownerId);
+      projectById.nickname = NicknameById.nickname;
+
+      return projectById;
     } catch (error) {
       throw error;
     }

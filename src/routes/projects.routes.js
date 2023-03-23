@@ -28,8 +28,7 @@ router.patch('/:projectId/applys/:userId', teamsController.acceptApply);
 
 // 모집공고 댓글 작성
 router.post('/:id/comments', checkToken, commentsController.postComment);
-// 모집공고 댓글 조회
-router.get('/:id/comments', commentsController.getComments);
+
 // 모집공고 댓글 수정
 router.patch(
   '/:projectId/comments/:commentId',

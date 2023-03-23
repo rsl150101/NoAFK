@@ -1,3 +1,6 @@
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+
 class CommentRepository {
   constructor(CommentModel) {
     this.commentModel = CommentModel;
@@ -16,10 +19,17 @@ class CommentRepository {
     }
   };
 
-  findCommentsByProjectId = async (id) => {
+  findCommentsByProjectId = async (projectId, cursor, limit) => {
     try {
       return await this.commentModel.findAll({
-        where: { projectId: id },
+        where: {
+          [Op.and]: {
+            id: { [Op.gt]: cursor },
+            projectId,
+          },
+        },
+        raw: true,
+        limit,
       });
     } catch (error) {
       throw error;

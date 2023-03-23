@@ -1,7 +1,12 @@
 const UserService = require('../services/users.service');
 
 // joi
-const { joinDataValidation, loginDataValidation } = require('../utility/joi');
+const {
+  joinDataValidation,
+  loginDataValidation,
+  modifyEmailDataValidation,
+  modifyNicknameDataValidation,
+} = require('../utility/joi');
 
 class ApiController {
   userService = new UserService();
@@ -33,6 +38,12 @@ class ApiController {
 
       return res.status(200).json({ message: '로그인 성공' });
     } catch (error) {
+      if (error.name === 'BlackUser') {
+        return res.status(403).json({ message: error.message });
+      }
+      if (error.name === 'UserNotFound') {
+        return res.status(401).json({ message: error.message });
+      }
       return res.status(400).json({ message: error.message });
     }
   };
@@ -44,7 +55,7 @@ class ApiController {
     res.clearCookie('refreshToken');
     // 카카오소셜로그인 쿠키
     res.clearCookie('connect.sid');
-    return res.redirect('/');
+    return res.redirect('/login');
   };
 
   // 소셜로그인
@@ -98,7 +109,7 @@ class ApiController {
   // 비밀번호 재발급
   resetPassword = async (req, res) => {
     try {
-      const { email } = req.body;
+      const { email } = await modifyEmailDataValidation.validateAsync(req.body);
 
       const { status, message } = await this.userService.sendPasswordEmail(
         email
@@ -113,7 +124,7 @@ class ApiController {
   // 이메일 중복체크
   findEmail = async (req, res) => {
     try {
-      const { email } = req.body;
+      const { email } = await modifyEmailDataValidation.validateAsync(req.body);
 
       const { status, message } = await this.userService.findEmail(email);
 
@@ -126,10 +137,29 @@ class ApiController {
     }
   };
 
+  // 닉네임 중복체크
+  findNickname = async (req, res) => {
+    try {
+      const { nickname } = await modifyNicknameDataValidation.validateAsync(
+        req.body
+      );
+
+      const { status, message } = await this.userService.findNickname(nickname);
+
+      res.status(status).json({ message });
+    } catch (error) {
+      if (error.name === 'NicknameExist') {
+        return res.status(409).json({ message: error.message });
+      }
+
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
   // 이메일 인증 메일 발송
   sendEmailAuth = async (req, res) => {
     try {
-      const { email } = req.body;
+      const { email } = await modifyEmailDataValidation.validateAsync(req.body);
 
       const { status, message, authString } =
         await this.userService.sendEmailAuth(email);
