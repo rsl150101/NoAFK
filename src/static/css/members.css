@@ -46,10 +46,10 @@ select {
   align-items: center;
   position: relative;
 }
-.last_div {
+.form_div {
   margin-top: 1rem;
 }
-.sch_area .last_div strong {
+.sch_area .form_div strong {
   width: 80px;
   color: #5a6265;
   font-size: 17px;
@@ -114,4 +114,29 @@ select {
 .users_num {
   text-indent: 10px;
   height: 30px;
+}
+
+/* 부트스트랩 css */
+.d-flex {
+  display: -ms-flexbox !important;
+  display: flex !important;
+}
+.flex-grow-1 {
+  -ms-flex-positive: 1 !important;
+  flex-grow: 1 !important;
+}
+.p-2 {
+  padding: 0.5rem !important;
+}
+.order-1 {
+  -ms-flex-order: 1;
+  order: 1;
+}
+.order-2 {
+  -ms-flex-order: 2;
+  order: 2;
+}
+.order-3 {
+  -ms-flex-order: 3;
+  order: 3;
 }

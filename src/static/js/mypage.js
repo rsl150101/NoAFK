@@ -106,14 +106,15 @@ function getInfo(id) {
     .then((response) => response.json())
     .then((data) => {
       for (let i = 0; i < data.length; i++) {
-        const { id, title, content, teamName, owner, person, projectEnd } = data[i].Project;
+        const { id, title, content, teamName, person, projectEnd } = data[i].Project;
+        const { nickname } = data[i].Project.User;
         let temp_html = `<tr>
-                          <th scope="row"><a href="/projects/${id}">${title}</a></th>
-                          <td>${content}</td>
-                          <td>${teamName}</td>
-                          <td>${owner}</td>
-                          <td>${person}</td>
-                          <td>${projectEnd}</td>
+                          <th scope="row" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"><a href="/projects/${id}">${title}</a></th>
+                          <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${content}</td>
+                          <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${teamName}</td>
+                          <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${nickname}</td>
+                          <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${person}</td>
+                          <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${projectEnd}</td>
                         </tr>`
         document.getElementById('progressUserProject').innerHTML += temp_html;
       }

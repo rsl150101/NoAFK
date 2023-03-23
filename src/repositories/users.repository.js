@@ -182,7 +182,8 @@ class UserRepository {
   // * 유저조회,백오피스-회원조회
   getSearchUser = async (start, perPage, sfl, stx) => {
     try {
-      const isSearchField = sfl !== undefined;
+      const isSelectField = sfl || false;
+      const isSearchField = stx || false;
       const isSFLEmail = sfl === 'user_email';
       const isSFLNickname = sfl === 'user_nickname';
 
@@ -203,7 +204,7 @@ class UserRepository {
         order: [['id', 'ASC']],
       };
 
-      if (isSearchField) {
+      if (isSelectField) {
         if (isSFLEmail) {
           baseSQL.where = { email: { [Op.like]: `%${stx}%` } };
         } else if (isSFLNickname) {
@@ -211,6 +212,14 @@ class UserRepository {
         } else {
           baseSQL.where = { testResult: { [Op.like]: `%${stx}%` } };
         }
+      } else if (isSearchField) {
+        baseSQL.where = {
+          [Op.or]: [
+            { email: { [Op.like]: `%${stx}%` } },
+            { nickname: { [Op.like]: `%${stx}%` } },
+            { testResult: { [Op.like]: `%${stx}%` } },
+          ],
+        };
       }
 
       const users = await this.userModel.findAndCountAll(baseSQL);

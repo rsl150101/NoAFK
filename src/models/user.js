@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       loginMethod: {
         type: DataTypes.STRING,
-        defaultValue: 'local',
+        defaultValue: 'NoAFK',
       },
       authLevel: {
         type: DataTypes.INTEGER,
