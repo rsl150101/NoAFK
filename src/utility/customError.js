@@ -70,6 +70,22 @@ class BlackUser extends Error {
   }
 }
 
+class NotFoundNickname extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'NotFoundNickname';
+    this.message = '닉네임을 찾을 수 없습니다.';
+  }
+}
+
+class AlreadyMember extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'AlreadyMember';
+    this.message = '이미 등록된 팀원입니다.';
+  }
+}
+
 module.exports = {
   EmailExist,
   NicknameExist,
@@ -80,4 +96,6 @@ module.exports = {
   RefreshTokenNotFound,
   TokenExpired,
   BlackUser,
+  NotFoundNickname,
+  AlreadyMember,
 };

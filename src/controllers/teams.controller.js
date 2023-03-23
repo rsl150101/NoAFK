@@ -2,6 +2,8 @@ const TeamService = require('../services/teams.service');
 const ProjectService = require('../services/projects.service');
 const UserService = require('../services/users.service');
 
+const { NotFoundNickname, AlreadyMember } = require('../utility/customError');
+
 class TeamsController {
   teamService = new TeamService();
   projectService = new ProjectService();
@@ -43,10 +45,8 @@ class TeamsController {
         nickname
       );
       if (!userIdverifiedByNickname) {
-        return res.json({
-          status: 200,
-          message: '오류: 존재하지 않거나 잘못된 닉네임입니다.',
-        });
+        const error = new NotFoundNickname();
+        throw error;
       }
 
       const isAleadyMember =
@@ -55,10 +55,8 @@ class TeamsController {
           teamId
         );
       if (isAleadyMember) {
-        return res.json({
-          status: 200,
-          message: '오류: 이미 등록된 팀원입니다.',
-        });
+        const error = new AlreadyMember();
+        throw error;
       }
 
       const newMember = await this.teamService.addNewMember(
