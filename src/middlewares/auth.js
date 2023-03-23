@@ -28,7 +28,7 @@ const checkLogin = async (req, res, next) => {
     // cookie 들고오기
     const { cookie } = req.headers;
 
-    if (cookie) {
+    if (cookie && cookie.includes('Token')) {
       return res.status(403).redirect('back');
     }
 

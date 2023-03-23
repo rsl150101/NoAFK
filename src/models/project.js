@@ -50,6 +50,7 @@ module.exports = (sequelize, DataTypes) => {
       image: {
         type: DataTypes.STRING,
         allowNull: true,
+        defaultValue: '/./images/baseproject.png',
       },
       techStack: {
         type: DataTypes.STRING,
