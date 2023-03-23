@@ -2,6 +2,8 @@ const TeamService = require('../services/teams.service');
 const ProjectService = require('../services/projects.service');
 const UserService = require('../services/users.service');
 
+const { NotFoundNickname, AlreadyMember } = require('../utility/customError');
+
 class TeamsController {
   teamService = new TeamService();
   projectService = new ProjectService();
@@ -37,13 +39,35 @@ class TeamsController {
   postTeamMember = async (req, res, next) => {
     const { teamId } = req.params;
     const { nickname, position } = req.body;
-    const { id: userId } = await this.teamService.findUserByNickname(nickname);
 
-    const newMember = await this.teamService.addNewMember(
-      position,
-      userId,
-      teamId
-    );
+    try {
+      const userIdverifiedByNickname = await this.teamService.verifyNickname(
+        nickname
+      );
+      if (!userIdverifiedByNickname) {
+        const error = new NotFoundNickname();
+        throw error;
+      }
+
+      const isAleadyMember =
+        await this.teamService.findMemberIdByUserIdAndTeamId(
+          userIdverifiedByNickname,
+          teamId
+        );
+      if (isAleadyMember) {
+        const error = new AlreadyMember();
+        throw error;
+      }
+
+      const newMember = await this.teamService.addNewMember(
+        position,
+        userIdverifiedByNickname,
+        teamId
+      );
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
 
     return res.status(201).json(newMember);
   };
