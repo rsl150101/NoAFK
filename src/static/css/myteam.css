@@ -56,6 +56,7 @@ tbody th {
   border-radius: 50%;
   border: none;
   background-color: lightpink;
+  cursor: pointer;
 }
 
 #myteam__project-status {

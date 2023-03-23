@@ -1,6 +1,7 @@
 const { has } = require('lodash');
 const { userInfo } = require('os');
 const { Op } = require('sequelize');
+const { ProjectUser } = require('../models');
 
 class UserRepository {
   constructor(UserModel) {
