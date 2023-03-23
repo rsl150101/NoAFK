@@ -11,6 +11,8 @@
 
 .join-box {
   border: 1px solid;
+  border-radius: 10%;
+  width: 100%;
 }
 
 .add-box {
@@ -83,4 +85,5 @@
 
 .error-box {
   display: none;
+  color: red;
 }
