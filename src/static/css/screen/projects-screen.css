@@ -81,3 +81,30 @@
 .project-list li a div span {
   justify-self: center;
 }
+
+.projects-screen section:nth-child(2) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.projectAddBtn {
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 0 5px 1px var(--light-gray);
+  font-weight: 700;
+  font-size: 0.9em;
+  color: var(--dark-gray);
+  border: none;
+}
+
+.projectAddBtn:hover {
+  box-shadow: 0 0 2px 2px lightgrey;
+}
+
+.projectAddBtn:active {
+  transform: translateY(2px);
+}

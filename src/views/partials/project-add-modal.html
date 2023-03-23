@@ -1,0 +1,39 @@
+<dialog id="projectAddModal">
+  <form method="dialog">
+    <label for="title">프로젝트 명</label>
+    <input
+      type="text"
+      name="title"
+      id="title"
+      placeholder="공고 제목을 입력하세요."
+    />
+    <label for="content">프로젝트 내용</label>
+    <textarea
+      name="content"
+      id="content"
+      placeholder="공고 내용을 입력하세요."
+      cols="30"
+      rows="10"
+    ></textarea>
+    <label for="teamName">팀 명</label>
+    <input type="text" name="teamName" id="teamName" />
+    <label for="techStack">기술 스택</label>
+    <input
+      type="text"
+      name="techStack"
+      id="techStack"
+      placeholder=", 로 구분해주세요."
+    />
+    <label for="person">인원</label>
+    <input type="number" name="person" id="person" min="1" />
+    <br />
+    <label for="recruitDeadline">마감기한</label>
+    <input type="datetime-local" name="recruitDeadline" id="recruitDeadline" />
+    <label for="projectStart">프로젝트 시작일</label>
+    <input type="datetime-local" name="projectStart" id="projectStart" />
+    <label for="projectEnd">프로젝트 종료일</label>
+    <input type="datetime-local" name="projectEnd" id="projectEnd" />
+    <button value="register">등록</button>
+    <button value="cancel">취소</button>
+  </form>
+</dialog>
