@@ -186,10 +186,8 @@
 
 .text-align-row {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 5%;
 }
 
 .btn-social-login {
@@ -211,6 +209,7 @@
 .error-box {
   display: none;
   color: red;
+  margin-left: 20%;
 }
 
 button:hover {
