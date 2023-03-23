@@ -107,11 +107,12 @@ function getInfo(id) {
     .then((data) => {
       for (let i = 0; i < data.length; i++) {
         const { id, title, content, teamName, owner, person, projectEnd } = data[i].Project;
+        const { nickname } = data[i].Project.User;
         let temp_html = `<tr>
                           <th scope="row"><a href="/projects/${id}">${title}</a></th>
                           <td>${content}</td>
                           <td>${teamName}</td>
-                          <td>${owner}</td>
+                          <td>${nickname}</td>
                           <td>${person}</td>
                           <td>${projectEnd}</td>
                         </tr>`
