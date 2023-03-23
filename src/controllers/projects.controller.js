@@ -139,7 +139,11 @@ class ProjectsController {
   //* 프로젝트 생성
   createProject = async (req, res) => {
     try {
-      await this.projectService.createProject(req.body);
+      const { id, owner } = await this.projectService.createProject(req.body);
+      const LeaderPosition = 3;
+
+      // 생성자가 리더로 팀관리 페이지에 자동 추가
+      await this.teamService.addNewMember(LeaderPosition, owner, id);
 
       return res.sendStatus(201);
     } catch (error) {
