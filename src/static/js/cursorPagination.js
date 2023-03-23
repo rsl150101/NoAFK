@@ -29,7 +29,7 @@ const handleScroll = async () => {
       pre.textContent = project.content;
       ownerh4.textContent = '등록자';
       createdAth4.textContent = '등록일';
-      ownerSpan.textContent = project.owner;
+      ownerSpan.textContent = project['User.nickname'];
       createdAtSpan.textContent = project.createdAt;
 
       div.append(ownerh4, ownerSpan, createdAth4, createdAtSpan);

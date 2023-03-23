@@ -156,15 +156,6 @@ class ProjectService {
             cursor,
             search
           );
-        projects = await Promise.all(
-          projects.map(async (project) => {
-            let { owner } = project;
-            let { nickname } = await this.userRepository.findNicknameById(
-              owner
-            );
-            return { ...project, owner: nickname };
-          })
-        );
       } else if (page === 'home') {
         const allProjects = await this.projectRepository.findAllProjectByStatus(
           0

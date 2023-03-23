@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const { User } = require('../models');
 
 class ProjectRepository {
   constructor(ProjectModel) {
@@ -106,6 +107,8 @@ class ProjectRepository {
             },
           },
         },
+        attributes: { exclude: ['owner'] },
+        include: [{ model: User, attributes: ['nickname'] }],
         raw: true,
         limit,
       });
