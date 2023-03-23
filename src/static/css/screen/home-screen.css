@@ -8,11 +8,6 @@
   gap: 20px;
 }
 
-.home-screen section header {
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--light-gray);
-}
-
 .home-screen h1 {
   font-size: 1.3em;
   font-weight: bold;

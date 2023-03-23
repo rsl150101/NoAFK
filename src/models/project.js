@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       models.Project.hasMany(models.ProjectUser, { foreignKey: 'project_id' });
       models.Project.hasMany(models.Comment, { foreignKey: 'project_id' });
+      models.Project.belongsTo(models.User, { foreignKey: 'owner' });
     }
   }
   Project.init(
@@ -27,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       owner: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       person: {
@@ -45,6 +46,10 @@ module.exports = (sequelize, DataTypes) => {
       projectEnd: {
         type: DataTypes.DATE,
         allowNull: false,
+      },
+      image: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       techStack: {
         type: DataTypes.STRING,
