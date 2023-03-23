@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/mypage.css">
     <title>{{pageTitle}} | NoAFK</title>
@@ -36,30 +36,30 @@
         <div id="user-profile">
           <div id="user-profile-image"><img src="{{image}}" alt="프로필사진"></div>
           <div id="user-profile-info">
-            <table class="type04">
+            <table class="type04" style="table-layout:fixed" width="100%">
               <tr>
                 <th scope="row">로그인 플랫폼</th>
-                <td>{{loginMethod}}</td>
+                <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{loginMethod}}</td>
               </tr>
               <tr>
                 <th scope="row">이메일</th>
-                <td>{{email}}</td>
+                <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{email}}</td>
               </tr>
               <tr>
                 <th scope="row">닉네임</th>
-                <td>{{nickname}}</td>
+                <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{nickname}}</td>
               </tr>
               <tr>
                 <th scope="row">성향</th>
-                <td>{{testResult}}</td>
+                <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{testResult}}</td>
               </tr>
               <tr>
                 <th scope="row">프리미엄</th>
-                <td>{{expiredAt}} 만료</td>
+                <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{expiredAt}} 만료</td>
               </tr>
               <tr>
                 <th scope="row">자기소개</th>
-                <td>{{introduction}}</td>
+                <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{introduction}}</td>
               </tr>
             </table>
           </div>
@@ -132,15 +132,15 @@
         </header>
       </section>
       <div style="overflow-x:hidden; height:300px;">
-        <table class="type09">
+        <table class="type09" style="table-layout:fixed" width="100%">
           <thead>
           <tr>
-            <th scope="cols">프로젝트 명</th>
-            <th scope="cols">내용</th>
-            <th scope="cols">팀이름</th>
-            <th scope="cols">팀장</th>
-            <th scope="cols">인원수</th>
-            <th scope="cols">마감일</th>
+            <th scope="cols" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">프로젝트 명</th>
+            <th scope="cols" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">내용</th>
+            <th scope="cols" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">팀이름</th>
+            <th scope="cols" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">팀장</th>
+            <th scope="cols" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">인원수</th>
+            <th scope="cols" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">마감일</th>
           </tr>
           </thead>
           <tbody id="progressUserProject"></tbody>
