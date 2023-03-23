@@ -1,6 +1,16 @@
 const projectAddBtn = document.getElementById('projectAddBtn');
 const projectAddModal = document.getElementById('projectAddModal');
 
+const handleProjectAddBtn = () => {
+  if (!owner) {
+    alert('로그인이 필요합니다!');
+    window.location.href = '/login';
+    return;
+  }
+  projectAddModal.showModal();
+  return;
+};
+
 const postModalData = async () => {
   if (projectAddModal.returnValue === 'register') {
     const title = document.getElementById('title').value;
@@ -42,8 +52,6 @@ const postModalData = async () => {
   }
 };
 
-projectAddBtn.addEventListener('click', () => {
-  projectAddModal.showModal();
-});
+projectAddBtn.addEventListener('click', handleProjectAddBtn);
 
 projectAddModal.addEventListener('close', postModalData);
