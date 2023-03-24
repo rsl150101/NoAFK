@@ -26,6 +26,29 @@ const postModalData = async () => {
     const recruitDeadline = document.getElementById('recruitDeadline').value;
     const projectStart = document.getElementById('projectStart').value;
     const projectEnd = document.getElementById('projectEnd').value;
+    const thumbnail = document.getElementById('thumbnail').files[0];
+    let image;
+
+    if (thumbnail) {
+      const formData = new FormData();
+
+      formData.append('thumbnail', thumbnail);
+
+      await fetch('http://localhost:3000/projects/image/Upload', {
+        method: 'POST',
+        body: formData,
+      })
+        .then((response) => {
+          const { status } = response;
+          if (status === 200) {
+            return response.json();
+          } else if (status === 500) {
+            alert('공고 등록에 실패하였습니다!');
+            return;
+          }
+        })
+        .then((data) => (image = data.image));
+    }
 
     const projectInfo = {
       title,
@@ -37,6 +60,7 @@ const postModalData = async () => {
       projectStart,
       projectEnd,
       owner,
+      image,
     };
 
     const response = await fetch('http://localhost:3000/projects', {
@@ -55,6 +79,7 @@ const postModalData = async () => {
       alert('공고 등록에 실패하였습니다!');
     }
   }
+  return;
 };
 
 projectAddBtn.addEventListener('click', handleProjectAddBtn);
