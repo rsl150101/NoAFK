@@ -11,9 +11,6 @@ class TeamsController {
 
   renderTeamPage = async (req, res, next) => {
     const { teamId } = req.params;
-    console.log(req.session.nickname);
-    console.log(req.sessionID);
-    console.log(req.headers.cookie.split('nickname=')[1]);
 
     try {
       const { teamName, status } =
@@ -25,6 +22,20 @@ class TeamsController {
         teamName,
         status,
         memberList,
+      });
+    } catch (error) {
+      return res.render('deletedTeam');
+    }
+  };
+
+  renderMyTeamListPage = async (req, res, next) => {
+    const { id } = res.locals.user;
+    const myTeamList = await this.teamService.findAllTeamByUserId(id);
+    console.log(myTeamList);
+    try {
+      return res.render('myTeamList', {
+        pageTitle: 'My Team List',
+        myTeamList,
       });
     } catch (error) {
       return res.render('deletedTeam');

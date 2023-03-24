@@ -53,10 +53,27 @@ class ProjectRepository {
     }
   };
 
+  findAllTeamWithNickname = async () => {
+    try {
+      return await this.projectModel.findAll({
+        include: [
+          {
+            model: User,
+            attributes: ['nickname'],
+          },
+        ],
+        order: [['id', 'DESC']],
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
   findAllProjectsByUserId = async (owner) => {
     try {
       return await this.projectModel.findAll({
-        attributes: ['id', 'team_name', 'status', 'createdAt'],
+        attributes: ['id', 'teamName', 'status', 'techStack', 'createdAt'],
         where: { owner },
         order: [['id', 'DESC']],
       });

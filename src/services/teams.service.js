@@ -11,7 +11,7 @@ class TeamService {
 
   findAllTeam = async () => {
     try {
-      return await this.projectRepository.findAllProject();
+      return await this.projectRepository.findAllTeamWithNickname();
     } catch (error) {
       throw error;
     }

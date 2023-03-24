@@ -26,9 +26,11 @@ class ChatsController {
       userId,
       teamId
     );
-    const chatId = [myMemberInfo.id, memberId].sort((a, b) => a - b).join('$');
+    const chatId = [teamId, myMemberInfo.id, memberId]
+      .sort((a, b) => a - b)
+      .join('$');
 
-    const memberList = await this.teamService.findAllByTeamId(chatId);
+    const memberList = await this.teamService.findAllByTeamId(teamId);
     const chattingList = await this.chatService.findAllMessagesByChatId(chatId);
 
     return res.render('chat', { memberList, chattingList });

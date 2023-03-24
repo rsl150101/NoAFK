@@ -1,0 +1,16 @@
+.myTeamList__row {
+  display: flex;
+  padding: 20px;
+  margin: 20px;
+  border: 2px solid black;
+  background: rgba(255, 182, 193, 0.4);
+  cursor: pointer;
+}
+
+.myTeamList__row > div {
+  padding: 0px 10px;
+}
+
+.myTeamList__row span {
+  color: gray;
+}
