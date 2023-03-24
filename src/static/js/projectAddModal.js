@@ -1,5 +1,6 @@
 const projectAddBtn = document.getElementById('projectAddBtn');
 const projectAddModal = document.getElementById('projectAddModal');
+const ModalCancelBtn = document.getElementById('modalCancelBtn');
 
 const handleProjectAddBtn = () => {
   if (!owner) {
@@ -9,6 +10,10 @@ const handleProjectAddBtn = () => {
   }
   projectAddModal.showModal();
   return;
+};
+
+const handleModalCancelBtn = () => {
+  projectAddModal.close();
 };
 
 const postModalData = async () => {
@@ -53,5 +58,5 @@ const postModalData = async () => {
 };
 
 projectAddBtn.addEventListener('click', handleProjectAddBtn);
-
+ModalCancelBtn.addEventListener('click', handleModalCancelBtn);
 projectAddModal.addEventListener('close', postModalData);

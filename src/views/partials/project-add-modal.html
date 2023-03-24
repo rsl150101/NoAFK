@@ -1,22 +1,15 @@
-<dialog id="projectAddModal">
-  <form method="dialog">
-    <label for="title">프로젝트 명</label>
+<dialog id="projectAddModal" class="project-add-modal-screen">
+  <form method="dialog" class="project-add-modal__form">
     <input
       type="text"
       name="title"
       id="title"
+      class="add-modal__title"
       placeholder="공고 제목을 입력하세요."
+      required
     />
-    <label for="content">프로젝트 내용</label>
-    <textarea
-      name="content"
-      id="content"
-      placeholder="공고 내용을 입력하세요."
-      cols="30"
-      rows="10"
-    ></textarea>
     <label for="teamName">팀 명</label>
-    <input type="text" name="teamName" id="teamName" />
+    <input type="text" name="teamName" id="teamName" required />
     <label for="techStack">기술 스택</label>
     <input
       type="text"
@@ -24,16 +17,49 @@
       id="techStack"
       placeholder=", 로 구분해주세요."
     />
-    <label for="person">인원</label>
-    <input type="number" name="person" id="person" min="1" />
-    <br />
+    <label for="person">모집 인원</label>
+    <input type="number" name="person" id="person" min="1" required />
     <label for="recruitDeadline">마감기한</label>
-    <input type="datetime-local" name="recruitDeadline" id="recruitDeadline" />
+    <input
+      type="datetime-local"
+      name="recruitDeadline"
+      id="recruitDeadline"
+      required
+    />
     <label for="projectStart">프로젝트 시작일</label>
-    <input type="datetime-local" name="projectStart" id="projectStart" />
+    <input
+      type="datetime-local"
+      name="projectStart"
+      id="projectStart"
+      required
+    />
     <label for="projectEnd">프로젝트 종료일</label>
-    <input type="datetime-local" name="projectEnd" id="projectEnd" />
-    <button value="register">등록</button>
-    <button value="cancel">취소</button>
+    <input type="datetime-local" name="projectEnd" id="projectEnd" required />
+    <label for="thumbnail">이미지 업로드</label>
+    <input
+      type="file"
+      name="thumbnail"
+      id="thumbnail"
+      class="add-modal__thumbnail"
+      accept="image/png, image/jpeg, image/jpg"
+    />
+    <textarea
+      name="content"
+      id="content"
+      placeholder="공고 내용을 입력하세요."
+      cols="30"
+      rows="10"
+      class="add-modal__content"
+      required
+    ></textarea>
+    <button value="register" class="add-modal__submit">등록</button>
+    <button
+      id="modalCancelBtn"
+      class="add-modal__cancel"
+      value="cancel"
+      type="button"
+    >
+      취소
+    </button>
   </form>
 </dialog>
