@@ -92,3 +92,12 @@ tbody th {
 .now_team_status {
   border: 5px solid red;
 }
+
+.leader-display.authority {
+  display: none;
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

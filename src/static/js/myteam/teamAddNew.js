@@ -7,7 +7,7 @@ function addNewMember() {
   const position = 1;
   inputUserNickname.value = '';
 
-  fetch(url, {
+  const response = fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -16,10 +16,10 @@ function addNewMember() {
       nickname,
       position,
     }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      alert(data.message);
-      location.reload();
-    });
+  });
+  const { status } = response;
+  if (status !== 201) {
+    alert('닉네임을 찾을 수 없거나 이미 팀에 등록된 닉네임입니다.');
+    location.reload();
+  }
 }

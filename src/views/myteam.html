@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/css/myteam.css" />
     <link rel="stylesheet" href="/css/style.css" />
     <title>{{pageTitle}} | NoAFK</title>
@@ -33,13 +33,15 @@
             member in memberList %} {% if member.position !== 0 %}
             <tr id="row-{{member.id}}">
               <!-- <th>{{member.id}}</th> -->
+              {% if member.position === 3 %}
+              <th id="teamLeader">{{member.User.nickname}}</th>
+              {% else %}
               <th>{{member.User.nickname}}</th>
+              {% endif %}
               <th>{{member.createdAt}}</th>
-
               <th id="position-{{member.id}}" data-value="{{member.position}}">
                 {{position[member.position]}}
               </th>
-
               <th id="task-{{member.id}}">{{member.task}}</th>
               <th>
                 <button
@@ -55,7 +57,7 @@
               >
                 <div>
                   <button
-                    class="myteam__memberList__update"
+                    class="leader-display"
                     onclick="updateMember({{member.id}})"
                   >
                     수정
@@ -63,7 +65,7 @@
                 </div>
                 <div>
                   <button
-                    class="myteam__memberList__emit"
+                    class="leader-display"
                     onclick="emitMember({{member.id}})"
                   >
                     방출
@@ -76,7 +78,7 @@
         </table>
       </section>
       <section id="myteam__searching-new">
-        <div>
+        <div class="leader-display">
           <span>팀원 추가하기</span
           ><input id="inputUserNickname" type="text" /><button
             id="addNewMemberBtn"
@@ -90,32 +92,36 @@
         <h2 id="myteam__project-status__title">프로젝트 현재 진행 상태</h2>
 
         <div id="myteam__project-status__buttons">
-          <button class="status-btn" data-num="0" onclick="updateTeamStatus(0)">
+          <button
+            class="status-btn leader-disable"
+            data-num="0"
+            onclick="updateTeamStatus(0)"
+          >
             모집마감</button
           ><span class="myteam__project-status__arrow">➡️</span
           ><button
-            class="status-btn"
+            class="status-btn leader-disable"
             data-num="1"
             onclick="updateTeamStatus(1)"
           >
             준비</button
           ><span class="myteam__project-status__arrow">➡️</span
           ><button
-            class="status-btn"
+            class="status-btn leader-disable"
             data-num="2"
             onclick="updateTeamStatus(2)"
           >
             진행중</button
           ><span class="myteam__project-status__arrow">➡️</span
           ><button
-            class="status-btn"
+            class="status-btn leader-disable"
             data-num="3"
             onclick="updateTeamStatus(3)"
           >
             테스트</button
           ><span class="myteam__project-status__arrow">➡️</span
           ><button
-            class="status-btn"
+            class="status-btn leader-disable"
             data-num="4"
             onclick="updateTeamStatus(4)"
           >
@@ -126,7 +132,9 @@
 
       <section id="myteam__footer">
         <div>
-          <button id="deleteTeam" onclick="deleteTeam()">팀 삭제</button>
+          <button class="leader-display" id="deleteTeam" onclick="deleteTeam()">
+            팀 삭제
+          </button>
           <button onclick="teamChatting()">팀 채팅</button>
         </div>
       </section>
@@ -137,6 +145,20 @@
       crossorigin="anonymous"
     ></script>
     <script>
+      const userNickname = `{{nickname}}`;
+      const teamLeader = document.querySelector('#teamLeader').textContent;
+      console.log(userNickname, teamLeader, userNickname !== teamLeader);
+
+      if (userNickname !== teamLeader) {
+        const displayElementList = document.querySelectorAll('.leader-display');
+        for (let displayElement of displayElementList) {
+          displayElement.classList.add('authority');
+        }
+        const disableElementList = document.querySelectorAll('.leader-disable');
+        for (let disableElement of disableElementList) {
+          disableElement.disabled = true;
+        }
+      }
       let nowStatus = document.querySelector(
         '.status-btn[data-num="{{status}}"]'
       );
