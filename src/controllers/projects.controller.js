@@ -135,7 +135,6 @@ class ProjectsController {
   createProject = async (req, res) => {
     try {
       await this.projectService.createProject(req.body);
-
       return res.sendStatus(201);
     } catch (error) {
       return res.status(500).json({ message: error.message });
@@ -149,6 +148,17 @@ class ProjectsController {
       const findProjectByUser = await this.projectService.findProjectByUser(id);
 
       res.status(200).json(findProjectByUser);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  //* 썸네일 이미지 업로드
+  uploadThumbnail = (req, res) => {
+    try {
+      const { originalname } = req.file;
+      this.projectService.verifyThumbnail(originalname);
+      return res.status(200).json({ image: req.file.location });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
