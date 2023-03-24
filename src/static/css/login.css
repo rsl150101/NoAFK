@@ -9,6 +9,10 @@
   justify-content: center;
 }
 
+.justify-start {
+  justify-content: start;
+}
+
 .items-center {
   align-items: center;
 }
@@ -103,6 +107,10 @@
   margin: auto;
 }
 
+.w-350 {
+  width: 350px;
+}
+
 .login-screen {
   display: flex;
   flex-direction: column;
@@ -118,8 +126,9 @@
 
 .login-box {
   border: 1px solid;
-  margin: 5% 0;
-  width: 50%;
+  margin: 8% 0;
+  border-radius: 15px;
+  width: 500px;
   height: auto;
   justify-content: center;
   align-items: center;
@@ -127,7 +136,12 @@
 
 .join-box {
   border: 1px solid;
-  border-radius: 10%;
+  border-radius: 10px;
+  margin: 10% 0;
+  width: 350px;
+  height: auto;
+  justify-content: center;
+  align-items: center;
 }
 
 .add-box {
@@ -151,7 +165,7 @@
 }
 
 .margin-bottom {
-  margin-bottom: 5%;
+  margin: 0 0 5% 0;
 }
 
 .margin-x {
@@ -209,7 +223,6 @@
 .error-box {
   display: none;
   color: red;
-  margin-left: 20%;
 }
 
 button:hover {

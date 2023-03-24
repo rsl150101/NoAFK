@@ -6,16 +6,16 @@
     </header>
   </section>
   <div class="flex items-center justify-center">
-    <div class="login-box flex items-center justify-center w-full flex-col p-6">
+    <div class="join-box flex items-center justify-center w-full flex-col p-6">
       <form
         id="join-box"
         class="flex justify-center items-center flex-col pb-8 pt-6 w-full"
       >
         <div class="w-full margin-bottom">
-          <div class="flex justify-center items-center w-full input-group">
+          <div class="justify-start input-group">
             <input
               type="email"
-              class="px-1 py-2 w-50"
+              class="px-1 py-2"
               id="email"
               placeholder="이메일"
             />
@@ -31,55 +31,60 @@
               인증번호 전송
             </button>
           </div>
-          <div class="error-box flex" id="emailMsg">
+          <div class="error-box justify-start flex" id="emailMsg">
             - 이메일을 확인해주세요.
           </div>
         </div>
-        <div
-          class="flex justify-center items-center w-full input-group margin-bottom"
-        >
-          <input
-            type="text"
-            class="px-1 py-2 w-45"
-            id="emailCheck"
-            placeholder="인증번호"
-          />
-          <button class="check-button btn" id="send-email-check" type="button">
-            인증번호 확인
-          </button>
-        </div>
         <div class="w-full margin-bottom">
-          <div class="flex justify-center items-center w-full">
+          <div class="justify-start items-center input-group">
+            <input
+              type="text"
+              class="px-1 py-2"
+              id="emailCheck"
+              placeholder="인증번호"
+            />
+            <button
+              class="check-button btn"
+              id="send-email-check"
+              type="button"
+            >
+              인증번호 확인
+            </button>
+          </div>
+        </div>
+
+        <div class="w-full margin-bottom">
+          <div class="justify-start items-center">
             <input
               type="password"
-              class="px-1 py-2 w-60"
+              class="px-1 py-2"
               id="password"
               placeholder="비밀번호"
             />
           </div>
-          <div class="error-box flex" id="passwordMsg">
-            - 최소 8자 이상으로 영문자 소문자, 숫자, 특수문자가 <br />
-            각각 최소 1개 이상.
+          <div class="error-box" id="passwordMsg">
+            - 최소 8자 이상으로 영문자 소문자, 숫자,<br />
+            특수문자가 각각 최소 1개 이상.
           </div>
         </div>
         <div class="w-full margin-bottom">
-          <div class="flex justify-center items-center w-full">
+          <div class="justify-start items-center">
             <input
               type="password"
-              class="px-1 py-2 w-60"
+              class="px-1 py-2"
               id="passwordCheck"
               placeholder="비밀번호확인"
             />
           </div>
-          <div class="error-box flex" id="passwordCheckMsg">
+          <div class="error-box" id="passwordCheckMsg">
             - 다시 확인해주세요.
           </div>
         </div>
         <div class="w-full margin-bottom">
-          <div class="flex justify-center items-center w-full input-group">
+          <div class="justify-start items-center input-group">
             <input
               type="nickname"
-              class="px-1 py-2 w-50"
+              class="px-1 py-2"
               id="nickname"
               placeholder="닉네임"
             />
@@ -91,11 +96,11 @@
               중복체크
             </button>
           </div>
-          <div class="error-box flex" id="nicknameMsg">
-            - 닉네임은 한글,영어 대소문자,숫자만 사용가능합니다.
+          <div class="error-box" id="nicknameMsg">
+            - 닉네임은 한글,영어 대소문자,숫자만 <br />사용가능합니다.
           </div>
         </div>
-        <div class="text-align-row w-80">
+        <div class="text-align-row w-80 margin-top">
           <button
             class="px-6 py-2 text-white bg-black margin-y"
             type="button"
