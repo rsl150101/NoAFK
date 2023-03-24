@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 function updateNickname() {
   document.getElementById("nicknameModal").style.display = "block";
   document.body.style.overflow = "hidden"

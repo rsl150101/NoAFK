@@ -22,5 +22,5 @@ router.patch('/:id/introduction', usersController.updateUserIntroduction);
 router.patch('/:id/image', usersController.updateUserImage);
 
 // 이미지 업로드
-router.post('/image', uploads.single('file'), usersController.uploadImage);
+router.post('/image', uploads.single('file'), usersController.uploadProfileImage);
 module.exports = router;
