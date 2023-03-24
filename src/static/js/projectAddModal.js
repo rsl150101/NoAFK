@@ -18,7 +18,6 @@ const handleModalCancelBtn = () => {
 };
 
 const postModalData = async () => {
-  console.log(projectAddModal.returnValue);
   if (projectAddModal.returnValue === 'register') {
     const title = document.getElementById('title').value;
     const content = document.getElementById('content').value;
