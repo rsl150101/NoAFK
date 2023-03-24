@@ -5,6 +5,9 @@ const UserRepository = require('../repositories/users.repository');
 const TeamRepository = require('../repositories/teams.repository');
 const { Project, ProjectUser, Comment, User } = require('../models');
 
+// customError
+const { AlreadyDeadLine } = require('../utility/customError');
+
 class ProjectService {
   projectRepository = new ProjectRepository(Project);
   teamRepository = new TeamRepository(ProjectUser);
@@ -14,6 +17,12 @@ class ProjectService {
   findProjectById = async (id) => {
     try {
       const projectById = await this.projectRepository.findProjectById(id);
+
+      if (projectById.status !== 0) {
+        const error = new AlreadyDeadLine();
+        throw error;
+      }
+
       const ownerId = Number(projectById.owner);
 
       const NicknameById = await this.userRepository.findNicknameById(ownerId);
