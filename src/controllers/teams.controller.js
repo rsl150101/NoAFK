@@ -17,7 +17,7 @@ class TeamsController {
         await this.teamService.findTeamNameAndStatusByTeamId(teamId);
       const memberList = await this.teamService.findAllByTeamId(teamId);
 
-      return res.render('myTeam', {
+      return res.render('myteam', {
         pageTitle: 'My Team',
         teamName,
         status,
@@ -30,7 +30,7 @@ class TeamsController {
 
   getAllTeam = async (req, res, next) => {
     const allTeam = await this.teamService.findAllTeam();
-    return res.render('allTeam', {
+    return res.render('allteam', {
       pageTitle: 'All Team',
       allTeam,
     });
