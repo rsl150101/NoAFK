@@ -1,88 +1,111 @@
 {% extends "loginIndex.html" %} {% block content %}
-<main>
-  <div>
-    <div class="text-align form-margin-top">
-      <div>
-        <h1>LOGIN</h1>
-      </div>
-      <div class="login-box">
-        <form id="login-box">
-          <div class="form-floating form-margin form-margin-top">
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              placeholder="Email"
-            />
-          </div>
-          <div class="form-floating form-margin">
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              placeholder="Password"
-            />
-          </div>
-          <button class="border-button" id="login-btn">Login</button>
-        </form>
-        <div class="text-align">
-          <p>SNS로 로그인하기</p>
-          <div class="text-align-row">
-            <button
-              class="btn-social-login"
-              style="background: #ffeb00"
-              onclick="location.href='/api/auth/kakao'"
-            >
-              <i class="xi-2x xi-kakaotalk text-dark"></i>
-            </button>
-            <button
-              class="btn-social-login"
-              style="background: #24292e"
-              onclick="location.href='/api/auth/github'"
-            >
-              <i class="xi-2x xi-github"></i>
-            </button>
-            <button
-              class="btn-social-login"
-              style="background: #d93025"
-              onclick="location.href='/api/auth/google'"
-            >
-              <i class="xi-2x xi-google"></i>
-            </button>
-            <button
-              class="btn-social-login"
-              style="background: #1fc700"
-              onclick="location.href='/api/auth/naver'"
-            >
-              <i class="xi-2x xi-naver"></i>
-            </button>
-          </div>
-          <div class="text-align">
-            <button
-              type="button"
-              class="border-none-button"
-              onclick="location.href='/join'"
-            >
-              회원이 아니신가요??
-            </button>
+<main class="main-screen login-screen">
+  <section>
+    <header>
+      <h1>LOGIN</h1>
+    </header>
+  </section>
+  <div class="flex items-center justify-center">
+    <div class="login-box flex items-center justify-center flex-col p-6">
+      <form
+        id="login-box"
+        class="flex justify-center items-center flex-col pb-8 pt-6 w-full"
+      >
+        <div class="flex justify-center items-center w-full">
+          <input
+            type="email"
+            class="px-1 py-2 w-80 margin-bottom"
+            id="email"
+            placeholder="이메일을 입력해주세요."
+          />
+        </div>
+        <div class="flex justify-center items-center w-full">
+          <input
+            type="password"
+            class="px-1 py-2 w-80 margin-bottom"
+            id="password"
+            placeholder="비밀번호를 입력해주세요."
+          />
+        </div>
+        <div class="flex justify-center items-center">
+          <button id="login-btn" class="px-6 py-2 text-white bg-black">
+            LOGIN
+          </button>
+        </div>
+      </form>
+      <div class="text-align w-full">
+        <div class="border-gray w-80"></div>
+        <div class="margin-top-3">SNS로 로그인하기</div>
+        <div class="margin-top-3">
+          <button
+            class="btn-social-login"
+            style="background: #ffeb00"
+            onclick="location.href='/api/auth/kakao'"
+          >
+            <i class="xi-2x xi-kakaotalk text-dark"></i>
+          </button>
+          <button
+            class="btn-social-login"
+            style="background: #24292e"
+            onclick="location.href='/api/auth/github'"
+          >
+            <i class="xi-2x xi-github"></i>
+          </button>
+          <button
+            class="btn-social-login"
+            style="background: #d93025"
+            onclick="location.href='/api/auth/google'"
+          >
+            <i class="xi-2x xi-google"></i>
+          </button>
+          <button
+            class="btn-social-login"
+            style="background: #1fc700"
+            onclick="location.href='/api/auth/naver'"
+          >
+            <i class="xi-2x xi-naver"></i>
+          </button>
+        </div>
+        <div class="w-80">
+          <div class="border-gray margin-top w-full"></div>
+          <div class="flex justify-center items-center margin-top">
+            <div>비밀번호를 잊으셨나요?</div>
             <button type="button" class="border-none-button" id="reset-pw-btn">
               비밀번호 재발급
             </button>
-            <dialog id="send-email-modal">
-              <form method="dialog">
-                <label for="send-email">이메일을 입력해주세요</label>
+            <dialog id="send-email-modal" class="w-40">
+              <form
+                method="dialog"
+                class="flex flex-col justify-center items-center"
+              >
+                <label for="send-email" class="margin-top"
+                  >비밀번호 재발급</label
+                >
                 <br />
                 <input
                   type="text"
                   name="send-email"
                   id="send-email-input"
-                  placeholder=""
+                  placeholder="회원가입한 이메일을 적어주세요"
+                  class="w-full"
                 />
                 <br />
-                <button value="send">초기화 메일 보내기</button>
-                <button value="cancel">취소</button>
+                <div>
+                  <button value="send">초기화 메일 보내기</button>
+                  <button value="cancel">취소</button>
+                </div>
               </form>
             </dialog>
+          </div>
+          <div class="flex justify-center items-centers">
+            <div>NoAFK 회원이 아니신가요?</div>
+            <button
+              type="button"
+              class="border-none-button"
+              onclick="location.href='/join'"
+            >
+              회원가입하기
+            </button>
           </div>
         </div>
       </div>

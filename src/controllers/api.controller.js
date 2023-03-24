@@ -18,6 +18,7 @@ class ApiController {
 
       const { status, message } = await this.userService.createUser(userInfo);
 
+      res.clearCookie('authString');
       res.status(status).json({ message });
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -55,7 +56,7 @@ class ApiController {
     res.clearCookie('refreshToken');
     // 카카오소셜로그인 쿠키
     res.clearCookie('connect.sid');
-    return res.redirect('/login');
+    return res.redirect('/');
   };
 
   // 소셜로그인

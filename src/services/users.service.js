@@ -207,7 +207,7 @@ class UserService {
         },
         process.env.KAKAO_SECRET,
         {
-          expiresIn: '2h',
+          expiresIn: '6h',
         }
       );
 
@@ -236,7 +236,7 @@ class UserService {
         },
         process.env.KAKAO_SECRET,
         {
-          expiresIn: '2h',
+          expiresIn: '6h',
         }
       );
 
