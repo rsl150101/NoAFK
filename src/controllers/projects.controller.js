@@ -33,6 +33,9 @@ class ProjectsController {
         nextCursor,
       });
     } catch (error) {
+      if (error.name === 'AlreadyDeadLine') {
+        return res.status(403).json({ message: error.message });
+      }
       return res.status(400).json({ message: error.message });
     }
   };

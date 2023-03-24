@@ -16,7 +16,6 @@ const {
 const redisClient = require('../utility/redis');
 
 // nodemailer
-const nodemailer = require('nodemailer');
 const transporter = require('../utility/nodemailer');
 
 class UserService {
