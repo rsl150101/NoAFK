@@ -5,202 +5,253 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{pageTitle}} | NoAFK</title>
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/projectDetail.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   </head>
   <body>
     {% include "partials/page-header.html"%}
-
-    <div class="project-detail-box">
-      <div class="project-detail-border">
-        <div id="project-board">
-          <div class="detail-top project-detail-border">
-            <div class="detail-title" id="title">
-              <h1>프로젝트 '{{project.title}}'</h1>
-            </div>
-            <div class="detail-owner" id="owner">
-              <p>
-                by '{{project.nickname}}' {% if project.createdAt ===
-                project.updatedAt %} {{project.createdAt}} {% else %}
-                {{project.updatedAt}} (수정됨) {% endif %}
-              </p>
-              <div>
-                {% if project.owner === loginUserId %}
-                <button id="edit-board-btn" type="button">수정</button>
-                <dialog id="projectEditModal">
-                  <form method="dialog">
-                    <label for="title">프로젝트 명</label>
-                    <input
-                      type="text"
-                      name="title"
-                      id="edit-title"
-                      placeholder="공고 제목을 입력하세요."
-                      value="{{project.title}}"
-                    />
-                    <br />
-                    <label for="content">프로젝트 내용</label>
-                    <input
-                      type="text"
-                      name="content"
-                      id="edit-content"
-                      placeholder="공고 내용을 입력하세요."
-                      value="{{project.content}}"
-                    />
-                    <br />
-                    <label for="techStack">기술 스택</label>
-                    <input
-                      type="text"
-                      name="techStack"
-                      id="edit-techStack"
-                      placeholder=", 로 구분해주세요."
-                      value="{{project.techStack}}"
-                    />
-                    <label for="person">인원</label>
-                    <input
-                      type="number"
-                      name="person"
-                      id="edit-person"
-                      min="1"
-                      value="{{project.person}}"
-                    />
-                    <br />
-                    <label for="recruitDeadline">마감기한</label>
-                    <input
-                      type="datetime-local"
-                      name="recruitDeadline"
-                      id="edit-recruitDeadline"
-                      value="{{project.recruitDeadline}}"
-                    />
-                    <br />
-                    <label for="projectStart">프로젝트 시작일</label>
-                    <input
-                      type="datetime-local"
-                      name="projectStart"
-                      id="edit-projectStart"
-                      value="{{project.projectStart}}"
-                    />
-                    <label for="projectEnd">프로젝트 종료일</label>
-                    <input
-                      type="datetime-local"
-                      name="projectEnd"
-                      id="edit-projectEnd"
-                      value="{{project.projectEnd}}"
-                    />
-                    <br />
-                    <button value="register">등록</button>
-                    <button value="cancel">취소</button>
-                  </form>
-                </dialog>
-                <button id="delete-board-btn" type="button">삭제</button>
-                {% endif %}
+    <main class="main-screen project-screen">
+      <section>
+        <header class="flex justify-space-btw">
+          <h1>{{pageTitle}}</h1>
+          <div class="mt-4">
+            {% if loginUserId === null %}
+            <button><a href="/login">신청하기</a></button>
+            {% elif project.owner !== loginUserId %}
+            <button id="apply-btn" type="button">신청하기</button>
+            {% endif %}
+          </div>
+        </header>
+        <div id="project-board" class="w-60 mx-auto border-bottom">
+          <div class="flex justify-space-btw">
+            <div>
+              <div class="detail-title" id="title">
+                <h1>{{project.title}}</h1>
+              </div>
+              <div class="detail-owner" id="owner">
+                <span class="font-bold"> by '{{project.nickname}}' </span>
+                <span
+                  >{% if project.createdAt === project.updatedAt %}
+                  {{project.createdAt}} {% else %} {{project.updatedAt}}
+                  (수정됨) {% endif %}
+                </span>
               </div>
             </div>
+            <div class="mt-4 flex items-end">
+              {% if project.owner === loginUserId %}
+              <div class="btn-div">
+                <button id="edit-board-btn" type="button" class="mr-4">
+                  수정
+                </button>
+                <button id="delete-board-btn" type="button">삭제</button>
+              </div>
+              <dialog id="projectEditModal">
+                <form method="dialog">
+                  <label for="title">프로젝트 명</label>
+                  <input
+                    type="text"
+                    name="title"
+                    id="edit-title"
+                    placeholder="공고 제목을 입력하세요."
+                    value="{{project.title}}"
+                  />
+                  <br />
+                  <label for="content">프로젝트 내용</label>
+                  <input
+                    type="text"
+                    name="content"
+                    id="edit-content"
+                    placeholder="공고 내용을 입력하세요."
+                    value="{{project.content}}"
+                  />
+                  <br />
+                  <label for="techStack">기술 스택</label>
+                  <input
+                    type="text"
+                    name="techStack"
+                    id="edit-techStack"
+                    placeholder=", 로 구분해주세요."
+                    value="{{project.techStack}}"
+                  />
+                  <label for="person">인원</label>
+                  <input
+                    type="number"
+                    name="person"
+                    id="edit-person"
+                    min="1"
+                    value="{{project.person}}"
+                  />
+                  <br />
+                  <label for="recruitDeadline">마감기한</label>
+                  <input
+                    type="datetime-local"
+                    name="recruitDeadline"
+                    id="edit-recruitDeadline"
+                    value="{{project.recruitDeadline}}"
+                  />
+                  <br />
+                  <label for="projectStart">프로젝트 시작일</label>
+                  <input
+                    type="datetime-local"
+                    name="projectStart"
+                    id="edit-projectStart"
+                    value="{{project.projectStart}}"
+                  />
+                  <label for="projectEnd">프로젝트 종료일</label>
+                  <input
+                    type="datetime-local"
+                    name="projectEnd"
+                    id="edit-projectEnd"
+                    value="{{project.projectEnd}}"
+                  />
+                  <br />
+                  <div class="mt-4 flex justify-end">
+                    <button class="new-btn-2 mr-2" value="register">
+                      등록
+                    </button>
+                    <button class="new-btn-2" value="cancel">취소</button>
+                  </div>
+                </form>
+              </dialog>
+              {% endif %}
+            </div>
+          </div>
+          <div class="mt-4">
+            <img src="{{project.image}}" alt="프로필사진" />
           </div>
           <div class="detail-middle project-detail-border">
-            <div class="detail-three">
-              <div
-                class="detail-person detail-margin detail-padding"
-                id="person"
-              >
-                <p>모집인원 : {{project.person}}</p>
-              </div>
-              <div
-                class="detail-deadline detail-margin detail-padding"
-                id="deadline"
-              >
-                <p>모집마감 : {{project.recruitDeadline}}</p>
-              </div>
-              <div
-                class="detail-period detail-margin detail-padding"
-                id="period"
-              >
-                <p>
-                  프로젝트 기간 : {{project.projectStart}} ~
-                  {{project.projectEnd}}
-                </p>
-              </div>
+            <div id="person" class="mt-4">
+              <p>모집인원 : {{project.person}}</p>
             </div>
-            <div class="detail-stack project-detail-border" id="tech-stack">
-              <p>스택 요구사항 : {{project.techStack}}</p>
+            <div id="deadline" class="mt-4">
+              <p>모집마감 : {{project.recruitDeadline}}</p>
             </div>
-            <div class="detail-content project-detail-border" id="content">
-              <p>프로젝트 설명 : {{project.content}}</p>
+            <div id="period" class="mt-4">
+              <p>
+                프로젝트 기간 : {{project.projectStart}} ~
+                {{project.projectEnd}}
+              </p>
+            </div>
+            <div class="mt-4 mb-4" id="tech-stack">
+              <pre>기술 스택 : {{project.techStack}}</pre>
             </div>
           </div>
+          <div class="detail-content mb-2" id="content">
+            <pre>{{project.content}}</pre>
+          </div>
         </div>
+      </section>
 
-        <ul class="detail-apply project-detail-border">
+      <section class="w-60 mx-auto border-bottom">
+        <header>
+          <h1>신청자 명단</h1>
+        </header>
+        <ul class="detail-apply w-45 mb-2">
           {% for apply in applyUsers %}
-          <li class="apply-list" id="{{apply.id}}">
-            <p>{{apply.nickname}}</p>
+          <li class="apply-list flex justify-space-btw mt-2" id="{{apply.id}}">
+            <div class="mr-4 flex items-center">{{apply.nickname}}</div>
             {% if project.owner === loginUserId %}
-            <button id="accept-btn" type="button">수락</button>
+            <div>
+              <button class="accept-btn" id="accept-btn" type="button">
+                수락
+              </button>
+            </div>
             {% endif %}
           </li>
           {% endfor %}
         </ul>
+      </section>
 
+      <section class="w-60 mx-auto">
+        <header>
+          <h1>댓글 작성</h1>
+        </header>
         {% if loginUserId %}
-        <div class="detail-chat project-detail-border" id="detail-comment">
-          <textarea id="create-comment">이곳에 댓글을 작성해주세요.</textarea
-          ><button id="create-comment-btn" type="button">작성</button>
+        <form id="detail-comment">
+          <textarea
+            class="w-full flex justify-start"
+            id="create-comment"
+            placeholder="댓글을 작성하세요."
+            required
+          ></textarea>
+          <div class="flex justify-end mt-2">
+            <button id="create-comment-btn" class="new-btn">댓글 작성</button>
+          </div>
+        </form>
+        {% endif %}
+        <div>
+          <ul class="detail-comment" id="detail-comment-list">
+            {% for comment in comments %}
+            <li class="comment-list" id="{{comment.id}}">
+              <div class="flex justify-space-btw">
+                <div class="flex items-center font-bold">
+                  {{comment.nickname}}
+                </div>
+                <div class="flex items-center">
+                  {% if comment.createdAt === comment.updatedAt %}
+                  <p>{{comment.createdAt}}</p>
+                  {% else %}
+                  <p>{{comment.updatedAt}} (수정됨)</p>
+                  {% endif %} {% if comment.userId === loginUserId %}
+                  <div
+                    class="before-click-{{comment.id}} display-block btn-div"
+                  >
+                    <button id="check-edit-btn-{{comment.id}}" type="button">
+                      수정
+                    </button>
+                    <button
+                      id="delete-comment-btn-{{comment.id}}"
+                      type="button"
+                    >
+                      삭제
+                    </button>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+              <pre
+                class="before-click-{{comment.id}} display-block comment-content"
+              >
+{{comment.content}}
+              </pre>
+              <div class="after-click-{{comment.id}} display-none">
+                <form id="new-comment-form-{{comment.id}}">
+                  <textarea
+                    class="w-full comment-content"
+                    id="new-comment-{{comment.id}}"
+                    required
+                  >
+{{comment.content}}</textarea
+                  >
+                  <div class="flex justify-end">
+                    <button class="new-btn-2 mr-2">등록</button
+                    ><button
+                      id="cancel-edit-btn-{{comment.id}}"
+                      class="new-btn-2"
+                      type="button"
+                    >
+                      취소
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          <div class="flex justify-center">
+            <button
+              class="display-none mt-2 mb-4 new-btn"
+              id="more-comment"
+              type="button"
+            >
+              댓글 더보기
+            </button>
+          </div>
         </div>
-        {% endif %}
-        <ul
-          class="detail-comment project-detail-border"
-          id="detail-comment-list"
-        >
-          {% for comment in comments %}
-          <li class="comment-list" id="{{comment.id}}">
-            <p>{{comment.nickname}}</p>
-            <p class="before-click-{{comment.id}} display-block">
-              {{comment.content}}
-            </p>
-            <input
-              type="text"
-              class="after-click-{{comment.id}} display-none"
-              id="new-comment-{{comment.id}}"
-              value="{{comment.content}}"
-              required
-            />
-            {% if comment.createdAt === comment.updatedAt %}
-            <p>{{comment.createdAt}}</p>
-            {% else %}
-            <p>{{comment.updatedAt}} (수정됨)</p>
-            {% endif %} {% if comment.userId === loginUserId %}
-            <div class="before-click-{{comment.id}} display-block">
-              <button id="check-edit-btn-{{comment.id}}" type="button">
-                수정
-              </button>
-              <button id="delete-comment-btn-{{comment.id}}" type="button">
-                삭제
-              </button>
-            </div>
-            <div class="after-click-{{comment.id}} display-none">
-              <button id="edit-comment-btn-{{comment.id}}" type="button">
-                등록</button
-              ><button id="cancel-edit-btn-{{comment.id}}" type="button">
-                취소
-              </button>
-            </div>
-            {% endif %}
-          </li>
-          {% endfor %}
-          <button class="display-none" id="more-comment" type="button">
-            댓글 더보기
-          </button>
-        </ul>
-      </div>
-      <div>
-        {% if loginUserId === null %}
-        <button><a href="/login">신청하기</a></button>
-        {% elif project.owner !== loginUserId %}
-        <button id="apply-btn" type="button">신청하기</button>
-        {% endif %}
-      </div>
-    </div>
+      </section>
+    </main>
 
     {% include "partials/page-footer.html"%}
   </body>
