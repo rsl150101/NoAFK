@@ -40,6 +40,8 @@
 	<img src="https://img.shields.io/badge/Amazon-S3-569A31?style=for-the-badge&logo=Amazon-S3&4a154b=white" />
 	<img src="https://img.shields.io/badge/Amazon-Lambda-FF9900?style=for-the-badge&logo=AWS-Lambda&4a154b=white" />
   <br>
+	<img src="https://img.shields.io/badge/PM2-2B037A?style=for-the-badge&logo=PM2&4a154b=white" />
+  <br>
   <p><h2>🛠️ Tools 🛠️</h2></p>
 	<img src="https://img.shields.io/badge/slack-4a154b?style=for-the-badge&logo=slack&4a154b=white" />
 	<img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&4a154b=white" />
