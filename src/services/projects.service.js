@@ -1,3 +1,4 @@
+const path = require('path');
 const ProjectRepository = require('../repositories/projects.repository');
 const CommentRepository = require('../repositories/comments.repository');
 const UserRepository = require('../repositories/users.repository');
@@ -189,6 +190,20 @@ class ProjectService {
   createProject = async (projectInfo) => {
     try {
       await this.projectRepository.createProject(projectInfo);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //* 썸네일 이미지 확장자 유효성 검사
+  verifyThumbnail = (originalname) => {
+    try {
+      const ext = path.extname(originalname);
+      if (ext === '.jpg' || ext === '.jpeg' || ext === '.png') {
+        return;
+      } else {
+        throw error;
+      }
     } catch (error) {
       throw error;
     }

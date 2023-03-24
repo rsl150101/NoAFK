@@ -9,7 +9,8 @@
 
 /* screens */
 @import './screen/home-screen.css';
-@import './screen/projects.screen.css';
+@import './screen/projects-screen.css';
+@import './screen/projects-add-modal-screen.css';
 
 @font-face {
   font-family: 'Montserrat';

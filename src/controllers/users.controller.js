@@ -221,9 +221,11 @@ class UsersController {
   // };
 
   // 이미지 업로드
-  uploadImage = async (req, res) => {
+  uploadProfileImage = async (req, res) => {
     try {
-      return res.status(200).json({ image: req.file.location });
+      const originalURL = req.file.location;
+      const resizeURL = originalURL.replace(/\/profile\//, '/resizedProfile/')
+      return res.status(200).json({ image: resizeURL });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }

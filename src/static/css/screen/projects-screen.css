@@ -49,11 +49,19 @@
 }
 
 .project-list li a pre {
+  width: 100%;
   white-space: pre-wrap;
   font-size: 1.1em;
   flex: 1;
-  padding: 20px 0;
+  margin: 20px 0;
   overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* 라인수 */
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  line-height: 1.3em;
+  height: 3.9em;
 }
 
 .project-list li a div {
@@ -72,4 +80,34 @@
 
 .project-list li a div span {
   justify-self: center;
+}
+
+.projects-screen section:nth-child(2) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.projectAddBtn {
+  font-family: 'Montserrat', 'NotoSansKR', sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 0 5px 1px var(--light-gray);
+  font-weight: 700;
+  font-size: 0.9em;
+  color: var(--dark-gray);
+  border: none;
+}
+
+.projectAddBtn:hover {
+  box-shadow: 0 0 2px 2px lightgrey;
+}
+
+.projectAddBtn:active {
+  transform: translateY(2px);
 }
