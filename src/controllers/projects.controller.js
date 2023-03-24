@@ -134,7 +134,12 @@ class ProjectsController {
   //* 프로젝트 생성
   createProject = async (req, res) => {
     try {
+      const { id: userId } = res.locals.user;
+      const leaderPosition = 3;
+
       await this.projectService.createProject(req.body);
+      const teamId = await this.teamService.findMostRecentTeamByUserId(userId);
+      await this.teamService.addNewMember(leaderPosition, userId, teamId);
 
       return res.sendStatus(201);
     } catch (error) {

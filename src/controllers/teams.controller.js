@@ -11,6 +11,9 @@ class TeamsController {
 
   renderTeamPage = async (req, res, next) => {
     const { teamId } = req.params;
+    console.log(req.session.nickname);
+    console.log(req.sessionID);
+    console.log(req.headers.cookie.split('nickname=')[1]);
 
     try {
       const { teamName, status } =

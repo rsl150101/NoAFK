@@ -53,6 +53,30 @@ class ProjectRepository {
     }
   };
 
+  findAllProjectsByUserId = async (owner) => {
+    try {
+      return await this.projectModel.findAll({
+        attributes: ['id', 'team_name', 'status', 'createdAt'],
+        where: { owner },
+        order: [['id', 'DESC']],
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  findMostRecentIdByUserId = async (owner) => {
+    try {
+      return await this.projectModel.max('id', {
+        where: { owner },
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
   findAllProjectByStatus = async (status) => {
     try {
       const projects = await this.projectModel.findAll({
