@@ -47,35 +47,32 @@
                 </button>
                 <button id="delete-board-btn" type="button">삭제</button>
               </div>
-              <dialog id="projectEditModal">
-                <form method="dialog">
-                  <label for="title">프로젝트 명</label>
+              <dialog id="projectEditModal" class="project-add-modal-screen">
+                <form method="dialog" class="project-add-modal__form">
                   <input
                     type="text"
                     name="title"
                     id="edit-title"
-                    placeholder="공고 제목을 입력하세요."
+                    class="add-modal__title"
                     value="{{project.title}}"
+                    required
                   />
-                  <br />
-                  <label for="content">프로젝트 내용</label>
+                  <label for="teamName">팀 명</label>
                   <input
                     type="text"
-                    name="content"
-                    id="edit-content"
-                    placeholder="공고 내용을 입력하세요."
-                    value="{{project.content}}"
+                    name="teamName"
+                    id="teamName"
+                    value="{{project.teamName}}"
+                    required
                   />
-                  <br />
                   <label for="techStack">기술 스택</label>
                   <input
                     type="text"
                     name="techStack"
                     id="edit-techStack"
-                    placeholder=", 로 구분해주세요."
                     value="{{project.techStack}}"
                   />
-                  <label for="person">인원</label>
+                  <label for="person">모집 인원</label>
                   <input
                     type="number"
                     name="person"
@@ -83,7 +80,6 @@
                     min="1"
                     value="{{project.person}}"
                   />
-                  <br />
                   <label for="recruitDeadline">마감기한</label>
                   <input
                     type="datetime-local"
@@ -91,7 +87,6 @@
                     id="edit-recruitDeadline"
                     value="{{project.recruitDeadline}}"
                   />
-                  <br />
                   <label for="projectStart">프로젝트 시작일</label>
                   <input
                     type="datetime-local"
@@ -106,13 +101,28 @@
                     id="edit-projectEnd"
                     value="{{project.projectEnd}}"
                   />
-                  <br />
-                  <div class="mt-4 flex justify-end">
-                    <button class="new-btn-2 mr-2" value="register">
-                      등록
-                    </button>
-                    <button class="new-btn-2" value="cancel">취소</button>
-                  </div>
+                  <label for="thumbnail">썸네일 재업로드</label>
+                  <input
+                    type="file"
+                    name="thumbnail"
+                    id="thumbnail"
+                    class="add-modal__thumbnail"
+                    accept="image/png, image/jpeg, image/jpg"
+                  />
+                  <textarea
+                    name="content"
+                    id="edit-content"
+                    cols="30"
+                    rows="10"
+                    class="add-modal__content"
+                    required
+                  >
+{{project.content}}</textarea
+                  >
+                  <button class="add-modal__submit" value="register">
+                    등록
+                  </button>
+                  <button class="add-modal__cancel" value="cancel">취소</button>
                 </form>
               </dialog>
               {% endif %}
