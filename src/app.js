@@ -58,7 +58,7 @@ app.use('/chat', chatRouter);
 
 //* 서버 구동
 const server = app.listen(PORT, () => {
-  console.log(`✅ 서버가 연결되었습니다. http://localhost:${PORT}`);
+  console.log(`✅ 서버가 연결되었습니다.`);
 });
 
 webSocket(server, app);

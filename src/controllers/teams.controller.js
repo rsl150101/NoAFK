@@ -10,10 +10,10 @@ class TeamsController {
   userService = new UserService();
 
   renderTeamPage = async (req, res, next) => {
-    const { teamId } = req.params;
-    const { nickname } = res.locals.user;
-
     try {
+      const { teamId } = req.params;
+      const { nickname } = res.locals.user;
+
       const memberList = await this.teamService.findAllByTeamId(teamId);
 
       if (memberList.length === 0) {
@@ -36,9 +36,9 @@ class TeamsController {
   };
 
   renderMyTeamListPage = async (req, res, next) => {
-    const { id } = res.locals.user;
-
     try {
+      const { id } = res.locals.user;
+
       const myTeamList = await this.teamService.findAllTeamByUserId(id);
 
       return res.render('myTeamList', {
@@ -63,10 +63,10 @@ class TeamsController {
   };
 
   postTeamMember = async (req, res, next) => {
-    const { teamId } = req.params;
-    const { nickname, position } = req.body;
-
     try {
+      const { teamId } = req.params;
+      const { nickname, position } = req.body;
+
       const userIdverifiedByNickname = await this.teamService.verifyNickname(
         nickname
       );
@@ -97,10 +97,10 @@ class TeamsController {
   };
 
   updateTeam = async (req, res, next) => {
-    const { teamId } = req.params;
-    const { status } = req.body;
-
     try {
+      const { teamId } = req.params;
+      const { status } = req.body;
+
       const updatedTeamStatus = await this.teamService.updateStatus(
         teamId,
         status
@@ -113,9 +113,9 @@ class TeamsController {
   };
 
   deleteTeam = async (req, res, next) => {
-    const { teamId } = req.params;
-
     try {
+      const { teamId } = req.params;
+
       await this.teamService.deleteTeam(teamId);
 
       return res.status(200).json({ message: '팀 삭제 성공!' });
@@ -125,10 +125,10 @@ class TeamsController {
   };
 
   updateTeamMember = async (req, res, next) => {
-    const { memberId } = req.params;
-    const { position, task } = req.body;
-
     try {
+      const { memberId } = req.params;
+      const { position, task } = req.body;
+
       const updatedMember = await this.teamService.updateMember(
         memberId,
         position,
@@ -142,8 +142,9 @@ class TeamsController {
   };
 
   deleteTeamMember = async (req, res, next) => {
-    const { memberId } = req.params;
     try {
+      const { memberId } = req.params;
+
       const deletedMember = await this.teamService.deleteMember(memberId);
 
       return res.status(200).json({ deletedMember });
