@@ -33,7 +33,7 @@ class TeamsController {
   renderMyTeamListPage = async (req, res, next) => {
     const { id } = res.locals.user;
     const myTeamList = await this.teamService.findAllTeamByUserId(id);
-    console.log(myTeamList);
+
     try {
       return res.render('myTeamList', {
         pageTitle: 'My Team List',
