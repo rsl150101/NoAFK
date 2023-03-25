@@ -13,7 +13,7 @@ const prevPage = page >= 10 ? (Math.floor(page / 10) - 1) * 10 + 1 : 1;
 let nextPage = (Math.floor(page / 10) + 1) * 10 + 1;
 
 if (page) {
-  fetch(`http://localhost:3000/api/projects?page=${page}&site=notices`)
+  fetch(`/api/projects?page=${page}&site=notices`)
     .then((response) => response.json())
     .then((projectsAndPageArr) => {
       const {

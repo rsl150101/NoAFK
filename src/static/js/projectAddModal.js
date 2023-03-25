@@ -35,7 +35,7 @@ const postModalData = async () => {
 
       formData.append('thumbnail', thumbnail);
 
-      await fetch('http://localhost:3000/projects/image/Upload', {
+      await fetch('/projects/image/Upload', {
         method: 'POST',
         body: formData,
       })
@@ -64,7 +64,7 @@ const postModalData = async () => {
       image,
     };
 
-    const response = await fetch('http://localhost:3000/projects', {
+    const response = await fetch('/projects', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -76,6 +76,7 @@ const postModalData = async () => {
 
     if (status === 201) {
       alert('공고가 등록되었습니다!');
+      window.location.reload();
     } else {
       alert('공고 등록에 실패하였습니다!');
     }
