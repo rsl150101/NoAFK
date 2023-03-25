@@ -10,10 +10,10 @@ class TeamRepository {
   // Therefore, In TeamRouter, URL: /team/:teamId 👉 TeamId == ProjectId
   // And, In this repository, "ProjectUserId" is used as "TeamMemberId".
 
-  findByTeamMemberId = async (teamMemberId) => {
+  findByTeamMemberId = async (userId) => {
     try {
-      return await this.teamModel.findOne({
-        where: { teamMemberId },
+      return await this.teamModel.findAll({
+        where: { userId },
       });
     } catch (error) {
       error.status = 500;
@@ -68,6 +68,7 @@ class TeamRepository {
     }
   };
 
+  // 팀원 정보 수정 성공
   updateTeamMember = async (memberId, position, task) => {
     try {
       await this.teamModel.update(
@@ -85,15 +86,28 @@ class TeamRepository {
     }
   };
 
+  // 팀원 삭제
   deleteTeamMember = async (memberId) => {
     try {
       await this.teamModel.destroy({
-        where: {
-          id: memberId,
-        },
+        where: { id: memberId },
       });
 
       return { status: 200, message: '팀원 삭제 성공!' };
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  // 팀 삭제
+  deleteTeam = async (teamId) => {
+    try {
+      await this.teamModel.destroy({
+        where: { projectId: teamId },
+      });
+
+      return { status: 200, message: '팀 삭제 성공!' };
     } catch (error) {
       error.status = 500;
       throw error;

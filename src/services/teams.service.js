@@ -19,6 +19,14 @@ class TeamService {
 
   findAllTeamByUserId = async (userId) => {
     try {
+      const allTeamByUserId = await this.teamRepository.findByTeamMemberId(
+        userId
+      );
+
+      if (allTeamByUserId.length === 0) {
+        throw error;
+      }
+
       return await this.projectRepository.findAllProjectsByUserId(userId);
     } catch (error) {
       throw error;
@@ -111,7 +119,10 @@ class TeamService {
 
   deleteTeam = async (teamId) => {
     try {
-      return await this.projectRepository.deleteProject(teamId);
+      const status = 0;
+      await this.projectRepository.updateStatus(teamId, status);
+
+      return await this.teamRepository.deleteTeam(teamId);
     } catch (error) {
       throw error;
     }

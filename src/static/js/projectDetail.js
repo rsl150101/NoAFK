@@ -205,7 +205,9 @@ const endBoard = async () => {
   })
     .then((response) => response.json())
     .then((data) => {
-      alert(data.message);
+      if (data.message === '공고 마감 완료') {
+        window.location.href = '/';
+      }
     });
 };
 

@@ -1,42 +1,42 @@
 function updateNickname() {
-  document.getElementById("nicknameModal").style.display = "block";
-  document.body.style.overflow = "hidden"
+  document.getElementById('nicknameModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
 }
 function updatePassword() {
-  document.getElementById("passwordModal").style.display = "block";
-  document.body.style.overflow = "hidden"
+  document.getElementById('passwordModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
 }
 function updateImage() {
-  document.getElementById("imageModal").style.display = "block";
-  document.body.style.overflow = "hidden"
+  document.getElementById('imageModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
 }
 function updateIntroduction() {
-  document.getElementById("introductionModal").style.display = "block";
-  document.body.style.overflow = "hidden"
+  document.getElementById('introductionModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
 }
 
 // 모달 닫기 함수
 function closeModalNickname() {
-  document.getElementById("nicknameModal").style.display = "none";
-  document.body.style.overflow = "auto"
+  document.getElementById('nicknameModal').style.display = 'none';
+  document.body.style.overflow = 'auto';
 }
 function closeModalPassword() {
-  document.getElementById("passwordModal").style.display = "none";
-  document.body.style.overflow = "auto"
+  document.getElementById('passwordModal').style.display = 'none';
+  document.body.style.overflow = 'auto';
 }
 function closeModalImage() {
-  document.getElementById("imageModal").style.display = "none";
-  document.body.style.overflow = "auto"
+  document.getElementById('imageModal').style.display = 'none';
+  document.body.style.overflow = 'auto';
 }
 function closeModalIntroduction() {
-  document.getElementById("introductionModal").style.display = "none";
-  document.body.style.overflow = "auto"
+  document.getElementById('introductionModal').style.display = 'none';
+  document.body.style.overflow = 'auto';
 }
 
 function submitNickname(id) {
   let inputNickname = document.getElementsByName('inputNickname');
   let nickname = inputNickname[0].value;
-  fetch('users/'+id+'/nickname', {
+  fetch('users/' + id + '/nickname', {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -49,25 +49,25 @@ function submitNickname(id) {
 function submitPassword(id) {
   let inputPassword = document.getElementsByName('inputPassword');
   let password = inputPassword[0].value;
-  fetch('users/'+id+'/password', {
+  fetch('users/' + id + '/password', {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ password }),
   })
-  .then(() => {
-    fetch('/api/auth/logout')
-  })
-  .then(() => {
-    window.location.href = '/';
-  })
+    .then(() => {
+      fetch('/api/auth/logout');
+    })
+    .then(() => {
+      window.location.href = '/';
+    });
 }
 
 function submitIntroduction(id) {
   let inputIntroduction = document.getElementsByName('inputIntroduction');
   let introduction = inputIntroduction[0].value;
-  fetch('users/'+id+'/introduction', {
+  fetch('users/' + id + '/introduction', {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -78,43 +78,44 @@ function submitIntroduction(id) {
 }
 
 function submitImage(id) {
-  let inputImage = document.getElementById("inputImage").files[0];
+  let inputImage = document.getElementById('inputImage').files[0];
   let formData = new FormData();
-  formData.append('file', inputImage)
+  formData.append('file', inputImage);
 
   fetch('/users/image', {
     method: 'POST',
-    body: formData
+    body: formData,
   })
-  .then((response) => response.json())
-  .then((data) => {
-    fetch('users/'+id+'/image', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ image: data.image }),
+    .then((response) => response.json())
+    .then((data) => {
+      fetch('users/' + id + '/image', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ image: data.image }),
+      });
+      window.location.reload();
     });
-    window.location.reload();
-  });
 }
 
 function getInfo(id) {
-  fetch('projects/'+ id + '/project')
+  fetch('projects/' + id + '/project')
     .then((response) => response.json())
     .then((data) => {
       for (let i = 0; i < data.length; i++) {
-        const { id, title, content, teamName, person, projectEnd } = data[i].Project;
+        const { id, title, content, teamName, person, projectEnd } =
+          data[i].Project;
         const { nickname } = data[i].Project.User;
         let temp_html = `<tr>
-                          <th scope="row" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"><a href="/projects/${id}">${title}</a></th>
+                          <th scope="row" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"><a href="/teams/${id}">${title}</a></th>
                           <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${content}</td>
                           <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${teamName}</td>
                           <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${nickname}</td>
                           <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${person}</td>
                           <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${projectEnd}</td>
-                        </tr>`
+                        </tr>`;
         document.getElementById('progressUserProject').innerHTML += temp_html;
       }
-    })
+    });
 }
