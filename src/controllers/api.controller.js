@@ -51,23 +51,31 @@ class ApiController {
 
   //로그아웃
   logout = async (req, res) => {
-    res.clearCookie(undefined);
+    res.clearCookie('authString');
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
+    // 카카오소셜로그인 쿠키
+    res.clearCookie('connect.sid');
     return res.redirect('/');
   };
 
   // 소셜로그인
   socialLogin = async (req, res) => {
-    const { id, email, nickname } = req.user;
+    try {
+      const { id, email, nickname } = req.user;
 
-    const { accessToken, refreshToken } = await this.userService.socialLogin(
-      id,
-      email,
-      nickname
-    );
+      const { accessToken, refreshToken } = await this.userService.socialLogin(
+        id,
+        email,
+        nickname
+      );
 
-    res.cookie('accessToken', accessToken);
-    res.cookie('refreshToken', refreshToken);
-    res.redirect('/');
+      res.cookie('accessToken', accessToken);
+      res.cookie('refreshToken', refreshToken);
+      res.redirect('/');
+    } catch (error) {
+      res.redirect('/login');
+    }
   };
 
   // 검사결과 저장
@@ -161,7 +169,7 @@ class ApiController {
       const { status, message, authString } =
         await this.userService.sendEmailAuth(email);
 
-      res.clearCookie('authString');
+      res.clearCookie();
       res.cookie('authString', authString);
       res.status(status).json({ message });
     } catch (error) {
