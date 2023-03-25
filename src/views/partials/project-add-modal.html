@@ -1,5 +1,9 @@
 <dialog id="projectAddModal" class="project-add-modal-screen">
-  <form method="dialog" class="project-add-modal__form">
+  <form
+    method="dialog"
+    id="projectAddModalForm"
+    class="project-add-modal__form"
+  >
     <input
       type="text"
       name="title"
@@ -19,7 +23,7 @@
     />
     <label for="person">모집 인원</label>
     <input type="number" name="person" id="person" min="1" required />
-    <label for="recruitDeadline">마감 기한</label>
+    <label for="recruitDeadline">모집 마감 기한</label>
     <input
       type="datetime-local"
       name="recruitDeadline"
