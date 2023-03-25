@@ -160,6 +160,7 @@
         <header>
           <h1>신청자 명단</h1>
         </header>
+        {% if applyUsers.length > 0 %}
         <ul class="detail-apply w-45 mb-2">
           {% for apply in applyUsers %}
           <li class="apply-list flex justify-space-btw mt-2" id="{{apply.id}}">
@@ -174,6 +175,9 @@
           </li>
           {% endfor %}
         </ul>
+        {% else %}
+        <div class="mt-4 mb-4">신청자가 없습니다.</div>
+        {% endif %}
       </section>
 
       <section class="w-60 mx-auto">
