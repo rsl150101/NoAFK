@@ -100,7 +100,15 @@ const sendEmailAuth = async () => {
 function emailAuthCheck() {
   const emailAuthCheck = document.getElementById('emailCheck').value;
 
-  const authString = document.cookie.split('=')[1];
+  console.log(document.cookie);
+  let authString;
+
+  if (document.cookie.includes('authString')) {
+    authString = document.cookie.split('authString=')[1];
+  } else {
+    return alert('인증번호가 발급이 안되었습니다.');
+  }
+
   if (authString !== emailAuthCheck) {
     return alert('인증번호가 틀렸습니다.');
   }
