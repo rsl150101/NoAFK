@@ -144,4 +144,8 @@ dist
 # project settings
 *.rest
 
+#SSL
+fullchain.pem
+privkey.pem
+
 # End of https://www.toptal.com/developers/gitignore/api/node
