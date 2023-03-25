@@ -32,6 +32,14 @@ class ProjectRepository {
     }
   };
 
+  endProjectApply = async (id) => {
+    try {
+      return await this.projectModel.update({ status: 1 }, { where: { id } });
+    } catch (error) {
+      throw error;
+    }
+  };
+
   //* 프로젝트 하드 삭제
   hardDeleteProject = (id) => {
     try {

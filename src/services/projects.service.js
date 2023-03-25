@@ -50,6 +50,16 @@ class ProjectService {
     }
   };
 
+  endProjectApply = async (id, userId) => {
+    try {
+      await this.teamRepository.addLeader(id, userId);
+
+      return await this.projectRepository.endProjectApply(id);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   hardDeleteProject = (id) => {
     try {
       this.projectRepository.hardDeleteProject(id);

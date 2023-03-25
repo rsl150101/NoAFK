@@ -11,6 +11,9 @@ const commentsController = new CommentsController();
 // 소셜로그인
 const passport = require('passport');
 
+// 미들웨어
+const { checkToken } = require('../middlewares/auth');
+
 router.post('/auth/join', apiController.join);
 router.post('/auth/login', apiController.login);
 router.get('/auth/logout', apiController.logout);
@@ -87,5 +90,8 @@ router.post('/find-nickname', apiController.findNickname);
 
 // 이메일 인증 메일 발송
 router.post('/auth/send-email', apiController.sendEmailAuth);
+
+// 모집공고 마감
+router.patch('/projects/:id', checkToken, projectsController.endProjectApply);
 
 module.exports = router;

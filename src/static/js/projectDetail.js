@@ -3,6 +3,7 @@ const commentList = document.querySelectorAll('.comment-list');
 const applyList = document.querySelectorAll('.apply-list');
 const createCommentBtn = document.getElementById('create-comment-btn');
 const deleteBoardBtn = document.getElementById('delete-board-btn');
+const endBoardBtn = document.getElementById('end-board-btn');
 const applyBtn = document.getElementById('apply-btn');
 const logoutBtn = document.getElementById('logout');
 const moreCommentBtn = document.getElementById('more-comment');
@@ -197,6 +198,17 @@ const deleteBoard = async () => {
   }
 };
 
+// 게시글 마감
+const endBoard = async () => {
+  fetch(`/api/projects/${projectId}`, {
+    method: 'PATCH',
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert(data.message);
+    });
+};
+
 applyList.forEach((apply) => {
   const acceptBtn = apply.querySelector('#accept-btn');
   if (acceptBtn) {
@@ -272,6 +284,12 @@ if (applyBtn) {
 if (deleteBoardBtn) {
   deleteBoardBtn.addEventListener('click', () => {
     deleteBoard();
+  });
+}
+
+if (endBoardBtn) {
+  endBoardBtn.addEventListener('click', () => {
+    endBoard();
   });
 }
 
