@@ -129,9 +129,7 @@ const checkToken = async (req, res, next) => {
     res.locals.user = user;
     next();
   } catch (error) {
-    res.clearCookie('connect.sid');
-    res.clearCookie('accessToken');
-    res.clearCookie('refreshToken');
+    res.clearCookie();
     return res.render('login.html');
   }
 };
