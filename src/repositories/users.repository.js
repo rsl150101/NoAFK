@@ -210,7 +210,11 @@ class UserRepository {
         } else if (isSFLNickname) {
           baseSQL.where = { nickname: { [Op.like]: `%${stx}%` } };
         } else {
-          baseSQL.where = { testResult: { [Op.like]: `%${stx}%` } };
+          if (!stx) {
+            baseSQL;
+          } else {
+            baseSQL.where = { testResult: { [Op.like]: `%${stx}%` } };
+          }
         }
       } else if (isSearchField) {
         baseSQL.where = {
