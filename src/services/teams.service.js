@@ -128,10 +128,9 @@ class TeamService {
     }
   };
 
-  updateMember = async (teamId, memberId, position, task) => {
+  updateMember = async (memberId, position, task) => {
     try {
       return await this.teamRepository.updateTeamMember(
-        teamId,
         memberId,
         position,
         task
@@ -141,9 +140,9 @@ class TeamService {
     }
   };
 
-  deleteMember = async (teamId, memberId) => {
+  deleteMember = async (memberId) => {
     try {
-      return await this.teamRepository.deleteTeamMember(teamId, memberId);
+      return await this.teamRepository.deleteTeamMember(memberId);
     } catch (error) {
       throw error;
     }

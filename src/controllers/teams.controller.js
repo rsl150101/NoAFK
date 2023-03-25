@@ -125,12 +125,11 @@ class TeamsController {
   };
 
   updateTeamMember = async (req, res, next) => {
-    const { teamId, memberId } = req.params;
+    const { memberId } = req.params;
     const { position, task } = req.body;
 
     try {
       const updatedMember = await this.teamService.updateMember(
-        teamId,
         memberId,
         position,
         task
@@ -143,12 +142,9 @@ class TeamsController {
   };
 
   deleteTeamMember = async (req, res, next) => {
-    const { teamId, memberId } = req.params;
+    const { memberId } = req.params;
     try {
-      const deletedMember = await this.teamService.deleteMember(
-        teamId,
-        memberId
-      );
+      const deletedMember = await this.teamService.deleteMember(memberId);
 
       return res.status(200).json({ deletedMember });
     } catch (error) {

@@ -16,10 +16,14 @@ function addNewMember() {
       nickname,
       position,
     }),
-  });
-  const { status } = response;
-  if (status !== 201) {
-    alert('닉네임을 찾을 수 없거나 이미 팀에 등록된 닉네임입니다.');
-    location.reload();
-  }
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status === 201) {
+        alert(data.message);
+      } else {
+        alert(data.message);
+      }
+    });
+  location.reload();
 }
