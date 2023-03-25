@@ -18,7 +18,7 @@ class ApiController {
 
       const { status, message } = await this.userService.createUser(userInfo);
 
-      res.clearCookie();
+      res.clearCookie(undefined);
       res.status(status).json({ message });
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -51,7 +51,7 @@ class ApiController {
 
   //로그아웃
   logout = async (req, res) => {
-    res.clearCookie();
+    res.clearCookie(undefined);
     return res.redirect('/');
   };
 

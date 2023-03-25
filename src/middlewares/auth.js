@@ -129,7 +129,7 @@ const checkToken = async (req, res, next) => {
     res.locals.user = user;
     next();
   } catch (error) {
-    res.clearCookie();
+    res.clearCookie(undefined);
     return res.render('login.html');
   }
 };
