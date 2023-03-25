@@ -13,9 +13,11 @@ if (cursor) {
   moreCommentBtn.style.display = 'block';
 }
 
-Array.from(CommentBox.children).forEach((child) => {
-  plusComment(child);
-});
+if (CommentBox) {
+  Array.from(CommentBox.children).forEach((child) => {
+    plusComment(child);
+  });
+}
 
 // 댓글 더보기
 const moreComment = async () => {
@@ -279,4 +281,6 @@ if (logoutBtn) {
   });
 }
 
-moreCommentBtn.addEventListener('click', moreComment);
+if (moreCommentBtn) {
+  moreCommentBtn.addEventListener('click', moreComment);
+}
