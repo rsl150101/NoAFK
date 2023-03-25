@@ -44,8 +44,8 @@ const checkToken = async (req, res, next) => {
     // cookie 들고오기
     const { cookie } = req.headers;
 
-    // cookie 없음
-    if (!cookie) {
+    // cookie 없음, 토큰이 없을때
+    if (!cookie || !cookie.includes('Token')) {
       return next();
     }
 
@@ -129,7 +129,9 @@ const checkToken = async (req, res, next) => {
     res.locals.user = user;
     next();
   } catch (error) {
-    res.clearCookie(undefined);
+    res.clearCookie('connect.sid');
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
     return res.render('login.html');
   }
 };
