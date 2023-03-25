@@ -9,12 +9,15 @@
   </head>
   <body>
     <main class="teamChat__main">
+      <div id="userNickname" style="display: none;">nickname</div>
       <div class="teamChat__column">
         <div class="teamChat__rooms" onclick="teamChatting()"><div>팀 채팅</div></div>
         {% for member in memberList %}
+        
         <div class="teamChat__rooms" onclick="whispering({{member.id}})">
           <div>{{member.User.nickname}}</div>
         </div>
+        
         {% endfor %}
       </div>
       <div class="teamChat__column">

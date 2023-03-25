@@ -99,7 +99,6 @@ emailAuthCheckBtn.addEventListener('click', () => {
   const emailAuthCheck = document.getElementById('emailCheck').value;
 
   const authString = document.cookie.split('=')[1];
-  console.log(authString);
   if (authString !== emailAuthCheck) {
     return alert('인증번호가 틀렸습니다.');
   }

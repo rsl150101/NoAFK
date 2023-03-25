@@ -1,4 +1,5 @@
 const SocketIO = require('socket.io');
+const auth = require('./middlewares/auth');
 
 module.exports = (http, app) => {
   const io = SocketIO(http);

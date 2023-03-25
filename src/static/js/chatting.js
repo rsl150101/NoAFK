@@ -1,5 +1,7 @@
 const path = location.pathname.split('/');
 const { 2: teamId, 3: memberId } = path;
+const nickname = document.querySelector('#userNickname').textContent;
+console.log(nickname);
 
 const socket = io.connect(`http://localhost:3000/chat`);
 
@@ -13,7 +15,6 @@ document.forms.publish.onsubmit = function () {
   let outgoingMessage = this.message.value;
   this.message.value = '';
   const obj = { type: 'message', params: { value: outgoingMessage } };
-  const userId = 13; // 임시구현
   socket.emit('message', JSON.stringify(obj));
 
   fetch(`/chat/${teamId}`, {
