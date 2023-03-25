@@ -18,9 +18,11 @@
           <h1>{{pageTitle}}</h1>
           <div class="mt-4">
             {% if loginUserId === null %}
-            <button><a href="/login">신청하기</a></button>
+            <button class="new-btn-2"><a href="/login">신청하기</a></button>
             {% elif project.owner !== loginUserId %}
-            <button id="apply-btn" type="button">신청하기</button>
+            <button class="new-btn-2" id="apply-btn" type="button">
+              신청하기
+            </button>
             {% endif %}
           </div>
         </header>
@@ -131,7 +133,7 @@
           <div class="mt-4">
             <img src="{{project.image}}" alt="프로필사진" />
           </div>
-          <div class="detail-middle project-detail-border">
+          <div class="detail-middle project-detail-border mt-4 mb-4">
             <div id="person" class="mt-4">
               <p>모집인원 : {{project.person}}</p>
             </div>
@@ -148,7 +150,7 @@
               <pre>기술 스택 : {{project.techStack}}</pre>
             </div>
           </div>
-          <div class="detail-content mb-2" id="content">
+          <div class="detail-content mb-4" id="content">
             <pre>{{project.content}}</pre>
           </div>
         </div>
@@ -186,7 +188,7 @@
             placeholder="댓글을 작성하세요."
             required
           ></textarea>
-          <div class="flex justify-end mt-2">
+          <div class="flex justify-end mt-2 mb-2">
             <button id="create-comment-btn" class="new-btn">댓글 작성</button>
           </div>
         </form>
