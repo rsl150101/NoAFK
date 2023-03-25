@@ -76,6 +76,7 @@ const postModalData = async () => {
 
     if (status === 201) {
       alert('공고가 등록되었습니다!');
+      window.location.reload();
     } else {
       alert('공고 등록에 실패하였습니다!');
     }
