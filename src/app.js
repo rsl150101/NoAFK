@@ -56,9 +56,6 @@ app.use('/projects', projectsRouter);
 app.use('/admin', adminRouter);
 app.use('/chat', chatRouter);
 
-//* ssl
-app.use(express.statis('ssl'));
-
 //* 서버 구동
 const server = app.listen(PORT, () => {
   console.log(`✅ 서버가 연결되었습니다.`);
