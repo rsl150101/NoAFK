@@ -33,6 +33,8 @@ router.delete('/:id', projectsController.deleteProject);
 router.post('/:projectId/applys', checkToken, teamsController.apply);
 // 모집공고 신청 수락
 router.patch('/:projectId/applys/:userId', teamsController.acceptApply);
+// 모집공고 신청 취소
+router.delete('/:projectId/applys/:userId', teamsController.cancelApply);
 
 // 모집공고 댓글 작성
 router.post('/:id/comments', checkToken, commentsController.postComment);
