@@ -56,9 +56,8 @@ class UserService {
   sendEmailAuth = async (email) => {
     try {
       const generateString = () => {
-        const chars =
-          '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz!@#$%^&*';
-        const stringLength = 8;
+        const chars = '0123456789';
+        const stringLength = 6;
 
         var randomString = '';
         for (let i = 0; i < stringLength; i++) {
