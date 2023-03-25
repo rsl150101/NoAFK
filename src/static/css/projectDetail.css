@@ -21,7 +21,8 @@
 .detail-middle {
   background-color: #d7f5fa;
   border: 0;
-  border-radius: 3%;
+  border-radius: 5px;
+  padding: 0.5rem;
 }
 
 .detail-padding {
