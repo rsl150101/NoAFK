@@ -12,8 +12,8 @@
   <body>
     {% include "partials/page-header.html"%}
     <main id="myTeamList__main">
-      {% set status = ['모집', '준비', '진행중', '테스트', '종료'] %} {% for
-      myTeam in myTeamList %} {% if myTeam.status !== 0 %}
+      {% set status = ['모집중', '모집마감', '준비', '진행중', '테스트', '종료']
+      %} {% for myTeam in myTeamList %} {% if myTeam.status !== 0 %}
       <div
         onclick="goTeamPage({{myTeam.id}})"
         id="row-{{myTeam.id}}"
