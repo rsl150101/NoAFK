@@ -196,6 +196,8 @@
             <button id="create-comment-btn" class="new-btn">댓글 작성</button>
           </div>
         </form>
+        {% else %}
+        <div class="mt-4 mb-4">댓글 작성은 로그인 후 이용하실 수 있습니다.</div>
         {% endif %}
         <div>
           <ul class="detail-comment" id="detail-comment-list">
