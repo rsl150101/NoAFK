@@ -39,14 +39,16 @@
   font-weight: 700;
 }
 
-.project-add-modal__form input:not(input[type='file'], .add-modal__title) {
+.project-add-modal__form input:not(.add-modal__title) {
   grid-column: span 2;
   width: 80%;
   min-width: 100px;
 }
 
-.add-modal__thumbnail {
-  grid-column: span 8;
+.project-add-modal__form span {
+  grid-column: 4/-1;
+  font-size: 0.8em;
+  color: red;
 }
 
 .add-modal__content {
