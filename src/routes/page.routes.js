@@ -16,14 +16,19 @@ const chatsController = new ChatsController();
 router.get('/', checkToken, projectsController.renderProjectsPage);
 router.get('/users');
 router.get('/projects', checkToken, projectsController.renderProjectsPage);
-router.get('/teams/:teamId', teamsController.renderTeamPage);
+router.get('/teams/me', checkToken, teamsController.renderMyTeamListPage);
+router.get('/teams/:teamId', checkToken, teamsController.renderTeamPage);
 router.get('/login', checkLogin, apiController.renderLoginPage);
 router.get('/join', checkLogin, apiController.renderJoinPage);
 router.get('/test', checkToken, apiController.renderTestPage);
 router.get('/mypage', checkToken, usersController.renderMypage);
 router.get('/members', checkToken, usersController.renderSearchUserPage);
 
-router.get('/chat/:teamId/:memberId', chatsController.renderPrivateChatPage);
-router.get('/chat/:chatId', chatsController.renderTeamChatPage);
+router.get(
+  '/chat/:teamId/:memberId',
+  checkToken,
+  chatsController.renderPrivateChatPage
+);
+router.get('/chat/:chatId', checkToken, chatsController.renderTeamChatPage);
 
 module.exports = router;

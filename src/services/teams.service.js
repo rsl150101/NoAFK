@@ -11,7 +11,23 @@ class TeamService {
 
   findAllTeam = async () => {
     try {
-      return await this.projectRepository.findAllProject();
+      return await this.projectRepository.findAllTeamWithNickname();
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  findAllTeamByUserId = async (userId) => {
+    try {
+      return await this.projectRepository.findAllProjectsByUserId(userId);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  findMostRecentTeamByUserId = async (userId) => {
+    try {
+      return await this.projectRepository.findMostRecentIdByUserId(userId);
     } catch (error) {
       throw error;
     }

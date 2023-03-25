@@ -20,15 +20,17 @@ class ChatsController {
 
   renderPrivateChatPage = async (req, res, next) => {
     const { teamId, memberId } = req.params;
-    const userId = 5; // req.cookies.userId 등 임시구현
+    const { id: userId } = res.locals.user;
 
     const myMemberInfo = await this.teamService.findMemberIdByUserIdAndTeamId(
       userId,
       teamId
     );
-    const chatId = [myMemberInfo.id, memberId].sort((a, b) => a - b).join('$');
+    const chatId = [teamId, myMemberInfo.id, memberId]
+      .sort((a, b) => a - b)
+      .join('$');
 
-    const memberList = await this.teamService.findAllByTeamId(chatId);
+    const memberList = await this.teamService.findAllByTeamId(teamId);
     const chattingList = await this.chatService.findAllMessagesByChatId(chatId);
 
     return res.render('chat', { memberList, chattingList });

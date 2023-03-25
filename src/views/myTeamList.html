@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/myTeamList.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>{{pageTitle}} | NoAFK</title>
+  </head>
+  <body>
+    {% include "partials/page-header.html"%}
+    <main id="myTeamList__main">
+      {% set status = ['모집', '준비', '진행중', '테스트', '종료'] %} {% for
+      myTeam in myTeamList %} {% if myTeam.status !== 0 %}
+      <div
+        onclick="goTeamPage({{myTeam.id}})"
+        id="row-{{myTeam.id}}"
+        class="myTeamList__row"
+      >
+        <div class="myTeamList__name">
+          <span>팀명: </span>{{myTeam.teamName}}
+        </div>
+        <div class="myTeamList__name">
+          <span>기술스택: </span>{{myTeam.techStack}}
+        </div>
+        <div class="myTeamList__status">
+          <span>상태: </span>{{status[myTeam.status]}}
+        </div>
+        <div class="myTeamList__createdAt">
+          <span>생성일: </span>{{myTeam.createdAt}}
+        </div>
+      </div>
+      {% endif %} {% endfor %}
+    </main>
+    {% include "partials/page-footer.html"%}
+    <script
+      src="https://kit.fontawesome.com/d1f609d41d.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      function goTeamPage(teamId) {
+        location.href = `/teams/${teamId}`;
+      }
+    </script>
+  </body>
+</html>

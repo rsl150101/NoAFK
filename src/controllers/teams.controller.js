@@ -11,6 +11,7 @@ class TeamsController {
 
   renderTeamPage = async (req, res, next) => {
     const { teamId } = req.params;
+    const { nickname } = res.locals.user;
 
     try {
       const { teamName, status } =
@@ -22,6 +23,21 @@ class TeamsController {
         teamName,
         status,
         memberList,
+        nickname,
+      });
+    } catch (error) {
+      return res.render('deletedTeam');
+    }
+  };
+
+  renderMyTeamListPage = async (req, res, next) => {
+    const { id } = res.locals.user;
+    const myTeamList = await this.teamService.findAllTeamByUserId(id);
+
+    try {
+      return res.render('myTeamList', {
+        pageTitle: 'My Team List',
+        myTeamList,
       });
     } catch (error) {
       return res.render('deletedTeam');
@@ -64,12 +80,11 @@ class TeamsController {
         userIdverifiedByNickname,
         teamId
       );
+      return res.status(201).json(newMember);
     } catch (error) {
       error.status = 500;
       throw error;
     }
-
-    return res.status(201).json(newMember);
   };
 
   updateTeam = async (req, res, next) => {

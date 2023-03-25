@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/allteam.css" />
 
@@ -31,13 +31,13 @@
           </thead>
           <tbody>
             {% set status = ['모집', '준비', '진행중', '테스트', '종료'] %} {%
-            for team in allTeam %}
+            for team in allTeam %} {% if team.status !== 0 %}
             <tr class="allteam__rows" id="allteam__row-{{allTeam.id}}">
               <th>{{team.teamName}}</th>
               {% if team.owner === '' %}
               <th>미정</th>
               {% else %}
-              <th>{{team.owner}}</th>
+              <th>{{team.User.nickname}}</th>
               {% endif %}
 
               <th>{{status[team.status]}}</th>
@@ -46,7 +46,7 @@
               <th>{{team.projectStart}}</th>
               <th>{{team.projectEnd}}</th>
             </tr>
-            {% endfor %}
+            {% endif %} {% endfor %}
           </tbody>
         </table>
       </section>
