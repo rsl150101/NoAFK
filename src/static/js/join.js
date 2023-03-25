@@ -101,7 +101,7 @@ function emailAuthCheck() {
   const emailAuthCheck = document.getElementById('emailCheck').value;
 
   const authString = document.cookie.split('=')[1];
-  if (authString !== emailAuthCheck) {
+  if (Number(authString) !== Number(emailAuthCheck)) {
     return alert('인증번호가 틀렸습니다.');
   }
 
