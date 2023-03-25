@@ -35,7 +35,7 @@ const postModalData = async () => {
 
       formData.append('thumbnail', thumbnail);
 
-      await fetch('http://localhost:3000/projects/image/Upload', {
+      await fetch('/projects/image/Upload', {
         method: 'POST',
         body: formData,
       })
@@ -64,7 +64,7 @@ const postModalData = async () => {
       image,
     };
 
-    const response = await fetch('http://localhost:3000/projects', {
+    const response = await fetch('/projects', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
