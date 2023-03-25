@@ -5,34 +5,179 @@
   align-items: center;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
+.justify-start {
+  justify-content: start;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.input-group {
+  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.input-group .btn {
+  position: relative;
+  z-index: 2;
+}
+
+.text-white {
+  color: white;
+}
+
+.bg-black {
+  background-color: black;
+}
+
+.relative {
+  position: relative;
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.py-2 {
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.py-3 {
+  padding-bottom: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+.pt-6 {
+  padding-top: 1.5rem;
+}
+
+.pb-8 {
+  padding-bottom: 2rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.w-80 {
+  width: 80%;
+}
+
+.w-60 {
+  width: 60%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-45 {
+  width: 45%;
+}
+
+.w-40 {
+  width: 20%;
+  height: 20%;
+  margin: auto;
+}
+
+.w-350 {
+  width: 350px;
+}
+
+.login-screen {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  padding: 20px 0;
+  flex: 1;
+}
+
+.login-screen h1 {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
 .login-box {
   border: 1px solid;
+  margin: 8% 0;
+  border-radius: 15px;
+  width: 500px;
+  height: auto;
+  justify-content: center;
+  align-items: center;
 }
 
 .join-box {
   border: 1px solid;
+  border-radius: 10px;
+  margin: 10% 0;
+  width: 350px;
+  height: auto;
+  justify-content: center;
+  align-items: center;
 }
 
 .add-box {
   margin-top: 10px;
 }
 
-.form-margin {
-  margin: 20px;
+.margin-zero {
+  padding: 0;
 }
 
-.form-margin-top {
-  margin-top: 20px;
+.margin {
+  margin: 5%;
+}
+
+.margin-top {
+  margin-top: 5%;
+}
+
+.margin-top-3 {
+  margin-top: 3%;
 }
 
 .margin-bottom {
-  margin-bottom: 20px;
+  margin: 0 0 5% 0;
 }
 
-.kakaoLogin img {
-  margin: 5% auto;
-  width: 40%;
-  height: 60%;
+.margin-x {
+  margin: 5% 0;
+}
+
+.margin-y {
+  margin: 0 5%;
+}
+
+.border-gray {
+  border: 1px solid gray;
 }
 
 .border-button {
@@ -47,22 +192,16 @@
 }
 
 .border-none-button {
-  margin: auto;
-  display: inline-block;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  text-decoration-line: underline;
+  font-weight: 600;
   border: none;
   background-color: transparent;
-  padding: 2px;
 }
 
 .text-align-row {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 5%;
 }
 
 .btn-social-login {
@@ -72,7 +211,7 @@
   padding: 0.5rem !important;
   border-radius: 50%;
   color: #fff;
-  margin-right: 5%;
+  /* margin-right: 5%; */
 }
 .btn-social-login:focus {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
@@ -83,4 +222,9 @@
 
 .error-box {
   display: none;
+  color: red;
+}
+
+button:hover {
+  cursor: pointer;
 }

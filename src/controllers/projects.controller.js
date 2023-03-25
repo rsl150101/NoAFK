@@ -33,6 +33,9 @@ class ProjectsController {
         nextCursor,
       });
     } catch (error) {
+      if (error.name === 'AlreadyDeadLine') {
+        return res.status(403).json({ message: error.message });
+      }
       return res.status(400).json({ message: error.message });
     }
   };
@@ -138,6 +141,7 @@ class ProjectsController {
       const leaderPosition = 3;
 
       await this.projectService.createProject(req.body);
+
       const teamId = await this.teamService.findMostRecentTeamByUserId(userId);
       await this.teamService.addNewMember(leaderPosition, userId, teamId);
 
@@ -154,6 +158,17 @@ class ProjectsController {
       const findProjectByUser = await this.projectService.findProjectByUser(id);
 
       res.status(200).json(findProjectByUser);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  //* 썸네일 이미지 업로드
+  uploadThumbnail = (req, res) => {
+    try {
+      const { originalname } = req.file;
+      this.projectService.verifyThumbnail(originalname);
+      return res.status(200).json({ image: req.file.location });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

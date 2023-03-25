@@ -22,7 +22,7 @@ router.get('/login', checkLogin, apiController.renderLoginPage);
 router.get('/join', checkLogin, apiController.renderJoinPage);
 router.get('/test', checkToken, apiController.renderTestPage);
 router.get('/mypage', checkToken, usersController.renderMypage);
-router.get('/members', usersController.renderSearchUserPage);
+router.get('/members', checkToken, usersController.renderSearchUserPage);
 
 router.get(
   '/chat/:teamId/:memberId',

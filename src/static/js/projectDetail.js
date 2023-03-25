@@ -7,6 +7,7 @@ const applyBtn = document.getElementById('apply-btn');
 const logoutBtn = document.getElementById('logout');
 const moreCommentBtn = document.getElementById('more-comment');
 const CommentBox = document.getElementById('detail-comment-list');
+const commentForm = document.getElementById('detail-comment');
 
 if (cursor) {
   moreCommentBtn.style.display = 'block';
@@ -30,30 +31,37 @@ const moreComment = async () => {
 
   comments.forEach((comment) => {
     const li = document.createElement('li');
-    const nickname = document.createElement('p');
-    const beforeContent = document.createElement('p');
-    const afterContent = document.createElement('input');
+    const nickBtn = document.createElement('div');
+    const nickname = document.createElement('div');
+    const beforeContent = document.createElement('pre');
+    const afterContentForm = document.createElement('form');
+    const afterContent = document.createElement('textarea');
+    const timeDiv = document.createElement('div');
     const timeContent = document.createElement('p');
+    const btn = document.createElement('div');
     const beforeDiv = document.createElement('div');
     const editBtn = document.createElement('button');
     const deleteBtn = document.createElement('button');
     const afterDiv = document.createElement('div');
+    const afterBtnDiv = document.createElement('div');
     const submitBtn = document.createElement('button');
     const cancelBtn = document.createElement('button');
 
+    nickBtn.setAttribute('class', 'flex justify-space-btw');
     nickname.textContent = comment.nickname;
+    nickname.setAttribute('class', 'flex items-center font-bold');
     beforeContent.setAttribute(
       'class',
-      `before-click-${comment.id} display-block`
+      `before-click-${comment.id} display-block comment-content`
     );
     beforeContent.textContent = comment.content;
     afterContent.setAttribute(
       'class',
-      `after-click-${comment.id} display-none`
+      `w-full after-click-${comment.id} display-none comment-content`
     );
     afterContent.setAttribute('id', `new-comment-${comment.id}`);
-    afterContent.setAttribute('value', `${comment.content}`);
     afterContent.setAttribute('required', '');
+    afterContent.textContent = comment.content;
 
     if (comment.createdAt === comment.updatedAt) {
       timeContent.textContent = comment.createdAt;
@@ -61,41 +69,44 @@ const moreComment = async () => {
       timeContent.textContent = `${comment.updatedAt} (수정됨)`;
     }
 
+    timeDiv.setAttribute('class', 'mr-2');
+    timeDiv.append(timeContent);
+
     if (comment.userId === Number(loginUserId)) {
       beforeDiv.setAttribute(
         'class',
-        `before-click-${comment.id} display-block`
+        `before-click-${comment.id} display-block btn-div`
       );
       editBtn.setAttribute('id', `check-edit-btn-${comment.id}`);
       editBtn.setAttribute('type', 'button');
-      editBtn.textContent = '수정';
+      editBtn.textContent = ' 수정';
       deleteBtn.setAttribute('id', `delete-comment-btn-${comment.id}`);
       deleteBtn.setAttribute('type', 'button');
-      deleteBtn.textContent = '삭제';
+      deleteBtn.textContent = ' 삭제';
       beforeDiv.append(editBtn, deleteBtn);
 
-      afterDiv.setAttribute('class', `after-click-${comment.id} display-none`);
-      submitBtn.setAttribute('id', `edit-comment-btn-${comment.id}`);
-      submitBtn.setAttribute('type', 'button');
+      afterBtnDiv.setAttribute('class', 'flex justify-end');
       submitBtn.textContent = '등록';
+      submitBtn.setAttribute('class', 'new-btn-2 mr-2');
+      cancelBtn.setAttribute('class', 'new-btn-2');
       cancelBtn.setAttribute('id', `cancel-edit-btn-${comment.id}`);
       cancelBtn.setAttribute('type', 'button');
       cancelBtn.textContent = '취소';
-      afterDiv.append(submitBtn, cancelBtn);
+      afterBtnDiv.append(submitBtn, cancelBtn);
     }
 
+    afterContentForm.setAttribute('id', `new-comment-form-${comment.id}`);
+    afterContentForm.append(afterContent, afterBtnDiv);
+    afterDiv.setAttribute('class', `after-click-${comment.id} display-none`);
+    afterDiv.append(afterContentForm);
+    btn.setAttribute('class', 'flex items-center');
+    btn.append(timeContent, beforeDiv);
+    nickBtn.append(nickname, btn);
     li.setAttribute('class', 'comment-list');
     li.setAttribute('id', `${comment.id}`);
-    li.append(
-      nickname,
-      beforeContent,
-      afterContent,
-      timeContent,
-      beforeDiv,
-      afterDiv
-    );
+    li.append(nickBtn, beforeContent, afterDiv);
 
-    CommentBox.prepend(li);
+    CommentBox.append(li);
 
     plusComment(comment);
     moreCommentBtn.addEventListener('click', moreComment);
@@ -207,10 +218,13 @@ function plusComment(comment) {
   const deleteCommentBtn = document.querySelector(
     `#delete-comment-btn-${commentId}`
   );
+  const editCommentForm = document.getElementById(
+    `new-comment-form-${commentId}`
+  );
 
-  if (editCommentBtn && deleteCommentBtn) {
-    editCommentBtn.addEventListener('click', () => {
-      const content = document.querySelector(`#new-comment-${commentId}`).value;
+  if (editCommentBtn || deleteCommentBtn) {
+    editCommentForm.addEventListener('submit', () => {
+      const content = document.getElementById(`new-comment-${commentId}`).value;
       editComment(content, commentId);
     });
     deleteCommentBtn.addEventListener('click', () => {
@@ -241,8 +255,8 @@ function plusComment(comment) {
   }
 }
 
-if (createCommentBtn) {
-  createCommentBtn.addEventListener('click', () => {
+if (commentForm) {
+  commentForm.addEventListener('submit', () => {
     createComment();
   });
 }

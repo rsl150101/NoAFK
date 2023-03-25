@@ -1,8 +1,12 @@
+const path = require('path');
 const ProjectRepository = require('../repositories/projects.repository');
 const CommentRepository = require('../repositories/comments.repository');
 const UserRepository = require('../repositories/users.repository');
 const TeamRepository = require('../repositories/teams.repository');
 const { Project, ProjectUser, Comment, User } = require('../models');
+
+// customError
+const { AlreadyDeadLine } = require('../utility/customError');
 
 class ProjectService {
   projectRepository = new ProjectRepository(Project);
@@ -13,6 +17,12 @@ class ProjectService {
   findProjectById = async (id) => {
     try {
       const projectById = await this.projectRepository.findProjectById(id);
+
+      if (projectById.status !== 0) {
+        const error = new AlreadyDeadLine();
+        throw error;
+      }
+
       const ownerId = Number(projectById.owner);
 
       const NicknameById = await this.userRepository.findNicknameById(ownerId);
@@ -189,6 +199,20 @@ class ProjectService {
   createProject = async (projectInfo) => {
     try {
       await this.projectRepository.createProject(projectInfo);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //* 썸네일 이미지 확장자 유효성 검사
+  verifyThumbnail = (originalname) => {
+    try {
+      const ext = path.extname(originalname);
+      if (ext === '.jpg' || ext === '.jpeg' || ext === '.png') {
+        return;
+      } else {
+        throw error;
+      }
     } catch (error) {
       throw error;
     }

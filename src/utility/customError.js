@@ -86,6 +86,14 @@ class AlreadyMember extends Error {
   }
 }
 
+class AlreadyDeadLine extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'AlreadyDeadLine';
+    this.message = '이미 모집 마감된 프로젝트입니다.';
+  }
+}
+
 module.exports = {
   EmailExist,
   NicknameExist,
@@ -98,4 +106,5 @@ module.exports = {
   BlackUser,
   NotFoundNickname,
   AlreadyMember,
+  AlreadyDeadLine,
 };

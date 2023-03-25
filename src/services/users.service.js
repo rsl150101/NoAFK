@@ -16,7 +16,6 @@ const {
 const redisClient = require('../utility/redis');
 
 // nodemailer
-const nodemailer = require('nodemailer');
 const transporter = require('../utility/nodemailer');
 
 class UserService {
@@ -207,7 +206,7 @@ class UserService {
         },
         process.env.KAKAO_SECRET,
         {
-          expiresIn: '2h',
+          expiresIn: '6h',
         }
       );
 
@@ -236,7 +235,7 @@ class UserService {
         },
         process.env.KAKAO_SECRET,
         {
-          expiresIn: '2h',
+          expiresIn: '6h',
         }
       );
 

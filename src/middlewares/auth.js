@@ -87,7 +87,7 @@ const checkToken = async (req, res, next) => {
           },
           process.env.KAKAO_SECRET,
           {
-            expiresIn: '2h',
+            expiresIn: '6h',
           }
         );
         res.cookie('accessToken', newAccessToken);

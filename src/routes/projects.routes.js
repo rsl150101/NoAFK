@@ -5,6 +5,7 @@ const TeamsController = require('../controllers/teams.controller');
 
 // 미들웨어추가
 const { checkToken } = require('../middlewares/auth');
+const { uploadProjectImage } = require('../middlewares/uploads');
 
 const router = express.Router();
 const projectsController = new ProjectsController();
@@ -12,6 +13,14 @@ const commentsController = new CommentsController();
 const teamsController = new TeamsController();
 
 router.post('/', checkToken, projectsController.createProject);
+
+//* 썸네일 이미지 업로드
+router.post(
+  '/image/upload',
+  uploadProjectImage.single('thumbnail'),
+  projectsController.uploadThumbnail
+);
+
 
 // Todo <정지우> projectId나 userId 가 없는 경우 처리해야 함.
 // 모집공고 상세 보기

@@ -7,6 +7,8 @@ const emailCheckBtn = document.getElementById('email-db-check');
 const nicknameCheckBtn = document.getElementById('nickname-db-check');
 const emailSendBtn = document.getElementById('send-email');
 const emailAuthCheckBtn = document.getElementById('send-email-check');
+const emailAuthInput = document.getElementById('emailCheck');
+
 let useEmail = false;
 let passEmail = false;
 let passPassword = false;
@@ -95,7 +97,7 @@ const sendEmailAuth = async () => {
   }
 };
 
-emailAuthCheckBtn.addEventListener('click', () => {
+function emailAuthCheck() {
   const emailAuthCheck = document.getElementById('emailCheck').value;
 
   const authString = document.cookie.split('=')[1];
@@ -104,14 +106,25 @@ emailAuthCheckBtn.addEventListener('click', () => {
   }
 
   useEmail = true;
+  emailAuthCheckBtn.style.display = 'none';
+  document.getElementById('send-email').style.display = 'none';
   return alert('인증되었습니다.');
-});
+}
+
+function emailAuthRecheck() {
+  emailAuthCheckBtn.style.display = 'block';
+  emailAuthCheck();
+}
+
+emailAuthCheckBtn.addEventListener('click', emailAuthCheck);
 
 emailInput.addEventListener('change', emailRecheck);
 
 passwordInput.addEventListener('change', passwordCheck);
 
 nicknameInput.addEventListener('change', nicknameRecheck);
+
+emailAuthInput.addEventListener('change', emailAuthRecheck);
 
 emailCheckBtn.addEventListener('click', async () => {
   emailCheck();
@@ -204,11 +217,11 @@ const join = async () => {
 
   if (response.status === 200) {
     alert('회원가입 성공!');
-    return logout();
+    window.location.href = '/login';
   }
 };
 
-// 로그아웃
+// 로그아웃 - 쿠키지워줄려고 사용
 const logout = async () => {
   await fetch('/api/auth/logout');
 };
