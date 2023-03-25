@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const session = require('express-session');
 const path = require('path');
 const passportConfig = require('./passport');
+const https = require('https');
 require('dotenv').config();
 
 //* Router import
@@ -18,7 +19,6 @@ const chatRouter = require('./routes/chat.routes');
 
 //* 할당
 const app = express();
-const PORT = 3000;
 
 // socket.io
 const webSocket = require('./socket'); // 모듈 불러오기
@@ -56,9 +56,18 @@ app.use('/projects', projectsRouter);
 app.use('/admin', adminRouter);
 app.use('/chat', chatRouter);
 
-//* 서버 구동
-const server = app.listen(PORT, () => {
-  console.log(`✅ 서버가 연결되었습니다.`);
+// const server = app.listen(PORT, () => {
+//   console.log(`✅ 서버가 연결되었습니다.`);
+// });
+
+//* https 서버 구동
+const ssl = {
+  key: require('fs').readFileSync('privkey.pem'),
+  cert: require('fs').readFileSync('fullchain.pem'),
+};
+
+https.createServer(ssl, app).listen(443, function () {
+  console.log('✅ 서버가 연결되었습니다.');
 });
 
-webSocket(server, app);
+webSocket(ssl, app);
