@@ -20,7 +20,7 @@ class ChatsController {
 
   renderPrivateChatPage = async (req, res, next) => {
     const { teamId, memberId } = req.params;
-    const userId = 5; // req.cookies.userId 등 임시구현
+    const { id: userId } = res.locals.user;
 
     const myMemberInfo = await this.teamService.findMemberIdByUserIdAndTeamId(
       userId,
