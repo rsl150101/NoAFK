@@ -30,9 +30,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
       },
-      refreshToken: {
-        type: DataTypes.STRING,
-      },
       loginMethod: {
         type: DataTypes.STRING,
         defaultValue: 'NoAFK',
