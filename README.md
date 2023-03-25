@@ -8,7 +8,7 @@
 모두 관리 하는 것이 이번 프로젝트의 컨셉<br><br>
 
 팀 노션 > https://radical-musician-f09.notion.site/c86b38a0f7a6408eb31c70c2803404ea<br>
-배포 주소 > https://localhost:3000
+배포 주소 > http://noafk.site/
 
 </div>
 
