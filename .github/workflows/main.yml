@@ -30,6 +30,9 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            cd ${{ secrets.HOST }}
+            cd ${{ secrets.USERNAME }}
+            cd ${{ secrets.PORT }}
             pm2 stop all
             cd NoAFK
             git checkout ${{ github.event.pull_request.base.ref }}
