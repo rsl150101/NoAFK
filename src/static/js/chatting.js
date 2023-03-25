@@ -2,7 +2,7 @@ const path = location.pathname.split('/');
 const { 2: teamId, 3: memberId } = path;
 const nickname = document.querySelector('#userNickname').textContent;
 
-const socket = io.connect(`http://localhost:3000/chat`);
+const socket = io.connect(`/chat`);
 
 socket.on('join', (message) => {
   const incomingNotice = message;
