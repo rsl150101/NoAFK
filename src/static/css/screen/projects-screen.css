@@ -22,12 +22,6 @@
   gap: 50px;
   display: grid;
   grid-auto-rows: 200px;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-.project-list::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera*/
 }
 
 .project-list li a {
