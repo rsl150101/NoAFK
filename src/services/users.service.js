@@ -83,9 +83,6 @@ class UserService {
       };
       transporter.sendMail(emailOptions); //요청 전송
 
-      // 발급한 refresh token을 redis에 key를 user의 email로 하여 저장
-      // redisClient.set(email, authString);
-
       return {
         status: 200,
         message: '회원가입 인증번호가 전송되었습니다.',
