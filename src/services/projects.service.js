@@ -50,6 +50,14 @@ class ProjectService {
     }
   };
 
+  endProject = async (id) => {
+    try {
+      return await this.projectRepository.endProject(id);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   hardDeleteProject = (id) => {
     try {
       this.projectRepository.hardDeleteProject(id);

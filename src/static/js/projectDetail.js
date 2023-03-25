@@ -3,6 +3,7 @@ const commentList = document.querySelectorAll('.comment-list');
 const applyList = document.querySelectorAll('.apply-list');
 const createCommentBtn = document.getElementById('create-comment-btn');
 const deleteBoardBtn = document.getElementById('delete-board-btn');
+const endBoardBtn = document.getElementById('end-board-btn');
 const applyBtn = document.getElementById('apply-btn');
 const logoutBtn = document.getElementById('logout');
 const moreCommentBtn = document.getElementById('more-comment');
@@ -197,6 +198,16 @@ const deleteBoard = async () => {
   }
 };
 
+// 게시글 마감
+const endBoard = async () => {
+  await fetch(`/api/projects/${projectId}`, {
+    method: 'PATCH',
+  });
+
+  alert('공고가 마감되었습니다.');
+  window.location.reload();
+};
+
 applyList.forEach((apply) => {
   const acceptBtn = apply.querySelector('#accept-btn');
   if (acceptBtn) {
@@ -272,6 +283,12 @@ if (applyBtn) {
 if (deleteBoardBtn) {
   deleteBoardBtn.addEventListener('click', () => {
     deleteBoard();
+  });
+}
+
+if (endBoardBtn) {
+  endBoardBtn.addEventListener('click', () => {
+    endBoard();
   });
 }
 

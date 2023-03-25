@@ -88,4 +88,7 @@ router.post('/find-nickname', apiController.findNickname);
 // 이메일 인증 메일 발송
 router.post('/auth/send-email', apiController.sendEmailAuth);
 
+// 모집공고 마감
+router.patch('/projects/:id', projectsController.endProject);
+
 module.exports = router;

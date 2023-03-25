@@ -68,6 +68,18 @@ class ProjectsController {
     }
   };
 
+  endProject = async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      await this.projectService.endProject(id);
+
+      return res.status(200);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  };
+
   hardDeleteProject = (req, res) => {
     try {
       const { id } = req.params;
