@@ -18,7 +18,7 @@ class ApiController {
 
       const { status, message } = await this.userService.createUser(userInfo);
 
-      res.clearCookie('authString');
+      res.clearCookie(undefined);
       res.status(status).json({ message });
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -51,11 +51,7 @@ class ApiController {
 
   //로그아웃
   logout = async (req, res) => {
-    res.clearCookie('authString');
-    res.clearCookie('accessToken');
-    res.clearCookie('refreshToken');
-    // 카카오소셜로그인 쿠키
-    res.clearCookie('connect.sid');
+    res.clearCookie(undefined);
     return res.redirect('/');
   };
 
