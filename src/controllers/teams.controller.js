@@ -14,9 +14,10 @@ class TeamsController {
     const { nickname } = res.locals.user;
 
     try {
+      const memberList = await this.teamService.findAllByTeamId(teamId);
+
       const { teamName, status } =
         await this.teamService.findTeamNameAndStatusByTeamId(teamId);
-      const memberList = await this.teamService.findAllByTeamId(teamId);
 
       return res.render('myteam', {
         pageTitle: 'My Team',
@@ -32,9 +33,10 @@ class TeamsController {
 
   renderMyTeamListPage = async (req, res, next) => {
     const { id } = res.locals.user;
-    const myTeamList = await this.teamService.findAllTeamByUserId(id);
 
     try {
+      const myTeamList = await this.teamService.findAllTeamByUserId(id);
+
       return res.render('myTeamList', {
         pageTitle: 'My Team List',
         myTeamList,

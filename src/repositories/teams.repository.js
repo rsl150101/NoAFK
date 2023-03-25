@@ -10,10 +10,10 @@ class TeamRepository {
   // Therefore, In TeamRouter, URL: /team/:teamId 👉 TeamId == ProjectId
   // And, In this repository, "ProjectUserId" is used as "TeamMemberId".
 
-  findByTeamMemberId = async (teamMemberId) => {
+  findByTeamMemberId = async (userId) => {
     try {
-      return await this.teamModel.findOne({
-        where: { teamMemberId },
+      return await this.teamModel.findAll({
+        where: { userId },
       });
     } catch (error) {
       error.status = 500;
