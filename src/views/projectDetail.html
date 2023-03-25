@@ -180,7 +180,7 @@
         {% endif %}
       </section>
 
-      <section class="w-60 mx-auto">
+      <section class="w-60 mx-auto border-bottom">
         <header>
           <h1>댓글 작성</h1>
         </header>
@@ -199,6 +199,13 @@
         {% else %}
         <div class="mt-4 mb-4">댓글 작성은 로그인 후 이용하실 수 있습니다.</div>
         {% endif %}
+      </section>
+
+      <section class="w-60 mx-auto">
+        <header>
+          <h1>댓글</h1>
+        </header>
+        {% if comments.length > 0 %}
         <div>
           <ul class="detail-comment" id="detail-comment-list">
             {% for comment in comments %}
@@ -268,6 +275,9 @@
             </button>
           </div>
         </div>
+        {% else %}
+        <div class="mt-4 mb-4">댓글이 없습니다.</div>
+        {% endif %}
       </section>
     </main>
 
