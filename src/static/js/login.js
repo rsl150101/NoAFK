@@ -16,6 +16,8 @@ const sendEmailModalData = async () => {
 
     if (response.status === 201) {
       alert('비밀번호가 재발급되었습니다. 메일을 확인해주세요!');
+    } else {
+      alert('이메일이 잘못되었습니다.');
     }
   }
 };
