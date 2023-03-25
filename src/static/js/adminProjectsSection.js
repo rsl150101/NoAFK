@@ -1,7 +1,7 @@
 const projectDelBtns = document.querySelectorAll('#projectRow button');
 
 const handleDelBtn = async (id) => {
-  const { status } = await fetch(`http://localhost:3000/admin/projects/${id}`, {
+  const { status } = await fetch(`/admin/projects/${id}`, {
     method: 'DELETE',
   });
   if (status === 204) {
