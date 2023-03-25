@@ -68,7 +68,7 @@ class TeamRepository {
     }
   };
 
-  updateTeamMember = async (memberId, position, task) => {
+  updateTeamMember = async (teamId, memberId, position, task) => {
     try {
       await this.teamModel.update(
         {
@@ -76,7 +76,7 @@ class TeamRepository {
           task,
         },
         {
-          where: { id: memberId },
+          where: { projectId: teamId, userId: memberId },
         }
       );
       return { status: 200, message: '팀원 정보 수정 성공!' };

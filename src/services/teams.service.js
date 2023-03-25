@@ -117,9 +117,10 @@ class TeamService {
     }
   };
 
-  updateMember = async (memberId, position, task) => {
+  updateMember = async (teamId, memberId, position, task) => {
     try {
       return await this.teamRepository.updateTeamMember(
+        teamId,
         memberId,
         position,
         task

@@ -45,11 +45,15 @@ class TeamsController {
   };
 
   getAllTeam = async (req, res, next) => {
-    const allTeam = await this.teamService.findAllTeam();
-    return res.render('allteam', {
-      pageTitle: 'All Team',
-      allTeam,
-    });
+    try {
+      const allTeam = await this.teamService.findAllTeam();
+      return res.render('allteam', {
+        pageTitle: 'All Team',
+        allTeam,
+      });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
   };
 
   postTeamMember = async (req, res, next) => {
@@ -82,8 +86,7 @@ class TeamsController {
       );
       return res.status(201).json(newMember);
     } catch (error) {
-      error.status = 500;
-      throw error;
+      res.status(400).json({ message: error.message });
     }
   };
 
@@ -91,33 +94,46 @@ class TeamsController {
     const { teamId } = req.params;
     const { status } = req.body;
 
-    const updatedTeamStatus = await this.teamService.updateStatus(
-      teamId,
-      status
-    );
+    try {
+      const updatedTeamStatus = await this.teamService.updateStatus(
+        teamId,
+        status
+      );
 
-    return res.status(200).json({ updatedTeamStatus });
+      return res.status(200).json({ updatedTeamStatus });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
   };
 
   deleteTeam = async (req, res, next) => {
     const { teamId } = req.params;
 
-    const deletedTeam = await this.teamService.deleteTeam(teamId);
+    try {
+      await this.teamService.deleteTeam(teamId);
 
-    return res.status(200).json({ message: '팀 삭제 성공!' });
+      return res.status(200).json({ message: '팀 삭제 성공!' });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
   };
 
   updateTeamMember = async (req, res, next) => {
     const { teamId, memberId } = req.params;
     const { position, task } = req.body;
 
-    const updatedMember = await this.teamService.updateMember(
-      memberId,
-      position,
-      task
-    );
+    try {
+      const updatedMember = await this.teamService.updateMember(
+        teamId,
+        memberId,
+        position,
+        task
+      );
 
-    return res.status(200).json({ updatedMember });
+      return res.status(200).json({ updatedMember });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
   };
 
   deleteTeamMember = async (req, res, next) => {
