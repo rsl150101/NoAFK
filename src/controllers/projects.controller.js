@@ -22,6 +22,13 @@ class ProjectsController {
       const { comments, nextCursor } =
         await this.commentService.findCommentsByProjectId(id);
       const applyUsers = await this.teamService.findApplysByProjectId(id);
+
+      let applyCheck = false;
+
+      if (applyUsers.filter((apply) => apply.id === loginUserId).length !== 0) {
+        applyCheck = true;
+      }
+
       const pageTitle = `project #${id}`;
 
       return res.render('projectDetail', {
@@ -31,6 +38,7 @@ class ProjectsController {
         applyUsers,
         pageTitle,
         nextCursor,
+        applyCheck,
       });
     } catch (error) {
       if (error.name === 'AlreadyDeadLine') {

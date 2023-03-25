@@ -194,6 +194,15 @@ class TeamService {
       throw error;
     }
   };
+
+  // 공고 신청 취소
+  cancelApply = async (projectId, userId) => {
+    try {
+      return await this.teamRepository.cancelApply(projectId, userId);
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 module.exports = TeamService;
