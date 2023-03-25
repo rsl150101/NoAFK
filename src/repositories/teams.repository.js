@@ -68,6 +68,7 @@ class TeamRepository {
     }
   };
 
+  // 팀원 정보 수정 성공
   updateTeamMember = async (teamId, memberId, position, task) => {
     try {
       await this.teamModel.update(
@@ -85,15 +86,28 @@ class TeamRepository {
     }
   };
 
-  deleteTeamMember = async (memberId) => {
+  // 팀원 삭제
+  deleteTeamMember = async (teamId, memberId) => {
     try {
       await this.teamModel.destroy({
-        where: {
-          id: memberId,
-        },
+        where: { projectId: teamId, userId: memberId },
       });
 
       return { status: 200, message: '팀원 삭제 성공!' };
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  // 팀 삭제
+  deleteTeam = async (teamId) => {
+    try {
+      await this.teamModel.destroy({
+        where: { projectId: teamId },
+      });
+
+      return { status: 200, message: '팀 삭제 성공!' };
     } catch (error) {
       error.status = 500;
       throw error;

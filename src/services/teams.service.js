@@ -111,7 +111,7 @@ class TeamService {
 
   deleteTeam = async (teamId) => {
     try {
-      return await this.projectRepository.deleteProject(teamId);
+      return await this.teamRepository.deleteTeam(teamId);
     } catch (error) {
       throw error;
     }
@@ -130,9 +130,9 @@ class TeamService {
     }
   };
 
-  deleteMember = async (memberId) => {
+  deleteMember = async (teamId, memberId) => {
     try {
-      return await this.teamRepository.deleteTeamMember(memberId);
+      return await this.teamRepository.deleteTeamMember(teamId, memberId);
     } catch (error) {
       throw error;
     }

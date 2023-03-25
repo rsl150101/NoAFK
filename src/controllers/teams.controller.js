@@ -138,10 +138,16 @@ class TeamsController {
 
   deleteTeamMember = async (req, res, next) => {
     const { teamId, memberId } = req.params;
+    try {
+      const deletedMember = await this.teamService.deleteMember(
+        teamId,
+        memberId
+      );
 
-    const deletedMember = await this.teamService.deleteMember(memberId);
-
-    return res.status(200).json({ deletedMember });
+      return res.status(200).json({ deletedMember });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
   };
 
   // 모집공고 참가 신청
