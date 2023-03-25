@@ -50,9 +50,11 @@ class ProjectService {
     }
   };
 
-  endProject = async (id) => {
+  endProjectApply = async (id, userId) => {
     try {
-      return await this.projectRepository.endProject(id);
+      await this.teamRepository.addLeader(id, userId);
+
+      return await this.projectRepository.endProjectApply(id);
     } catch (error) {
       throw error;
     }

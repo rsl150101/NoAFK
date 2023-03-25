@@ -200,12 +200,13 @@ const deleteBoard = async () => {
 
 // 게시글 마감
 const endBoard = async () => {
-  await fetch(`/api/projects/${projectId}`, {
+  fetch(`/api/projects/${projectId}`, {
     method: 'PATCH',
-  });
-
-  alert('공고가 마감되었습니다.');
-  window.location.reload();
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert(data.message);
+    });
 };
 
 applyList.forEach((apply) => {

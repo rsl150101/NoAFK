@@ -68,13 +68,18 @@ class ProjectsController {
     }
   };
 
-  endProject = async (req, res) => {
+  endProjectApply = async (req, res) => {
     try {
       const { id } = req.params;
+      let userId;
 
-      await this.projectService.endProject(id);
+      if (res.locals.user) {
+        userId = res.locals.user.id;
+      }
 
-      return res.status(200);
+      await this.projectService.endProjectApply(id, userId);
+
+      return res.status(200).json({ message: '공고 마감 완료' });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }

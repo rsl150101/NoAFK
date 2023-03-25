@@ -32,7 +32,7 @@ class ProjectRepository {
     }
   };
 
-  endProject = async (id) => {
+  endProjectApply = async (id) => {
     try {
       return await this.projectModel.update({ status: 1 }, { where: { id } });
     } catch (error) {

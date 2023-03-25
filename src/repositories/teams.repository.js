@@ -169,14 +169,28 @@ class TeamRepository {
               'person',
               'projectEnd',
             ],
-            include: [{
-              model: User,
-              attributes: [
-                'nickname'
-              ],
-            }],
+            include: [
+              {
+                model: User,
+                attributes: ['nickname'],
+              },
+            ],
           },
         ],
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // 공고 마감 후 팀 리더생성
+  addLeader = async (projectId, userId) => {
+    try {
+      return await this.teamModel.create({
+        position: 3,
+        task: '담당업무를 정해주세요.',
+        projectId,
+        userId,
       });
     } catch (error) {
       throw error;
