@@ -56,9 +56,8 @@ class UserService {
   sendEmailAuth = async (email) => {
     try {
       const generateString = () => {
-        const chars =
-          '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz!@#$%^&*';
-        const stringLength = 8;
+        const chars = '0123456789';
+        const stringLength = 6;
 
         var randomString = '';
         for (let i = 0; i < stringLength; i++) {
@@ -83,9 +82,6 @@ class UserService {
           '<p>회원가입페이지로 돌아가 입력해주세요.</p>',
       };
       transporter.sendMail(emailOptions); //요청 전송
-
-      // 발급한 refresh token을 redis에 key를 user의 email로 하여 저장
-      // redisClient.set(email, authString);
 
       return {
         status: 200,
