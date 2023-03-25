@@ -172,8 +172,7 @@ img {
 .detail-title h1 {
   font-size: 3rem;
   font-weight: 800;
-  /* padding-top: 0; */
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .font-bold {
