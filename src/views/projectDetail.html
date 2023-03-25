@@ -19,11 +19,20 @@
           <div class="mt-4">
             {% if loginUserId === null %}
             <button class="new-btn-2"><a href="/login">신청하기</a></button>
-            {% elif project.owner !== loginUserId %}
+            {% elif project.owner !== loginUserId %} {% if applyCheck %}
+            <button
+              class="new-btn-2"
+              id="apply-cancel-btn"
+              type="button"
+              onclick="applyCancel({{loginUserId}})"
+            >
+              신청취소
+            </button>
+            {% else %}
             <button class="new-btn-2" id="apply-btn" type="button">
               신청하기
             </button>
-            {% endif %}
+            {% endif %} {% endif %}
           </div>
         </header>
         <div id="project-board" class="w-60 mx-auto border-bottom">

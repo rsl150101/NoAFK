@@ -5,6 +5,7 @@ const createCommentBtn = document.getElementById('create-comment-btn');
 const deleteBoardBtn = document.getElementById('delete-board-btn');
 const endBoardBtn = document.getElementById('end-board-btn');
 const applyBtn = document.getElementById('apply-btn');
+const applyCancelBtn = document.getElementById('apply-cancel-btn');
 const logoutBtn = document.getElementById('logout');
 const moreCommentBtn = document.getElementById('more-comment');
 const CommentBox = document.getElementById('detail-comment-list');
@@ -175,6 +176,20 @@ const apply = () => {
   })
     .then((response) => response.json())
     .then((data) => {
+      alert(data.message);
+    });
+
+  window.location.reload();
+};
+
+// 참가 신청 취소
+const applyCancel = (userId) => {
+  fetch(`/projects/${projectId}/applys/${userId}`, {
+    method: 'DELETE',
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
       alert(data.message);
     });
 

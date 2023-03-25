@@ -167,6 +167,9 @@ class TeamsController {
 
       return res.status(200).json({ message: '참가 신청 완료!' });
     } catch (error) {
+      if (error.name === 'AlreadyApply') {
+        return res.status(403).json({ message: error.message });
+      }
       res.status(400).json({ message: error.message });
     }
   };
@@ -182,6 +185,22 @@ class TeamsController {
       );
 
       return res.status(200).json(acceptResult);
+    } catch (error) {
+      res.status(400).json({ errorMessage: error.message });
+    }
+  };
+
+  // 공고 신청 취소
+  cancelApply = async (req, res) => {
+    try {
+      const { projectId, userId } = req.params;
+
+      const cancelResult = await this.teamService.cancelApply(
+        projectId,
+        userId
+      );
+
+      return res.status(200).json(cancelResult);
     } catch (error) {
       res.status(400).json({ errorMessage: error.message });
     }

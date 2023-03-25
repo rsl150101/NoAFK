@@ -166,6 +166,18 @@ class TeamRepository {
     }
   };
 
+  // 공고 신청 취소
+  cancelApply = async (projectId, userId) => {
+    try {
+      await this.teamModel.destroy({
+        where: { projectId, userId },
+      });
+      return { message: '신청 취소 성공!' };
+    } catch (error) {
+      throw error;
+    }
+  };
+
   projectByUser = async (id) => {
     try {
       return await this.teamModel.findAll({

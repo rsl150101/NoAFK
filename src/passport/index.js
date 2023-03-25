@@ -36,8 +36,15 @@ module.exports = (app) => {
       // profile: 카카오가 보내준 유저 정보. profile의 정보를 바탕으로 회원가입
       async (accessToken, refreshToken, profile, done) => {
         try {
-          const { email } = profile._json.kakao_account;
           const { provider, id, username } = profile;
+
+          let email;
+
+          if (profile._json.kakao_account.email) {
+            email = profile._json.kakao_account.email;
+          } else {
+            email = provider + id + '@kakao.com';
+          }
           const exUser = await User.findOne({
             where: { email },
           });
