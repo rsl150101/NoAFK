@@ -16,6 +16,10 @@ class TeamsController {
     try {
       const memberList = await this.teamService.findAllByTeamId(teamId);
 
+      if (memberList.length === 0) {
+        return res.render('deletedTeam');
+      }
+
       const { teamName, status } =
         await this.teamService.findTeamNameAndStatusByTeamId(teamId);
 
