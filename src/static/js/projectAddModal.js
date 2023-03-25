@@ -1,6 +1,11 @@
 const projectAddBtn = document.getElementById('projectAddBtn');
 const projectAddModal = document.getElementById('projectAddModal');
 const ModalCancelBtn = document.getElementById('modalCancelBtn');
+const projectAddModalForm = document.getElementById('projectAddModalForm');
+const errorMessage = document.getElementById('errorMessage');
+const recruitDeadlineDate = document.getElementById('recruitDeadline');
+const projectStartDate = document.getElementById('projectStart');
+const projectEndDate = document.getElementById('projectEnd');
 
 const handleProjectAddBtn = () => {
   if (!owner) {
@@ -12,9 +17,47 @@ const handleProjectAddBtn = () => {
   return;
 };
 
-const handleModalCancelBtn = () => {
+const handleModalClose = (clickValue) => {
   projectAddModal.close();
-  projectAddModal.returnValue = 'cancel';
+  projectAddModal.returnValue = clickValue;
+};
+
+const handleChangeDateValidity = () => {
+  recruitDeadlineDate.setCustomValidity('');
+  projectStartDate.setCustomValidity('');
+  projectEndDate.setCustomValidity('');
+};
+
+const handleModalSubmit = (event) => {
+  event.preventDefault();
+
+  const now = new Date().getTime();
+  const deadLine = new Date(recruitDeadlineDate.value).getTime();
+  const projectStart = new Date(projectStartDate.value).getTime();
+  const projectEnd = new Date(projectEndDate.value).getTime();
+
+  if (deadLine < now) {
+    recruitDeadlineDate.setCustomValidity(
+      '마감 기한을 현재 시간보다 작거나 같게 설정할 수 없습니다.'
+    );
+    recruitDeadlineDate.reportValidity();
+    return;
+  }
+
+  if (deadLine > projectStart) {
+    recruitDeadlineDate.setCustomValidity('마감 기한이 올바르지 않습니다.');
+    recruitDeadlineDate.reportValidity();
+    return;
+  }
+
+  if (projectStart > projectEnd || projectStart === projectEnd) {
+    projectStartDate.setCustomValidity('프로젝트 기간이 올바르지 않습니다.');
+    projectStartDate.reportValidity();
+    return;
+  }
+
+  handleModalClose('register');
+  return;
 };
 
 const postModalData = async () => {
@@ -24,9 +67,9 @@ const postModalData = async () => {
     const teamName = document.getElementById('teamName').value;
     const techStack = document.getElementById('techStack').value;
     const person = document.getElementById('person').value;
-    const recruitDeadline = document.getElementById('recruitDeadline').value;
-    const projectStart = document.getElementById('projectStart').value;
-    const projectEnd = document.getElementById('projectEnd').value;
+    const recruitDeadline = recruitDeadlineDate.value;
+    const projectStart = projectStartDate.value;
+    const projectEnd = projectEndDate.value;
     const thumbnail = document.getElementById('thumbnail').files[0];
     let image;
 
@@ -85,5 +128,11 @@ const postModalData = async () => {
 };
 
 projectAddBtn.addEventListener('click', handleProjectAddBtn);
-ModalCancelBtn.addEventListener('click', handleModalCancelBtn);
+ModalCancelBtn.addEventListener('click', () => {
+  handleModalClose('close');
+});
+recruitDeadlineDate.addEventListener('change', handleChangeDateValidity);
+projectStartDate.addEventListener('change', handleChangeDateValidity);
+projectEndDate.addEventListener('change', handleChangeDateValidity);
+projectAddModalForm.addEventListener('submit', handleModalSubmit);
 projectAddModal.addEventListener('close', postModalData);
