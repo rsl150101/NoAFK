@@ -6,6 +6,7 @@ const errorMessage = document.getElementById('errorMessage');
 const recruitDeadlineDate = document.getElementById('recruitDeadline');
 const projectStartDate = document.getElementById('projectStart');
 const projectEndDate = document.getElementById('projectEnd');
+const thumbnailImage = document.getElementById('thumbnail');
 
 const handleProjectAddBtn = () => {
   if (!owner) {
@@ -14,6 +15,22 @@ const handleProjectAddBtn = () => {
     return;
   }
   projectAddModal.showModal();
+  return;
+};
+
+const handleClickThumbnailImage = () => {
+  thumbnailImage.setCustomValidity('');
+};
+
+const handleInputThumbnailImage = () => {
+  const { type } = thumbnailImage.files[0];
+  if (type !== 'image/jpeg' && type !== 'image/png') {
+    thumbnailImage.setCustomValidity('jpg/jpeg/png 만 지원합니다!');
+    thumbnailImage.reportValidity();
+    thumbnailImage.value = '';
+    return;
+  }
+
   return;
 };
 
@@ -134,5 +151,7 @@ ModalCancelBtn.addEventListener('click', () => {
 recruitDeadlineDate.addEventListener('change', handleChangeDateValidity);
 projectStartDate.addEventListener('change', handleChangeDateValidity);
 projectEndDate.addEventListener('change', handleChangeDateValidity);
+thumbnailImage.addEventListener('click', handleClickThumbnailImage);
+thumbnailImage.addEventListener('input', handleInputThumbnailImage);
 projectAddModalForm.addEventListener('submit', handleModalSubmit);
 projectAddModal.addEventListener('close', postModalData);

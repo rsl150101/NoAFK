@@ -100,7 +100,6 @@ const sendEmailAuth = async () => {
 function emailAuthCheck() {
   const emailAuthCheck = document.getElementById('emailCheck').value;
 
-  console.log(document.cookie);
   let authString;
 
   if (document.cookie.includes('authString')) {
