@@ -137,6 +137,21 @@ class ProjectRepository {
     }
   };
 
+  //* 프로젝트 테이블 마지막 row id 조회
+  findOneLastProject = async () => {
+    try {
+      const project = await this.projectModel.findOne({
+        order: [['id', 'DESC']],
+        attributes: ['id'],
+      });
+
+      return project;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
   //* 커서 기반 상태별 프로젝트 조회
   findAllCursorBasedProjectsByStatus = async (
     cursor,
@@ -148,7 +163,7 @@ class ProjectRepository {
       const projects = await this.projectModel.findAll({
         where: {
           [Op.and]: {
-            id: { [Op.gt]: cursor },
+            id: { [Op.lt]: cursor },
             status,
             [Op.or]: {
               title: { [Op.like]: `%${search}%` },
@@ -156,6 +171,7 @@ class ProjectRepository {
             },
           },
         },
+        order: [['id', 'DESC']],
         attributes: { exclude: ['owner'] },
         include: [{ model: User, attributes: ['nickname'] }],
         raw: true,
