@@ -1,7 +1,7 @@
 const SocketIO = require('socket.io');
 
-module.exports = (http, app) => {
-  const io = SocketIO(http);
+module.exports = (server, app) => {
+  const io = SocketIO(server);
   app.set('io', io);
   const chat = io.of('/chat');
   const notice = io.of('/notice'); // 추후 전체 알림 기능 등 사용

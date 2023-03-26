@@ -10,9 +10,9 @@ socket.on('join', (message) => {
 });
 
 // 폼에 있는 메세지 보내기
-document.forms.publish.onsubmit = function () {
-  let outgoingMessage = this.message.value;
-  this.message.value = '';
+const sendMessage = function () {
+  let outgoingMessage = document.getElementById('messages-input').value;
+  document.getElementById('messages-input').value = '';
   const obj = { type: 'message', params: { value: outgoingMessage } };
   socket.emit('message', JSON.stringify(obj));
 
@@ -22,7 +22,6 @@ document.forms.publish.onsubmit = function () {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      userId,
       message: outgoingMessage,
     }),
   });
