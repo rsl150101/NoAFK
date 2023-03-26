@@ -275,15 +275,13 @@
             </li>
             {% endfor %}
           </ul>
+          {% if existNextComment %}
           <div class="flex justify-center">
-            <button
-              class="display-none mt-2 mb-4 new-btn"
-              id="more-comment"
-              type="button"
-            >
+            <button class="mt-2 mb-4 new-btn" id="more-comment" type="button">
               댓글 더보기
             </button>
           </div>
+          {% endif %}
         </div>
         {% else %}
         <div class="mt-4 mb-4">댓글이 없습니다.</div>
