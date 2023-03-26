@@ -17,7 +17,8 @@
           <h1>마이페이지</h1>
           <div id="user-info-header-box">
             <ul id="user-info-update">
-              {% if not testResult %}
+              {% if loginMethod === 'NoAFK' %}
+	            {% if not testResult %}
               <li id="user-info-update-content"><a href="/test">성향테스트</a></li>
               <li id="user-info-update-content" onclick="updateImage()">프로필사진 변경</li>
               <li id="user-info-update-content" onclick="updateNickname()">닉네임 변경</li>
@@ -29,12 +30,24 @@
               <li id="user-info-update-content" onclick="updatePassword()">비밀번호 변경</li>
               <li id="user-info-update-content" onclick="updateIntroduction()">자기소개 변경</li>
               {% endif %}
+	            {% else %}
+	            {% if not testResult %}
+              <li id="user-info-update-content"><a href="/test">성향테스트</a></li>
+              <li id="user-info-update-content" onclick="updateImage()">프로필사진 변경</li>
+              <li id="user-info-update-content" onclick="updateNickname()">닉네임 변경</li>
+              <li id="user-info-update-content" onclick="updateIntroduction()">자기소개 변경</li>
+              {% else %}
+              <li id="user-info-update-content" onclick="updateImage()">프로필사진 변경</li>
+              <li id="user-info-update-content" onclick="updateNickname()">닉네임 변경</li>
+              <li id="user-info-update-content" onclick="updateIntroduction()">자기소개 변경</li>
+              {% endif %}
+	            {% endif %}
             </ul>
           </div>
         </header>
       </section>
         <div id="user-profile">
-          <div id="user-profile-image"><img src="{{image}}" alt="프로필사진"></div>
+          <div id="user-profile-image"><img src="{{image}}" alt="프로필사진" onerror=this.src="{{replaceImage}}"></div>
           <div id="user-profile-info">
             <table class="type04" style="table-layout:fixed" width="100%">
               <tr>
@@ -73,7 +86,7 @@
               <br>
               <br>
               <br>
-              <input type="text" name="inputNickname">
+              <input type="text" name="inputNickname" onkeyup="if(window.event.keyCode==13){submitNickname({{id}})}">
               <button class="submit-btn" onclick="submitNickname({{id}})">변경</button>
             </div>
           </div>
@@ -88,9 +101,11 @@
               <br>
               (변경 후 자동 로그아웃)
               <br>
+              (로그인 페이지 이동)
               <br>
               <br>
-              <input type="password" name="inputPassword">
+              <br>
+              <input type="password" name="inputPassword" onkeyup="if(window.event.keyCode==13){submitPassword({{id}})}">
               <button class="submit-btn" onclick="submitPassword({{id}})">변경</button>
             </div>
           </div>
@@ -99,25 +114,19 @@
           <div class="modal_body">
             <div>프로필사진 변경</div>
             <button class="close-btn" onclick="closeModalImage()">X</button>
-            <div id="imageInput">
+            <div id="imageInput" class="scroll" style="overflow-x:hidden; height:300px;">
               변경할 이미지를 넣어주세요.
               <br>
               <br>
-              (최대 용량 : 4MB)
+              <div id="descText">
+                (최대 용량 : 4MB, .jpg/jpeg만 지원)
+              </div>
               <br>
-              (현재 .jpg/jpeg만 지원)
-              <br>
-              <br>
-              <input type="file" name="inputImage" id="inputImage" accept="image/*">
-              <button class="submit-btn" onclick="submitImage({{id}})">변경</button>
+              <input type="file" name="inputImage" id="inputImage" accept="image/*" onchange="setThumbnail(event);" onkeyup="if(window.event.keyCode==13){submitImage({{id}})}">
               <br>
               <br>
-              <br>
-              <br>
-              <br>
-              <br>
-              <br>
-              업로드 후 이미지 용량에 따라 보이는 것이 오래 걸릴 수 있습니다.
+              <div id="image_container"></div>
+              <button id="submit-image" class="submit-btn" onclick="submitImage({{id}})">변경</button>
             </div>
           </div>
         </div>
@@ -130,7 +139,7 @@
               <br>
               <br>
               <br>
-              <input type="text" name="inputIntroduction">
+              <input type="text" name="inputIntroduction" onkeyup="if(window.event.keyCode==13){submitIntroduction({{id}})}">
               <button class="submit-btn" onclick="submitIntroduction({{id}})">변경</button>
             </div>
           </div>
@@ -140,7 +149,7 @@
           <h1>참여 프로젝트</h1>
         </header>
       </section>
-      <div style="overflow-x:hidden; height:300px;">
+      <div class="scroll" style="overflow-x:hidden; height:300px;">
         <table class="type09" style="table-layout:fixed" width="100%">
           <thead>
           <tr>
