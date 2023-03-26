@@ -182,6 +182,7 @@ class UsersController {
         image,
         expiredAt,
       } = userInfo;
+      const replaceImage = image.replace(/\/resizedProfile\//, '/profile/')
 
       res.status(200).render('mypage', {
         id,
@@ -191,6 +192,7 @@ class UsersController {
         testResult,
         introduction,
         image,
+        replaceImage,
         expiredAt,
         pageTitle: 'Mypage',
       });

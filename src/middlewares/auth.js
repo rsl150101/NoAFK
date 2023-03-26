@@ -136,4 +136,15 @@ const checkToken = async (req, res, next) => {
   }
 };
 
-module.exports = { checkToken, checkLogin };
+//* 어드민 판별
+const checkAdmin = (_req, res, next) => {
+  const { authLevel } = res.locals.user;
+
+  if (authLevel !== 99) {
+    return res.status(403).redirect('back');
+  }
+
+  next();
+};
+
+module.exports = { checkToken, checkLogin, checkAdmin };

@@ -19,18 +19,22 @@ function updateIntroduction() {
 function closeModalNickname() {
   document.getElementById('nicknameModal').style.display = 'none';
   document.body.style.overflow = 'auto';
+  window.location.reload();
 }
 function closeModalPassword() {
   document.getElementById('passwordModal').style.display = 'none';
   document.body.style.overflow = 'auto';
+  window.location.reload();
 }
 function closeModalImage() {
   document.getElementById('imageModal').style.display = 'none';
   document.body.style.overflow = 'auto';
+  window.location.reload();
 }
 function closeModalIntroduction() {
   document.getElementById('introductionModal').style.display = 'none';
   document.body.style.overflow = 'auto';
+  window.location.reload();
 }
 
 function submitNickname(id) {
@@ -60,7 +64,7 @@ function submitPassword(id) {
       fetch('/api/auth/logout');
     })
     .then(() => {
-      window.location.href = '/';
+      window.location.href = '/login';
     });
 }
 
@@ -118,4 +122,27 @@ function getInfo(id) {
         document.getElementById('progressUserProject').innerHTML += temp_html;
       }
     });
+}
+
+window.onkeyup = function(e) {
+	var key = e.keyCode ? e.keyCode : e.which;
+
+	if(key == 27) {
+		closeModalImage();
+    closeModalNickname();
+    closeModalPassword();
+    closeModalIntroduction();
+	}
+}
+
+function setThumbnail(event) {
+  var reader = new FileReader();
+
+  reader.onload = function(event) {
+    var img = document.createElement("img");
+    img.setAttribute("src", event.target.result);
+    document.querySelector("div#image_container").appendChild(img);
+  };
+
+  reader.readAsDataURL(event.target.files[0]);
 }
