@@ -11,6 +11,7 @@
 @import './screen/home-screen.css';
 @import './screen/projects-screen.css';
 @import './screen/projects-add-modal-screen.css';
+@import './screen/admin-projects-screen.css';
 
 @font-face {
   font-family: 'Montserrat';
@@ -51,4 +52,8 @@ body {
 
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera*/
+}
+
+.pagination--bold {
+  font-weight: 700;
 }

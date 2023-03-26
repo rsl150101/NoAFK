@@ -1,0 +1,84 @@
+.admin-projects-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 70%;
+  padding: 20px 0;
+  gap: 20px;
+  flex: 1;
+}
+
+.admin-projects-screen section {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.admin-projects-screen section header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.admin-projects-screen section header h1 {
+  font-weight: 700;
+  font-size: 1.3em;
+}
+
+.admin-projects-screen section header div a:last-child {
+  font-weight: 700;
+}
+
+.admin-projects-screen section table {
+  flex: 1;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+
+.admin-projects-screen section table thead {
+  font-weight: 700;
+  background-color: var(--scroll-drag-color);
+}
+
+.admin-projects-screen section table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.admin-projects-screen section table td,
+.admin-projects-screen section table th {
+  border-bottom: 1px solid var(--light-gray);
+  border-left: 1px solid var(--light-gray);
+  padding: 10px;
+}
+
+.admin-projects-screen section table td:first-child,
+.admin-projects-screen section table th:first-child {
+  border-left: none;
+}
+
+.admin-projects-screen section table button {
+  font-weight: 700;
+  padding: 5px 10px;
+}
+
+.admin-projects-screen section form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-projects-screen input {
+  border: 1px solid var(--light-gray);
+  border-radius: 15px;
+  width: 300px;
+  padding: 5px 10px;
+}
+
+.admin-projects-screen section > div {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
