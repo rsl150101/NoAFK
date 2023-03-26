@@ -226,8 +226,13 @@ class UsersController {
   uploadProfileImage = async (req, res) => {
     try {
       const originalURL = req.file.location;
-      const resizeURL = originalURL.replace(/\/profile\//, '/resizedProfile/')
-      return res.status(200).json({ image: resizeURL });
+      const ext = originalURL.split('.')
+      if (ext[ext.length - 1] === 'png') {
+        return res.status(200).json({ image: originalURL })
+      } else {
+        const resizeURL = originalURL.replace(/\/profile\//, '/resizedProfile/')
+        return res.status(200).json({ image: resizeURL });
+      }
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
