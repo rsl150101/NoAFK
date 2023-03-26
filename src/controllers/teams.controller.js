@@ -17,7 +17,10 @@ class TeamsController {
       const memberList = await this.teamService.findAllByTeamId(teamId);
 
       if (memberList.length === 0) {
-        return res.render('deletedTeam');
+        return res.render('deletedTeam', {
+          pageTitle: 'NoTeam',
+          pageContent: '팀',
+        });
       }
 
       const { teamName, status } =
@@ -31,7 +34,10 @@ class TeamsController {
         nickname,
       });
     } catch (error) {
-      return res.render('deletedTeam');
+      return res.render('deletedTeam', {
+        pageTitle: 'NoTeam',
+        pageContent: '팀',
+      });
     }
   };
 
@@ -46,7 +52,10 @@ class TeamsController {
         myTeamList,
       });
     } catch (error) {
-      return res.render('deletedTeam');
+      return res.render('deletedTeam', {
+        pageTitle: 'NoTeam',
+        pageContent: '팀',
+      });
     }
   };
 

@@ -4,9 +4,23 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>deleted team</title>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/style.css" />
+    {% block headblock %}{% endblock %}
+    <title>{{pageTitle}} | NoAFK</title>
   </head>
   <body>
-    <h1>팀을 찾을 수 없습니다.</h1>
+    {% include "partials/page-header.html" %}
+    <main class="main-screen home-screen">
+      <header>
+        <h1>{{pageContent}}을 찾을 수 없습니다.</h1>
+      </header>
+    </main>
+    {% include "partials/page-footer.html" %}
+    <script src="js/searchFormTrim.js"></script>
+    <script
+      src="https://kit.fontawesome.com/d1f609d41d.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
