@@ -21,7 +21,7 @@
         {% else %} {% for project in projects %}
         <tr id="projectRow">
           <td><span>{{project.title}}</span></td>
-          <td><span>{{project.owner}}</span></td>
+          <td><span>{{project["User.nickname"]}}</span></td>
           <td><span>{{project.person}}</span></td>
           <td><span>{{project.recruitDeadline}}</span></td>
           <td>

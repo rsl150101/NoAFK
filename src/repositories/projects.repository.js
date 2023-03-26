@@ -125,6 +125,8 @@ class ProjectRepository {
             owner: { [Op.like]: `%${search}%` },
           },
         },
+        attributes: { exclude: ['owner'] },
+        include: [{ model: User, attributes: ['nickname'] }],
         raw: true,
         offset,
         limit,
