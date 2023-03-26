@@ -15,3 +15,11 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.admin-main-screen input[type='text'] {
+  border: 1px solid var(--light-gray);
+  border-radius: 3px;
+  width: 300px;
+  padding: 5px 10px;
+  margin: 0 5px;
+}

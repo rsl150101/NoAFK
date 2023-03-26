@@ -5,6 +5,7 @@
     <table>
       <thead>
         <tr>
+          <th>프로젝트 번호</th>
           <th>프로젝트 제목</th>
           <th>공고자</th>
           <th>모집 인원</th>
@@ -20,6 +21,7 @@
         </tr>
         {% else %} {% for project in projects %}
         <tr id="projectRow">
+          <td><span>{{project.id}}</span></td>
           <td><span>{{project.title}}</span></td>
           <td><span>{{project["User.nickname"]}}</span></td>
           <td><span>{{project.person}}</span></td>
@@ -39,6 +41,7 @@
         id=""
         placeholder="검색어를 입력해주세요."
       />
+      <input type="submit" value="검색" />
     </form>
     <div id="paginationBox">
       {% if curPage !== 1%}
