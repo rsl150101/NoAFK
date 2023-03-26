@@ -41,7 +41,20 @@ class CommentService {
 
       const nextCursor = comments.length === limit ? comments.at(-1).id : null;
 
-      return { comments, nextCursor };
+      let existNextComment =
+        await this.commentsRepository.findCommentsByProjectId(
+          projectId,
+          nextCursor,
+          limit
+        );
+
+      if (existNextComment.length === 0) {
+        existNextComment = false;
+      } else {
+        existNextComment = true;
+      }
+
+      return { comments, nextCursor, existNextComment };
     } catch (error) {
       throw error;
     }
