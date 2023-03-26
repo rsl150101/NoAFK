@@ -27,7 +27,12 @@ class TeamService {
         throw error;
       }
 
-      return await this.projectRepository.findAllProjectsByUserId(userId);
+      return await Promise.all(
+        allTeamByUserId.map(async (team) => {
+          const projectId = team.projectId;
+          return await this.projectRepository.findProjectById(projectId);
+        })
+      );
     } catch (error) {
       throw error;
     }

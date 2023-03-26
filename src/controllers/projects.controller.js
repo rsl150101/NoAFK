@@ -42,9 +42,15 @@ class ProjectsController {
       });
     } catch (error) {
       if (error.name === 'AlreadyDeadLine') {
-        return res.status(403).json({ message: error.message });
+        return res.render('deletedTeam', {
+          pageTitle: 'NoProject',
+          pageContent: '프로젝트가 마감되었습니다.',
+        });
       }
-      return res.status(400).json({ message: error.message });
+      return res.render('deletedTeam', {
+        pageTitle: 'NoProject',
+        pageContent: '프로젝트를 찾을 수 없습니다.',
+      });
     }
   };
 
