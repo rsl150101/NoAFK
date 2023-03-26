@@ -19,7 +19,7 @@ class TeamsController {
       if (memberList.length === 0) {
         return res.render('deletedTeam', {
           pageTitle: 'NoTeam',
-          pageContent: '팀',
+          pageContent: '참가한 팀이 없습니다.',
         });
       }
 
@@ -36,7 +36,7 @@ class TeamsController {
     } catch (error) {
       return res.render('deletedTeam', {
         pageTitle: 'NoTeam',
-        pageContent: '팀',
+        pageContent: '팀을 찾을 수 없습니다.',
       });
     }
   };
@@ -54,7 +54,7 @@ class TeamsController {
     } catch (error) {
       return res.render('deletedTeam', {
         pageTitle: 'NoTeam',
-        pageContent: '팀',
+        pageContent: '팀을 찾을 수 없습니다.',
       });
     }
   };
