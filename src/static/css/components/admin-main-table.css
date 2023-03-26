@@ -1,0 +1,41 @@
+.admin-main-screen section table {
+  flex: 1;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+
+.admin-main-screen section table thead {
+  font-weight: 700;
+  background-color: var(--scroll-drag-color);
+}
+
+.admin-main-screen section table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.admin-main-screen section table td,
+.admin-main-screen section table th {
+  border-bottom: 1px solid var(--light-gray);
+  border-left: 1px solid var(--light-gray);
+  padding: 10px;
+}
+
+.admin-main-screen section table td:first-child,
+.admin-main-screen section table th:first-child {
+  border-left: none;
+}
+
+.admin-main-screen section table button {
+  font-weight: 700;
+  padding: 5px 10px;
+}
+
+.admin-main-screen section table a {
+  font-size: 0.9em;
+  font-weight: 700;
+  padding: 5px 10px;
+  background-color: var(--scroll-drag-color);
+  border: 1px solid black;
+}

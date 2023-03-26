@@ -401,15 +401,24 @@ class UserService {
             testResult,
             introduction,
             expiredAt,
-          }) => ({
-            id,
-            email,
-            nickname,
-            authLevel,
-            testResult,
-            introduction,
-            expiredAt,
-          })
+          }) => {
+            let authLevelName = '일반';
+            switch (authLevel) {
+              case 99:
+                authLevelName = '관리자';
+                break;
+            }
+            return {
+              id,
+              email,
+              nickname,
+              authLevel,
+              authLevelName,
+              testResult,
+              introduction,
+              expiredAt,
+            };
+          }
         );
 
         return { users, totalPages, count };

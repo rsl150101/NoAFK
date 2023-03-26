@@ -14,7 +14,8 @@ if (currentPage > 1) {
         <a class="page-link" href="?page=${
           parseInt(currentPage) - 1
         }" aria-label="Previous">
-          <span aria-hidden="true">◀</span>
+          <span aria-hidden="true"><i class="fa-solid fa-angle-left"></i
+          ></span>
         </a>
       </li>`);
 }
@@ -38,7 +39,8 @@ if (currentPage < totalPages) {
         <a class="page-link" href='?page=${
           parseInt(currentPage) + 1
         }' aria-label="Next">
-          <span aria-hidden="true">▶</span>
+          <span aria-hidden="true"><i class="fa-solid fa-angle-right"></i
+          ></span>
         </a>
       </li>`);
 }

@@ -1,0 +1,17 @@
+.admin-main-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 70%;
+  padding: 20px 0;
+  gap: 20px;
+  flex: 1;
+}
+
+.admin-main-screen section {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

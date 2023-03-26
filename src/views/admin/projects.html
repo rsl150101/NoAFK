@@ -1,5 +1,5 @@
 {% extends 'base.html'%} {% block content%}
-<main class="main-screen admin-projects-screen">
+<main class="admin-main-screen admin-projects-screen">
   <section>
     {% include "partials/admin-header.html" %}
     <table>
@@ -51,12 +51,16 @@
       ></a>
       {% endif%} {% for page in pageArr%} {% if page === curPage %}
       <a
-        class="pagination--bold"
+        class="pagination--bold pagination--margin"
         href="/admin/projects?page={{page}}&search={{search}}"
         >{{page}}</a
       >
       {% else %}
-      <a href="/admin/projects?page={{page}}&search={{search}}">{{page}}</a>
+      <a
+        class="pagination--margin"
+        href="/admin/projects?page={{page}}&search={{search}}"
+        >{{page}}</a
+      >
       {% endif%} {% endfor %} {% if nextPage %}
       <a href="/admin/projects?page={{nextPage}}&search={{search}}"
         ><i class="fa-solid fa-angle-right"></i
