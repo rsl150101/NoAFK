@@ -94,6 +94,14 @@ class AlreadyDeadLine extends Error {
   }
 }
 
+class AlreadyWorkPass extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'AlreadyWorkPass';
+    this.message = '이미 작업이 끝난 단계입니다.';
+  }
+}
+
 module.exports = {
   EmailExist,
   NicknameExist,
@@ -107,4 +115,5 @@ module.exports = {
   NotFoundNickname,
   AlreadyMember,
   AlreadyDeadLine,
+  AlreadyWorkPass,
 };

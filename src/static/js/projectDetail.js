@@ -11,10 +11,6 @@ const moreCommentBtn = document.getElementById('more-comment');
 const CommentBox = document.getElementById('detail-comment-list');
 const commentForm = document.getElementById('detail-comment');
 
-if (cursor) {
-  moreCommentBtn.style.display = 'block';
-}
-
 if (CommentBox) {
   Array.from(CommentBox.children).forEach((child) => {
     plusComment(child);
@@ -26,9 +22,9 @@ const moreComment = async () => {
   const response = await fetch(
     `/api/projects/${projectId}/comments?cursor=${cursor}`
   );
-  const { comments, nextCursor } = await response.json();
+  const { comments, nextCursor, existNextComment } = await response.json();
 
-  if (nextCursor === null) {
+  if (!existNextComment) {
     moreCommentBtn.style.display = 'none';
   }
   cursor = nextCursor;

@@ -19,17 +19,29 @@ class CommentRepository {
     }
   };
 
+  findLastCommentByProjectId = async (projectId) => {
+    try {
+      return await this.commentModel.findOne({
+        where: { projectId },
+        order: [['id', 'desc']],
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
   findCommentsByProjectId = async (projectId, cursor, limit) => {
     try {
       return await this.commentModel.findAll({
         where: {
           [Op.and]: {
-            id: { [Op.gt]: cursor },
+            id: { [Op.lt]: cursor },
             projectId,
           },
         },
         raw: true,
         limit,
+        order: [['id', 'desc']],
       });
     } catch (error) {
       throw error;

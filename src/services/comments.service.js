@@ -17,7 +17,13 @@ class CommentService {
   findCommentsByProjectId = async (id, cursor) => {
     try {
       if (!cursor) {
-        cursor = 0;
+        const lastComment =
+          await this.commentsRepository.findLastCommentByProjectId(id);
+        if (!lastComment) {
+          cursor = null;
+        } else {
+          cursor = lastComment.id + 0.1;
+        }
       }
 
       const projectId = id;
@@ -41,7 +47,20 @@ class CommentService {
 
       const nextCursor = comments.length === limit ? comments.at(-1).id : null;
 
-      return { comments, nextCursor };
+      let existNextComment =
+        await this.commentsRepository.findCommentsByProjectId(
+          projectId,
+          nextCursor,
+          limit
+        );
+
+      if (existNextComment.length === 0) {
+        existNextComment = false;
+      } else {
+        existNextComment = true;
+      }
+
+      return { comments, nextCursor, existNextComment };
     } catch (error) {
       throw error;
     }
