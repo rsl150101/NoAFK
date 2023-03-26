@@ -5,19 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/css/teamChat.css">
+    <link rel="stylesheet" href="/css/teamChat.css" />
   </head>
   <body>
     <main class="teamChat__main">
-      <div id="userNickname" style="display: none;">nickname</div>
+      <div id="userNickname" style="display: none">nickname</div>
       <div class="teamChat__column">
-        <div class="teamChat__rooms" onclick="teamChatting()"><div>팀 채팅</div></div>
+        <div class="teamChat__rooms" onclick="teamChatting()">
+          <div>팀 채팅</div>
+        </div>
         {% for member in memberList %}
-        
+
         <div class="teamChat__rooms" onclick="whispering({{member.id}})">
           <div>{{member.User.nickname}}</div>
         </div>
-        
+
         {% endfor %}
       </div>
       <div class="teamChat__column">
@@ -28,12 +30,17 @@
           {% endfor %}
         </div>
         <!-- 메시지 폼 -->
-        <form id ="messages-form" name="publish">
-          <input id ="messages-input" type="text" name="message" />
-          <input id ="messages-send" type="submit" value="send" />
+        <form id="messages-form" name="publish">
+          <input id="messages-input" type="text" name="message" />
+          <button
+            id="messages-send"
+            type="button"
+            value="send"
+            onclick="sendMessage()"
+          ></button>
         </form>
       </div>
-    </div>
+    </main>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/myteam/teamChat.js"></script>
     <script src="/js/chatting.js"></script>
