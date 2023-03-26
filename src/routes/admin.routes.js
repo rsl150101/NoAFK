@@ -1,17 +1,34 @@
 const express = require('express');
 const ProjectsController = require('../controllers/projects.controller');
 const UsersController = require('../controllers/users.controller');
+const { checkToken, checkAdmin } = require('../middlewares/auth');
 
 const router = express.Router();
 const projectsController = new ProjectsController();
 const usersController = new UsersController();
 
-router.get('/projects', projectsController.getOffsetBasedProjects);
-router.delete('/projects/:id', projectsController.hardDeleteProject);
+//* 백오피스 - 공고 관리
+router.get(
+  '/projects',
+  checkToken,
+  checkAdmin,
+  projectsController.getOffsetBasedProjects
+);
+router.delete(
+  '/projects/:id',
+  checkToken,
+  checkAdmin,
+  projectsController.hardDeleteProject
+);
 
-//* 백오피스 - 회원관리
-router.get('/users', usersController.renderAdminUserPage);
-router.patch('/users/:id', usersController.blockUser);
-router.delete('/users/:id', usersController.deleteUser);
+//* 백오피스 - 회원 관리
+router.get(
+  '/users',
+  checkToken,
+  checkAdmin,
+  usersController.renderAdminUserPage
+);
+router.patch('/users/:id', checkToken, checkAdmin, usersController.blockUser);
+router.delete('/users/:id', checkToken, checkAdmin, usersController.deleteUser);
 
 module.exports = router;
