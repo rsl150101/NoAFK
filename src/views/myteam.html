@@ -63,6 +63,7 @@
                     수정
                   </button>
                 </div>
+                {% if member.position !== 3 %}
                 <div>
                   <button
                     class="leader-display"
@@ -71,6 +72,7 @@
                     방출
                   </button>
                 </div>
+                {% endif %}
               </th>
             </tr>
             {% endif %} {% endfor %}
