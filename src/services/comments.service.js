@@ -17,7 +17,9 @@ class CommentService {
   findCommentsByProjectId = async (id, cursor) => {
     try {
       if (!cursor) {
-        cursor = 0;
+        const lastComment =
+          await this.commentsRepository.findLastCommentByProjectId(id);
+        cursor = lastComment.id + 0.1;
       }
 
       const projectId = id;

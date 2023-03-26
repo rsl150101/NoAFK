@@ -121,7 +121,6 @@ class TeamService {
 
       const dbStatus = resultByTeamId.status;
 
-      console.log(status, dbStatus);
       if (status < dbStatus) {
         const error = new AlreadyWorkPass();
         throw error;
