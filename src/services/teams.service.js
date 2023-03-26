@@ -2,7 +2,7 @@ const TeamRepository = require('../repositories/teams.repository');
 const ProjectRepository = require('../repositories/projects.repository');
 const UserRepository = require('../repositories/users.repository');
 const { Project, ProjectUser, User } = require('../models');
-const { AlreadyApply } = require('../utility/customError');
+const { AlreadyApply, AlreadyWorkPass } = require('../utility/customError');
 
 class TeamService {
   teamRepository = new TeamRepository(ProjectUser);
@@ -116,6 +116,17 @@ class TeamService {
 
   updateStatus = async (teamId, status) => {
     try {
+      const resultByTeamId =
+        await this.projectRepository.findTeamNameAndStatusByTeamId(teamId);
+
+      const dbStatus = resultByTeamId.status;
+
+      console.log(status, dbStatus);
+      if (status < dbStatus) {
+        const error = new AlreadyWorkPass();
+        throw error;
+      }
+
       return await this.projectRepository.updateStatus(teamId, status);
     } catch (error) {
       throw error;

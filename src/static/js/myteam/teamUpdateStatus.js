@@ -11,9 +11,13 @@ function updateTeamStatus(status) {
   })
     .then((response) => response.json())
     .then((data) => {
-      alert(data.updatedTeamStatus.message);
-      nowStatus.classList.remove('now_team_status');
-      nowStatus = document.querySelector(`.status-btn[data-num="${status}"]`);
-      nowStatus.classList.add('now_team_status');
+      if (data.message) {
+        alert(data.message);
+      } else {
+        alert(data.updatedTeamStatus.message);
+        nowStatus.classList.remove('now_team_status');
+        nowStatus = document.querySelector(`.status-btn[data-num="${status}"]`);
+        nowStatus.classList.add('now_team_status');
+      }
     });
 }
