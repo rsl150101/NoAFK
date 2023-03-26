@@ -9,63 +9,97 @@ class ChatsController {
   projectService = new ProjectService();
   userService = new UserService();
 
-  renderTeamChatPage = async (req, res, next) => {
-    const { chatId } = req.params;
+  renderTeamChatPage = async (req, res) => {
+    try {
+      const { chatId } = req.params;
 
-    const memberList = await this.teamService.findAllByTeamId(chatId);
-    const chattingList = await this.chatService.findAllMessagesByChatId(chatId);
+      const memberList = await this.teamService.findAllByTeamId(chatId);
+      const chattingList = await this.chatService.findAllMessagesByChatId(
+        chatId
+      );
 
-    return res.render('chat', { memberList, chattingList });
+      return res.render('chat', { memberList, chattingList });
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
   };
 
-  renderPrivateChatPage = async (req, res, next) => {
-    const { teamId, memberId } = req.params;
-    const { id: userId } = res.locals.user;
+  renderPrivateChatPage = async (req, res) => {
+    try {
+      const { teamId, memberId } = req.params;
+      const { id: userId } = res.locals.user;
 
-    const myMemberInfo = await this.teamService.findMemberIdByUserIdAndTeamId(
-      userId,
-      teamId
-    );
-    const chatId = [teamId, myMemberInfo.id, memberId]
-      .sort((a, b) => a - b)
-      .join('$');
+      const myMemberInfo = await this.teamService.findMemberIdByUserIdAndTeamId(
+        userId,
+        teamId
+      );
+      const chatId = [teamId, myMemberInfo.id, memberId]
+        .sort((a, b) => a - b)
+        .join('$');
 
-    const memberList = await this.teamService.findAllByTeamId(teamId);
-    const chattingList = await this.chatService.findAllMessagesByChatId(chatId);
+      const memberList = await this.teamService.findAllByTeamId(teamId);
+      const chattingList = await this.chatService.findAllMessagesByChatId(
+        chatId
+      );
 
-    return res.render('chat', { memberList, chattingList });
+      return res.render('chat', { memberList, chattingList });
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
   };
 
-  postTeamMessage = async (req, res, next) => {
-    const { chatId } = req.params;
-    const { userId, message } = req.body;
+  postTeamMessage = async (req, res) => {
+    try {
+      const { chatId } = req.params;
+      const { message } = req.body;
 
-    const newTeamChatData = await this.chatService.addNewChat(
-      chatId,
-      userId,
-      message
-    );
+      if (!res.locals.user) {
+        return res.redirect('/login');
+      }
 
-    return res.status(201).json(newTeamChatData);
+      const userId = res.locals.user.id;
+
+      const newTeamChatData = await this.chatService.addNewChat(
+        chatId,
+        userId,
+        message
+      );
+
+      return res.status(201).json(newTeamChatData);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
   };
 
-  postPrivateMessage = async (req, res, next) => {
-    const { teamId, memberId } = req.params;
-    const { userId, message } = req.body;
+  postPrivateMessage = async (req, res) => {
+    try {
+      const { teamId, memberId } = req.params;
+      const { message } = req.body;
 
-    const myMemberInfo = await this.teamService.findMemberIdByUserIdAndTeamId(
-      userId,
-      teamId
-    );
-    const chatId = [myMemberInfo.id, memberId].sort((a, b) => a - b).join('$');
+      if (!res.locals.user) {
+        return res.redirect('/login');
+      }
 
-    const newPrivateChatData = await this.chatService.addNewChat(
-      chatId,
-      userId,
-      message
-    );
+      const userId = res.locals.user.id;
 
-    return res.status(201).json(newPrivateChatData);
+      const myMemberInfo = await this.teamService.findMemberIdByUserIdAndTeamId(
+        userId,
+        teamId
+      );
+      const chatId = [myMemberInfo.id, memberId]
+        .sort((a, b) => a - b)
+        .join('$');
+
+      const newPrivateChatData = await this.chatService.addNewChat(
+        chatId,
+        userId,
+        message
+      );
+
+      return res.status(201).json(newPrivateChatData);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
   };
 }
 
