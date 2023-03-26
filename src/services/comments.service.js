@@ -19,7 +19,11 @@ class CommentService {
       if (!cursor) {
         const lastComment =
           await this.commentsRepository.findLastCommentByProjectId(id);
-        cursor = lastComment.id + 0.1;
+        if (!lastComment) {
+          cursor = null;
+        } else {
+          cursor = lastComment.id + 0.1;
+        }
       }
 
       const projectId = id;

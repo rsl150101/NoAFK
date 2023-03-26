@@ -42,6 +42,7 @@ class ProjectsController {
         existNextComment,
       });
     } catch (error) {
+      console.log(error);
       if (error.name === 'AlreadyDeadLine') {
         return res.render('deletedTeam', {
           pageTitle: 'NoProject',
