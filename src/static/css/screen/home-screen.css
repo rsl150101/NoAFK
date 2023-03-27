@@ -37,9 +37,6 @@
   top: 0;
   display: flex;
   justify-content: space-between;
-}
-
-.more-projects header {
   font-weight: 700;
 }
 
