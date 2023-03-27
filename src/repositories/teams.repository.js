@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { User, Project } = require('../models');
 
 class TeamRepository {
@@ -10,10 +11,11 @@ class TeamRepository {
   // Therefore, In TeamRouter, URL: /team/:teamId 👉 TeamId == ProjectId
   // And, In this repository, "ProjectUserId" is used as "TeamMemberId".
 
+  // 신청자가 아닌 참가자일때만
   findByTeamMemberId = async (userId) => {
     try {
       return await this.teamModel.findAll({
-        where: { userId },
+        where: { userId, position: { [Op.ne]: 0 } },
       });
     } catch (error) {
       error.status = 500;
