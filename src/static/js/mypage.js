@@ -40,32 +40,46 @@ function closeModalIntroduction() {
 function submitNickname(id) {
   let inputNickname = document.getElementsByName('inputNickname');
   let nickname = inputNickname[0].value;
-  fetch('users/' + id + '/nickname', {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ nickname }),
-  });
-  window.location.reload();
+  let idRegExp = /^[A-za-z0-9가-힣]{1,20}$/;
+  if (!nickname) {
+    return alert("변경할 닉네임을 입력해주세요.")
+  } else if (!idRegExp.test(nickname)) {
+    return alert("닉네임은 한글, 영어 대소문자 숫자가 가능하며, 특수문자와 공백이 불가능합니다. 닉네임 길이는 1~20자입니다.")
+  } else {
+    fetch('users/' + id + '/nickname', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ nickname }),
+    });
+    window.location.reload();
+  }
 }
 
 function submitPassword(id) {
   let inputPassword = document.getElementsByName('inputPassword');
   let password = inputPassword[0].value;
-  fetch('users/' + id + '/password', {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ password }),
-  })
-    .then(() => {
-      fetch('/api/auth/logout');
+  let pwRegExp = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
+  if (!password) {
+    return alert("변경할 패스워드를 입력해주세요.")
+  } else if (!pwRegExp.test(password)) {
+    return alert("비밀번호는 특수문자를 무조건 포함해야하며, 최소 8자 이상 입력해야합니다.")
+  } else {
+    fetch('users/' + id + '/password', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ password }),
     })
-    .then(() => {
-      window.location.href = '/login';
-    });
+      .then(() => {
+        fetch('/api/auth/logout');
+      })
+      .then(() => {
+        window.location.href = '/login';
+      });
+  }
 }
 
 function submitIntroduction(id) {

@@ -19,7 +19,7 @@ class TeamsController {
       if (memberList.length === 0) {
         return res.render('deletedTeam', {
           pageTitle: 'NoTeam',
-          pageContent: '참가한 팀이 없습니다.',
+          pageContent: '팀이 존재하지 않습니다.',
         });
       }
 
@@ -46,10 +46,11 @@ class TeamsController {
       const { id } = res.locals.user;
 
       const myTeamList = await this.teamService.findAllTeamByUserId(id);
-
+      const applyTeamList = await this.teamService.findApplyTeam(id);
       return res.render('myTeamList', {
         pageTitle: 'My Team List',
         myTeamList,
+        applyTeamList,
       });
     } catch (error) {
       return res.render('deletedTeam', {
