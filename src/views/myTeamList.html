@@ -12,27 +12,62 @@
   <body>
     {% include "partials/page-header.html"%}
     <main id="myTeamList__main">
-      {% set status = ['모집중', '모집마감', '준비', '진행중', '테스트', '종료']
-      %} {% for myTeam in myTeamList %} {% if myTeam.status !== 0 %}
-      <div
-        onclick="goTeamPage({{myTeam.id}})"
-        id="row-{{myTeam.id}}"
-        class="myTeamList__row"
-      >
-        <div class="myTeamList__name">
-          <span>팀명: </span>{{myTeam.teamName}}
+      <section class="myTeamList__section section">
+        <h2>참가중인 팀</h2>
+        {% if myTeamList.length === 0 %}
+        <div class="myTeamList__none"><p>참가중인 팀이 없습니다.</p></div>
+        {% else %} {% set status = ['모집중', '모집마감', '준비', '진행중',
+        '테스트', '종료'] %} {% for myTeam in myTeamList %} {% if myTeam.status
+        !== 0 %}
+        <div
+          onclick="goTeamPage({{myTeam.id}})"
+          id="row-{{myTeam.id}}"
+          class="myTeamList__row"
+        >
+          <div class="myTeamList__name">
+            <span>팀명: </span>{{myTeam.teamName}}
+          </div>
+          <div class="myTeamList__techStack">
+            <span>기술스택: </span>{{myTeam.techStack}}
+          </div>
+          <div class="myTeamList__status">
+            <span>상태: </span>{{status[myTeam.status]}}
+          </div>
+          <div class="myTeamList__createdAt">
+            <span>생성일: </span>{{myTeam.createdAt}}
+          </div>
         </div>
-        <div class="myTeamList__name">
-          <span>기술스택: </span>{{myTeam.techStack}}
+        {% endif %} {% endfor %} {% endif %}
+      </section>
+      <section class="applyTeam__section section">
+        <h2>참가 신청한 팀</h2>
+        {% if applyTeamList.length === 0 %}
+        <div class="applyTeam__none"><p>참가 신청을 한 팀이 없습니다.</p></div>
+        {% else %} {% for applyTeamArray in applyTeamList %} {% for applyTeam in
+        applyTeamArray %}
+        <div
+          onclick="goProjectPage({{applyTeam.id}})"
+          id="applyTeam-{{applyTeam.id}}"
+          class="applyTeam__row"
+        >
+          <div class="applyTeam__title">
+            <span>공고제목: </span>{{applyTeam.title}}
+          </div>
+          <div class="applyTeam__teamName">
+            <span>팀이름: </span>{{applyTeam.teamName}}
+          </div>
+          <div class="applyTeam__owner">
+            <span>등록자: </span>{{applyTeam.User.nickname}}
+          </div>
+          <div class="applyTeam__techStack">
+            <span>기술스택: </span>{{applyTeam.techStack}}
+          </div>
+          <div class="applyTeam__recruitDeadline">
+            <span>모집마감: </span>{{applyTeam.recruitDeadline}}
+          </div>
         </div>
-        <div class="myTeamList__status">
-          <span>상태: </span>{{status[myTeam.status]}}
-        </div>
-        <div class="myTeamList__createdAt">
-          <span>생성일: </span>{{myTeam.createdAt}}
-        </div>
-      </div>
-      {% endif %} {% endfor %}
+        {% endfor %} {% endfor %} {% endif %}
+      </section>
     </main>
     {% include "partials/page-footer.html"%}
     <script
@@ -42,6 +77,10 @@
     <script>
       function goTeamPage(teamId) {
         location.href = `/teams/${teamId}`;
+      }
+
+      function goProjectPage(projectId) {
+        location.href = `/projects/${projectId}`;
       }
     </script>
   </body>
