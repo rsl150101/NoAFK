@@ -4,26 +4,52 @@
 function addNewMember() {
   const inputUserNickname = document.querySelector('#inputUserNickname');
   const nickname = inputUserNickname.value;
-  const position = 1;
   inputUserNickname.value = '';
 
-  const response = fetch(url, {
+  fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       nickname,
-      position,
     }),
   })
     .then((response) => response.json())
     .then((data) => {
-      if (data.status === 201) {
-        alert(data.message);
-      } else {
-        alert(data.message);
-      }
+      alert(data.message);
     });
   location.reload();
+}
+
+function agree(memberId) {
+  fetch(url + `/${memberId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      position: 1,
+      task: '담당업무를 정해주세요',
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert('초대를 수락하여 팀에 합류합니다.');
+      location.reload();
+    });
+}
+
+function refuse(memberId) {
+  fetch(url + `/${memberId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert('초대를 거절하였습니다.');
+      location.href = `/teams/me`;
+    });
 }

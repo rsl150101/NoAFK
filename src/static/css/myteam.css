@@ -36,8 +36,9 @@ tbody th {
   padding: 5px;
 }
 
-#myteam__memberList {
-  font-size: 12px;
+#myteam__memberList > h2 {
+  font-size: 18px;
+  padding: 20px 0px;
 }
 
 #myteam__searching-new {
@@ -95,4 +96,14 @@ tbody th {
 
 .leader-display.authority {
   display: none;
+}
+
+#myteam__reserved-member {
+  align-self: flex-start;
+  margin-left: 60px;
+}
+
+#myteam__reserved-member > h2 {
+  font-size: 18px;
+  padding-bottom: 20px;
 }
