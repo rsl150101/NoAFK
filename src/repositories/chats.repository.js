@@ -9,6 +9,12 @@ class ChatRepository {
     try {
       return await this.chatModel.findAll({
         where: { room: chatId },
+        include: [
+          {
+            model: User,
+            attributes: ['nickname'],
+          },
+        ],
       });
     } catch (error) {
       throw error;

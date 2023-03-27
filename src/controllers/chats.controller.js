@@ -11,14 +11,18 @@ class ChatsController {
 
   renderTeamChatPage = async (req, res) => {
     try {
-      const { chatId } = req.params;
+      const { chatId, nickname } = req.params;
 
       const memberList = await this.teamService.findAllByTeamId(chatId);
       const chattingList = await this.chatService.findAllMessagesByChatId(
         chatId
       );
 
-      return res.render('chat', { memberList, chattingList });
+      return res.render('chat', {
+        memberList,
+        chattingList,
+        nickname,
+      });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
@@ -26,23 +30,20 @@ class ChatsController {
 
   renderPrivateChatPage = async (req, res) => {
     try {
-      const { teamId, memberId } = req.params;
-      const { id: userId } = res.locals.user;
+      const { teamId, nickname, memberNickname } = req.params;
 
-      const myMemberInfo = await this.teamService.findMemberIdByUserIdAndTeamId(
-        userId,
-        teamId
-      );
-      const chatId = [teamId, myMemberInfo.id, memberId]
-        .sort((a, b) => a - b)
-        .join('$');
+      const chatId = [teamId, nickname, memberNickname].sort().join('$');
 
       const memberList = await this.teamService.findAllByTeamId(teamId);
       const chattingList = await this.chatService.findAllMessagesByChatId(
         chatId
       );
 
-      return res.render('chat', { memberList, chattingList });
+      return res.render('chat', {
+        memberList,
+        chattingList,
+        nickname,
+      });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
@@ -73,7 +74,7 @@ class ChatsController {
 
   postPrivateMessage = async (req, res) => {
     try {
-      const { teamId, memberId } = req.params;
+      const { teamId, nickname, memberNickname } = req.params;
       const { message } = req.body;
 
       if (!res.locals.user) {
@@ -82,13 +83,7 @@ class ChatsController {
 
       const userId = res.locals.user.id;
 
-      const myMemberInfo = await this.teamService.findMemberIdByUserIdAndTeamId(
-        userId,
-        teamId
-      );
-      const chatId = [myMemberInfo.id, memberId]
-        .sort((a, b) => a - b)
-        .join('$');
+      const chatId = [teamId, nickname, memberNickname].sort().join('$');
 
       const newPrivateChatData = await this.chatService.addNewChat(
         chatId,
