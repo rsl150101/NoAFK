@@ -225,6 +225,11 @@
   color: red;
 }
 
+.ok-box {
+  display: none;
+  color: blue;
+}
+
 button:hover {
   cursor: pointer;
 }
