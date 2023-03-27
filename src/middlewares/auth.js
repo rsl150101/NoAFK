@@ -17,7 +17,10 @@ const verifyToken = (token) => {
   try {
     return jwt.verify(token, process.env.KAKAO_SECRET);
   } catch (error) {
-    return null;
+    // 토큰이 만료가 된 경우에만 null값
+    if (error.message === 'jwt expired') {
+      return null;
+    }
   }
 };
 
