@@ -12,13 +12,12 @@ const {
 const redisClient = require('../utility/redis');
 const { promisify } = require('util');
 
+// 토큰 검증 함수
 const verifyToken = (token) => {
   try {
     return jwt.verify(token, process.env.KAKAO_SECRET);
   } catch (error) {
-    if (error.name === 'TokenExpiredError') {
-      return null;
-    }
+    return null;
   }
 };
 
@@ -67,8 +66,8 @@ const checkToken = async (req, res, next) => {
     const checkAccess = verifyToken(accessToken);
     const checkRefresh = verifyToken(refreshToken);
 
-    if (checkAccess === undefined) {
-      if (checkRefresh === undefined) {
+    if (checkAccess === null) {
+      if (checkRefresh === null) {
         // case1: access token과 refresh token 모두만료
         const error = new TokenExpired();
         throw error;
@@ -82,7 +81,7 @@ const checkToken = async (req, res, next) => {
         res.cookie('accessToken', accessToken);
       }
     } else {
-      if (checkRefresh === undefined) {
+      if (checkRefresh === null) {
         // case3: access token은 유효하지만, refresh token은 만료된 경우 => 새로 refreshToken 발급
         let id = checkAccess.id;
 
