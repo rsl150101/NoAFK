@@ -1,16 +1,15 @@
+body::-webkit-scrollbar {
+  display: none; /* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+}
+
+body {
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
 .teamChat__main {
   display: flex;
-}
-
-.teamChat__column:first-child {
-  width: 25vw;
-  padding: 5px;
-  border-right: 1px solid black;
-}
-
-.teamChat__column:last-child {
-  padding: 10px;
-  border-right: 1px solid black;
+  height: 100%;
 }
 
 .teamChat__rooms {
@@ -21,20 +20,63 @@
 }
 
 #messages {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 5px 50px 5px;
   margin: 10px;
   width: 65vw;
-  height: 85vh;
+  height: 75vh;
   border: 1px solid black;
   overflow-y: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
+#messages::-webkit-scrollbar {
+  display: none; /* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
 }
 
 #messages-form {
   margin: 10px;
 }
 #messages-input {
-  width: 54vw;
+  width: 55vw;
+  padding-left: 6px;
 }
 
 #messages-btn {
   width: 5vw;
+}
+
+.notice {
+  padding: 2px;
+  margin: 3px;
+  background: lightpink;
+  text-align: center;
+}
+
+.my-chat {
+  padding: 3px;
+  margin: 3px;
+  display: flex;
+  flex-direction: row-reverse;
+  background: lightskyblue;
+}
+
+.my-chat__nickname {
+  font-size: large;
+  font-weight: bold;
+}
+
+.others-chat {
+  padding: 2px;
+  margin: 3px;
+  background: lightgoldenrodyellow;
+}
+
+.others-chat__nickname {
+  width: 100px;
+  align-self: center;
+  font-size: large;
+  font-weight: bold;
 }
