@@ -28,6 +28,7 @@ function emailCheck() {
 }
 
 function emailRecheck() {
+  emailAuthRecheck();
   document.getElementById('emailOKMsg').style.display = 'none';
   document.getElementById('email-db-check').style.display = 'block';
   document.getElementById('send-email').style.display = 'none';
@@ -123,6 +124,7 @@ function emailAuthCheck() {
   useEmail = true;
   emailAuthCheckBtn.style.display = 'none';
   document.getElementById('send-email').style.display = 'none';
+
   return alert('인증되었습니다.');
 }
 
@@ -209,10 +211,6 @@ joinForm.addEventListener('submit', (e) => {
 const join = async () => {
   if (!useEmail) {
     return alert('이메일 인증을 완료해주세요!');
-  }
-
-  if (emailCheckBtn || nicknameCheckBtn) {
-    return alert('중복체크를 해주세요!');
   }
 
   emailCheck();
