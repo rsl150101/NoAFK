@@ -48,7 +48,9 @@ class TeamService {
       return await Promise.all(
         applyTeamList.map(async (team) => {
           const projectId = team.projectId;
-          return await this.projectRepository.findProjectById(projectId);
+          return await this.projectRepository.findProjectWithNicknameById(
+            projectId
+          );
         })
       );
     } catch (error) {

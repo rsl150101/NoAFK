@@ -24,7 +24,7 @@
           <div class="myTeamList__name">
             <span>팀명: </span>{{myTeam.teamName}}
           </div>
-          <div class="myTeamList__name">
+          <div class="myTeamList__techStack">
             <span>기술스택: </span>{{myTeam.techStack}}
           </div>
           <div class="myTeamList__status">
@@ -38,11 +38,30 @@
       </section>
       <section>
         <h2>참가 신청한 팀</h2>
-        {% for applyTeam in applyTeamList %}
-        <div><span>공고제목: </span>{{applyTeam.title}}</div>
-        <div><span>팀이름: </span>{{applyTeam.teamName}}</div>
-        <div><span>등록자: </span>{{owner}}</div>
-        {% endfor %}
+        {% for applyTeamArray in applyTeamList %} {% for applyTeam in
+        applyTeamArray %}
+        <div
+          onclick="goProjectPage({{applyTeam.id}})"
+          id="applyTeam-{{applyTeam.id}}"
+          class="applyTeam__row"
+        >
+          <div class="applyTeam__title">
+            <span>공고제목: </span>{{applyTeam.title}}
+          </div>
+          <div class="applyTeam__teamName">
+            <span>팀이름: </span>{{applyTeam.teamName}}
+          </div>
+          <div class="applyTeam__owner">
+            <span>등록자: </span>{{applyTeam.User.nickname}}
+          </div>
+          <div class="applyTeam__techStack">
+            <span>기술스택: </span>{{applyTeam.techStack}}
+          </div>
+          <div class="applyTeam__recruitDeadline">
+            <span>모집마감: </span>{{applyTeam.recruitDeadline}}
+          </div>
+        </div>
+        {% endfor %} {% endfor %}
       </section>
     </main>
     {% include "partials/page-footer.html"%}
@@ -53,6 +72,10 @@
     <script>
       function goTeamPage(teamId) {
         location.href = `/teams/${teamId}`;
+      }
+
+      function goProjectPage(projectId) {
+        location.href = `/projects/${projectId}`;
       }
     </script>
   </body>
