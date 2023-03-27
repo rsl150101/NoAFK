@@ -155,6 +155,7 @@ emailCheckBtn.addEventListener('click', async () => {
   } else if (response.status === 200) {
     document.getElementById('email-db-check').style.display = 'none';
     document.getElementById('send-email').style.display = 'block';
+    document.getElementById('emailOKMsg').style.display = 'block';
     return;
   }
 });
@@ -180,6 +181,7 @@ nicknameCheckBtn.addEventListener('click', async () => {
     return alert('이미 가입한 닉네임입니다.');
   } else if (response.status === 200) {
     document.getElementById('nickname-db-check').style.display = 'none';
+    document.getElementById('nicknameOKMsg').style.display = 'block';
     return;
   } else if (response.status === 500) {
     return alert('사용할 수 없는 닉네임이거나 서버오류입니다.');
