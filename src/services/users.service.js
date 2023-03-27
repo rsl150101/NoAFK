@@ -194,17 +194,9 @@ class UserService {
       }
 
       // access token
-      const accessToken = jwt.sign(
-        {
-          id,
-          email,
-          nickname,
-        },
-        process.env.KAKAO_SECRET,
-        {
-          expiresIn: '6h',
-        }
-      );
+      const accessToken = jwt.sign({ id }, process.env.KAKAO_SECRET, {
+        expiresIn: '2h',
+      });
 
       // refresh token
       const refreshToken = jwt.sign({ id }, process.env.KAKAO_SECRET, {
@@ -223,17 +215,9 @@ class UserService {
   socialLogin = async (id, email, nickname) => {
     try {
       // access token
-      const accessToken = jwt.sign(
-        {
-          id,
-          email,
-          nickname,
-        },
-        process.env.KAKAO_SECRET,
-        {
-          expiresIn: '6h',
-        }
-      );
+      const accessToken = jwt.sign({ id }, process.env.KAKAO_SECRET, {
+        expiresIn: '2h',
+      });
 
       // refresh token
       const refreshToken = jwt.sign({ id }, process.env.KAKAO_SECRET, {
