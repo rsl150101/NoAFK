@@ -21,7 +21,6 @@ router.post(
   projectsController.uploadThumbnail
 );
 
-// Todo <정지우> projectId나 userId 가 없는 경우 처리해야 함.
 // 모집공고 상세 보기
 router.get('/:id', checkToken, projectsController.getProject);
 // 모집공고 수정

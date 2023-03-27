@@ -27,7 +27,9 @@
       {% if not user %}
       <li><a href="/join">JOIN</a></li>
       <li><a href="/login">LOGIN</a></li>
-      {% else %}
+      {% else %} {% if user.authLevel === 99 %}
+      <li><a href="/admin/users">관리자</a></li>
+      {% endif%}
       <li><a href="/mypage">개인 정보 수정</a></li>
       <li><a href="/api/auth/LOGOUT">LOGOUT</a></li>
       {% endif %}

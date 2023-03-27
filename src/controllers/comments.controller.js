@@ -30,10 +30,10 @@ class CommentsController {
       const { id } = req.params;
       const { cursor } = req.query;
 
-      const { comments, nextCursor } =
+      const { comments, nextCursor, existNextComment } =
         await this.commentService.findCommentsByProjectId(id, cursor);
 
-      return res.status(200).json({ comments, nextCursor });
+      return res.status(200).json({ comments, nextCursor, existNextComment });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }

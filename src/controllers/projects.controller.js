@@ -19,7 +19,7 @@ class ProjectsController {
       }
 
       const project = await this.projectService.findProjectById(id);
-      const { comments, nextCursor } =
+      const { comments, nextCursor, existNextComment } =
         await this.commentService.findCommentsByProjectId(id);
       const applyUsers = await this.teamService.findApplysByProjectId(id);
 
@@ -39,6 +39,7 @@ class ProjectsController {
         pageTitle,
         nextCursor,
         applyCheck,
+        existNextComment,
       });
     } catch (error) {
       if (error.name === 'AlreadyDeadLine') {
@@ -120,7 +121,8 @@ class ProjectsController {
         Number(page),
         search
       );
-      return res.status(200).render('adminProjects', {
+      return res.status(200).render('admin/projects', {
+        pageTitle: '공고 관리',
         curPage,
         pageArr,
         prevPage,

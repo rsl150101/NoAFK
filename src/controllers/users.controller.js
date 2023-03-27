@@ -31,7 +31,7 @@ class UsersController {
         totalPages,
         count,
         pathUrl,
-        pageTitle: '회원관리',
+        pageTitle: '회원 관리',
       });
     } catch (error) {
       return res.status(400).json({ message: error.message });
@@ -182,7 +182,7 @@ class UsersController {
         image,
         expiredAt,
       } = userInfo;
-      const replaceImage = image.replace(/\/resizedProfile\//, '/profile/')
+      const replaceImage = image.replace(/\/resizedProfile\//, '/profile/');
 
       res.status(200).render('mypage', {
         id,
@@ -226,8 +226,16 @@ class UsersController {
   uploadProfileImage = async (req, res) => {
     try {
       const originalURL = req.file.location;
-      const resizeURL = originalURL.replace(/\/profile\//, '/resizedProfile/')
-      return res.status(200).json({ image: resizeURL });
+      const ext = originalURL.split('.');
+      if (ext[ext.length - 1] === 'png') {
+        return res.status(200).json({ image: originalURL });
+      } else {
+        const resizeURL = originalURL.replace(
+          /\/profile\//,
+          '/resizedProfile/'
+        );
+        return res.status(200).json({ image: resizeURL });
+      }
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
