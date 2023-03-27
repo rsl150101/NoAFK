@@ -1,12 +1,11 @@
-function whispering(memberId) {
+function whispering(nickname) {
   const teamId = location.pathname.split('/')[2];
-  location.pathname.split('/').length === 4;
-  const memberIdWhisper = location.pathname.split('/')[3];
+  const myNickname = document.querySelector('#userNickname').textContent;
   if (location.pathname.split('/')[1] === 'chat') {
-    return (location.href = `/chat/${teamId}/${memberId}`);
+    return (location.href = `/chat/${teamId}/${myNickname}/${nickname}`);
   }
   return open(
-    `/chat/${teamId}/${memberId}`,
+    `/chat/${teamId}/${myNickname}/${nickname}`,
     '_blank',
     'width=500, height=500, top=500px, left=1000px'
   );
@@ -14,12 +13,12 @@ function whispering(memberId) {
 
 function teamChatting() {
   const teamId = location.pathname.split('/')[2];
-  const memberIdWhisper = location.pathname.split('/')[3];
+  const myNickname = document.querySelector('#userNickname').textContent;
   if (location.pathname.split('/')[1] === 'chat') {
-    return (location.href = `/chat/${teamId}`);
+    return (location.href = `/chat/${teamId}/${myNickname}`);
   }
   return open(
-    `/chat/${teamId}`,
+    `/chat/${teamId}/${myNickname}`,
     '_blank',
     'width=500, height=500, top=500px, left=1000px'
   );

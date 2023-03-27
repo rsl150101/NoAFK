@@ -8,7 +8,7 @@ const chatsController = new ChatsController();
 router.post('/:chatId', checkToken, chatsController.postTeamMessage);
 
 router.post(
-  '/:teamId/:memberId',
+  '/:teamId/:nickname/:memberNickname',
   checkToken,
   chatsController.postPrivateMessage
 );

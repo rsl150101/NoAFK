@@ -9,35 +9,49 @@
   </head>
   <body>
     <main class="teamChat__main">
-      <div id="userNickname" style="display: none">nickname</div>
+      <div id="userNickname" style="display: none">{{nickname}}</div>
       <div class="teamChat__column">
         <div class="teamChat__rooms" onclick="teamChatting()">
           <div>팀 채팅</div>
         </div>
-        {% for member in memberList %}
-
-        <div class="teamChat__rooms" onclick="whispering({{member.id}})">
+        {% for member in memberList %} {% if member.User.nickname === nickname
+        %}
+        <div
+          class="teamChat__rooms"
+          onclick="whispering(`{{member.User.nickname}}`)"
+        >
+          <div>나</div>
+        </div>
+        {% else %}
+        <div
+          class="teamChat__rooms"
+          onclick="whispering(`{{member.User.nickname}}`)"
+        >
           <div>{{member.User.nickname}}</div>
         </div>
-
-        {% endfor %}
+        {% endif %} {% endfor %}
       </div>
       <div class="teamChat__column">
         <!-- 수신받을 메시지가 노출될 div -->
         <div id="messages">
-          {% for chatting in chattingList %}
-          <div>{{chatting.msg}}</div>
-          {% endfor %}
+          {% for chatting in chattingList %} {% if chatting.User.nickname ===
+          nickname %}
+          <div class="my-chat">
+            <span class="my-chat__nickname">👈{{chatting.User.nickname}}</span
+            ><span>{{chatting.msg}}</span>
+          </div>
+          {% else %}
+          <div class="others-chat">
+            <span class="others-chat__nickname"
+              >{{chatting.User.nickname}}👉</span
+            ><span>{{chatting.msg}}</span>
+          </div>
+          {% endif %} {% endfor %}
         </div>
         <!-- 메시지 폼 -->
         <form id="messages-form" name="publish">
           <input id="messages-input" type="text" name="message" />
-          <button
-            id="messages-send"
-            type="button"
-            value="send"
-            onclick="sendMessage()"
-          ></button>
+          <input id="messages-send" type="submit" value="send" />
         </form>
       </div>
     </main>

@@ -25,10 +25,14 @@ router.get('/mypage', checkToken, usersController.renderMypage);
 router.get('/members', checkToken, usersController.renderSearchUserPage);
 
 router.get(
-  '/chat/:teamId/:memberId',
+  '/chat/:teamId/:nickname/:memberNickname',
   checkToken,
   chatsController.renderPrivateChatPage
 );
-router.get('/chat/:chatId', checkToken, chatsController.renderTeamChatPage);
+router.get(
+  '/chat/:chatId/:nickname',
+  checkToken,
+  chatsController.renderTeamChatPage
+);
 
 module.exports = router;

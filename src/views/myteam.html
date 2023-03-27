@@ -12,6 +12,7 @@
   <body>
     {% include "partials/page-header.html"%}
     <main class="main-screen home-screen" id="myteam-main">
+      <div id="userNickname" style="display: none">{{nickname}}</div>
       <section>
         <div id="myteam-title"><h1>{{teamName}}</h1></div>
       </section>
@@ -46,7 +47,7 @@
               <th>
                 <button
                   id="chat-{{member.id}}"
-                  onclick="whispering({{member.id}})"
+                  onclick="whispering(`{{member.User.nickname}}`)"
                 >
                   귓속말
                 </button>

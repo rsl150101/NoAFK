@@ -26,10 +26,10 @@
   }
 })();
 
-const searchForm = document.getElementById('formSearch');
+const formSearch = document.getElementById('formSearch');
 const selectElement = document.getElementById('sfl');
 
-searchForm.addEventListener('submit', () => {
+formSearch.addEventListener('submit', () => {
   const searchValue = document.getElementById('stx').value;
   setCookie('searchUsers', searchValue);
 });

@@ -6,11 +6,15 @@
 @import './components/page-header.css';
 @import './components/page-footer.css';
 @import './components//main-section-header.css';
+@import './components/admin-main-table.css';
+@import './components/admin-main.css';
 
 /* screens */
 @import './screen/home-screen.css';
 @import './screen/projects-screen.css';
 @import './screen/projects-add-modal-screen.css';
+@import './screen/admin-projects-screen.css';
+@import './screen/admin-users-screen.css';
 
 @font-face {
   font-family: 'Montserrat';
@@ -51,4 +55,12 @@ body {
 
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera*/
+}
+
+.pagination--bold {
+  font-weight: 700;
+}
+
+.pagination--margin {
+  margin: 0 5px;
 }
