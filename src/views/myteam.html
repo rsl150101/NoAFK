@@ -198,7 +198,10 @@
     ></script>
     <script>
       const userNickname = `{{nickname}}`;
-      const teamLeader = document.querySelector('#teamLeader').textContent;
+      let teamLeader = '';
+      if (document.querySelector('#teamLeader')) {
+        teamLeader = document.querySelector('#teamLeader').textContent;
+      }
 
       if (userNickname !== teamLeader) {
         const displayElementList = document.querySelectorAll('.leader-display');

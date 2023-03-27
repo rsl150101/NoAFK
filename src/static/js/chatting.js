@@ -46,7 +46,10 @@ socket.on('message', (message) => {
 function showMyMessage(obj) {
   let messageElem = document.createElement('div');
   messageElem.classList.add('my-chat');
-  messageElem.innerHTML = `<span class='my-chat__nickname'>👈${obj.params.nickname}</span><span>${obj.params.value}</span>`;
+  messageElem.insertAdjacentHTML(
+    'beforeend',
+    `<span class='my-chat__nickname'>👈${obj.params.nickname}</span><span>${obj.params.value}</span>`
+  );
   document.getElementById('messages').append(messageElem);
 
   scrollDownToBottom();
@@ -59,7 +62,10 @@ function showOthersMessage(message) {
   }
   let messageElem = document.createElement('div');
   messageElem.classList.add('others-chat');
-  messageElem.innerHTML = `<span class='others-chat__nickname'>${obj.params.nickname}👉</span><span>${obj.params.value}</span>`;
+  messageElem.insertAdjacentHTML(
+    'beforeend',
+    `<span class='others-chat__nickname'>${obj.params.nickname}👉</span><span>${obj.params.value}</span>`
+  );
   document.getElementById('messages').append(messageElem);
 
   scrollDownToBottom();
