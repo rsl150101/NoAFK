@@ -82,7 +82,7 @@ const postModalData = async () => {
     const title = document.getElementById('title').value;
     const content = document.getElementById('content').value;
     const teamName = document.getElementById('teamName').value;
-    const techStack = document.getElementById('techStack').value;
+    let techStack = document.getElementById('techStack').value;
     const person = document.getElementById('person').value;
     const recruitDeadline = recruitDeadlineDate.value;
     const projectStart = projectStartDate.value;
@@ -110,6 +110,8 @@ const postModalData = async () => {
         })
         .then((data) => (image = data.image));
     }
+
+    techStack = techStack.replaceAll(' ', '');
 
     const projectInfo = {
       title,

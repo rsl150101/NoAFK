@@ -19,7 +19,7 @@
 }
 
 .more-projects {
-  height: 500px;
+  height: 550px;
   width: 100%;
   position: relative;
   overflow-y: scroll;
@@ -37,6 +37,10 @@
   top: 0;
   display: flex;
   justify-content: space-between;
+}
+
+.more-projects header {
+  font-weight: 700;
 }
 
 .more-projects main {
@@ -77,5 +81,6 @@
 
 .more-projects__item small {
   font-size: 0.9em;
-  color: var(--light-gray);
+  color: var(--gray);
+  font-weight: 700;
 }
