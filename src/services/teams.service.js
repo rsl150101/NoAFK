@@ -38,6 +38,24 @@ class TeamService {
     }
   };
 
+  findApplyTeam = async (userId) => {
+    try {
+      const applyPosition = 0;
+      const applyTeamList = await this.teamRepository.findApplyTeam(
+        userId,
+        applyPosition
+      );
+      return await Promise.all(
+        applyTeamList.map(async (team) => {
+          const projectId = team.projectId;
+          return await this.projectRepository.findProjectById(projectId);
+        })
+      );
+    } catch (error) {
+      throw error;
+    }
+  };
+
   findMostRecentTeamByUserId = async (userId) => {
     try {
       return await this.projectRepository.findMostRecentIdByUserId(userId);
