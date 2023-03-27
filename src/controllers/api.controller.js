@@ -165,7 +165,6 @@ class ApiController {
       const { status, message, authString } =
         await this.userService.sendEmailAuth(email);
 
-      res.clearCookie('authString');
       res.cookie('authString', authString);
       res.status(status).json({ message });
     } catch (error) {
