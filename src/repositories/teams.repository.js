@@ -33,6 +33,7 @@ class TeamRepository {
             attributes: ['nickname'],
           },
         ],
+        order: [['position', 'DESC']],
       });
     } catch (error) {
       error.status = 500;
