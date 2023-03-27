@@ -6,10 +6,6 @@ function updateMember(memberId) {
   const thTask = document.querySelector(`#task-${memberId}`);
   const thConfig = document.querySelector(`#config-${memberId}`);
 
-  // positionDataValue.innerText = '';
-  // thTask.innerText = '';
-  // thConfig.innerText = '';
-
   // 직책 - select 태그 조작
   const positionDataValue = thPosition.dataset.value;
 
