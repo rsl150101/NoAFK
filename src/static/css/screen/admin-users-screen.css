@@ -1,0 +1,22 @@
+.admin-users-screen section header div a:first-child {
+  font-weight: 700;
+}
+
+.admin-users-screen section nav {
+  display: flex;
+  justify-content: center;
+}
+
+.admin-users-screen section form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.admin-users-screen section nav ul {
+  display: flex;
+}
+
+.admin-users-screen section nav ul li {
+  margin: 0 5px;
+}

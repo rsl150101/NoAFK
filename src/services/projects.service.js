@@ -144,7 +144,8 @@ class ProjectService {
       }
 
       if (!cursor) {
-        cursor = 0;
+        const { id } = await this.projectRepository.findOneLastProject();
+        cursor = id + 1;
       }
 
       if (!search) {
@@ -196,7 +197,6 @@ class ProjectService {
       } else {
         throw new Error('url이 올바르지 않습니다.');
       }
-
       const nextCursor = projects.length === limit ? projects.at(-1).id : null;
       const pageTitle = page.replace(/^[a-z]/, (char) => char.toUpperCase());
       return { nextCursor, page, projects, pageTitle };

@@ -1,4 +1,16 @@
-.main-screen section header {
+.main-screen section header,
+.admin-main-screen section header {
   padding-bottom: 20px;
   border-bottom: 1px solid var(--light-gray);
+}
+
+.admin-main-screen section header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.admin-main-screen section header h1 {
+  font-weight: 700;
+  font-size: 1.3em;
 }

@@ -1,0 +1,15 @@
+.admin-projects-screen section header div a:last-child {
+  font-weight: 700;
+}
+
+.admin-projects-screen section form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-projects-screen section > div {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
