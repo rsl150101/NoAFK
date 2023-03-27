@@ -78,6 +78,23 @@ class ProjectRepository {
     }
   };
 
+  findProjectWithNicknameById = async (id) => {
+    try {
+      return await this.projectModel.findAll({
+        where: { id },
+        include: [
+          {
+            model: User,
+            attributes: ['nickname'],
+          },
+        ],
+        order: [['id', 'DESC']],
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
   findAllProjectsByUserId = async (owner) => {
     try {
       return await this.projectModel.findAll({

@@ -40,6 +40,18 @@ class TeamRepository {
     }
   };
 
+  findApplyTeam = async (userId, position) => {
+    try {
+      return await this.teamModel.findAll({
+        attributes: ['projectId'],
+        where: { userId, position },
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
   findMemberIdByUserIdAndTeamId = async (userId, teamId) => {
     try {
       return await this.teamModel.findOne({

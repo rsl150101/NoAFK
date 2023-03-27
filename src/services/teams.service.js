@@ -23,14 +23,30 @@ class TeamService {
         userId
       );
 
-      if (allTeamByUserId.length === 0) {
-        throw error;
-      }
-
       return await Promise.all(
         allTeamByUserId.map(async (team) => {
           const projectId = team.projectId;
           return await this.projectRepository.findProjectById(projectId);
+        })
+      );
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  findApplyTeam = async (userId) => {
+    try {
+      const applyPosition = 0;
+      const applyTeamList = await this.teamRepository.findApplyTeam(
+        userId,
+        applyPosition
+      );
+      return await Promise.all(
+        applyTeamList.map(async (team) => {
+          const projectId = team.projectId;
+          return await this.projectRepository.findProjectWithNicknameById(
+            projectId
+          );
         })
       );
     } catch (error) {
