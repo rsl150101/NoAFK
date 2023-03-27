@@ -74,17 +74,11 @@ const checkToken = async (req, res, next) => {
         throw error;
       } else {
         // case2: access token은 만료됐지만, refresh token은 유효한 경우 => 새로 accessToken 발급
-        let userId = checkRefresh.id;
+        let id = checkRefresh.id;
         // 새로운 액세스토큰 발급
-        accessToken = jwt.sign(
-          {
-            id: userId,
-          },
-          process.env.KAKAO_SECRET,
-          {
-            expiresIn: '2h',
-          }
-        );
+        accessToken = jwt.sign({ id }, process.env.KAKAO_SECRET, {
+          expiresIn: '2h',
+        });
         res.cookie('accessToken', accessToken);
       }
     } else {
