@@ -67,41 +67,37 @@ const checkToken = async (req, res, next) => {
     const checkAccess = verifyToken(accessToken);
     const checkRefresh = verifyToken(refreshToken);
 
-    if (checkAccess === null) {
-      if (checkRefresh === null) {
+    if (checkAccess === undefined) {
+      if (checkRefresh === undefined) {
         // case1: access token과 refresh token 모두만료
         const error = new TokenExpired();
         throw error;
       } else {
         // case2: access token은 만료됐지만, refresh token은 유효한 경우 => 새로 accessToken 발급
         let userId = checkRefresh.id;
-        let { id, email, nickname } = await User.findAll({
-          where: { id: userId },
-        });
-
-        const newAccessToken = jwt.sign(
+        // 새로운 액세스토큰 발급
+        accessToken = jwt.sign(
           {
-            id,
-            email,
-            nickname,
+            id: userId,
           },
           process.env.KAKAO_SECRET,
           {
-            expiresIn: '6h',
+            expiresIn: '2h',
           }
         );
-        res.cookie('accessToken', newAccessToken);
+        res.cookie('accessToken', accessToken);
       }
     } else {
-      if (checkRefresh === null) {
+      if (checkRefresh === undefined) {
         // case3: access token은 유효하지만, refresh token은 만료된 경우 => 새로 refreshToken 발급
         let id = checkAccess.id;
 
-        const newRefreshToken = jwt.sign({ id }, process.env.KAKAO_SECRET, {
+        // 새로운 리프레쉬토큰 발급
+        refreshToken = jwt.sign({ id }, process.env.KAKAO_SECRET, {
           expiresIn: '14d',
         });
 
-        res.cookie('refreshToken', newRefreshToken);
+        res.cookie('refreshToken', refreshToken);
         redisClient.set(id, refreshToken);
       }
     }
