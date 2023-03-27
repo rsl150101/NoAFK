@@ -80,7 +80,7 @@ class ProjectRepository {
 
   findProjectWithNicknameById = async (id) => {
     try {
-      return await this.projectModel.findAll({
+      return await this.projectModel.findOne({
         where: { id },
         include: [
           {
@@ -88,7 +88,6 @@ class ProjectRepository {
             attributes: ['nickname'],
           },
         ],
-        order: [['id', 'DESC']],
       });
     } catch (error) {
       throw error;

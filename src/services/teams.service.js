@@ -36,13 +36,25 @@ class TeamService {
 
   findApplyTeam = async (userId) => {
     try {
-      const applyPosition = 0;
-      const applyTeamList = await this.teamRepository.findApplyTeam(
-        userId,
-        applyPosition
-      );
+      const applyTeamList = await this.teamRepository.findApplyTeam(userId);
       return await Promise.all(
         applyTeamList.map(async (team) => {
+          const projectId = team.projectId;
+          return await this.projectRepository.findProjectWithNicknameById(
+            projectId
+          );
+        })
+      );
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  findHostTeam = async (userId) => {
+    try {
+      const hostTeamList = await this.teamRepository.findHostTeam(userId);
+      return await Promise.all(
+        hostTeamList.map(async (team) => {
           const projectId = team.projectId;
           return await this.projectRepository.findProjectWithNicknameById(
             projectId
@@ -106,15 +118,19 @@ class TeamService {
   };
 
   verifyNickname = async (nickname) => {
-    if (!nickname) {
-      return false;
-    }
-    const UserInfo = await this.userRepository.findIdByNickname(nickname);
+    try {
+      if (!nickname) {
+        return false;
+      }
+      const UserInfo = await this.userRepository.findIdByNickname(nickname);
 
-    if (!UserInfo) {
-      return false;
-    } else {
-      return UserInfo.id;
+      if (!UserInfo) {
+        return false;
+      } else {
+        return UserInfo.id;
+      }
+    } catch (error) {
+      throw error;
     }
   };
 
@@ -122,6 +138,19 @@ class TeamService {
     try {
       return await this.teamRepository.createTeamMember(
         position,
+        userId,
+        teamId
+      );
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  inviteNewUser = async (userId, teamId) => {
+    try {
+      const invitationPosition = 4;
+      return await this.teamRepository.createTeamMember(
+        invitationPosition,
         userId,
         teamId
       );

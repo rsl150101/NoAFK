@@ -41,11 +41,23 @@ class TeamRepository {
     }
   };
 
-  findApplyTeam = async (userId, position) => {
+  findApplyTeam = async (userId) => {
     try {
       return await this.teamModel.findAll({
         attributes: ['projectId'],
-        where: { userId, position },
+        where: { userId, position: 0 },
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  findHostTeam = async (userId) => {
+    try {
+      return await this.teamModel.findAll({
+        attributes: ['projectId'],
+        where: { userId, position: 4 },
       });
     } catch (error) {
       error.status = 500;
@@ -68,7 +80,7 @@ class TeamRepository {
   createTeamMember = async (position, userId, teamId) => {
     try {
       await this.teamModel.create({
-        position, // 0 == 신청자, 1 == 팀페이지에서 바로 추가
+        position, // 0: 신청자, 4: 초대자
         userId,
         projectId: teamId,
       });

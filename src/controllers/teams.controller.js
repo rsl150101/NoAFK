@@ -47,12 +47,15 @@ class TeamsController {
 
       const myTeamList = await this.teamService.findAllTeamByUserId(id);
       const applyTeamList = await this.teamService.findApplyTeam(id);
+      const hostTeamList = await this.teamService.findHostTeam(id);
       return res.render('myTeamList', {
         pageTitle: 'My Team List',
         myTeamList,
         applyTeamList,
+        hostTeamList,
       });
     } catch (error) {
+      throw error;
       return res.render('deletedTeam', {
         pageTitle: 'NoTeam',
         pageContent: '팀을 찾을 수 없습니다.',
@@ -75,7 +78,7 @@ class TeamsController {
   postTeamMember = async (req, res, next) => {
     try {
       const { teamId } = req.params;
-      const { nickname, position } = req.body;
+      const { nickname } = req.body;
 
       const userIdverifiedByNickname = await this.teamService.verifyNickname(
         nickname
@@ -94,13 +97,11 @@ class TeamsController {
         const error = new AlreadyMember();
         throw error;
       }
-
-      const newMember = await this.teamService.addNewMember(
-        position,
+      const invitedUser = await this.teamService.inviteNewUser(
         userIdverifiedByNickname,
         teamId
       );
-      return res.status(201).json(newMember);
+      return res.status(201).json(invitedUser);
     } catch (error) {
       res.status(400).json({ message: error.message });
     }

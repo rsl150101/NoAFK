@@ -43,8 +43,7 @@
         <h2>참가 신청한 팀</h2>
         {% if applyTeamList.length === 0 %}
         <div class="applyTeam__none"><p>참가 신청을 한 팀이 없습니다.</p></div>
-        {% else %} {% for applyTeamArray in applyTeamList %} {% for applyTeam in
-        applyTeamArray %}
+        {% else %} {% for applyTeam in applyTeamList %}
         <div
           onclick="goProjectPage({{applyTeam.id}})"
           id="applyTeam-{{applyTeam.id}}"
@@ -66,7 +65,33 @@
             <span>모집마감: </span>{{applyTeam.recruitDeadline}}
           </div>
         </div>
-        {% endfor %} {% endfor %} {% endif %}
+        {% endfor %} {% endif %}
+      </section>
+
+      <section class="hostTeam__section section">
+        <h2>초대받은 팀</h2>
+        {% if hostTeamList.length === 0 %}
+        <div class="hostTeam__none"><p>초대받은 팀이 없습니다.</p></div>
+        {% else %} {% for hostTeam in hostTeamList %}
+        <div
+          onclick="goTeamPage({{hostTeam.id}})"
+          id="hostTeam-{{hostTeam.id}}"
+          class="hostTeam__row"
+        >
+          <div class="hostTeam__teamName">
+            <span>팀이름: </span>{{hostTeam.teamName}}
+          </div>
+          <div class="hostTeam__owner">
+            <span>등록자: </span>{{hostTeam.User.nickname}}
+          </div>
+          <div class="hostTeam__techStack">
+            <span>기술스택: </span>{{hostTeam.techStack}}
+          </div>
+          <div class="hostTeam__recruitDeadline">
+            <span>모집마감: </span>{{hostTeam.recruitDeadline}}
+          </div>
+        </div>
+        {% endfor %} {% endif %}
       </section>
     </main>
     {% include "partials/page-footer.html"%}
