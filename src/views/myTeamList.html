@@ -12,10 +12,13 @@
   <body>
     {% include "partials/page-header.html"%}
     <main id="myTeamList__main">
-      <section>
+      <section class="myTeamList__section section">
         <h2>참가중인 팀</h2>
-        {% set status = ['모집중', '모집마감', '준비', '진행중', '테스트',
-        '종료'] %} {% for myTeam in myTeamList %} {% if myTeam.status !== 0 %}
+        {% if myTeamList.length === 0 %}
+        <div class="myTeamList__none"><p>참가중인 팀이 없습니다.</p></div>
+        {% else %} {% set status = ['모집중', '모집마감', '준비', '진행중',
+        '테스트', '종료'] %} {% for myTeam in myTeamList %} {% if myTeam.status
+        !== 0 %}
         <div
           onclick="goTeamPage({{myTeam.id}})"
           id="row-{{myTeam.id}}"
@@ -34,11 +37,13 @@
             <span>생성일: </span>{{myTeam.createdAt}}
           </div>
         </div>
-        {% endif %} {% endfor %}
+        {% endif %} {% endfor %} {% endif %}
       </section>
-      <section>
+      <section class="applyTeam__section section">
         <h2>참가 신청한 팀</h2>
-        {% for applyTeamArray in applyTeamList %} {% for applyTeam in
+        {% if applyTeamList.length === 0 %}
+        <div class="applyTeam__none"><p>참가 신청을 한 팀이 없습니다.</p></div>
+        {% else %} {% for applyTeamArray in applyTeamList %} {% for applyTeam in
         applyTeamArray %}
         <div
           onclick="goProjectPage({{applyTeam.id}})"
@@ -61,7 +66,7 @@
             <span>모집마감: </span>{{applyTeam.recruitDeadline}}
           </div>
         </div>
-        {% endfor %} {% endfor %}
+        {% endfor %} {% endfor %} {% endif %}
       </section>
     </main>
     {% include "partials/page-footer.html"%}

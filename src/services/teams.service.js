@@ -23,10 +23,6 @@ class TeamService {
         userId
       );
 
-      if (allTeamByUserId.length === 0) {
-        throw error;
-      }
-
       return await Promise.all(
         allTeamByUserId.map(async (team) => {
           const projectId = team.projectId;

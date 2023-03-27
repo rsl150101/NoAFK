@@ -1,3 +1,14 @@
+.section {
+  padding: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid lightgray;
+}
+
+.myTeamList__section > h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .myTeamList__row {
   display: flex;
   padding: 20px;
@@ -15,6 +26,17 @@
   color: gray;
 }
 
+.myTeamList__none {
+  display: flex;
+  padding: 20px;
+  margin: 20px;
+}
+
+.applyTeam__section > h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .applyTeam__row {
   display: flex;
   padding: 20px;
@@ -30,4 +52,10 @@
 
 .applyTeam__row span {
   color: gray;
+}
+
+.applyTeam__none {
+  display: flex;
+  padding: 20px;
+  margin: 20px;
 }
