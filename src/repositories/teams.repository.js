@@ -11,11 +11,11 @@ class TeamRepository {
   // Therefore, In TeamRouter, URL: /team/:teamId 👉 TeamId == ProjectId
   // And, In this repository, "ProjectUserId" is used as "TeamMemberId".
 
-  // 신청자가 아닌 참가자일때만
+  // 초대자, 신청자가 아닌 참가자일때만
   findByTeamMemberId = async (userId) => {
     try {
       return await this.teamModel.findAll({
-        where: { userId, position: { [Op.ne]: 0 } },
+        where: { userId, position: { [Op.ne]: 0, [Op.ne]: 4 } },
       });
     } catch (error) {
       error.status = 500;
@@ -88,7 +88,7 @@ class TeamRepository {
       if (position === 0) {
         return { status: 201, message: '팀 합류 신청 성공!' };
       }
-      return { status: 201, message: '팀원 추가 성공!' };
+      return { status: 201, message: '팀에 초대하였습니다.' };
     } catch (error) {
       error.status = 500;
       throw error;
