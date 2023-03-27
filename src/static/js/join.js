@@ -125,6 +125,7 @@ function emailAuthCheck() {
   emailAuthCheckBtn.style.display = 'none';
   document.getElementById('send-email').style.display = 'none';
 
+  logout();
   return alert('인증되었습니다.');
 }
 
@@ -244,8 +245,4 @@ const join = async () => {
 // 로그아웃 - 쿠키지워줄려고 사용
 const logout = async () => {
   await fetch('/api/auth/logout');
-};
-
-window.onbeforeunload = function () {
-  return logout();
 };
