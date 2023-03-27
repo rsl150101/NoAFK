@@ -108,6 +108,11 @@ select {
   background-color: #fff;
   border: 1px solid #dee2e6;
 }
+.page-item.active .page-link {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
 .color_active {
   color: #37c375;
 }

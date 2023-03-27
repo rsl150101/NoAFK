@@ -15,6 +15,7 @@ let passPassword = false;
 let passNickname = false;
 
 function emailCheck() {
+  passEmail = false;
   // 이메일: aaa@aaa.aaa
   const emailCheck = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
@@ -27,6 +28,8 @@ function emailCheck() {
 }
 
 function emailRecheck() {
+  emailAuthRecheck();
+  document.getElementById('emailOKMsg').style.display = 'none';
   document.getElementById('email-db-check').style.display = 'block';
   document.getElementById('send-email').style.display = 'none';
   emailCheck();
@@ -47,6 +50,7 @@ function passwordCheck() {
 }
 
 function passwordTwiceCheck() {
+  passPassword = false;
   if (passwordInput.value !== passwordTwice.value) {
     return (document.getElementById('passwordCheckMsg').style.display =
       'block');
@@ -57,6 +61,8 @@ function passwordTwiceCheck() {
 }
 
 function nicknameCheck() {
+  passNickname = false;
+
   // 닉네임:한글포함영어대소문자숫자
   const nicknameCheck = /^[A-za-z0-9가-힣]*.{1,20}$/;
 
@@ -69,6 +75,7 @@ function nicknameCheck() {
 }
 
 function nicknameRecheck() {
+  document.getElementById('nicknameOKMsg').style.display = 'none';
   document.getElementById('nickname-db-check').style.display = 'block';
   nicknameCheck();
 }
@@ -98,6 +105,8 @@ const sendEmailAuth = async () => {
 };
 
 function emailAuthCheck() {
+  useEmail = false;
+
   const emailAuthCheck = document.getElementById('emailCheck').value;
 
   let authString;
@@ -115,12 +124,15 @@ function emailAuthCheck() {
   useEmail = true;
   emailAuthCheckBtn.style.display = 'none';
   document.getElementById('send-email').style.display = 'none';
+
+  logout();
   return alert('인증되었습니다.');
 }
 
 function emailAuthRecheck() {
+  useEmail = false;
   emailAuthCheckBtn.style.display = 'block';
-  emailAuthCheck();
+  emailAuthCheckBtn.addEventListener('click', emailAuthCheck);
 }
 
 emailAuthCheckBtn.addEventListener('click', emailAuthCheck);
@@ -233,8 +245,4 @@ const join = async () => {
 // 로그아웃 - 쿠키지워줄려고 사용
 const logout = async () => {
   await fetch('/api/auth/logout');
-};
-
-window.onbeforeunload = function () {
-  return logout();
 };
