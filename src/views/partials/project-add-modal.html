@@ -28,6 +28,7 @@
       type="datetime-local"
       name="recruitDeadline"
       id="recruitDeadline"
+      max="9999-12-31T23:59"
       required
     />
     <label for="projectStart">프로젝트 시작일</label>
@@ -35,10 +36,17 @@
       type="datetime-local"
       name="projectStart"
       id="projectStart"
+      max="9999-12-31T23:59"
       required
     />
     <label for="projectEnd">프로젝트 종료일</label>
-    <input type="datetime-local" name="projectEnd" id="projectEnd" required />
+    <input
+      type="datetime-local"
+      name="projectEnd"
+      id="projectEnd"
+      max="9999-12-31T23:59"
+      required
+    />
     <label for="thumbnail">썸네일 업로드</label>
     <input
       type="file"
