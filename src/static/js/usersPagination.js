@@ -22,13 +22,14 @@ if (currentPage > 1) {
 
 // 페이지 그룹의 마지막 페이지까지 페이지 숫자 렌더링 하기
 for (let i = 1; i <= totalPages; i++) {
+  const activeClass = currentPage == i ? 'active' : '';
   if (isSearchParams) {
     pages.push(
-      `<li class="page-item"><a class="page-link" href='?page=${i}&sfl=${sfl}&stx=${stx}'>${i}</a></li>`
+      `<li class="page-item ${activeClass}"><a class="page-link" href='?page=${i}&sfl=${sfl}&stx=${stx}'>${i}</a></li>`
     );
   } else {
     pages.push(
-      `<li class="page-item"><a class="page-link" href='?page=${i}'>${i}</a></li>`
+      `<li class="page-item ${activeClass}"><a class="page-link" href='?page=${i}'>${i}</a></li>`
     );
   }
 }
@@ -45,4 +46,6 @@ if (currentPage < totalPages) {
       </li>`);
 }
 
-document.getElementById('pagination-wrap').innerHTML = pages.join('');
+document
+  .getElementById('pagination-wrap')
+  .insertAdjacentHTML('afterbegin', pages.join(''));
