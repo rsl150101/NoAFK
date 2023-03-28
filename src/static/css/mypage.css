@@ -162,3 +162,17 @@ table.type09 td {
 #submit-image {
   margin-top: 150px;
 }
+
+#privateButton {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  /* background-color: orange; */
+}
+
+#private {
+  text-align: center;
+  cursor: pointer;
+  width: 125px;
+  height: 20px;
+}

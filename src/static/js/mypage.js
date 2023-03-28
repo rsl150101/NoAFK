@@ -117,27 +117,6 @@ function submitImage(id) {
     });
 }
 
-function getInfo(id) {
-  fetch('projects/' + id + '/project')
-    .then((response) => response.json())
-    .then((data) => {
-      for (let i = 0; i < data.length; i++) {
-        const { id, title, content, teamName, person, projectEnd } =
-          data[i].Project;
-        const { nickname } = data[i].Project.User;
-        let temp_html = `<tr>
-                          <th scope="row" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"><a href="/teams/${id}">${title}</a></th>
-                          <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${content}</td>
-                          <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${teamName}</td>
-                          <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${nickname}</td>
-                          <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${person}</td>
-                          <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${projectEnd}</td>
-                        </tr>`;
-        document.getElementById('progressUserProject').innerHTML += temp_html;
-      }
-    });
-}
-
 window.onkeyup = function(e) {
 	var key = e.keyCode ? e.keyCode : e.which;
 
@@ -159,4 +138,8 @@ function setThumbnail(event) {
   };
 
   reader.readAsDataURL(event.target.files[0]);
+}
+
+function updatePrivateStatus(id) {
+  alert(id)
 }

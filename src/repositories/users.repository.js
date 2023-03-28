@@ -258,6 +258,7 @@ class UserRepository {
           'introduction',
           'image',
           'expiredAt',
+          'privateEmail',
         ],
       });
 

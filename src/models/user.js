@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: '/./images/baseprofile.png',
       },
-      private: {
+      privateEmail: {
         type: DataTypes.BOOLEAN,
         defaultValue: 0,
       },
