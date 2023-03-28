@@ -1,8 +1,12 @@
-{% extends 'base.html' %} {% block content %}
-<head>
-  <link rel="stylesheet" href="css/members.css" />
-</head>
-<main>
+{% extends 'base.html' %} {% block headblock %}
+<link rel="stylesheet" href="css/members.css" />
+{% endblock %}{% block content %}
+<main class="main-screen members-screen">
+  <section>
+    <header>
+      <h1>전체 유저 목록</h1>
+    </header>
+  </section>
   <div id="wrapper">
     <div id="container">
       <div class="container_wr">
@@ -18,7 +22,7 @@
               </select>
             </div>
             <div class="form_div">
-              <strong>유저조회</strong>
+              <strong>유저 조회</strong>
               <input
                 class="input txt"
                 type="text"
@@ -38,7 +42,7 @@
 
         <!-- 유저리스트 -->
         {% if users.length > 0 %}
-        <div id="user_wr">
+        <div id="user_wr" class="user-list">
           {% for user in users %}
           <div class="user-card">
             <img src="{{ user.image }}" class="ml-3" alt="..." />
