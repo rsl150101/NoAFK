@@ -48,22 +48,21 @@ class CommentRepository {
     }
   };
 
-  updateComment = async (commentId, content, projectId) => {
+  updateComment = async (id, content) => {
     try {
-      await this.commentModel.update(content, {
-        where: { id: commentId, projectId },
-      });
-      return { message: '댓글 수정 성공!' };
+      await this.commentModel.update(content, { where: { id } });
+
+      return { status: 200, message: '댓글 수정 성공' };
     } catch (error) {
       throw error;
     }
   };
 
-  deleteComment = async (projectId, commentId) => {
+  deleteComment = async (id) => {
     try {
-      return await this.commentModel.destroy({
-        where: { id: commentId, projectId },
-      });
+      await this.commentModel.destroy({ where: { id } });
+
+      return { status: 204, message: '댓글 삭제 성공' };
     } catch (error) {
       throw error;
     }
