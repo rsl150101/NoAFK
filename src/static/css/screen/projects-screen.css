@@ -54,6 +54,10 @@
   transform: translateY(2px);
 }
 
+.project-list li a h1 {
+  font-weight: 700;
+}
+
 .project-list li a pre {
   width: 100%;
   white-space: pre-wrap;
@@ -70,13 +74,19 @@
   height: 3.9em;
 }
 
-.project-list li a div {
+.project-list li a > div {
   display: grid;
   padding-top: 5px;
-  grid-template-columns: 85% minmax(85px, 15%);
+  grid-template-columns: 70% auto minmax(85px, 15%);
   grid-template-rows: repeat(2, 1fr);
   gap: 15px;
   font-size: 0.9em;
+}
+
+.project-list li a div div {
+  grid-row: span 2;
+  align-self: center;
+  color: var(--gray);
 }
 
 .project-list li a div h4 {
