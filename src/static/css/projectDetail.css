@@ -199,6 +199,10 @@ img {
   text-decoration-line: underline;
 }
 
+.btn-div .text-color-red {
+  color: red;
+}
+
 .new-btn {
   font-family: 'Montserrat', 'NotoSansKR', sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
