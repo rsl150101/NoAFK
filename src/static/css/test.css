@@ -1,6 +1,7 @@
 .test-header {
   display: flex;
   justify-content: space-between;
+  font-weight: 700;
 }
 
 #test-select-button {
@@ -23,7 +24,7 @@ table.type04 {
   text-align: left;
   line-height: 1.5;
   border-top: 1px solid #ced4da;
-  margin : 20px 10px;
+  margin: 20px 10px;
 }
 table.type04 th {
   width: 370px;
