@@ -148,12 +148,12 @@
               <p>모집인원 : {{project.person}}</p>
             </div>
             <div id="deadline" class="mt-4">
-              <p>모집마감 : {{project.recruitDeadline}}</p>
+              <p>모집마감 : {{ project.recruitDeadline.split(" ")[0] }}</p>
             </div>
             <div id="period" class="mt-4">
               <p>
-                프로젝트 기간 : {{project.projectStart}} ~
-                {{project.projectEnd}}
+                프로젝트 기간 : {{ project.projectStart.split(" ")[0] }} ~ {{
+                project.projectEnd.split(" ")[0] }}
               </p>
             </div>
             <div class="mt-4 mb-4" id="tech-stack">
