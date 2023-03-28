@@ -363,14 +363,23 @@ class UserService {
 
       const totalPages = Math.ceil(count / perPage);
 
+      console.log('🚀  file: users.service.js:358  rows:', rows);
       if (pathUrl === '/members') {
         const users = rows.map(
-          ({ email, nickname, testResult, introduction, image }) => ({
+          ({
             email,
             nickname,
             testResult,
             introduction,
             image,
+            privateEmail,
+          }) => ({
+            email,
+            nickname,
+            testResult,
+            introduction,
+            image,
+            privateEmail,
           })
         );
 

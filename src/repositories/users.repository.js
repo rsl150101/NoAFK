@@ -200,6 +200,7 @@ class UserRepository {
           'image',
           'expiredAt',
           'authLevel',
+          'privateEmail',
         ],
         order: [['id', 'ASC']],
       };
@@ -258,7 +259,6 @@ class UserRepository {
           'introduction',
           'image',
           'expiredAt',
-          'privateEmail',
         ],
       });
 
