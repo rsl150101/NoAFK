@@ -8,13 +8,13 @@ const joinDataValidation = joi.object({
     .string()
     .min(8)
     .max(20)
-    .pattern(new RegExp('^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$'))
+    .pattern(new RegExp('^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-])$'))
     .required(),
   nickname: joi
     .string()
     .min(1)
     .max(20)
-    .pattern(new RegExp('^[A-za-z0-9가-힣]*$'))
+    .pattern(new RegExp('^[가-힣a-zA-Z0-9]$'))
     .required(),
 });
 
