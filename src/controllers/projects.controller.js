@@ -151,6 +151,12 @@ class ProjectsController {
         .status(200)
         .render(page, { pageTitle, nextCursor, projects, search });
     } catch (error) {
+      if (error.message === 'url이 올바르지 않습니다.') {
+        return res.render('deletedTeam', {
+          pageTitle: 'Error',
+          pageContent: 'url이 올바르지 않습니다.',
+        });
+      }
       return res.status(500).json({ message: error.message });
     }
   };
