@@ -37,7 +37,7 @@
             <tr id="row-{{member.id}}">
               <!-- <th>{{member.id}}</th> -->
               {% if member.position === 3 %}
-              <th id="teamLeader">{{member.User.nickname}}</th>
+              <th class="teamLeader">{{member.User.nickname}}</th>
               {% else %}
               <th>{{member.User.nickname}}</th>
               {% endif %}
@@ -198,12 +198,14 @@
     ></script>
     <script>
       const userNickname = `{{nickname}}`;
-      let teamLeader = '';
-      if (document.querySelector('#teamLeader')) {
-        teamLeader = document.querySelector('#teamLeader').textContent;
+      let teamLeader = [];
+      if (document.querySelectorAll('.teamLeader')) {
+        for (let el of document.querySelectorAll('.teamLeader')) {
+          teamLeader.push(el.textContent);
+        }
       }
 
-      if (userNickname !== teamLeader) {
+      if (!teamLeader.includes(userNickname)) {
         const displayElementList = document.querySelectorAll('.leader-display');
         for (let displayElement of displayElementList) {
           displayElement.classList.add('authority');
