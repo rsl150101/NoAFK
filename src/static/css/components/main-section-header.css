@@ -4,12 +4,14 @@
   border-bottom: 1px solid var(--light-gray);
 }
 
+.main-screen section header,
 .admin-main-screen section header {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
 
+.main-screen section header h1,
 .admin-main-screen section header h1 {
   font-weight: 700;
   font-size: 1.3em;
