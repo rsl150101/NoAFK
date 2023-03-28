@@ -167,12 +167,11 @@ table.type09 td {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  /* background-color: orange; */
 }
 
 #private {
-  text-align: center;
+  margin-left: 10px;
   cursor: pointer;
   width: 125px;
-  height: 20px;
+  height: 15px;
 }

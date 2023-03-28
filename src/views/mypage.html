@@ -46,10 +46,6 @@
           </div>
         </header>
       </section>
-      <div id="privateButton">
-        <div></div>
-        <div id="private" onclick="updatePrivateStatus({{id}})"></div>{{privateStatus}}</div>
-      </div>
         <div id="user-profile">
           <div id="user-profile-image"><img src="{{image}}" alt="프로필사진" onerror=this.src="{{replaceImage}}"></div>
           <div id="user-profile-info">
@@ -60,7 +56,7 @@
               </tr>
               <tr>
                 <th scope="row">이메일</th>
-                <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{email}}</td>
+                <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap; display: flex;">{{email}}&nbsp;&nbsp;<div id="private" onclick="updatePrivateStatus({{id}})">{{privateStatus}}</div></td>
               </tr>
               <tr>
                 <th scope="row">닉네임</th>
