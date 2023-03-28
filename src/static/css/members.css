@@ -1,9 +1,11 @@
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+.members-screen {
+  width: 70%;
 }
+
+.members-screen section {
+  margin-top: 20px;
+}
+
 select {
   padding: 0 24px;
   border: 0;
@@ -31,7 +33,7 @@ select {
   border-radius: 10px;
   padding: 15px 22px;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 .sch_area .input.txt {
   height: 48px;
@@ -76,10 +78,36 @@ select {
   margin-left: 0rem !important;
   /* margin-top: -0.25rem !important; */
 }
+
+.user-list {
+  overflow-y: scroll;
+  display: grid;
+  height: 600px;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+/*스크롤바*/
+.user-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+/*스크롤바의 드래그 핸들*/
+.user-list::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-drag-color);
+  border-radius: 5px;
+}
+
+/*스크롤바 트랙*/
+.user-list::-webkit-scrollbar-track {
+  background-color: white;
+  border-radius: 5px;
+}
+
 .user-card {
   padding: 1rem;
-  margin-bottom: 1.2rem;
-  background-color: #ffdfdf;
+  margin: 1.2rem;
   border-radius: 25px;
   box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
   display: flex;
