@@ -15,7 +15,13 @@ class TeamRepository {
   findByTeamMemberId = async (userId) => {
     try {
       return await this.teamModel.findAll({
-        where: { userId, position: { [Op.ne]: 0, [Op.ne]: 4 } },
+        where: {
+          userId,
+          [Op.and]: [
+            { position: { [Op.ne]: 0 } },
+            { position: { [Op.ne]: 4 } },
+          ],
+        },
       });
     } catch (error) {
       error.status = 500;
