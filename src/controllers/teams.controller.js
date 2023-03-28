@@ -11,14 +11,18 @@ class TeamsController {
 
   renderTeamPage = async (req, res, next) => {
     try {
+      if (!res.locals.user) {
+        return res.redirect('/login');
+      }
+
       const { teamId } = req.params;
       const { nickname } = res.locals.user;
 
       const memberList = await this.teamService.findAllByTeamId(teamId);
 
       if (memberList.length === 0) {
-        return res.render('deletedTeam', {
-          pageTitle: 'NoTeam',
+        return res.render('404', {
+          pageTitle: 'No Team',
           pageContent: '팀이 존재하지 않습니다.',
         });
       }
@@ -34,7 +38,7 @@ class TeamsController {
         nickname,
       });
     } catch (error) {
-      return res.render('deletedTeam', {
+      return res.render('404', {
         pageTitle: 'NoTeam',
         pageContent: '팀을 찾을 수 없습니다.',
       });
@@ -55,7 +59,7 @@ class TeamsController {
         hostTeamList,
       });
     } catch (error) {
-      return res.render('deletedTeam', {
+      return res.render('404', {
         pageTitle: 'NoTeam',
         pageContent: '팀을 찾을 수 없습니다.',
       });
