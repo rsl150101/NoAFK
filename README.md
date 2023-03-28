@@ -54,235 +54,210 @@
 </div>
 <br>
 
-<div align=center><h1>👥 멤버</h1></div>
-<a href="https://github.com/rsl150101/NoAFK/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=rsl150101/NoAFK" />
-</a>
+<div align=center><h1>👥 멤버</h1>
+  <a href="https://github.com/Jeongjiw00">
+    <img src="https://avatars.githubusercontent.com/u/118160093" width="70" height="70" style="border-radius:50%">
+  </a>
+  <a href="https://github.com/rsl150101">
+    <img src="https://avatars.githubusercontent.com/u/95523340" width="70" height="70" style="border-radius:50%">
+  </a>
+  <a href="https://github.com/go-tiger">
+    <img src="https://avatars.githubusercontent.com/u/64995762" width="70" height="70" style="border-radius:50%">
+  </a>
+  <a href="https://github.com/Kyeongjin-Park">
+    <img src="https://avatars.githubusercontent.com/u/109892131" width="70" height="70" style="border-radius:50%">
+  </a>
+  <a href="https://github.com/MintZzz1009">
+    <img src="https://avatars.githubusercontent.com/u/107108021" width="70" height="70" style="border-radius:50%">
+  </a>
+</div>
 
 ---
 
 ## ERD
 
-<img src="https://cdn.discordapp.com/attachments/1088831499782082570/1088834797448724551/ERD.png">
+<div align=center>
+  <img src="src/static/images/ERD.png">
+</div>
 
 ## 아키텍쳐
 
 ### 서비스
 
-<img src="https://cdn.discordapp.com/attachments/1088831499782082570/1088831561467711639/956b58987b4222b7.png" />
+<div align=center>
+  <img src="src/static/images/Service.png" />
+</div>
 
 ### 디렉토리 구조
 
-```bash
+<details>
+
+```
 📦NoAFK
-┣ 📂src
-┃ ┣ 📂config
-┃ ┃ ┗ 📜config.js
-┃ ┣ 📂controllers
-┃ ┃ ┣ 📜api.controller.js
-┃ ┃ ┣ 📜chats.controller.js
-┃ ┃ ┣ 📜comments.controller.js
-┃ ┃ ┣ 📜projects.controller.js
-┃ ┃ ┣ 📜teams.controller.js
-┃ ┃ ┗ 📜users.controller.js
-┃ ┣ 📂middlewares
-┃ ┃ ┣ 📜auth.js
-┃ ┃ ┗ 📜uploads.js
-┃ ┣ 📂migrations
-┃ ┃ ┣ 📜20230228073808-create-user.js
-┃ ┃ ┣ 📜20230228074008-create-project.js
-┃ ┃ ┣ 📜20230228075312-create-chatting.js
-┃ ┃ ┣ 📜20230228075356-create-comment.js
-┃ ┃ ┗ 📜20230228075512-create-project-user.js
-┃ ┣ 📂models
-┃ ┃ ┣ 📜chatting.js
-┃ ┃ ┣ 📜comment.js
-┃ ┃ ┣ 📜index.js
-┃ ┃ ┣ 📜project.js
-┃ ┃ ┣ 📜projectUser.js
-┃ ┃ ┗ 📜user.js
-┃ ┣ 📂passport
-┃ ┃ ┗ 📜index.js
-┃ ┣ 📂repositories
-┃ ┃ ┣ 📜chats.repository.js
-┃ ┃ ┣ 📜comments.repository.js
-┃ ┃ ┣ 📜projects.repository.js
-┃ ┃ ┣ 📜teams.repository.js
-┃ ┃ ┗ 📜users.repository.js
-┃ ┣ 📂routes
-┃ ┃ ┣ 📜admin.routes.js
-┃ ┃ ┣ 📜api.routes.js
-┃ ┃ ┣ 📜chat.routes.js
-┃ ┃ ┣ 📜page.routes.js
-┃ ┃ ┣ 📜projects.routes.js
-┃ ┃ ┣ 📜teams.routes.js
-┃ ┃ ┗ 📜users.routes.js
-┃ ┣ 📂services
-┃ ┃ ┣ 📜chats.service.js
-┃ ┃ ┣ 📜comments.service.js
-┃ ┃ ┣ 📜projects.service.js
-┃ ┃ ┣ 📜teams.service.js
-┃ ┃ ┗ 📜users.service.js
-┃ ┣ 📂static
-┃ ┃ ┣ 📂css
-┃ ┃ ┃ ┣ 📂components
-┃ ┃ ┃ ┃ ┣ 📜main-section-header.css
-┃ ┃ ┃ ┃ ┣ 📜page-footer.css
-┃ ┃ ┃ ┃ ┗ 📜page-header.css
-┃ ┃ ┃ ┣ 📂config
-┃ ┃ ┃ ┃ ┣ 📜reset.css
-┃ ┃ ┃ ┃ ┗ 📜variables.css
-┃ ┃ ┃ ┣ 📂fonts
-┃ ┃ ┃ ┃ ┣ 📜Montserrat-VariableFont_wght.ttf
-┃ ┃ ┃ ┃ ┣ 📜NotoSansKR-Bold.otf
-┃ ┃ ┃ ┃ ┣ 📜NotoSansKR-Medium.otf
-┃ ┃ ┃ ┃ ┗ 📜NotoSansKR-Regular.otf
-┃ ┃ ┃ ┣ 📂screen
-┃ ┃ ┃ ┃ ┣ 📜home-screen.css
-┃ ┃ ┃ ┃ ┣ 📜projects-add-modal-screen.css
-┃ ┃ ┃ ┃ ┗ 📜projects-screen.css
-┃ ┃ ┃ ┣ 📜admin.css
-┃ ┃ ┃ ┣ 📜allteam.css
-┃ ┃ ┃ ┣ 📜login.css
-┃ ┃ ┃ ┣ 📜members.css
-┃ ┃ ┃ ┣ 📜mypage.css
-┃ ┃ ┃ ┣ 📜myteam.css
-┃ ┃ ┃ ┣ 📜projectDetail.css
-┃ ┃ ┃ ┣ 📜style.css
-┃ ┃ ┃ ┣ 📜teamChat.css
-┃ ┃ ┃ ┗ 📜test.css
-┃ ┃ ┣ 📂images
-┃ ┃ ┃ ┣ 📜ad-img.png
-┃ ┃ ┃ ┣ 📜banner.png
-┃ ┃ ┃ ┣ 📜baseprofile.png
-┃ ┃ ┃ ┣ 📜baseproject.png
-┃ ┃ ┃ ┣ 📜favicon-16x16.png
-┃ ┃ ┃ ┣ 📜favicon.ico
-┃ ┃ ┃ ┣ 📜ico_selcet.svg
-┃ ┃ ┃ ┣ 📜pavicon.png
-┃ ┃ ┃ ┗ 📜sch_btn.png
-┃ ┃ ┗ 📂js
-┃ ┃ ┃ ┣ 📂admin
-┃ ┃ ┃ ┃ ┗ 📜users.js
-┃ ┃ ┃ ┣ 📂myteam
-┃ ┃ ┃ ┃ ┣ 📜teamAddNew.js
-┃ ┃ ┃ ┃ ┣ 📜teamChat.js
-┃ ┃ ┃ ┃ ┣ 📜teamDelete.js
-┃ ┃ ┃ ┃ ┣ 📜teamEditMember.js
-┃ ┃ ┃ ┃ ┣ 📜teamEmit.js
-┃ ┃ ┃ ┃ ┗ 📜teamUpdateStatus.js
-┃ ┃ ┃ ┣ 📜adminProjectsSection.js
-┃ ┃ ┃ ┣ 📜chatting.js
-┃ ┃ ┃ ┣ 📜cookieSave.js
-┃ ┃ ┃ ┣ 📜cursorPagination.js
-┃ ┃ ┃ ┣ 📜join.js
-┃ ┃ ┃ ┣ 📜login.js
-┃ ┃ ┃ ┣ 📜mypage.js
-┃ ┃ ┃ ┣ 📜projectAddModal.js
-┃ ┃ ┃ ┣ 📜projectDetail.js
-┃ ┃ ┃ ┣ 📜projectEditModal.js
-┃ ┃ ┃ ┣ 📜projectsPagination.js
-┃ ┃ ┃ ┣ 📜searchFormTrim.js
-┃ ┃ ┃ ┣ 📜searchFormValidity.js
-┃ ┃ ┃ ┣ 📜test.js
-┃ ┃ ┃ ┗ 📜usersPagination.js
-┃ ┣ 📂utility
-┃ ┃ ┣ 📜ConvertCase.js
-┃ ┃ ┣ 📜customError.js
-┃ ┃ ┣ 📜joi.js
-┃ ┃ ┣ 📜nodemailer.js
-┃ ┃ ┗ 📜redis.js
-┃ ┣ 📂views
-┃ ┃ ┣ 📂admin
-┃ ┃ ┃ ┗ 📜users.html
-┃ ┃ ┣ 📂partials
-┃ ┃ ┃ ┣ 📜page-footer.html
-┃ ┃ ┃ ┣ 📜page-header.html
-┃ ┃ ┃ ┗ 📜project-add-modal.html
-┃ ┃ ┣ 📜adminProjects.html
-┃ ┃ ┣ 📜allteam.html
-┃ ┃ ┣ 📜base.html
-┃ ┃ ┣ 📜chat.html
-┃ ┃ ┣ 📜deletedTeam.html
-┃ ┃ ┣ 📜home.html
-┃ ┃ ┣ 📜join.html
-┃ ┃ ┣ 📜login.html
-┃ ┃ ┣ 📜loginIndex.html
-┃ ┃ ┣ 📜members.html
-┃ ┃ ┣ 📜mypage.html
-┃ ┃ ┣ 📜myteam.html
-┃ ┃ ┣ 📜projectDetail.html
-┃ ┃ ┣ 📜projects.html
-┃ ┃ ┗ 📜test.html
-┃ ┣ 📜app.js
-┃ ┗ 📜socket.js
-┣ 📜.env
-┣ 📜.gitignore
-┣ 📜.prettierrc.js
-┣ 📜.sequelizerc
-┣ 📜package-lock.json
-┣ 📜package.json
-┗ 📜README.md
+ ┣ 📂src
+ ┃ ┣ 📂config
+ ┃ ┃ ┗ 📜config.js
+ ┃ ┣ 📂controllers
+ ┃ ┃ ┣ 📜api.controller.js
+ ┃ ┃ ┣ 📜chats.controller.js
+ ┃ ┃ ┣ 📜comments.controller.js
+ ┃ ┃ ┣ 📜projects.controller.js
+ ┃ ┃ ┣ 📜teams.controller.js
+ ┃ ┃ ┗ 📜users.controller.js
+ ┃ ┣ 📂middlewares
+ ┃ ┃ ┣ 📜auth.js
+ ┃ ┃ ┗ 📜uploads.js
+ ┃ ┣ 📂migrations
+ ┃ ┃ ┣ 📜20230228073808-create-user.js
+ ┃ ┃ ┣ 📜20230228074008-create-project.js
+ ┃ ┃ ┣ 📜20230228075312-create-chatting.js
+ ┃ ┃ ┣ 📜20230228075356-create-comment.js
+ ┃ ┃ ┗ 📜20230228075512-create-project-user.js
+ ┃ ┣ 📂models
+ ┃ ┃ ┣ 📜chatting.js
+ ┃ ┃ ┣ 📜comment.js
+ ┃ ┃ ┣ 📜index.js
+ ┃ ┃ ┣ 📜project.js
+ ┃ ┃ ┣ 📜projectUser.js
+ ┃ ┃ ┗ 📜user.js
+ ┃ ┣ 📂passport
+ ┃ ┃ ┗ 📜index.js
+ ┃ ┣ 📂repositories
+ ┃ ┃ ┣ 📜chats.repository.js
+ ┃ ┃ ┣ 📜comments.repository.js
+ ┃ ┃ ┣ 📜projects.repository.js
+ ┃ ┃ ┣ 📜teams.repository.js
+ ┃ ┃ ┗ 📜users.repository.js
+ ┃ ┣ 📂routes
+ ┃ ┃ ┣ 📜admin.routes.js
+ ┃ ┃ ┣ 📜api.routes.js
+ ┃ ┃ ┣ 📜chat.routes.js
+ ┃ ┃ ┣ 📜page.routes.js
+ ┃ ┃ ┣ 📜projects.routes.js
+ ┃ ┃ ┣ 📜teams.routes.js
+ ┃ ┃ ┗ 📜users.routes.js
+ ┃ ┣ 📂services
+ ┃ ┃ ┣ 📜chats.service.js
+ ┃ ┃ ┣ 📜comments.service.js
+ ┃ ┃ ┣ 📜projects.service.js
+ ┃ ┃ ┣ 📜teams.service.js
+ ┃ ┃ ┗ 📜users.service.js
+ ┃ ┣ 📂static
+ ┃ ┃ ┣ 📂css
+ ┃ ┃ ┃ ┣ 📂components
+ ┃ ┃ ┃ ┃ ┣ 📜admin-main-table.css
+ ┃ ┃ ┃ ┃ ┣ 📜admin-main.css
+ ┃ ┃ ┃ ┃ ┣ 📜main-section-header.css
+ ┃ ┃ ┃ ┃ ┣ 📜page-footer.css
+ ┃ ┃ ┃ ┃ ┗ 📜page-header.css
+ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┣ 📜reset.css
+ ┃ ┃ ┃ ┃ ┗ 📜variables.css
+ ┃ ┃ ┃ ┣ 📂fonts
+ ┃ ┃ ┃ ┃ ┣ 📜Montserrat-VariableFont_wght.ttf
+ ┃ ┃ ┃ ┃ ┣ 📜NotoSansKR-Bold.otf
+ ┃ ┃ ┃ ┃ ┣ 📜NotoSansKR-Medium.otf
+ ┃ ┃ ┃ ┃ ┗ 📜NotoSansKR-Regular.otf
+ ┃ ┃ ┃ ┣ 📂screen
+ ┃ ┃ ┃ ┃ ┣ 📜admin-projects-screen.css
+ ┃ ┃ ┃ ┃ ┣ 📜admin-users-screen.css
+ ┃ ┃ ┃ ┃ ┣ 📜home-screen.css
+ ┃ ┃ ┃ ┃ ┣ 📜join-screen.css
+ ┃ ┃ ┃ ┃ ┣ 📜login-screen.css
+ ┃ ┃ ┃ ┃ ┣ 📜projects-add-modal-screen.css
+ ┃ ┃ ┃ ┃ ┣ 📜projects-screen.css
+ ┃ ┃ ┃ ┃ ┗ 📜pw-reissue-modal-screen.css
+ ┃ ┃ ┃ ┣ 📜admin.css
+ ┃ ┃ ┃ ┣ 📜allteam.css
+ ┃ ┃ ┃ ┣ 📜login.css
+ ┃ ┃ ┃ ┣ 📜members.css
+ ┃ ┃ ┃ ┣ 📜mypage.css
+ ┃ ┃ ┃ ┣ 📜myteam.css
+ ┃ ┃ ┃ ┣ 📜myTeamList.css
+ ┃ ┃ ┃ ┣ 📜projectDetail.css
+ ┃ ┃ ┃ ┣ 📜style.css
+ ┃ ┃ ┃ ┣ 📜teamChat.css
+ ┃ ┃ ┃ ┗ 📜test.css
+ ┃ ┃ ┣ 📂images
+ ┃ ┃ ┃ ┣ 📜ad-img.png
+ ┃ ┃ ┃ ┣ 📜banner.png
+ ┃ ┃ ┃ ┣ 📜baseprofile.png
+ ┃ ┃ ┃ ┣ 📜baseproject.png
+ ┃ ┃ ┃ ┣ 📜ERD.png
+ ┃ ┃ ┃ ┣ 📜favicon-16x16.png
+ ┃ ┃ ┃ ┣ 📜favicon.ico
+ ┃ ┃ ┃ ┣ 📜ico_selcet.svg
+ ┃ ┃ ┃ ┣ 📜pavicon.png
+ ┃ ┃ ┃ ┣ 📜sch_btn.png
+ ┃ ┃ ┃ ┗ 📜Service.png
+ ┃ ┃ ┗ 📂js
+ ┃ ┃ ┃ ┣ 📂admin
+ ┃ ┃ ┃ ┃ ┗ 📜users.js
+ ┃ ┃ ┃ ┣ 📂myteam
+ ┃ ┃ ┃ ┃ ┣ 📜teamAddNew.js
+ ┃ ┃ ┃ ┃ ┣ 📜teamChat.js
+ ┃ ┃ ┃ ┃ ┣ 📜teamDelete.js
+ ┃ ┃ ┃ ┃ ┣ 📜teamEditMember.js
+ ┃ ┃ ┃ ┃ ┣ 📜teamEmit.js
+ ┃ ┃ ┃ ┃ ┗ 📜teamUpdateStatus.js
+ ┃ ┃ ┃ ┣ 📜adminProjectsSection.js
+ ┃ ┃ ┃ ┣ 📜chatting.js
+ ┃ ┃ ┃ ┣ 📜cookieSave.js
+ ┃ ┃ ┃ ┣ 📜cursorPagination.js
+ ┃ ┃ ┃ ┣ 📜join.js
+ ┃ ┃ ┃ ┣ 📜login.js
+ ┃ ┃ ┃ ┣ 📜mypage.js
+ ┃ ┃ ┃ ┣ 📜projectAddModal.js
+ ┃ ┃ ┃ ┣ 📜projectDetail.js
+ ┃ ┃ ┃ ┣ 📜projectEditModal.js
+ ┃ ┃ ┃ ┣ 📜projectsPagination.js
+ ┃ ┃ ┃ ┣ 📜searchFormTrim.js
+ ┃ ┃ ┃ ┣ 📜searchFormValidity.js
+ ┃ ┃ ┃ ┣ 📜test.js
+ ┃ ┃ ┃ ┗ 📜usersPagination.js
+ ┃ ┣ 📂utility
+ ┃ ┃ ┣ 📜ConvertCase.js
+ ┃ ┃ ┣ 📜customError.js
+ ┃ ┃ ┣ 📜joi.js
+ ┃ ┃ ┣ 📜nodemailer.js
+ ┃ ┃ ┗ 📜redis.js
+ ┃ ┣ 📂views
+ ┃ ┃ ┣ 📂admin
+ ┃ ┃ ┃ ┣ 📜projects.html
+ ┃ ┃ ┃ ┗ 📜users.html
+ ┃ ┃ ┣ 📂partials
+ ┃ ┃ ┃ ┣ 📜admin-header.html
+ ┃ ┃ ┃ ┣ 📜page-footer.html
+ ┃ ┃ ┃ ┣ 📜page-header.html
+ ┃ ┃ ┃ ┣ 📜project-add-modal.html
+ ┃ ┃ ┃ ┗ 📜pw-reissue-modal.html
+ ┃ ┃ ┣ 📜allteam.html
+ ┃ ┃ ┣ 📜base.html
+ ┃ ┃ ┣ 📜chat.html
+ ┃ ┃ ┣ 📜deletedTeam.html
+ ┃ ┃ ┣ 📜home.html
+ ┃ ┃ ┣ 📜join.html
+ ┃ ┃ ┣ 📜login.html
+ ┃ ┃ ┣ 📜members.html
+ ┃ ┃ ┣ 📜mypage.html
+ ┃ ┃ ┣ 📜myteam.html
+ ┃ ┃ ┣ 📜myTeamList.html
+ ┃ ┃ ┣ 📜projectDetail.html
+ ┃ ┃ ┣ 📜projects.html
+ ┃ ┃ ┗ 📜test.html
+ ┃ ┣ 📜app.js
+ ┃ ┗ 📜socket.js
+ ┣ 📜.env
+ ┣ 📜.gitignore
+ ┣ 📜.prettierrc.js
+ ┣ 📜.sequelizerc
+ ┣ 📜fullchain.pem
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┣ 📜privkey.pem
+ ┗ 📜README.md
 ```
 
----
-
-## 시작 가이드
-
-### Requirements
-
-For building and running the application you need:
-
-- [Node.js 18.12.1](https://nodejs.org/en/blog/release/v18.12.1)
-
-### Installation
-
-```bash
-$ git clone https://github.com/rsl150101/NoAFK.git
-$ cd NoAFK
-```
-
-환경설정 구성 .env
-
-```
-MYSQL_AWS_USERNAME=
-MYSQL_AWS_PASSWORD=
-MYSQL_AWS_DATABASE=
-MYSQL_AWS_HOST=
-COOKIE_SECRET=
-
-KAKAO_ID=
-KAKAO_SECRET=
-KAKAO_URL=http://localhost:3000/api/auth/kakao/callback
-
-GOOGLE_ID=
-GOOGLE_SECRET=
-GOOGLE_URL=http://localhost:3000/api/auth/google/callback
-
-GITHUB_ID=
-GITHUB_SECRET=
-GITHUB_URL=http://localhost:3000/api/auth/github/callback
-
-NAVER_ID=
-NAVER_SECRET=
-NAVER_URL=http://localhost:3000/api/auth/naver/callback
-
-S3_ACCESS_KEY_ID=
-S3_SECRET_ACCESS_KEY=
-BUCKET_NAME=
-
-REDIS_HOST=
-REDIS_PORT=
-REDIS_USERNAME=
-REDIS_PASSWORD=
-
-GMAIL_ID=
-GMAIL_PASSWORD=
-```
-
-```
-$ npm install
-$ npm run start
-```
+</details>
 
 ![Footer](https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=footer)
