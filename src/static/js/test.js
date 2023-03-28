@@ -8,23 +8,23 @@ function submitTest(id) {
   let TF = document.getElementsByName('TF');
   let PJ = document.getElementsByName('PJ');
   for (let i = 0; i < IE.length; i++) {
-    if(IE[i].checked) {
+    if (IE[i].checked) {
       MBTI_IE = IE[i].value;
     }
   }
   for (let i = 0; i < NS.length; i++) {
-    if(NS[i].checked) {
+    if (NS[i].checked) {
       MBTI_NS = NS[i].value;
     }
   }
   for (let i = 0; i < TF.length; i++) {
-    if(TF[i].checked) {
-      MBTI_TF = TF[i].value
+    if (TF[i].checked) {
+      MBTI_TF = TF[i].value;
     }
   }
   for (let i = 0; i < PJ.length; i++) {
-    if(PJ[i].checked) {
-      MBTI_PJ = PJ[i].value
+    if (PJ[i].checked) {
+      MBTI_PJ = PJ[i].value;
     }
   }
   const MBTI = [MBTI_IE, MBTI_NS, MBTI_TF, MBTI_PJ];

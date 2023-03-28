@@ -1,185 +1,394 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/mypage.css">
-    <title>{{pageTitle}} | NoAFK</title>
-  </head>
-  <body>
-    {% include "partials/page-header.html"%}
-    <main class="main-screen home-screen">
-      <section class="user-info">
-        <header class="user-info-header">
-          <h1>마이페이지</h1>
-          <div id="user-info-header-box">
-            <ul id="user-info-update">
-              {% if loginMethod === 'NoAFK' %}
-	            {% if not testResult %}
-              <li id="user-info-update-content"><a href="/test">성향테스트</a></li>
-              <li id="user-info-update-content" onclick="updateImage()">프로필사진 변경</li>
-              <li id="user-info-update-content" onclick="updateNickname()">닉네임 변경</li>
-              <li id="user-info-update-content" onclick="updatePassword()">비밀번호 변경</li>
-              <li id="user-info-update-content" onclick="updateIntroduction()">자기소개 변경</li>
-              {% else %}
-              <li id="user-info-update-content" onclick="updateImage()">프로필사진 변경</li>
-              <li id="user-info-update-content" onclick="updateNickname()">닉네임 변경</li>
-              <li id="user-info-update-content" onclick="updatePassword()">비밀번호 변경</li>
-              <li id="user-info-update-content" onclick="updateIntroduction()">자기소개 변경</li>
-              {% endif %}
-	            {% else %}
-	            {% if not testResult %}
-              <li id="user-info-update-content"><a href="/test">성향테스트</a></li>
-              <li id="user-info-update-content" onclick="updateImage()">프로필사진 변경</li>
-              <li id="user-info-update-content" onclick="updateNickname()">닉네임 변경</li>
-              <li id="user-info-update-content" onclick="updateIntroduction()">자기소개 변경</li>
-              {% else %}
-              <li id="user-info-update-content" onclick="updateImage()">프로필사진 변경</li>
-              <li id="user-info-update-content" onclick="updateNickname()">닉네임 변경</li>
-              <li id="user-info-update-content" onclick="updateIntroduction()">자기소개 변경</li>
-              {% endif %}
-	            {% endif %}
-            </ul>
-          </div>
-        </header>
-      </section>
-        <div id="user-profile">
-          <div id="user-profile-image"><img src="{{image}}" alt="프로필사진" onerror=this.src="{{replaceImage}}"></div>
-          <div id="user-profile-info">
-            <table class="type04" style="table-layout:fixed" width="100%">
-              <tr>
-                <th scope="row">로그인 플랫폼</th>
-                <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{loginMethod}}</td>
-              </tr>
-              <tr>
-                <th scope="row">이메일</th>
-                <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap; display: flex;">{{email}}&nbsp;&nbsp;<div id="private" onclick="updatePrivateStatus({{id}})">{{privateStatus}}</div></td>
-              </tr>
-              <tr>
-                <th scope="row">닉네임</th>
-                <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{nickname}}</td>
-              </tr>
-              <tr>
-                <th scope="row">성향</th>
-                <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{testResult}}</td>
-              </tr>
-              <tr>
-                <th scope="row">프리미엄</th>
-                <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{expiredAt}} 만료</td>
-              </tr>
-              <tr>
-                <th scope="row">자기소개</th>
-                <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{introduction}}</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="nicknameModal" id="nicknameModal">
-          <div class="modal_body">
-            <div>닉네임 변경</div>
-            <button class="close-btn" onclick="closeModalNickname()">X</button>
-            <div id="nicknameInput">
-              변경할 닉네임을 입력해주세요.
-              <br>
-              <br>
-              <br>
-              <input type="text" name="inputNickname" onkeyup="if(window.event.keyCode==13){submitNickname({{id}})}">
-              <button class="submit-btn" onclick="submitNickname({{id}})">변경</button>
-            </div>
-          </div>
-        </div>
-        <div class="passwordModal" id="passwordModal">
-          <div class="modal_body">
-            <div>비밀번호 변경</div>
-            <button class="close-btn" onclick="closeModalPassword()">X</button>
-            <div id="passwordInput">
-              변경할 비밀번호를 입력해주세요.
-              <br>
-              <br>
-              (변경 후 자동 로그아웃)
-              <br>
-              (로그인 페이지 이동)
-              <br>
-              <br>
-              <br>
-              <input type="password" name="inputPassword" onkeyup="if(window.event.keyCode==13){submitPassword({{id}})}">
-              <button class="submit-btn" onclick="submitPassword({{id}})">변경</button>
-            </div>
-          </div>
-        </div>
-        <div class="imageModal" id="imageModal">
-          <div class="modal_body">
-            <div>프로필사진 변경</div>
-            <button class="close-btn" onclick="closeModalImage()">X</button>
-            <div id="imageInput" class="scroll" style="overflow-x:hidden; height:300px;">
-              변경할 이미지를 넣어주세요.
-              <br>
-              <br>
-              <br>
-              <input type="file" name="inputImage" id="inputImage" accept="image/*" onchange="setThumbnail(event);" onkeyup="if(window.event.keyCode==13){submitImage({{id}})}">
-              <br>
-              <br>
-              <div id="image_container"></div>
-              <button id="submit-image" class="submit-btn" onclick="submitImage({{id}})">변경</button>
-            </div>
-          </div>
-        </div>
-        <div class="introductionModal" id="introductionModal">
-          <div class="modal_body">
-            <div>자기소개 변경</div>
-            <button class="close-btn" onclick="closeModalIntroduction()">X</button>
-            <div id="introductionInput">
-              변경할 자기소개를 입력해주세요.
-              <br>
-              <br>
-              <br>
-              <input type="text" name="inputIntroduction" onkeyup="if(window.event.keyCode==13){submitIntroduction({{id}})}">
-              <button class="submit-btn" onclick="submitIntroduction({{id}})">변경</button>
-            </div>
-          </div>
-        </div>
-      <section class="project-info">
-        <header>
-          <h1>참여 프로젝트</h1>
-        </header>
-      </section>
-      <div class="scroll" style="overflow-x:hidden; height:300px;">
-        <table class="type09" style="table-layout:fixed" width="100%">
-          <thead>
-          <tr>
-            <th scope="cols" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">프로젝트 명</th>
-            <th scope="cols" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">내용</th>
-            <th scope="cols" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">팀이름</th>
-            <th scope="cols" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">팀장</th>
-            <th scope="cols" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">인원수</th>
-            <th scope="cols" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">마감일</th>
-          </tr>
-          </thead>
-          <tbody id="progressUserProject">
-            {% for project in projectInfo %}
-            <tr>
-              <th scope="row" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"><a href="/projects/{{project.Project.id}}">{{project.Project.title}}</a></th>
-              <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{project.Project.content}}</td>
-              <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{project.Project.teamName}}</td>
-              <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{project.Project.User.nickname}}</td>
-              <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{project.Project.person}}</td>
-              <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{project.Project.projectEnd}}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+{% extends 'base.html'%}{% block headblock %}
+<link rel="stylesheet" href="css/mypage.css" />
+{% endblock %} {% block content %}
+<main class="main-screen home-screen">
+  <section class="user-info">
+    <header class="user-info-header">
+      <h1>마이페이지</h1>
+      <div id="user-info-header-box">
+        <ul id="user-info-update">
+          {% if loginMethod === 'NoAFK' %} {% if not testResult %}
+          <li id="user-info-update-content"><a href="/test">성향테스트</a></li>
+          <li id="user-info-update-content" onclick="updateImage()">
+            프로필사진 변경
+          </li>
+          <li id="user-info-update-content" onclick="updateNickname()">
+            닉네임 변경
+          </li>
+          <li id="user-info-update-content" onclick="updatePassword()">
+            비밀번호 변경
+          </li>
+          <li id="user-info-update-content" onclick="updateIntroduction()">
+            자기소개 변경
+          </li>
+          {% else %}
+          <li id="user-info-update-content" onclick="updateImage()">
+            프로필사진 변경
+          </li>
+          <li id="user-info-update-content" onclick="updateNickname()">
+            닉네임 변경
+          </li>
+          <li id="user-info-update-content" onclick="updatePassword()">
+            비밀번호 변경
+          </li>
+          <li id="user-info-update-content" onclick="updateIntroduction()">
+            자기소개 변경
+          </li>
+          {% endif %} {% else %} {% if not testResult %}
+          <li id="user-info-update-content"><a href="/test">성향테스트</a></li>
+          <li id="user-info-update-content" onclick="updateImage()">
+            프로필사진 변경
+          </li>
+          <li id="user-info-update-content" onclick="updateNickname()">
+            닉네임 변경
+          </li>
+          <li id="user-info-update-content" onclick="updateIntroduction()">
+            자기소개 변경
+          </li>
+          {% else %}
+          <li id="user-info-update-content" onclick="updateImage()">
+            프로필사진 변경
+          </li>
+          <li id="user-info-update-content" onclick="updateNickname()">
+            닉네임 변경
+          </li>
+          <li id="user-info-update-content" onclick="updateIntroduction()">
+            자기소개 변경
+          </li>
+          {% endif %} {% endif %}
+        </ul>
       </div>
-    </main>
-    {% include "partials/page-footer.html"%}
-    <script
-      src="https://kit.fontawesome.com/d1f609d41d.js"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="js/mypage.js"
-      ></script>
-  </body>
-</html>
+    </header>
+  </section>
+  <div id="user-profile">
+    <div id="user-profile-image">
+      <img
+        src="{{image}}"
+        alt="프로필사진"
+        onerror="this.src"
+        ="{{replaceImage}}"
+      />
+    </div>
+    <div id="user-profile-info">
+      <table class="type04" style="table-layout: fixed" width="100%">
+        <tr>
+          <th scope="row">로그인 플랫폼</th>
+          <td
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            {{loginMethod}}
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">이메일</th>
+          <td
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              display: flex;
+            "
+          >
+            {{email}}&nbsp;&nbsp;
+            <div id="private" onclick="updatePrivateStatus({{id}})">
+              {{privateStatus}}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">닉네임</th>
+          <td
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            {{nickname}}
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">성향</th>
+          <td
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            {{testResult}}
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">프리미엄</th>
+          <td
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            {{expiredAt}} 만료
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">자기소개</th>
+          <td
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            {{introduction}}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="nicknameModal" id="nicknameModal">
+    <div class="modal_body">
+      <div>닉네임 변경</div>
+      <button class="close-btn" onclick="closeModalNickname()">X</button>
+      <div id="nicknameInput">
+        변경할 닉네임을 입력해주세요.
+        <br />
+        <br />
+        <br />
+        <input
+          type="text"
+          name="inputNickname"
+          onkeyup="if(window.event.keyCode==13){submitNickname({{id}})}"
+        />
+        <button class="submit-btn" onclick="submitNickname({{id}})">
+          변경
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="passwordModal" id="passwordModal">
+    <div class="modal_body">
+      <div>비밀번호 변경</div>
+      <button class="close-btn" onclick="closeModalPassword()">X</button>
+      <div id="passwordInput">
+        변경할 비밀번호를 입력해주세요.
+        <br />
+        <br />
+        (변경 후 자동 로그아웃)
+        <br />
+        (로그인 페이지 이동)
+        <br />
+        <br />
+        <br />
+        <input
+          type="password"
+          name="inputPassword"
+          onkeyup="if(window.event.keyCode==13){submitPassword({{id}})}"
+        />
+        <button class="submit-btn" onclick="submitPassword({{id}})">
+          변경
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="imageModal" id="imageModal">
+    <div class="modal_body">
+      <div>프로필사진 변경</div>
+      <button class="close-btn" onclick="closeModalImage()">X</button>
+      <div
+        id="imageInput"
+        class="scroll"
+        style="overflow-x: hidden; height: 300px"
+      >
+        변경할 이미지를 넣어주세요.
+        <br />
+        <br />
+        <br />
+        <input
+          type="file"
+          name="inputImage"
+          id="inputImage"
+          accept="image/*"
+          onchange="setThumbnail(event);"
+          onkeyup="if(window.event.keyCode==13){submitImage({{id}})}"
+        />
+        <br />
+        <br />
+        <div id="image_container"></div>
+        <button
+          id="submit-image"
+          class="submit-btn"
+          onclick="submitImage({{id}})"
+        >
+          변경
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="introductionModal" id="introductionModal">
+    <div class="modal_body">
+      <div>자기소개 변경</div>
+      <button class="close-btn" onclick="closeModalIntroduction()">X</button>
+      <div id="introductionInput">
+        변경할 자기소개를 입력해주세요.
+        <br />
+        <br />
+        <br />
+        <input
+          type="text"
+          name="inputIntroduction"
+          onkeyup="if(window.event.keyCode==13){submitIntroduction({{id}})}"
+        />
+        <button class="submit-btn" onclick="submitIntroduction({{id}})">
+          변경
+        </button>
+      </div>
+    </div>
+  </div>
+  <section class="project-info">
+    <header>
+      <h1>참여 프로젝트</h1>
+    </header>
+  </section>
+  <div class="scroll" style="overflow-x: hidden; height: 300px">
+    <table class="type09" style="table-layout: fixed" width="100%">
+      <thead>
+        <tr>
+          <th
+            scope="cols"
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            프로젝트 명
+          </th>
+          <th
+            scope="cols"
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            내용
+          </th>
+          <th
+            scope="cols"
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            팀이름
+          </th>
+          <th
+            scope="cols"
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            팀장
+          </th>
+          <th
+            scope="cols"
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            인원수
+          </th>
+          <th
+            scope="cols"
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            마감일
+          </th>
+        </tr>
+      </thead>
+      <tbody id="progressUserProject">
+        {% for project in projectInfo %}
+        <tr>
+          <th
+            scope="row"
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            <a href="/projects/{{project.Project.id}}"
+              >{{project.Project.title}}</a
+            >
+          </th>
+          <td
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            {{project.Project.content}}
+          </td>
+          <td
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            {{project.Project.teamName}}
+          </td>
+          <td
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            {{project.Project.User.nickname}}
+          </td>
+          <td
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            {{project.Project.person}}
+          </td>
+          <td
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            "
+          >
+            {{project.Project.projectEnd}}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+<script
+  src="https://kit.fontawesome.com/d1f609d41d.js"
+  crossorigin="anonymous"
+></script>
+<script src="js/mypage.js"></script>
+{% endblock %}
