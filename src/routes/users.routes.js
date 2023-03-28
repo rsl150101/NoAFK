@@ -23,4 +23,8 @@ router.patch('/:id/image', usersController.updateUserImage);
 
 // 이미지 업로드
 router.post('/image', uploads.single('file'), usersController.uploadProfileImage);
+
+//* 회원 정보 수정 (privateEmail)
+router.patch('/:id/privateEmail', usersController.updateUserPrivateEmail);
+
 module.exports = router;

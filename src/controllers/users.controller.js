@@ -176,7 +176,6 @@ class UsersController {
       const { id } = res.locals.user;
       const userInfo = await this.userService.userInfo(id);
       const projectInfo = await this.projectService.findProjectByUser(id);
-      console.log(userInfo.private)
       if (userInfo.privateEmail === true) {
         var privateStatus = "🔴 비공개 (변경)"
       } else {
@@ -242,6 +241,19 @@ class UsersController {
       );
 
       res.status(status).json({ message });
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  };
+
+  //* 회원 정보 수정 (privateEmail)
+  updateUserPrivateEmail = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { privateEmail } = req.body;
+      const { status, message } = await this.userService.updateUserPrivateEmail(id, privateEmail);
+
+      res.status(status).json({ message})
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }

@@ -440,6 +440,15 @@ class UserService {
       throw error;
     }
   };
+
+  //* 회원 정보 수정 (privateEmail)
+  updateUserPrivateEmail = async (id, privateEmail) => {
+    try {
+      return await this.userRepository.updateUserPrivateEmail(id, privateEmail);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = UserService;
