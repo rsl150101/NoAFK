@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/mypage.css">
     <title>{{pageTitle}} | NoAFK</title>
   </head>
-  <body onload="getInfo({{id}})">
+  <body>
     {% include "partials/page-header.html"%}
     <main class="main-screen home-screen">
       <section class="user-info">
@@ -46,6 +46,10 @@
           </div>
         </header>
       </section>
+      <div id="privateButton">
+        <div></div>
+        <div id="private" onclick="updatePrivateStatus({{id}})"></div>{{privateStatus}}</div>
+      </div>
         <div id="user-profile">
           <div id="user-profile-image"><img src="{{image}}" alt="프로필사진" onerror=this.src="{{replaceImage}}"></div>
           <div id="user-profile-info">
@@ -158,7 +162,18 @@
             <th scope="cols" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">마감일</th>
           </tr>
           </thead>
-          <tbody id="progressUserProject"></tbody>
+          <tbody id="progressUserProject">
+            {% for project in projectInfo %}
+            <tr>
+              <th scope="row" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"><a href="/projects/{{project.Project.id}}">{{project.Project.title}}</a></th>
+              <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{project.Project.content}}</td>
+              <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{project.Project.teamName}}</td>
+              <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{project.Project.User.nickname}}</td>
+              <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{project.Project.person}}</td>
+              <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">{{project.Project.projectEnd}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
         </table>
       </div>
     </main>
