@@ -156,7 +156,9 @@ class ProjectService {
         page = 'home';
       }
 
-      page = page.replace('/', '');
+      if (page.includes('/')) {
+        page = page.replaceAll('/', '');
+      }
 
       let limit = 3;
 
@@ -194,8 +196,6 @@ class ProjectService {
         }
 
         projects = randomProjects;
-      } else {
-        throw new Error('url이 올바르지 않습니다.');
       }
       const nextCursor = projects.length === limit ? projects.at(-1).id : null;
       const pageTitle = page.replace(/^[a-z]/, (char) => char.toUpperCase());
