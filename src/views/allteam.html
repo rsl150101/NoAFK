@@ -1,60 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/allteam.css" />
+{% extends 'base.html' %} {% block headblock %}
+<link rel="stylesheet" href="/css/allteam.css" />
+{% endblock %} {% block content %}
+<main class="main-screen home-screen">
+  <section>
+    <header>
+      <h1>All Team List</h1>
+    </header>
+    {% if teams.length > 0 %}
+    <table>
+      <thead>
+        <tr id="allteam__title-row">
+          <th>팀이름</th>
+          <th>팀장</th>
+          <th>상태</th>
+          <th>기술스택</th>
+          <th>모집마감</th>
+          <th>시작일</th>
+          <th>마감일</th>
+        </tr>
+      </thead>
+      <tbody id="teamBox">
+        {% set status = ['모집중', '모집마감', '준비', '진행중', '테스트',
+        '종료'] %} {% for team in teams %} {% if team.status !== 0 %}
+        <tr class="allteam__rows" id="allteam__row-{{allTeam.id}}">
+          <th>{{team.teamName}}</th>
+          <th>{{team.User.nickname}}</th>
+          <th>{{status[team.status]}}</th>
+          <th>{{team.techStack}}</th>
+          <th>{{team.recruitDeadline.split(" ")[0]}}</th>
+          <th>{{team.projectStart.split(" ")[0]}}</th>
+          <th>{{team.projectEnd.split(" ")[0]}}</th>
+        </tr>
+        {% endif %} {% endfor %}
+      </tbody>
+    </table>
+    {% if existNextTeams %}
+    <button id="more-team" type="button" onclick="moreTeam({{nextCursor}})">
+      더보기
+    </button>
+    {% endif %} {% else %}
+    <div>팀이 없습니다.</div>
+    {% endif %}
+  </section>
+</main>
+<script>
+  const teamBox = document.getElementById('teamBox');
+  const moreTeamBtn = document.getElementById('more-team');
 
-    <title>{{pageTitle}} | NoAFK</title>
-  </head>
-  <body>
-    {% include "partials/page-header.html"%}
-    <main class="main-screen home-screen">
-      <section id="allteam__header">
-        <div>All Team List</div>
-      </section>
-      <section id="allteam__List">
-        <table>
-          <thead>
-            <tr id="allteam__title-row">
-              <th>팀이름</th>
-              <th>팀장</th>
-              <th>상태</th>
-              <th>기술스택</th>
-              <th>모집마감</th>
-              <th>시작일</th>
-              <th>마감일</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% set status = ['모집중', '모집마감', '준비', '진행중', '테스트',
-            '종료'] %} {% for team in allTeam %} {% if team.status !== 0 %}
-            <tr class="allteam__rows" id="allteam__row-{{allTeam.id}}">
-              <th>{{team.teamName}}</th>
-              {% if team.owner === '' %}
-              <th>미정</th>
-              {% else %}
-              <th>{{team.User.nickname}}</th>
-              {% endif %}
+  const moreTeam = async (cursor) => {
+    const response = await fetch(`/api/teams?cursor=${cursor}`);
+    const { teams, nextCursor, existNextTeams } = await response.json();
 
-              <th>{{status[team.status]}}</th>
-              <th>{{team.techStack}}</th>
-              <th>{{team.recruitDeadline}}</th>
-              <th>{{team.projectStart}}</th>
-              <th>{{team.projectEnd}}</th>
-            </tr>
-            {% endif %} {% endfor %}
-          </tbody>
-        </table>
-      </section>
-    </main>
-    {% include "partials/page-footer.html"%}
-    <script
-      src="https://kit.fontawesome.com/d1f609d41d.js"
-      crossorigin="anonymous"
-    ></script>
-  </body>
-</html>
+    if (!existNextTeams) {
+      moreTeamBtn.style.display = 'none';
+    }
+    cursor = nextCursor;
+
+    teams.forEach((team) => {
+      const tr = document.createElement('tr');
+      const teamName = document.createElement('th');
+      const leaderName = document.createElement('th');
+      const status = document.createElement('th');
+      const statusList = [
+        '모집중',
+        '모집마감',
+        '준비',
+        '진행중',
+        '테스트',
+        '종료',
+      ];
+      const techStack = document.createElement('th');
+      const recruitDeadline = document.createElement('th');
+      const projectStart = document.createElement('th');
+      const projectEnd = document.createElement('th');
+
+      tr.setAttribute('class', 'allteam__rows');
+      teamName.textContent = team.teamName;
+      leaderName.textContent = team.User.nickname;
+      status.textContent = statusList[team.status];
+      techStack.textContent = team.techStack;
+      recruitDeadline.textContent = team.recruitDeadline.split(' ')[0];
+      projectStart.textContent = team.projectStart.split(' ')[0];
+      projectEnd.textContent = team.projectEnd.split(' ')[0];
+
+      tr.append(
+        teamName,
+        leaderName,
+        status,
+        techStack,
+        recruitDeadline,
+        projectStart,
+        projectEnd
+      );
+      teamBox.append(tr);
+      moreTeamBtn.addEventListener('click', moreTeam);
+    });
+  };
+</script>
+{% endblock%}

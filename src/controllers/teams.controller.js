@@ -62,12 +62,33 @@ class TeamsController {
     }
   };
 
-  getAllTeam = async (req, res, next) => {
+  renderTeamsPage = async (req, res) => {
     try {
-      const allTeam = await this.teamService.findAllTeam();
+      const { cursor } = req.query;
+      const { teams, nextCursor, existNextTeams } =
+        await this.teamService.findAllTeam(cursor);
+
       return res.render('allteam', {
         pageTitle: 'All Team',
-        allTeam,
+        teams,
+        nextCursor,
+        existNextTeams,
+      });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  };
+
+  getTeams = async (req, res) => {
+    try {
+      const { cursor } = req.query;
+      const { teams, nextCursor, existNextTeams } =
+        await this.teamService.findAllTeam(cursor);
+
+      return res.status(200).json({
+        teams,
+        nextCursor,
+        existNextTeams,
       });
     } catch (error) {
       res.status(400).json({ message: error.message });

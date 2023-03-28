@@ -2,11 +2,13 @@ const express = require('express');
 const ApiController = require('../controllers/api.controller');
 const ProjectsController = require('../controllers/projects.controller');
 const CommentsController = require('../controllers/comments.controller');
+const TeamsController = require('../controllers/teams.controller');
 
 const router = express.Router();
 const apiController = new ApiController();
 const projectsController = new ProjectsController();
 const commentsController = new CommentsController();
+const teamsController = new TeamsController();
 
 // 소셜로그인
 const passport = require('passport');
@@ -78,6 +80,9 @@ router.get('/projects', projectsController.getCursorBasedProjects);
 
 //* 댓글 커서 기반 페이지네이션 조회
 router.get('/projects/:id/comments', commentsController.getComments);
+
+//* 팀 커서 기반 페이지네이션 조회
+router.get('/teams', teamsController.getTeams);
 
 // 비밀번호 초기화
 router.post('/reset-password', apiController.resetPassword);
