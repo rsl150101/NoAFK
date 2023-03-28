@@ -61,19 +61,49 @@ class ProjectRepository {
     }
   };
 
-  findAllTeamWithNickname = async () => {
+  // 전체 팀(status===0)인 것들 중 마지막 프로젝트
+  findLastTeam = async () => {
+    try {
+      return await this.projectModel.findOne({
+        where: { status: { [Op.ne]: 0 } },
+        order: [['id', 'desc']],
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  findNextTeams = async (cursor) => {
+    try {
+      return await this.projectModel.count({
+        where: {
+          status: { [Op.ne]: 0 },
+          id: { [Op.lt]: cursor },
+        },
+        order: [['id', 'desc']],
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  findTeamsWithNickname = async (cursor, limit) => {
     try {
       return await this.projectModel.findAll({
+        where: {
+          status: { [Op.ne]: 0 },
+          id: { [Op.lt]: cursor },
+        },
         include: [
           {
             model: User,
             attributes: ['nickname'],
           },
         ],
+        limit,
         order: [['id', 'DESC']],
       });
     } catch (error) {
-      error.status = 500;
       throw error;
     }
   };

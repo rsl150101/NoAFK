@@ -6,8 +6,6 @@ const router = express.Router();
 const teamsController = new TeamsController();
 
 // teamId == projectId
-// 팀 전체 조회
-router.get('/', checkToken, teamsController.getAllTeam);
 
 // 팀멤버 추가: 1.팀페이지 => position == 1, 2.모집페이지(팀합류신청) => position == 0
 router.post('/:teamId', teamsController.postTeamMember);
