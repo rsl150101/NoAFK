@@ -1,7 +1,40 @@
+.my-team-list-screen {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.my-team-list-screen > section {
+  height: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .section {
-  padding: 20px;
+  height: 170px;
   margin-bottom: 20px;
-  border-bottom: 1px solid lightgray;
+  overflow-y: auto;
+}
+
+/*스크롤바*/
+.section::-webkit-scrollbar {
+  width: 10px;
+}
+
+/*스크롤바의 드래그 핸들*/
+.section::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-drag-color);
+  border-radius: 5px;
+}
+
+/*스크롤바 트랙*/
+.section::-webkit-scrollbar-track {
+  background-color: white;
+  border-radius: 5px;
 }
 
 .myTeamList__section > h2 {
@@ -13,8 +46,9 @@
   display: flex;
   padding: 20px;
   margin: 20px;
-  border: 2px solid black;
-  background: rgba(255, 182, 193, 0.4);
+  box-shadow: 0 0 5px 2px #fae1dd;
+  background-color: #fae1dd;
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -41,8 +75,9 @@
   display: flex;
   padding: 20px;
   margin: 20px;
-  border: 2px solid black;
-  background: rgba(144, 238, 144, 0.3);
+  box-shadow: 0 0 5px 2px #b9fbc0;
+  background-color: #b9fbc0;
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -69,8 +104,9 @@
   display: flex;
   padding: 20px;
   margin: 20px;
-  border: 2px solid black;
-  background: rgba(135, 206, 250, 0.4);
+  box-shadow: 0 0 5px 2px #ade8f4;
+  background-color: #ade8f4;
+  border-radius: 5px;
   cursor: pointer;
 }
 
