@@ -1,0 +1,46 @@
+.pw-reissue-modal-screen {
+  width: 400px;
+  height: 250px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 15px 2px var(--light-gray);
+  padding: 20px;
+}
+
+.pw-reissue-modal-screen::backdrop {
+  background-color: lightgray;
+  opacity: 0.2;
+}
+
+.pw-reissue-modal-screen form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-weight: 700;
+}
+
+.pw-reissue-modal-screen form input {
+  width: 100%;
+  padding: 0 20px;
+  font-weight: 500;
+  font-size: 1.1em;
+  border-radius: 5px;
+  height: 50px;
+  border: 1px solid var(--light-gray);
+  outline: none;
+}
+
+.pw-reissue-modal-screen form div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pw-reissue-modal-screen form div button {
+  font-weight: 700;
+  width: 45%;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid var(--light-gray);
+}

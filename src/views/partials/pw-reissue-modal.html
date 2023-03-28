@@ -1,7 +1,6 @@
-<dialog id="send-email-modal" class="w-40">
-  <form method="dialog" class="flex flex-col justify-center items-center">
-    <label for="send-email" class="margin-top">비밀번호 재발급</label>
-    <br />
+<dialog id="send-email-modal" class="pw-reissue-modal-screen">
+  <form method="dialog">
+    <label for="send-email">비밀번호 재발급</label>
     <input
       type="text"
       name="send-email"
@@ -9,9 +8,8 @@
       placeholder="회원가입한 이메일을 적어주세요"
       class="w-full"
     />
-    <br />
     <div>
-      <button value="send">초기화 메일 보내기</button>
+      <button value="send">재발급</button>
       <button value="cancel">취소</button>
     </div>
   </form>
