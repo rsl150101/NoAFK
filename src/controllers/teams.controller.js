@@ -65,7 +65,6 @@ class TeamsController {
   renderTeamsPage = async (req, res) => {
     try {
       const { cursor } = req.query;
-      console.log(cursor, 'controller');
       const { teams, nextCursor, existNextTeams } =
         await this.teamService.findAllTeam(cursor);
 
@@ -83,7 +82,6 @@ class TeamsController {
   getTeams = async (req, res) => {
     try {
       const { cursor } = req.query;
-      console.log(cursor, 'controller');
       const { teams, nextCursor, existNextTeams } =
         await this.teamService.findAllTeam(cursor);
 
@@ -93,7 +91,6 @@ class TeamsController {
         existNextTeams,
       });
     } catch (error) {
-      console.log(error);
       res.status(400).json({ message: error.message });
     }
   };
