@@ -56,19 +56,19 @@
 
 <div align=center><h1>👥 멤버</h1>
   <a href="https://github.com/Jeongjiw00">
-    <img src="https://avatars.githubusercontent.com/u/118160093" width="70" height="70" style="border-radius:50%">
+    <img src="https://avatars.githubusercontent.com/u/118160093" width="70" height="70" style="border-radius: 50%;">
   </a>
   <a href="https://github.com/rsl150101">
-    <img src="https://avatars.githubusercontent.com/u/95523340" width="70" height="70" style="border-radius:50%">
+    <img src="https://avatars.githubusercontent.com/u/95523340" width="70" height="70" style="border-radius: 50%;">
   </a>
   <a href="https://github.com/go-tiger">
-    <img src="https://avatars.githubusercontent.com/u/64995762" width="70" height="70" style="border-radius:50%">
+    <img src="https://avatars.githubusercontent.com/u/64995762" width="70" height="70" style="border-radius: 50%;">
   </a>
   <a href="https://github.com/Kyeongjin-Park">
-    <img src="https://avatars.githubusercontent.com/u/109892131" width="70" height="70" style="border-radius:50%">
+    <img src="https://avatars.githubusercontent.com/u/109892131" width="70" height="70" style="border-radius: 50%;">
   </a>
   <a href="https://github.com/MintZzz1009">
-    <img src="https://avatars.githubusercontent.com/u/107108021" width="70" height="70" style="border-radius:50%">
+    <img src="https://avatars.githubusercontent.com/u/107108021" width="70" height="70" style="border-radius: 50%;">
   </a>
 </div>
 
