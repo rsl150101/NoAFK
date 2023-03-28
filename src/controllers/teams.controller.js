@@ -55,7 +55,6 @@ class TeamsController {
         hostTeamList,
       });
     } catch (error) {
-      throw error;
       return res.render('deletedTeam', {
         pageTitle: 'NoTeam',
         pageContent: '팀을 찾을 수 없습니다.',
