@@ -176,7 +176,7 @@ class UsersController {
       const { id } = res.locals.user;
       const userInfo = await this.userService.userInfo(id);
       const projectInfo = await this.projectService.findProjectByUser(id);
-      if (userInfo.privateEmail === true) {
+      if (userInfo.privateEmail === false) {
         var privateStatus = "🔴 비공개 (변경)"
       } else {
         var privateStatus = "🟢 공개 (변경)"

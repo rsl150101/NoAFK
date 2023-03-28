@@ -148,7 +148,7 @@ function updatePrivateStatus(id) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ privateEmail: true }),
+      body: JSON.stringify({ privateEmail: false }),
     });
     window.location.reload();
   } else if (privateStatus === "비공개") {
@@ -157,7 +157,7 @@ function updatePrivateStatus(id) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ privateEmail: false }),
+      body: JSON.stringify({ privateEmail: true }),
     });
     window.location.reload();
   } else {
