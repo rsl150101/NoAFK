@@ -64,7 +64,7 @@ function nicknameCheck() {
   passNickname = false;
 
   // 닉네임:한글포함영어대소문자숫자
-  const nicknameCheck = /^[A-za-z0-9가-힣]*.{1,20}$/;
+  const nicknameCheck = /^[가-힣a-zA-Z0-9].{1,20}$/;
 
   if (!nicknameCheck.test(nicknameInput.value)) {
     return (document.getElementById('nicknameMsg').style.display = 'block');

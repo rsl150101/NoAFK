@@ -1,4 +1,5 @@
 const CommentService = require('../services/comments.service');
+const { commentDataValidation } = require('../utility/joi');
 
 class CommentsController {
   commentService = new CommentService();
@@ -6,7 +7,7 @@ class CommentsController {
   postComment = async (req, res) => {
     try {
       const { id } = req.params;
-      const { content } = req.body;
+      const { content } = await commentDataValidation.validateAsync(req.body);
 
       if (!res.locals.user) {
         return res.render('login.html');
@@ -41,13 +42,12 @@ class CommentsController {
 
   updateComment = async (req, res) => {
     try {
-      const { projectId, commentId } = req.params;
-      const content = req.body;
+      const { commentId } = req.params;
+      const content = await commentDataValidation.validateAsync(req.body);
 
       const updateComment = await this.commentService.updateComment(
         commentId,
-        content,
-        projectId
+        content
       );
 
       return res.status(200).json(updateComment);
@@ -58,12 +58,9 @@ class CommentsController {
 
   deleteComment = async (req, res) => {
     try {
-      const { projectId, commentId } = req.params;
+      const { commentId } = req.params;
 
-      const deleteComment = await this.commentService.deleteComment(
-        projectId,
-        commentId
-      );
+      const deleteComment = await this.commentService.deleteComment(commentId);
 
       return res.status(204).json(deleteComment);
     } catch (error) {
