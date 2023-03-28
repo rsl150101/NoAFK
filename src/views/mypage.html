@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/mypage.css">
     <title>{{pageTitle}} | NoAFK</title>
   </head>
-  <body onload="getInfo({{id}})">
+  <body>
     {% include "partials/page-header.html"%}
     <main class="main-screen home-screen">
       <section class="user-info">
@@ -46,6 +46,10 @@
           </div>
         </header>
       </section>
+      <div id="privateButton">
+        <div></div>
+        <div id="private" onclick="updatePrivateStatus({{id}})"></div>{{privateStatus}}</div>
+      </div>
         <div id="user-profile">
           <div id="user-profile-image"><img src="{{image}}" alt="프로필사진" onerror=this.src="{{replaceImage}}"></div>
           <div id="user-profile-info">

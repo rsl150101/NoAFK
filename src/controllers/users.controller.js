@@ -176,10 +176,16 @@ class UsersController {
       const { id } = res.locals.user;
       const userInfo = await this.userService.userInfo(id);
       const projectInfo = await this.projectService.findProjectByUser(id);
+      console.log(userInfo.private)
+      if (userInfo.privateEmail === true) {
+        var privateStatus = "🔴 비공개 (변경)"
+      } else {
+        var privateStatus = "🟢 공개 (변경)"
+      }
       const { email, nickname, loginMethod, testResult, introduction, image, expiredAt } = userInfo;
       const replaceImage = image.replace(/\/resizedProfile\//, '/profile/');
 
-      res.status(200).render('mypage', { id, email, nickname, loginMethod, testResult, introduction, image, replaceImage, expiredAt, pageTitle: 'Mypage', projectInfo });
+      res.status(200).render('mypage', { id, email, nickname, loginMethod, testResult, introduction, image, replaceImage, expiredAt, pageTitle: 'Mypage', projectInfo, privateStatus});
     } catch (error) {
       return res.status(400).json({ message: '로그인 후 이용부탁드립니다.' });
     }

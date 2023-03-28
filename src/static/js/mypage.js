@@ -139,3 +139,7 @@ function setThumbnail(event) {
 
   reader.readAsDataURL(event.target.files[0]);
 }
+
+function updatePrivateStatus(id) {
+  alert(id)
+}
