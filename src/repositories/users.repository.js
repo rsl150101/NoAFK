@@ -259,10 +259,22 @@ class UserRepository {
           'introduction',
           'image',
           'expiredAt',
+          'privateEmail'
         ],
       });
 
       return loginUserInfo;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //* 회원 정보 수정 (privateEmail)
+  updateUserPrivateEmail = async (id, privateEmail) => {
+    try {
+      await this.userModel.update({ privateEmail }, { where: { id } });
+
+      return { status: 201, message: '비밀번호가 수정되었습니다.' };
     } catch (error) {
       throw error;
     }

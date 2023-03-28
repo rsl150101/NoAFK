@@ -146,6 +146,10 @@
   border: 1px solid var(--light-gray);
 }
 
+.join-box form {
+  gap: 5px;
+}
+
 .join-btn {
   width: 70%;
   height: 40px;

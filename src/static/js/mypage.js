@@ -141,5 +141,26 @@ function setThumbnail(event) {
 }
 
 function updatePrivateStatus(id) {
-  alert(id)
+  const privateStatus = document.getElementById("private").innerText.split(" ")[1];
+  if (privateStatus === "공개") {
+    fetch('users/' + id + '/privateEmail', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ privateEmail: true }),
+    });
+    window.location.reload();
+  } else if (privateStatus === "비공개") {
+    fetch('users/' + id + '/privateEmail', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ privateEmail: false }),
+    });
+    window.location.reload();
+  } else {
+    alert("임의적인 조작은 사용불가합니다.");
+  }
 }
