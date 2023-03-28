@@ -1,4 +1,5 @@
 const UserService = require('../services/users.service');
+const ProjectService = require('../services/projects.service');
 
 // joi
 const {
@@ -8,6 +9,7 @@ const {
 
 class UsersController {
   userService = new UserService();
+  projectService = new ProjectService();
 
   //* 백오피스 - 회원관리 페이지 렌더링
   renderAdminUserPage = async (req, res) => {
@@ -173,29 +175,11 @@ class UsersController {
     try {
       const { id } = res.locals.user;
       const userInfo = await this.userService.userInfo(id);
-      const {
-        email,
-        nickname,
-        loginMethod,
-        testResult,
-        introduction,
-        image,
-        expiredAt,
-      } = userInfo;
+      const projectInfo = await this.projectService.findProjectByUser(id);
+      const { email, nickname, loginMethod, testResult, introduction, image, expiredAt } = userInfo;
       const replaceImage = image.replace(/\/resizedProfile\//, '/profile/');
 
-      res.status(200).render('mypage', {
-        id,
-        email,
-        nickname,
-        loginMethod,
-        testResult,
-        introduction,
-        image,
-        replaceImage,
-        expiredAt,
-        pageTitle: 'Mypage',
-      });
+      res.status(200).render('mypage', { id, email, nickname, loginMethod, testResult, introduction, image, replaceImage, expiredAt, pageTitle: 'Mypage', projectInfo });
     } catch (error) {
       return res.status(400).json({ message: '로그인 후 이용부탁드립니다.' });
     }
