@@ -19,6 +19,9 @@ class TeamsController {
       const { nickname } = res.locals.user;
 
       const memberList = await this.teamService.findAllByTeamId(teamId);
+      const invitedUserList = await this.teamService.findInvitedUserByTeamId(
+        teamId
+      );
 
       if (memberList.length === 0) {
         return res.render('404', {
@@ -33,9 +36,10 @@ class TeamsController {
       return res.render('myteam', {
         pageTitle: 'My Team',
         teamName,
-        status,
-        memberList,
         nickname,
+        memberList,
+        invitedUserList,
+        status,
       });
     } catch (error) {
       return res.render('404', {

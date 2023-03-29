@@ -24,29 +24,28 @@
       </thead>
       <tbody>
         {% set position = ['신청자', '팀원', '부리더', '리더', '초대중'] %} {%
-        for member in memberList %} {% if member.position !== 0 %} {% if
-        member.position !== 4 %}
+        for member in memberList %}
         <tr id="row-{{member.id}}">
           <!-- <th>{{member.id}}</th> -->
           {% if member.position === 3 %}
-          <th id="teamLeader">{{member.User.nickname}}</th>
+          <td class="teamLeader">{{member.User.nickname}}</td>
           {% else %}
-          <th>{{member.User.nickname}}</th>
+          <td>{{member.User.nickname}}</td>
           {% endif %}
-          <th>{{member.createdAt}}</th>
-          <th id="position-{{member.id}}" data-value="{{member.position}}">
+          <td>{{member.createdAt}}</td>
+          <td id="position-{{member.id}}" data-value="{{member.position}}">
             {{position[member.position]}}
-          </th>
-          <th id="task-{{member.id}}">{{member.task}}</th>
-          <th>
+          </td>
+          <td id="task-{{member.id}}">{{member.task}}</td>
+          <td>
             <button
               id="chat-{{member.id}}"
               onclick="whispering(`{{member.User.nickname}}`)"
             >
               귓속말
             </button>
-          </th>
-          <th class="myteam__memberList__config-btn" id="config-{{member.id}}">
+          </td>
+          <td class="myteam__memberList__config-btn" id="config-{{member.id}}">
             <div>
               <button
                 class="leader-display"
@@ -65,9 +64,9 @@
               </button>
             </div>
             {% endif %}
-          </th>
+          </td>
         </tr>
-        {% endif %} {% endif %} {% endfor %}
+        {% endfor %}
       </tbody>
     </table>
   </section>
@@ -82,6 +81,8 @@
       </button>
     </div>
   </section>
+  {% if invitedUserList.length === 0 %} {% else %}
+
   <section id="myteam__reserved-member" class="myteam__reserved-member">
     <header>
       <h1>예비 팀원</h1>
@@ -89,31 +90,35 @@
     <table class="invited-user">
       <thead class="invited-user__thead">
         <tr>
-          <!-- <th>번호</th> -->
           <th>이름</th>
           <th>상태</th>
           <th>귓속말</th>
           <th>수락 / 거절</th>
         </tr>
       </thead>
-      {% for member in memberList %} {% if member.position === 4 %}
       <tbody class="invited-user__tbody">
-        <tr id="row-{{member.id}}">
-          <!-- <th>{{member.id}}</th> -->
-          <th>{{member.User.nickname}}</th>
-          <th id="position-{{member.id}}" data-value="{{member.position}}">
-            {{position[member.position]}}
-          </th>
-          <th>
+        {% for invitedUser in invitedUserList %}
+        <tr id="row-{{invitedUser.id}}">
+          <td>{{invitedUser.User.nickname}}</td>
+          <td
+            id="position-{{invitedUser.id}}"
+            data-value="{{invitedUser.position}}"
+          >
+            {{position[invitedUser.position]}}
+          </td>
+          <td>
             <button
-              id="chat-{{member.id}}"
-              onclick="whispering(`{{member.User.nickname}}`)"
+              id="chat-{{invitedUser.id}}"
+              onclick="whispering(`{{invitedUser.User.nickname}}`)"
             >
               귓속말
             </button>
-          </th>
-          <th class="myteam__memberList__config-btn" id="config-{{member.id}}">
-            {% if member.User.nickname === nickname %}
+          </td>
+          <td
+            class="myteam__memberList__config-btn"
+            id="config-{{invitedUser.id}}"
+          >
+            {% if invitedUser.User.nickname === nickname %}
             <div>
               <button onclick="agree('{{member.id}}')">수락</button>
             </div>
@@ -122,12 +127,13 @@
               <button onclick="refuse('{{member.id}}')">거절</button>
             </div>
             {% endif %}
-          </th>
+          </td>
         </tr>
+        {% endfor %}
       </tbody>
-      {% endif %} {% endfor %}
     </table>
   </section>
+  {% endif %}
   <section id="myteam__project-status">
     <h2 id="myteam__project-status__title">프로젝트 현재 진행 상태</h2>
 
@@ -181,12 +187,13 @@
 </main>
 <script>
   const userNickname = `{{nickname}}`;
-  let teamLeader = '';
-  if (document.querySelector('#teamLeader')) {
-    teamLeader = document.querySelector('#teamLeader').textContent;
+  let teamLeader = [];
+  if (document.querySelectorAll('.teamLeader')) {
+    for (let element of document.querySelectorAll('.teamLeader')) {
+      teamLeader.push(element.textContent);
+    }
   }
-
-  if (userNickname !== teamLeader) {
+  if (!teamLeader.includes(userNickname)) {
     const displayElementList = document.querySelectorAll('.leader-display');
     for (let displayElement of displayElementList) {
       displayElement.classList.add('authority');

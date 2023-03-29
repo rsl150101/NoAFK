@@ -9,6 +9,7 @@ body {
 
 .teamChat__main {
   display: flex;
+
   height: 100%;
 }
 
@@ -95,6 +96,11 @@ body {
   font-weight: bold;
 }
 
+.chat-people-outer {
+  display: flex;
+  flex-direction: column;
+}
+
 .chat-people {
   height: 100%;
   overflow-y: auto;
@@ -104,6 +110,12 @@ body {
 
 .chat-people::-webkit-scrollbar {
   display: none; /* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+}
+
+.invited-user > h3 {
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--light-gray);
 }
 
 .chat-screen {
