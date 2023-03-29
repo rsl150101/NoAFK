@@ -28,24 +28,24 @@
         <tr id="row-{{member.id}}">
           <!-- <th>{{member.id}}</th> -->
           {% if member.position === 3 %}
-          <th class="teamLeader">{{member.User.nickname}}</th>
+          <td class="teamLeader">{{member.User.nickname}}</td>
           {% else %}
-          <th>{{member.User.nickname}}</th>
+          <td>{{member.User.nickname}}</td>
           {% endif %}
-          <th>{{member.createdAt}}</th>
-          <th id="position-{{member.id}}" data-value="{{member.position}}">
+          <td>{{member.createdAt}}</td>
+          <td id="position-{{member.id}}" data-value="{{member.position}}">
             {{position[member.position]}}
-          </th>
-          <th id="task-{{member.id}}">{{member.task}}</th>
-          <th>
+          </td>
+          <td id="task-{{member.id}}">{{member.task}}</td>
+          <td>
             <button
               id="chat-{{member.id}}"
               onclick="whispering(`{{member.User.nickname}}`)"
             >
               귓속말
             </button>
-          </th>
-          <th class="myteam__memberList__config-btn" id="config-{{member.id}}">
+          </td>
+          <td class="myteam__memberList__config-btn" id="config-{{member.id}}">
             <div>
               <button
                 class="leader-display"
@@ -64,7 +64,7 @@
               </button>
             </div>
             {% endif %}
-          </th>
+          </td>
         </tr>
         {% endfor %}
       </tbody>
@@ -90,7 +90,6 @@
     <table class="invited-user">
       <thead class="invited-user__thead">
         <tr>
-          <!-- <th>번호</th> -->
           <th>이름</th>
           <th>상태</th>
           <th>귓속말</th>
@@ -100,23 +99,22 @@
       <tbody class="invited-user__tbody">
         {% for invitedUser in invitedUserList %}
         <tr id="row-{{invitedUser.id}}">
-          <!-- <th>{{member.id}}</th> -->
-          <th>{{invitedUser.User.nickname}}</th>
-          <th
+          <td>{{invitedUser.User.nickname}}</td>
+          <td
             id="position-{{invitedUser.id}}"
             data-value="{{invitedUser.position}}"
           >
             {{position[invitedUser.position]}}
-          </th>
-          <th>
+          </td>
+          <td>
             <button
               id="chat-{{invitedUser.id}}"
               onclick="whispering(`{{invitedUser.User.nickname}}`)"
             >
               귓속말
             </button>
-          </th>
-          <th
+          </td>
+          <td
             class="myteam__memberList__config-btn"
             id="config-{{invitedUser.id}}"
           >
@@ -129,7 +127,7 @@
               <button onclick="refuse('{{member.id}}')">거절</button>
             </div>
             {% endif %}
-          </th>
+          </td>
         </tr>
         {% endfor %}
       </tbody>
