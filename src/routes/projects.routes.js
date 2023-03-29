@@ -6,13 +6,19 @@ const TeamsController = require('../controllers/teams.controller');
 // 미들웨어추가
 const { checkToken } = require('../middlewares/auth');
 const { uploadProjectImage } = require('../middlewares/uploads');
+const { postProjectLimiter } = require('../middlewares/limit');
 
 const router = express.Router();
 const projectsController = new ProjectsController();
 const commentsController = new CommentsController();
 const teamsController = new TeamsController();
 
-router.post('/', checkToken, projectsController.createProject);
+router.post(
+  '/',
+  checkToken,
+  postProjectLimiter,
+  projectsController.createProject
+);
 
 //* 썸네일 이미지 업로드
 router.post(

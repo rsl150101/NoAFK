@@ -18,7 +18,7 @@
 @import './screen/login-screen.css';
 @import './screen/pw-reissue-modal-screen.css';
 @import './screen/join-screen.css';
-@import './screen/404-screen.css';
+@import './screen/err404-screen.css';
 
 @font-face {
   font-family: 'Montserrat';
