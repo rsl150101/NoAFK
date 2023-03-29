@@ -17,7 +17,6 @@ class ChatsController {
       const invitedUserList = await this.teamService.findInvitedUserByTeamId(
         chatId
       );
-      console.log(invitedUserList);
       const chattingList = await this.chatService.findAllMessagesByChatId(
         chatId
       );
