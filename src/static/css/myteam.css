@@ -26,7 +26,7 @@ thead th {
   background-color: var(--scroll-drag-color);
 }
 
-tbody th {
+tbody td {
   font-size: 12px;
   text-align: center;
   line-height: 20px;
