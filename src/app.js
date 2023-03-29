@@ -53,6 +53,9 @@ app.use(
   })
 );
 
+//* 프록시 설정
+app.set('trust proxy', 1);
+
 //* middleware
 
 //* Router 설정
