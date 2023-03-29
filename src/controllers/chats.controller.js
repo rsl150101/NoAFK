@@ -14,14 +14,19 @@ class ChatsController {
       const { chatId, nickname } = req.params;
 
       const memberList = await this.teamService.findAllByTeamId(chatId);
+      const invitedUserList = await this.teamService.findInvitedUserByTeamId(
+        chatId
+      );
+      console.log(invitedUserList);
       const chattingList = await this.chatService.findAllMessagesByChatId(
         chatId
       );
 
       return res.render('chat', {
-        memberList,
-        chattingList,
         nickname,
+        memberList,
+        invitedUserList,
+        chattingList,
       });
     } catch (error) {
       return res.status(400).json({ message: error.message });
@@ -35,14 +40,18 @@ class ChatsController {
       const chatId = [teamId, nickname, memberNickname].sort().join('$');
 
       const memberList = await this.teamService.findAllByTeamId(teamId);
+      const invitedUserList = await this.teamService.findInvitedUserByTeamId(
+        teamId
+      );
       const chattingList = await this.chatService.findAllMessagesByChatId(
         chatId
       );
 
       return res.render('chat', {
-        memberList,
-        chattingList,
         nickname,
+        memberList,
+        invitedUserList,
+        chattingList,
       });
     } catch (error) {
       return res.status(400).json({ message: error.message });

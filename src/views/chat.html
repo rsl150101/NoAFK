@@ -12,26 +12,50 @@
   <body>
     <main class="teamChat__main">
       <div id="userNickname" style="display: none">{{nickname}}</div>
-      <div class="teamChat__column chat-people">
-        <div class="teamChat__rooms" onclick="teamChatting()">
-          <div>팀 채팅</div>
+      <div class="chat-people-outer">
+        <div class="teamChat__column chat-people">
+          <div class="teamChat__rooms" onclick="teamChatting()">
+            <div>팀 채팅</div>
+          </div>
+          {% for member in memberList %} {% if member.User.nickname === nickname
+          %}
+          <div
+            class="teamChat__rooms"
+            onclick="whispering(`{{member.User.nickname}}`)"
+          >
+            <div>나</div>
+          </div>
+          {% else %}
+          <div
+            class="teamChat__rooms"
+            onclick="whispering(`{{member.User.nickname}}`)"
+          >
+            <div>{{member.User.nickname}}</div>
+          </div>
+          {% endif %} {% endfor %}
         </div>
-        {% for member in memberList %} {% if member.User.nickname === nickname
-        %}
-        <div
-          class="teamChat__rooms"
-          onclick="whispering(`{{member.User.nickname}}`)"
-        >
-          <div>나</div>
+
+        {% if invitedUserList.length === 0 %} {% else %}
+        <div class="teamChat__column chat-people invited-user">
+          <h3>예비 팀원</h3>
+          {% for invitedUser in invitedUserList %} {% if
+          invitedUser.User.nickname === nickname %}
+          <div
+            class="teamChat__rooms"
+            onclick="whispering(`{{invitedUser.User.nickname}}`)"
+          >
+            <div>나</div>
+          </div>
+          {% else %}
+          <div
+            class="teamChat__rooms"
+            onclick="whispering(`{{invitedUser.User.nickname}}`)"
+          >
+            <div>{{invitedUser.User.nickname}}</div>
+          </div>
+          {% endif %} {% endfor %}
         </div>
-        {% else %}
-        <div
-          class="teamChat__rooms"
-          onclick="whispering(`{{member.User.nickname}}`)"
-        >
-          <div>{{member.User.nickname}}</div>
-        </div>
-        {% endif %} {% endfor %}
+        {% endif %}
       </div>
       <div class="teamChat__column chat-screen">
         <!-- 수신받을 메시지가 노출될 div -->
