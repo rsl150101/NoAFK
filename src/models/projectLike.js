@@ -17,8 +17,14 @@ module.exports = (sequelize, DataTypes) => {
   }
   ProjectLike.init(
     {
-      user_id: DataTypes.INTEGER,
-      project_id: DataTypes.INTEGER,
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      project_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {
       sequelize,
