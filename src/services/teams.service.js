@@ -110,6 +110,14 @@ class TeamService {
     }
   };
 
+  findInvitedUserByTeamId = async (teamId) => {
+    try {
+      return await this.teamRepository.findInvitedUserByTeamId(teamId);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   findMemberIdByUserIdAndTeamId = async (userId, teamId) => {
     try {
       return await this.teamRepository.findMemberIdByUserIdAndTeamId(

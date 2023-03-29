@@ -32,7 +32,13 @@ class TeamRepository {
   findAllByTeamId = async (teamId) => {
     try {
       return await this.teamModel.findAll({
-        where: { projectId: teamId },
+        where: {
+          projectId: teamId,
+          [Op.and]: [
+            { position: { [Op.ne]: 0 } },
+            { position: { [Op.ne]: 4 } },
+          ],
+        },
         include: [
           {
             model: User,
@@ -40,6 +46,26 @@ class TeamRepository {
           },
         ],
         order: [['position', 'DESC']],
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  findInvitedUserByTeamId = async (teamId) => {
+    try {
+      return await this.teamModel.findAll({
+        where: {
+          projectId: teamId,
+          position: 4,
+        },
+        include: [
+          {
+            model: User,
+            attributes: ['nickname'],
+          },
+        ],
       });
     } catch (error) {
       error.status = 500;
