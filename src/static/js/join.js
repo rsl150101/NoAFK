@@ -101,8 +101,12 @@ const sendEmailAuth = async () => {
 
   if (response.status === 500) {
     return alert('서버오류로 이메일 발송에 실패했습니다.');
-  } else if (response.status === 200) {
-    alert('이메일 발송 성공했습니다. 메일을 확인해주세요.');
+  }
+  if (response.status === 200) {
+    return alert('이메일 발송 성공했습니다. 메일을 확인해주세요.');
+  }
+  if (response.status === 429) {
+    return alert('요청이 너무 많습니다. 잠시 후 다시 시도해주세요.');
   }
 };
 
@@ -166,11 +170,15 @@ emailCheckBtn.addEventListener('click', async () => {
 
   if (response.status === 409) {
     return alert('이미 가입한 이메일입니다.');
-  } else if (response.status === 200) {
+  }
+  if (response.status === 200) {
     document.getElementById('email-db-check').style.display = 'none';
     document.getElementById('send-email').style.display = 'block';
     document.getElementById('emailOKMsg').style.display = 'block';
     return;
+  }
+  if (response.status === 429) {
+    return alert('요청이 너무 많습니다. 잠시 후 다시 시도해주세요.');
   }
 });
 
@@ -193,13 +201,18 @@ nicknameCheckBtn.addEventListener('click', async () => {
 
   if (response.status === 409) {
     return alert('이미 가입한 닉네임입니다.');
-  } else if (response.status === 200) {
+  }
+  if (response.status === 200) {
     document.getElementById('nickname-db-check').style.display = 'none';
     document.getElementById('nicknameOKMsg').style.display = 'block';
     useNickname = true;
     return;
-  } else if (response.status === 500) {
+  }
+  if (response.status === 500) {
     return alert('사용할 수 없는 닉네임이거나 서버오류입니다.');
+  }
+  if (response.status === 429) {
+    return alert('요청이 너무 많습니다. 잠시 후 다시 시도해주세요.');
   }
 });
 
@@ -246,6 +259,9 @@ const join = async () => {
   if (response.status === 200) {
     alert('회원가입 성공!');
     window.location.href = '/login';
+  }
+  if (response.status === 429) {
+    return alert('요청이 너무 많습니다. 잠시 후 다시 시도해주세요.');
   }
 };
 
