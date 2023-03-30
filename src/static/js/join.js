@@ -12,6 +12,7 @@ const emailAuthInput = document.getElementById('emailCheck');
 let useEmail = false;
 let passEmail = false;
 let passPassword = false;
+let useNickname = false;
 let passNickname = false;
 
 function emailCheck() {
@@ -75,6 +76,7 @@ function nicknameCheck() {
 }
 
 function nicknameRecheck() {
+  useNickname = false;
   document.getElementById('nicknameOKMsg').style.display = 'none';
   document.getElementById('nickname-db-check').style.display = 'block';
   nicknameCheck();
@@ -194,6 +196,7 @@ nicknameCheckBtn.addEventListener('click', async () => {
   } else if (response.status === 200) {
     document.getElementById('nickname-db-check').style.display = 'none';
     document.getElementById('nicknameOKMsg').style.display = 'block';
+    useNickname = true;
     return;
   } else if (response.status === 500) {
     return alert('사용할 수 없는 닉네임이거나 서버오류입니다.');
@@ -210,8 +213,12 @@ joinForm.addEventListener('submit', (e) => {
 });
 
 const join = async () => {
+  console.log(useNickname);
   if (!useEmail) {
     return alert('이메일 인증을 완료해주세요!');
+  }
+  if (!useNickname) {
+    return alert('닉네임 증복체크를 완료해주세요!');
   }
 
   emailCheck();
