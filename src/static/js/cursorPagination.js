@@ -2,10 +2,7 @@ const projectsBox = document.getElementById('projectsBox');
 
 const handleScroll = async () => {
   let end = projectsBox.clientHeight + Math.round(projectsBox.scrollTop);
-  if (!cursor) {
-    projectsBox.removeEventListener('scroll', handleScroll);
-    return;
-  }
+
   if (end >= projectsBox.scrollHeight) {
     projectsBox.removeEventListener('scroll', handleScroll);
     const response = await fetch(
@@ -13,6 +10,22 @@ const handleScroll = async () => {
     );
     const { nextCursor, projects } = await response.json();
     cursor = nextCursor;
+
+    if (!cursor) {
+      projectsBox.removeEventListener('scroll', handleScroll);
+
+      const li = document.createElement('li');
+      const span = document.createElement('span');
+
+      span.textContent = '더 이상 공고가 없습니다.';
+      li.classList.add('no-more-project');
+
+      li.appendChild(span);
+      projectsBox.appendChild(li);
+
+      return;
+    }
+
     projects.forEach((project) => {
       const li = document.createElement('li');
       const a = document.createElement('a');

@@ -143,3 +143,11 @@
 .project-like-btn--red {
   color: red !important;
 }
+
+.no-more-project {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  font-weight: 700;
+}
