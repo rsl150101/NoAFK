@@ -202,28 +202,34 @@ class ProjectsController {
   };
 
   //* 프로젝트 좋아요
-  postProjectLike = (req, res) => {
+  postProjectLike = async (req, res) => {
     try {
       const userId = res.locals.user.id;
       const projectId = req.params.id;
 
-      this.projectService.postProjectLike(userId, projectId);
+      const statusCode = await this.projectService.postProjectLike(
+        userId,
+        projectId
+      );
 
-      return res.sendStatus(201);
+      return res.sendStatus(statusCode);
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
   };
 
   //* 프로젝트 좋아요 해제
-  deleteProjectLike = (req, res) => {
+  deleteProjectLike = async (req, res) => {
     try {
       const userId = res.locals.user.id;
       const projectId = req.params.id;
 
-      this.projectService.deleteProjectLike(userId, projectId);
+      const statusCode = await this.projectService.deleteProjectLike(
+        userId,
+        projectId
+      );
 
-      return res.sendStatus(204);
+      return res.sendStatus(statusCode);
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

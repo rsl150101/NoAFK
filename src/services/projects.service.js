@@ -203,6 +203,7 @@ class ProjectService {
 
         projects = randomProjects;
       }
+
       const nextCursor = projects.length === limit ? projects.at(-1).id : null;
       const pageTitle = page.replace(/^[a-z]/, (char) => char.toUpperCase());
       return { nextCursor, page, projects, pageTitle };
@@ -246,18 +247,38 @@ class ProjectService {
   };
 
   //* 프로젝트 좋아요
-  postProjectLike = (userId, projectId) => {
+  postProjectLike = async (userId, projectId) => {
     try {
-      this.projectRepository.postProjectLike(userId, projectId);
+      const existProjectLike = await this.projectRepository.verifyProjectLike(
+        userId,
+        projectId
+      );
+
+      if (existProjectLike) {
+        return 403;
+      } else {
+        this.projectRepository.postProjectLike(userId, projectId);
+        return 201;
+      }
     } catch (error) {
       throw error;
     }
   };
 
   //* 프로젝트 좋아요 해제
-  deleteProjectLike = (userId, projectId) => {
+  deleteProjectLike = async (userId, projectId) => {
     try {
-      this.projectRepository.deleteProjectLike(userId, projectId);
+      const existProjectLike = await this.projectRepository.verifyProjectLike(
+        userId,
+        projectId
+      );
+
+      if (existProjectLike) {
+        this.projectRepository.deleteProjectLike(userId, projectId);
+        return 204;
+      } else {
+        return 403;
+      }
     } catch (error) {
       throw error;
     }

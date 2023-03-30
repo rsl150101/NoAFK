@@ -222,7 +222,10 @@ class ProjectRepository {
         },
         order: [['id', 'DESC']],
         attributes: { exclude: ['owner'] },
-        include: [{ model: User, attributes: ['nickname'] }],
+        include: [
+          { model: User, attributes: ['nickname'] },
+          { model: this.projectLikeModel, attributes: ['userId', 'projectId'] },
+        ],
         raw: true,
         limit,
       });
@@ -234,7 +237,7 @@ class ProjectRepository {
   };
 
   //* 프로젝트 총 갯수
-  findAllProjectCount = async (search) => {
+  findAllProjectCount = async (search = '') => {
     try {
       const count = await this.projectModel.count({
         where: {
@@ -294,6 +297,15 @@ class ProjectRepository {
     }
   };
 
+  //* 프로젝트 좋아요 검사
+  verifyProjectLike = async (userId, projectId) => {
+    try {
+      return await this.projectLikeModel.findOne({
+        where: { [Op.and]: { userId, projectId } },
+      });
+    } catch (error) {}
+  };
+
   //* 프로젝트 좋아요
   postProjectLike = (userId, projectId) => {
     try {
@@ -308,7 +320,7 @@ class ProjectRepository {
   //* 프로젝트 좋아요 해제
   deleteProjectLike = (userId, projectId) => {
     try {
-      this.projectLikeModel.delete({
+      this.projectLikeModel.destroy({
         where: { [Op.and]: { userId, projectId } },
       });
       return;
