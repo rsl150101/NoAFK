@@ -3,13 +3,19 @@ const ProjectRepository = require('../repositories/projects.repository');
 const CommentRepository = require('../repositories/comments.repository');
 const UserRepository = require('../repositories/users.repository');
 const TeamRepository = require('../repositories/teams.repository');
-const { Project, ProjectUser, Comment, User } = require('../models');
+const {
+  Project,
+  ProjectUser,
+  Comment,
+  User,
+  ProjectLike,
+} = require('../models');
 
 // customError
 const { AlreadyDeadLine } = require('../utility/customError');
 
 class ProjectService {
-  projectRepository = new ProjectRepository(Project);
+  projectRepository = new ProjectRepository(Project, ProjectLike);
   teamRepository = new TeamRepository(ProjectUser);
   commentsRepository = new CommentRepository(Comment);
   userRepository = new UserRepository(User);
@@ -234,6 +240,24 @@ class ProjectService {
       const allProjectInfoByUser = await this.teamRepository.projectByUser(id);
 
       return allProjectInfoByUser;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //* 프로젝트 좋아요
+  postProjectLike = (userId, projectId) => {
+    try {
+      this.projectRepository.postProjectLike(userId, projectId);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //* 프로젝트 좋아요 해제
+  deleteProjectLike = (userId, projectId) => {
+    try {
+      this.projectRepository.deleteProjectLike(userId, projectId);
     } catch (error) {
       throw error;
     }

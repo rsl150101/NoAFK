@@ -200,6 +200,34 @@ class ProjectsController {
       return res.status(500).json({ message: error.message });
     }
   };
+
+  //* 프로젝트 좋아요
+  postProjectLike = (req, res) => {
+    try {
+      const userId = res.locals.user.id;
+      const projectId = req.params.id;
+
+      this.projectService.postProjectLike(userId, projectId);
+
+      return res.sendStatus(200);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  //* 프로젝트 좋아요 해제
+  deleteProjectLike = (req, res) => {
+    try {
+      const userId = res.locals.user.id;
+      const projectId = req.params.id;
+
+      this.projectService.deleteProjectLike(userId, projectId);
+
+      return res.sendStatus(204);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
 }
 
 module.exports = ProjectsController;

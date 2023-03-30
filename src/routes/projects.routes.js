@@ -13,6 +13,7 @@ const projectsController = new ProjectsController();
 const commentsController = new CommentsController();
 const teamsController = new TeamsController();
 
+//* 공고 등록
 router.post(
   '/',
   checkToken,
@@ -33,6 +34,12 @@ router.get('/:id', checkToken, projectsController.getProject);
 router.patch('/:id', projectsController.updateProject);
 // 모집공고 삭제
 router.delete('/:id', projectsController.deleteProject);
+
+//* 공고 좋아요, 좋아요 해제
+router
+  .route('/:id/like', checkToken)
+  .post(projectsController.postProjectLike)
+  .delete(projectsController.deleteProjectLike);
 
 // 모집공고 참여 신청
 router.post('/:projectId/applys', checkToken, teamsController.apply);

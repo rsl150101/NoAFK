@@ -3,8 +3,9 @@ const Op = Sequelize.Op;
 const { User } = require('../models');
 
 class ProjectRepository {
-  constructor(ProjectModel) {
+  constructor(ProjectModel, ProjectLikeModel) {
     this.projectModel = ProjectModel;
+    this.projectLikeModel = ProjectLikeModel;
   }
 
   findProjectById = async (id) => {
@@ -287,6 +288,30 @@ class ProjectRepository {
         }
       );
       return { status: 200, message: '프로젝트 진행 상태 수정 성공!' };
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 프로젝트 좋아요
+  postProjectLike = (userId, projectId) => {
+    try {
+      this.projectLikeModel.create({ userId, projectId });
+      return;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 프로젝트 좋아요 해제
+  deleteProjectLike = (userId, projectId) => {
+    try {
+      this.projectLikeModel.delete({
+        where: { [Op.and]: { userId, projectId } },
+      });
+      return;
     } catch (error) {
       error.status = 500;
       throw error;
