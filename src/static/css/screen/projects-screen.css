@@ -107,6 +107,7 @@
   position: absolute;
   background-color: transparent;
   border: none;
+  outline: none;
   top: 0;
   right: 5px;
   color: var(--light-gray);
