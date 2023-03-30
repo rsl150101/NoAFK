@@ -36,7 +36,36 @@ const handleScroll = async () => {
 
       div.append(techStackDiv, ownerh4, ownerSpan, createdAth4, createdAtSpan);
       a.append(h1, pre, div);
-      li.append(a);
+
+      if (owner) {
+        const likeBtn = document.createElement('button');
+
+        likeBtn.id = 'projectLikeBtn';
+        likeBtn.classList.add('project-like-btn');
+        likeBtn.type = 'button';
+        likeBtn.dataset.id = project.id;
+
+        likeBtn.insertAdjacentHTML(
+          'afterbegin',
+          '<i class="fa-solid fa-heart"></i>'
+        );
+
+        likeBtn.addEventListener('click', () => {
+          handleProjectLike(likeBtn, project.id);
+        });
+
+        if (
+          Number(owner) === project['ProjectLikes.userId'] &&
+          project.id === project['ProjectLikes.projectId']
+        ) {
+          likeBtn.classList.add('project-like-btn--red');
+        }
+
+        li.append(a, likeBtn);
+      } else {
+        li.appendChild(a);
+      }
+
       projectsBox.appendChild(li);
 
       projectsBox.addEventListener('scroll', handleScroll);
