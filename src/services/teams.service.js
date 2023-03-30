@@ -9,9 +9,37 @@ class TeamService {
   projectRepository = new ProjectRepository(Project);
   userRepository = new UserRepository(User);
 
-  findAllTeam = async () => {
+  findAllTeam = async (cursor) => {
     try {
-      return await this.projectRepository.findAllTeamWithNickname();
+      if (!cursor) {
+        const lastTeam = await this.projectRepository.findLastTeam();
+
+        if (!lastTeam) {
+          cursor = null;
+        } else {
+          cursor = lastTeam.id + 0.1;
+        }
+      }
+
+      const limit = 10;
+      let teams;
+      cursor = Number(cursor);
+
+      teams = await this.projectRepository.findTeamsWithNickname(cursor, limit);
+
+      const nextCursor = teams.length === limit ? teams.at(-1).id : null;
+
+      let existNextTeams = await this.projectRepository.findNextTeams(
+        nextCursor
+      );
+
+      if (existNextTeams === 0) {
+        existNextTeams = false;
+      } else {
+        existNextTeams = true;
+      }
+
+      return { teams, nextCursor, existNextTeams };
     } catch (error) {
       throw error;
     }
@@ -77,6 +105,14 @@ class TeamService {
   findAllByTeamId = async (teamId) => {
     try {
       return await this.teamRepository.findAllByTeamId(teamId);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  findInvitedUserByTeamId = async (teamId) => {
+    try {
+      return await this.teamRepository.findInvitedUserByTeamId(teamId);
     } catch (error) {
       throw error;
     }

@@ -1,228 +1,215 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/css/myteam.css" />
-    <link rel="stylesheet" href="/css/style.css" />
-    <title>{{pageTitle}} | NoAFK</title>
-  </head>
-  <body>
-    {% include "partials/page-header.html"%}
-    <main class="main-screen home-screen" id="myteam-main">
-      <div id="userNickname" style="display: none">{{nickname}}</div>
-      <section>
-        <div id="myteam-title"><h1>{{teamName}}</h1></div>
-      </section>
-      <section id="myteam__memberList">
-        <h2>팀원 정보</h2>
-        <table>
-          <thead>
-            <tr>
-              <!-- <th>번호</th> -->
-              <th>이름</th>
-              <th>참가일</th>
-              <th>직책</th>
-              <th>담당업무</th>
-              <th>귓속말</th>
-              <th>설정</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% set position = ['신청자', '팀원', '부리더', '리더', '초대중'] %}
-            {% for member in memberList %} {% if member.position !== 0 %} {% if
-            member.position !== 4 %}
-            <tr id="row-{{member.id}}">
-              <!-- <th>{{member.id}}</th> -->
-              {% if member.position === 3 %}
-              <th id="teamLeader">{{member.User.nickname}}</th>
-              {% else %}
-              <th>{{member.User.nickname}}</th>
-              {% endif %}
-              <th>{{member.createdAt}}</th>
-              <th id="position-{{member.id}}" data-value="{{member.position}}">
-                {{position[member.position]}}
-              </th>
-              <th id="task-{{member.id}}">{{member.task}}</th>
-              <th>
-                <button
-                  id="chat-{{member.id}}"
-                  onclick="whispering(`{{member.User.nickname}}`)"
-                >
-                  귓속말
-                </button>
-              </th>
-              <th
-                class="myteam__memberList__config-btn"
-                id="config-{{member.id}}"
+{% extends 'base.html' %}{% block headblock %}
+<link rel="stylesheet" href="/css/myteam.css" />
+{% endblock%}{% block content%}
+<main class="main-screen myteam-screen" id="myteam-main">
+  <div id="userNickname" style="display: none">{{nickname}}</div>
+  <section>
+    <header id="myteam-title"><h1>{{teamName}} 팀</h1></header>
+  </section>
+  <section id="myteam__memberList" class="myteam__member-list">
+    <header>
+      <h1>팀원 정보</h1>
+    </header>
+    <table>
+      <thead>
+        <tr>
+          <!-- <th>번호</th> -->
+          <th>이름</th>
+          <th>참가일</th>
+          <th>직책</th>
+          <th>담당 업무</th>
+          <th>귓속말</th>
+          <th>설정</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% set position = ['신청자', '팀원', '부리더', '리더', '초대중'] %} {%
+        for member in memberList %}
+        <tr id="row-{{member.id}}">
+          <!-- <th>{{member.id}}</th> -->
+          {% if member.position === 3 %}
+          <td class="teamLeader">{{member.User.nickname}}</td>
+          {% else %}
+          <td>{{member.User.nickname}}</td>
+          {% endif %}
+          <td>{{member.createdAt}}</td>
+          <td id="position-{{member.id}}" data-value="{{member.position}}">
+            {{position[member.position]}}
+          </td>
+          <td id="task-{{member.id}}">{{member.task}}</td>
+          <td>
+            <button
+              id="chat-{{member.id}}"
+              onclick="whispering(`{{member.User.nickname}}`)"
+            >
+              귓속말
+            </button>
+          </td>
+          <td class="myteam__memberList__config-btn" id="config-{{member.id}}">
+            <div>
+              <button
+                class="leader-display"
+                onclick="updateMember('{{member.id}}')"
               >
-                <div>
-                  <button
-                    class="leader-display"
-                    onclick="updateMember({{member.id}})"
-                  >
-                    수정
-                  </button>
-                </div>
-                {% if member.position !== 3 %}
-                <div>
-                  <button
-                    class="leader-display"
-                    onclick="emitMember({{member.id}})"
-                  >
-                    방출
-                  </button>
-                </div>
-                {% endif %}
-              </th>
-            </tr>
-            {% endif %} {% endif %} {% endfor %}
-          </tbody>
-        </table>
-      </section>
-      <section id="myteam__searching-new">
-        <div class="leader-display">
-          <span>팀원 추가하기</span
-          ><input id="inputUserNickname" type="text" /><button
-            id="addNewMemberBtn"
-            onclick="addNewMember()"
-          >
-            ➕
-          </button>
-        </div>
-      </section>
-      <section id="myteam__reserved-member">
-        <h2>예비 팀원</h2>
-        <table class="invited-user">
-          <thead class="invited-user__thead">
-            <tr>
-              <!-- <th>번호</th> -->
-              <th>이름</th>
-              <th>상태</th>
-              <th>귓속말</th>
-              <th>수락 / 거절</th>
-            </tr>
-          </thead>
-          {% for member in memberList %} {% if member.position === 4 %}
-          <tbody class="invited-user__tbody">
-            <tr id="row-{{member.id}}">
-              <!-- <th>{{member.id}}</th> -->
-              <th>{{member.User.nickname}}</th>
-              <th id="position-{{member.id}}" data-value="{{member.position}}">
-                {{position[member.position]}}
-              </th>
-              <th>
-                <button
-                  id="chat-{{member.id}}"
-                  onclick="whispering(`{{member.User.nickname}}`)"
-                >
-                  귓속말
-                </button>
-              </th>
-              <th
-                class="myteam__memberList__config-btn"
-                id="config-{{member.id}}"
+                수정
+              </button>
+            </div>
+            {% if member.position !== 3 %}
+            <div>
+              <button
+                class="leader-display"
+                onclick="emitMember('{{member.id}}')"
               >
-                {% if member.User.nickname === nickname %}
-                <div>
-                  <button onclick="agree({{member.id}})">수락</button>
-                </div>
+                방출
+              </button>
+            </div>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  <section id="myteam__searching-new">
+    <div class="leader-display">
+      <span>팀원 추가하기</span
+      ><input id="inputUserNickname" type="text" /><button
+        id="addNewMemberBtn"
+        onclick="addNewMember()"
+      >
+        ➕
+      </button>
+    </div>
+  </section>
+  {% if invitedUserList.length === 0 %} {% else %}
 
-                <div>
-                  <button onclick="refuse({{member.id}})">거절</button>
-                </div>
-                {% endif %}
-              </th>
-            </tr>
-          </tbody>
-          {% endif %} {% endfor %}
-        </table>
-      </section>
-      <section id="myteam__project-status">
-        <h2 id="myteam__project-status__title">프로젝트 현재 진행 상태</h2>
+  <section id="myteam__reserved-member" class="myteam__reserved-member">
+    <header>
+      <h1>예비 팀원</h1>
+    </header>
+    <table class="invited-user">
+      <thead class="invited-user__thead">
+        <tr>
+          <th>이름</th>
+          <th>상태</th>
+          <th>귓속말</th>
+          <th>수락 / 거절</th>
+        </tr>
+      </thead>
+      <tbody class="invited-user__tbody">
+        {% for invitedUser in invitedUserList %}
+        <tr id="row-{{invitedUser.id}}">
+          <td>{{invitedUser.User.nickname}}</td>
+          <td
+            id="position-{{invitedUser.id}}"
+            data-value="{{invitedUser.position}}"
+          >
+            {{position[invitedUser.position]}}
+          </td>
+          <td>
+            <button
+              id="chat-{{invitedUser.id}}"
+              onclick="whispering(`{{invitedUser.User.nickname}}`)"
+            >
+              귓속말
+            </button>
+          </td>
+          <td
+            class="myteam__memberList__config-btn"
+            id="config-{{invitedUser.id}}"
+          >
+            {% if invitedUser.User.nickname === nickname %}
+            <div>
+              <button onclick="agree('{{member.id}}')">수락</button>
+            </div>
 
-        <div id="myteam__project-status__buttons">
-          <button
-            class="status-btn leader-disable"
-            data-num="1"
-            onclick="updateTeamStatus(1)"
-          >
-            모집마감</button
-          ><span class="myteam__project-status__arrow">➡️</span
-          ><button
-            class="status-btn leader-disable"
-            data-num="2"
-            onclick="updateTeamStatus(2)"
-          >
-            준비</button
-          ><span class="myteam__project-status__arrow">➡️</span
-          ><button
-            class="status-btn leader-disable"
-            data-num="3"
-            onclick="updateTeamStatus(3)"
-          >
-            진행중</button
-          ><span class="myteam__project-status__arrow">➡️</span
-          ><button
-            class="status-btn leader-disable"
-            data-num="4"
-            onclick="updateTeamStatus(4)"
-          >
-            테스트</button
-          ><span class="myteam__project-status__arrow">➡️</span
-          ><button
-            class="status-btn leader-disable"
-            data-num="5"
-            onclick="updateTeamStatus(5)"
-          >
-            프로젝트 종료
-          </button>
-        </div>
-      </section>
+            <div>
+              <button onclick="refuse('{{member.id}}')">거절</button>
+            </div>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  {% endif %}
+  <section id="myteam__project-status">
+    <h2 id="myteam__project-status__title">프로젝트 현재 진행 상태</h2>
 
-      <section id="myteam__footer">
-        <div>
-          <button class="leader-display" id="deleteTeam" onclick="deleteTeam()">
-            팀 삭제
-          </button>
-          <button onclick="teamChatting()">팀 채팅</button>
-        </div>
-      </section>
-    </main>
-    {% include "partials/page-footer.html"%}
-    <script
-      src="https://kit.fontawesome.com/d1f609d41d.js"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      const userNickname = `{{nickname}}`;
-      let teamLeader = '';
-      if (document.querySelector('#teamLeader')) {
-        teamLeader = document.querySelector('#teamLeader').textContent;
-      }
+    <div id="myteam__project-status__buttons">
+      <button
+        class="status-btn leader-disable"
+        data-num="1"
+        onclick="updateTeamStatus(1)"
+      >
+        모집 마감</button
+      ><span class="myteam__project-status__arrow">➡️</span
+      ><button
+        class="status-btn leader-disable"
+        data-num="2"
+        onclick="updateTeamStatus(2)"
+      >
+        준비</button
+      ><span class="myteam__project-status__arrow">➡️</span
+      ><button
+        class="status-btn leader-disable"
+        data-num="3"
+        onclick="updateTeamStatus(3)"
+      >
+        진행 중</button
+      ><span class="myteam__project-status__arrow">➡️</span
+      ><button
+        class="status-btn leader-disable"
+        data-num="4"
+        onclick="updateTeamStatus(4)"
+      >
+        테스트</button
+      ><span class="myteam__project-status__arrow">➡️</span
+      ><button
+        class="status-btn leader-disable"
+        data-num="5"
+        onclick="updateTeamStatus(5)"
+      >
+        프로젝트 종료
+      </button>
+    </div>
+  </section>
 
-      if (userNickname !== teamLeader) {
-        const displayElementList = document.querySelectorAll('.leader-display');
-        for (let displayElement of displayElementList) {
-          displayElement.classList.add('authority');
-        }
-        const disableElementList = document.querySelectorAll('.leader-disable');
-        for (let disableElement of disableElementList) {
-          disableElement.disabled = true;
-        }
-      }
-      let nowStatus = document.querySelector(
-        '.status-btn[data-num="{{status}}"]'
-      );
-      nowStatus.classList.add('now_team_status');
-    </script>
-    <script src="/js/myteam/teamEditMember.js"></script>
-    <script src="/js/myteam/teamAddNew.js"></script>
-    <script src="/js/myteam/teamUpdateStatus.js"></script>
-    <script src="/js/myteam/teamEmit.js"></script>
-    <script src="/js/myteam/teamDelete.js"></script>
-    <script src="/js/myteam/teamChat.js"></script>
-  </body>
-</html>
+  <section id="myteam__footer">
+    <div>
+      <button class="leader-display" id="deleteTeam" onclick="deleteTeam()">
+        팀 삭제
+      </button>
+      <button onclick="teamChatting()">팀 채팅</button>
+    </div>
+  </section>
+</main>
+<script>
+  const userNickname = `{{nickname}}`;
+  let teamLeader = [];
+  if (document.querySelectorAll('.teamLeader')) {
+    for (let element of document.querySelectorAll('.teamLeader')) {
+      teamLeader.push(element.textContent);
+    }
+  }
+  if (!teamLeader.includes(userNickname)) {
+    const displayElementList = document.querySelectorAll('.leader-display');
+    for (let displayElement of displayElementList) {
+      displayElement.classList.add('authority');
+    }
+    const disableElementList = document.querySelectorAll('.leader-disable');
+    for (let disableElement of disableElementList) {
+      disableElement.disabled = true;
+    }
+  }
+  let nowStatus = document.querySelector('.status-btn[data-num="{{status}}"]');
+  nowStatus.classList.add('now_team_status');
+</script>
+<script src="/js/myteam/teamEditMember.js"></script>
+<script src="/js/myteam/teamAddNew.js"></script>
+<script src="/js/myteam/teamUpdateStatus.js"></script>
+<script src="/js/myteam/teamEmit.js"></script>
+<script src="/js/myteam/teamDelete.js"></script>
+<script src="/js/myteam/teamChat.js"></script>
+{% endblock%}

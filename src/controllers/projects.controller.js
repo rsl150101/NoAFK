@@ -44,12 +44,12 @@ class ProjectsController {
       });
     } catch (error) {
       if (error.name === 'AlreadyDeadLine') {
-        return res.render('deletedTeam', {
+        return res.render('404', {
           pageTitle: 'NoProject',
           pageContent: '프로젝트가 마감되었습니다.',
         });
       }
-      return res.render('deletedTeam', {
+      return res.render('404', {
         pageTitle: 'NoProject',
         pageContent: '프로젝트를 찾을 수 없습니다.',
       });
@@ -152,12 +152,6 @@ class ProjectsController {
         .status(200)
         .render(page, { pageTitle, nextCursor, projects, search });
     } catch (error) {
-      if (error.message === 'url이 올바르지 않습니다.') {
-        return res.render('deletedTeam', {
-          pageTitle: 'Error',
-          pageContent: 'url이 올바르지 않습니다.',
-        });
-      }
       return res.status(500).json({ message: error.message });
     }
   };

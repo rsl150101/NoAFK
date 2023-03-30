@@ -1,7 +1,3 @@
-* {
-  font-size: large;
-}
-
 .project-detail-box {
   text-align: center;
   font-size: 20px;
@@ -46,6 +42,7 @@
 }
 
 .project-screen {
+  font-size: large;
   display: flex;
   flex-direction: column;
   width: 70%;
