@@ -4,6 +4,9 @@
     <header>
       <h1>모집 중인 프로젝트</h1>
     </header>
+    <div class="recruit-project-count">
+      총 <span>{{allProjectCount}}</span> 개의 모집 중인 공고가 있습니다.
+    </div>
     <ul id="projectsBox" class="project-list">
       {% for project in projects %}
       <li>

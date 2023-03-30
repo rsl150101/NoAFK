@@ -141,7 +141,7 @@ class ProjectsController {
     try {
       const { pathname } = url.parse(req.url);
       const { cursor, search } = req.query;
-      const { nextCursor, page, projects, pageTitle } =
+      const { nextCursor, page, projects, pageTitle, allProjectCount } =
         await this.projectService.getCursorBasedProjects(
           pathname,
           cursor,
@@ -149,7 +149,13 @@ class ProjectsController {
         );
       return res
         .status(200)
-        .render(page, { pageTitle, nextCursor, projects, search });
+        .render(page, {
+          pageTitle,
+          nextCursor,
+          projects,
+          search,
+          allProjectCount,
+        });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

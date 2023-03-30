@@ -17,7 +17,7 @@ const development = {
 };
 const test = {
   username: 'root',
-  password: '123',
+  password: null,
   database: 'database_test',
   host: '127.0.0.1',
   dialect: 'mysql',

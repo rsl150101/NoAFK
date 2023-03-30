@@ -254,6 +254,27 @@ class ProjectRepository {
     }
   };
 
+  //* 모집 중인 프로젝트 총 갯수
+  findAllRecruitProjectCount = async (search = '') => {
+    try {
+      const count = await this.projectModel.count({
+        where: {
+          [Op.and]: {
+            status: 0,
+            [Op.or]: {
+              title: { [Op.like]: `%${search}%` },
+              owner: { [Op.like]: `%${search}%` },
+            },
+          },
+        },
+      });
+      return count;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
   //* 프로젝트 생성
   createProject = async (projectInfo) => {
     try {

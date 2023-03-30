@@ -142,7 +142,7 @@ select {
   border-color: #007bff;
 }
 .color_active {
-  color: #37c375;
+  color: var(--count);
 }
 .users_num {
   text-indent: 10px;

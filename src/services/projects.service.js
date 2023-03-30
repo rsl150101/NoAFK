@@ -204,9 +204,11 @@ class ProjectService {
         projects = randomProjects;
       }
 
+      const allProjectCount =
+        await this.projectRepository.findAllRecruitProjectCount(search);
       const nextCursor = projects.length === limit ? projects.at(-1).id : null;
       const pageTitle = page.replace(/^[a-z]/, (char) => char.toUpperCase());
-      return { nextCursor, page, projects, pageTitle };
+      return { nextCursor, page, projects, pageTitle, allProjectCount };
     } catch (error) {
       throw error;
     }
