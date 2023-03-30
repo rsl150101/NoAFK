@@ -209,7 +209,7 @@ class ProjectsController {
 
       this.projectService.postProjectLike(userId, projectId);
 
-      return res.sendStatus(200);
+      return res.sendStatus(201);
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

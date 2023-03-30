@@ -37,9 +37,9 @@ router.delete('/:id', projectsController.deleteProject);
 
 //* 공고 좋아요, 좋아요 해제
 router
-  .route('/:id/like', checkToken)
-  .post(projectsController.postProjectLike)
-  .delete(projectsController.deleteProjectLike);
+  .route('/:id/like')
+  .post(checkToken, projectsController.postProjectLike)
+  .delete(checkToken, projectsController.deleteProjectLike);
 
 // 모집공고 참여 신청
 router.post('/:projectId/applys', checkToken, teamsController.apply);

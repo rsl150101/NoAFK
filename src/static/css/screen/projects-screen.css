@@ -36,6 +36,10 @@
   border-radius: 5px;
 }
 
+.project-list li {
+  position: relative;
+}
+
 .project-list li a {
   height: 100%;
   padding: 10px;
@@ -98,6 +102,16 @@
   justify-self: center;
 }
 
+.project-list li button {
+  font-size: 30px;
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  top: 0;
+  right: 5px;
+  color: var(--light-gray);
+}
+
 .projects-screen section:nth-child(2) {
   display: flex;
   justify-content: center;
@@ -123,4 +137,8 @@
 
 .projectAddBtn:active {
   transform: translateY(2px);
+}
+
+.project-like-btn--red {
+  color: red !important;
 }
