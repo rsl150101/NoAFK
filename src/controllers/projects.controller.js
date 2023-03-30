@@ -11,7 +11,6 @@ class ProjectsController {
   getProject = async (req, res) => {
     try {
       const { id } = req.params;
-      console.log(id);
       let loginUserId = null;
 
       if (res.locals.user) {
