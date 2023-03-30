@@ -226,7 +226,6 @@ joinForm.addEventListener('submit', (e) => {
 });
 
 const join = async () => {
-  console.log(useNickname);
   if (!useEmail) {
     return alert('이메일 인증을 완료해주세요!');
   }
