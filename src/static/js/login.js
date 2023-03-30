@@ -16,8 +16,12 @@ const sendEmailModalData = async () => {
 
     if (response.status === 201) {
       alert('비밀번호가 재발급되었습니다. 메일을 확인해주세요!');
-    } else {
-      alert('이메일이 잘못되었습니다.');
+    }
+    if (response.status === 429) {
+      return alert('요청이 너무 많습니다. 잠시 후 다시 시도해주세요.');
+    }
+    if (response.status === 500) {
+      return alert('이메일이 잘못되었습니다.');
     }
   }
 };
@@ -52,15 +56,20 @@ const login = async () => {
   });
 
   if (response.status === 200) {
-    window.location.href = '/';
+    return (window.location.href = '/');
   }
   if (response.status === 403) {
-    alert('차단된 유저입니다.');
+    return alert('차단된 유저입니다.');
   }
   if (response.status === 401) {
-    alert('존재하지 않는 유저입니다.');
+    return alert('존재하지 않는 유저입니다.');
   }
   if (response.status === 400) {
-    alert('로그인 실패!');
+    return alert('로그인 실패!');
+  }
+  if (response.status === 429) {
+    return alert(
+      '너무 많은 요청으로 5분 동안 차단되었습니다. 5분 뒤 다시 시도해주세요.'
+    );
   }
 };

@@ -162,13 +162,6 @@ const deleteComment = async (commentId) => {
   }
 };
 
-// 로그아웃
-const logout = async () => {
-  await fetch('/api/auth/logout');
-
-  window.location.replace('/login');
-};
-
 // 참가 신청 수락
 const acceptUser = async (userId) => {
   await fetch(`/projects/${projectId}/applys/${userId}`, {
@@ -315,12 +308,6 @@ if (deleteBoardBtn) {
 if (endBoardBtn) {
   endBoardBtn.addEventListener('click', () => {
     endBoard();
-  });
-}
-
-if (logoutBtn) {
-  logoutBtn.addEventListener('click', () => {
-    logout();
   });
 }
 

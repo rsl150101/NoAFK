@@ -6,7 +6,7 @@ const TeamsController = require('../controllers/teams.controller');
 // 미들웨어추가
 const { checkToken } = require('../middlewares/auth');
 const { uploadProjectImage } = require('../middlewares/uploads');
-const { postProjectLimiter } = require('../middlewares/limit');
+const { postProjectLimiter, apiLimiter } = require('../middlewares/limit');
 
 const router = express.Router();
 const projectsController = new ProjectsController();
@@ -42,7 +42,12 @@ router
   .delete(checkToken, projectsController.deleteProjectLike);
 
 // 모집공고 참여 신청
-router.post('/:projectId/applys', checkToken, teamsController.apply);
+router.post(
+  '/:projectId/applys',
+  checkToken,
+  apiLimiter,
+  teamsController.apply
+);
 // 모집공고 신청 수락
 router.patch('/:projectId/applys/:userId', teamsController.acceptApply);
 // 모집공고 신청 취소
