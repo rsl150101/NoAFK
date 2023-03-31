@@ -120,11 +120,11 @@
           >
             {% if invitedUser.User.nickname === nickname %}
             <div>
-              <button onclick="agree('{{member.id}}')">수락</button>
+              <button onclick="agree('{{invitedUser.id}}')">수락</button>
             </div>
 
             <div>
-              <button onclick="refuse('{{member.id}}')">거절</button>
+              <button onclick="refuse('{{invitedUser.id}}')">거절</button>
             </div>
             {% endif %}
           </td>
