@@ -1,10 +1,58 @@
 const loginForm = document.getElementById('login-box');
 const resetPwBtn = document.getElementById('reset-pw-btn');
 const sendEmailModal = document.getElementById('send-email-modal');
+const emailInput = document.getElementById('send-email-input');
+const emailAuthCheckInput = document.getElementById('emailCheck');
+const emailAuthBtn = document.getElementById('send-auth-email');
+const emailCheckBtn = document.getElementById('send-email-check');
+
+let passEmail = false;
+let authString;
+
+// 인증번호 전송
+const sendEmailAuth = async () => {
+  const email = emailInput.value;
+
+  fetch('/api/auth/send-email', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status === 200) {
+        authString = data.authString;
+        return alert('이메일 발송 성공했습니다. 메일을 확인해주세요.');
+      }
+      if (data.status === 500) {
+        return alert('이메일 발송에 실패했습니다.');
+      }
+      if (data.status === 429) {
+        return alert(data.message);
+      }
+    });
+};
+
+function emailAuthCheck() {
+  const emailAuthCheck = emailAuthCheckInput.value;
+
+  if (authString !== emailAuthCheck) {
+    return alert('인증번호가 틀렸습니다.');
+  }
+
+  passEmail = true;
+  emailAuthBtn.style.display = 'none';
+  emailCheckBtn.style.display = 'none';
+  emailAuthCheckInput.readOnly = true;
+  emailInput.readOnly = true;
+  return alert('인증되었습니다.');
+}
 
 const sendEmailModalData = async () => {
-  if (sendEmailModal.returnValue === 'send') {
-    const email = document.getElementById('send-email-input').value;
+  if (sendEmailModal.returnValue === 'send' && passEmail) {
+    const email = emailInput.value;
 
     const response = await fetch('/api/reset-password', {
       method: 'POST',
@@ -31,6 +79,10 @@ if (resetPwBtn) {
     sendEmailModal.showModal();
   });
 }
+
+emailAuthBtn.addEventListener('click', sendEmailAuth);
+
+emailCheckBtn.addEventListener('click', emailAuthCheck);
 
 if (sendEmailModal) {
   sendEmailModal.addEventListener('close', sendEmailModalData);
