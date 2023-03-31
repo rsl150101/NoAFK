@@ -315,6 +315,19 @@ class ProjectRepository {
     }
   };
 
+  //* 해당 유저의 프로젝트 좋아요 전체 조회
+  findAllProjectLikeByUserId = async (userId) => {
+    try {
+      return await this.projectLikeModel.findAll({
+        where: { userId },
+        raw: true,
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
   //* 프로젝트 좋아요 검사
   verifyProjectLike = async (userId, projectId) => {
     try {
