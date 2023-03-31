@@ -51,7 +51,11 @@ function emailAuthCheck() {
 }
 
 const sendEmailModalData = async () => {
-  if (sendEmailModal.returnValue === 'send' && passEmail) {
+  if (!passEmail) {
+    return alert('이메일 인증해주세요.');
+  }
+
+  if (sendEmailModal.returnValue === 'send') {
     const email = emailInput.value;
 
     const response = await fetch('/api/reset-password', {
