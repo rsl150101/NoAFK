@@ -37,10 +37,18 @@
   justify-content: space-between;
 }
 
-.pw-reissue-modal-screen form div button {
+.pw-reissue-modal-screen .send-btn {
   font-weight: 700;
   width: 45%;
   height: 40px;
+  border-radius: 5px;
+  border: 1px solid var(--light-gray);
+}
+
+.pw-reissue-modal-screen .auth-btn {
+  font-weight: 700;
+  width: 45%;
+  height: 50px;
   border-radius: 5px;
   border: 1px solid var(--light-gray);
 }
