@@ -63,23 +63,23 @@ const handleScroll = async () => {
 
       projectsBox.appendChild(li);
 
-      if (!cursor) {
-        projectsBox.removeEventListener('scroll', handleScroll);
-
-        const li = document.createElement('li');
-        const span = document.createElement('span');
-
-        span.textContent = '더 이상 공고가 없습니다.';
-        li.classList.add('no-more-project');
-
-        li.appendChild(span);
-        projectsBox.appendChild(li);
-
-        return;
-      }
-
       projectsBox.addEventListener('scroll', handleScroll);
     });
+
+    if (!cursor) {
+      projectsBox.removeEventListener('scroll', handleScroll);
+
+      const li = document.createElement('li');
+      const span = document.createElement('span');
+
+      span.textContent = '더 이상 공고가 없습니다.';
+      li.classList.add('no-more-project');
+
+      li.appendChild(span);
+      projectsBox.appendChild(li);
+
+      return;
+    }
   }
 };
 
