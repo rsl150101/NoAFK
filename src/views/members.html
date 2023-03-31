@@ -52,16 +52,10 @@
                   <h5>{{ user.nickname }}</h5>
                 </div>
                 <div class="order-2 p-2 flex-grow-1 bd-highlight">
-                  <h6>
-                    {% if user.privateEmail == 0%} 비공개 {% else %}
-                    {{user.email }} {% endif %}
-                  </h6>
+                  <h6>{{ user.email }}</h6>
                 </div>
                 <div class="order-3 p-2 bd-highlight">
-                  <h5>
-                    {% if user.testResult == null %} 미완료 {% else %} {{
-                    user.testResult }} {% endif %}
-                  </h5>
+                  <h5>{{ user.testResult }}</h5>
                 </div>
               </div>
               {{ user.introduction }}

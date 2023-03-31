@@ -364,7 +364,7 @@ class UserService {
       const totalPages = Math.ceil(count / perPage);
 
       if (pathUrl === '/members') {
-        const users = rows.map(
+        let users = rows.map(
           ({
             email,
             nickname,
@@ -372,14 +372,26 @@ class UserService {
             introduction,
             image,
             privateEmail,
-          }) => ({
-            email,
-            nickname,
-            testResult,
-            introduction,
-            image,
-            privateEmail,
-          })
+          }) => {
+            switch (privateEmail) {
+              case 0:
+                email = '비공개';
+                break;
+            }
+            switch (testResult) {
+              case null:
+                testResult = '미완료';
+                break;
+            }
+            return {
+              email,
+              nickname,
+              testResult,
+              introduction,
+              image,
+              privateEmail,
+            };
+          }
         );
 
         return { users, totalPages, count };
