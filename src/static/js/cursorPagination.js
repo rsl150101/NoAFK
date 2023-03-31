@@ -67,10 +67,7 @@ const handleScroll = async () => {
           handleProjectLike(likeBtn, project.id);
         });
 
-        if (
-          Number(owner) === project['ProjectLikes.userId'] &&
-          project.id === project['ProjectLikes.projectId']
-        ) {
+        if (project.like) {
           likeBtn.classList.add('project-like-btn--red');
         }
 

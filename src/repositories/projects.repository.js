@@ -222,10 +222,7 @@ class ProjectRepository {
         },
         order: [['id', 'DESC']],
         attributes: { exclude: ['owner'] },
-        include: [
-          { model: User, attributes: ['nickname'] },
-          { model: this.projectLikeModel, attributes: ['userId', 'projectId'] },
-        ],
+        include: [{ model: User, attributes: ['nickname'] }],
         raw: true,
         limit,
       });
@@ -318,13 +315,29 @@ class ProjectRepository {
     }
   };
 
+  //* 해당 유저의 프로젝트 좋아요 전체 조회
+  findAllProjectLikeByUserId = async (userId) => {
+    try {
+      return await this.projectLikeModel.findAll({
+        where: { userId },
+        raw: true,
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
   //* 프로젝트 좋아요 검사
   verifyProjectLike = async (userId, projectId) => {
     try {
       return await this.projectLikeModel.findOne({
         where: { [Op.and]: { userId, projectId } },
       });
-    } catch (error) {}
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
   };
 
   //* 프로젝트 좋아요

@@ -13,6 +13,7 @@ const {
 
 // customError
 const { AlreadyDeadLine } = require('../utility/customError');
+const { log } = require('console');
 
 class ProjectService {
   projectRepository = new ProjectRepository(Project, ProjectLike);
@@ -143,7 +144,7 @@ class ProjectService {
   };
 
   //* 페이지별 커서 기반 전체 프로젝트 조회 및 페이지네이션
-  getCursorBasedProjects = async (page, cursor, search) => {
+  getCursorBasedProjects = async (page, cursor, search, userId) => {
     try {
       if (!page) {
         throw new Error('url이 올바르지 않습니다.');
@@ -202,6 +203,23 @@ class ProjectService {
         }
 
         projects = randomProjects;
+      }
+
+      if (userId) {
+        projects = await Promise.all(
+          projects.map(async (project) => {
+            const existProjectLike =
+              await this.projectRepository.verifyProjectLike(
+                userId,
+                project.id
+              );
+            if (existProjectLike) {
+              return { ...project, like: true };
+            } else {
+              return { ...project, like: false };
+            }
+          })
+        );
       }
 
       const allProjectCount =

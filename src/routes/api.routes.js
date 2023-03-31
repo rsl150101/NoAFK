@@ -77,7 +77,7 @@ router.get(
 router.patch('/test/:id', apiController.test);
 
 //* 프로젝트 커서 기반 페이지네이션 조회
-router.get('/projects', projectsController.getCursorBasedProjects);
+router.get('/projects', checkToken, projectsController.getCursorBasedProjects);
 
 //* 댓글 커서 기반 페이지네이션 조회
 router.get('/projects/:id/comments', commentsController.getComments);

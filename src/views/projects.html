@@ -21,8 +21,7 @@
             <span id="createdAt">{{project.createdAt}}</span>
           </div>
         </a>
-        {% if user.id %} {% if user.id === project['ProjectLikes.userId'] and
-        project.id === project['ProjectLikes.projectId'] %}
+        {% if user.id %} {% if project.like %}
         <button
           id="projectLikeBtn"
           class="project-like-btn project-like-btn--red"
