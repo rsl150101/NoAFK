@@ -180,7 +180,7 @@ class UserRepository {
   };
 
   // * 유저조회,백오피스-회원조회
-  getSearchUser = async (start, perPage, sfl, stx) => {
+  getSearchUser = async (start, perPage, pathUrl, sfl, stx) => {
     try {
       const isSelectField = sfl || false;
       const isSearchField = stx || false;
@@ -207,7 +207,14 @@ class UserRepository {
 
       if (isSelectField) {
         if (isSFLEmail) {
-          baseSQL.where = { email: { [Op.like]: `%${stx}%` } };
+          if (pathUrl === '/members') {
+            baseSQL.where = {
+              email: { [Op.like]: `%${stx}%` },
+              privateEmail: 1,
+            };
+          } else {
+            baseSQL.where = { email: { [Op.like]: `%${stx}%` } };
+          }
         } else if (isSFLNickname) {
           baseSQL.where = { nickname: { [Op.like]: `%${stx}%` } };
         } else {
@@ -259,7 +266,7 @@ class UserRepository {
           'introduction',
           'image',
           'expiredAt',
-          'privateEmail'
+          'privateEmail',
         ],
       });
 
