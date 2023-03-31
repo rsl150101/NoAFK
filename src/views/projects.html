@@ -4,6 +4,9 @@
     <header>
       <h1>모집 중인 프로젝트</h1>
     </header>
+    <div class="recruit-project-count">
+      총 <span>{{allProjectCount}}</span> 개의 모집 중인 공고가 있습니다.
+    </div>
     <ul id="projectsBox" class="project-list">
       {% for project in projects %}
       <li>
@@ -18,6 +21,26 @@
             <span id="createdAt">{{project.createdAt}}</span>
           </div>
         </a>
+        {% if user.id %} {% if user.id === project['ProjectLikes.userId'] and
+        project.id === project['ProjectLikes.projectId'] %}
+        <button
+          id="projectLikeBtn"
+          class="project-like-btn project-like-btn--red"
+          type="button"
+          data-id="{{project.id}}"
+        >
+          <i class="fa-solid fa-heart"></i>
+        </button>
+        {% else %}
+        <button
+          id="projectLikeBtn"
+          class="project-like-btn"
+          type="button"
+          data-id="{{project.id}}"
+        >
+          <i class="fa-solid fa-heart"></i>
+        </button>
+        {% endif %} {% endif %}
       </li>
       {% endfor %}
     </ul>
@@ -33,6 +56,7 @@
   const search = '{{search}}';
   let cursor = '{{nextCursor}}';
 </script>
-<script src="js/cursorPagination.js"></script>
 <script src="js/projectAddModal.js"></script>
+<script src="js/projectLike.js"></script>
+<script src="js/cursorPagination.js"></script>
 {% endblock%}

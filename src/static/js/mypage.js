@@ -42,9 +42,11 @@ function submitNickname(id) {
   let nickname = inputNickname[0].value;
   let idRegExp = /^[A-za-z0-9가-힣]{1,20}$/;
   if (!nickname) {
-    return alert("변경할 닉네임을 입력해주세요.")
+    return alert('변경할 닉네임을 입력해주세요.');
   } else if (!idRegExp.test(nickname)) {
-    return alert("닉네임은 한글, 영어 대소문자 숫자가 가능하며, 특수문자와 공백이 불가능합니다. 닉네임 길이는 1~20자입니다.")
+    return alert(
+      '닉네임은 한글, 영어 대소문자 숫자가 가능하며, 특수문자와 공백이 불가능합니다. 닉네임 길이는 1~20자입니다.'
+    );
   } else {
     fetch('users/' + id + '/nickname', {
       method: 'PATCH',
@@ -62,9 +64,11 @@ function submitPassword(id) {
   let password = inputPassword[0].value;
   let pwRegExp = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
   if (!password) {
-    return alert("변경할 패스워드를 입력해주세요.")
+    return alert('변경할 패스워드를 입력해주세요.');
   } else if (!pwRegExp.test(password)) {
-    return alert("비밀번호는 특수문자를 무조건 포함해야하며, 최소 8자 이상 입력해야합니다.")
+    return alert(
+      '비밀번호는 특수문자를 무조건 포함해야하며, 최소 8자 이상 입력해야합니다.'
+    );
   } else {
     fetch('users/' + id + '/password', {
       method: 'PATCH',
@@ -72,13 +76,9 @@ function submitPassword(id) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ password }),
-    })
-      .then(() => {
-        fetch('/api/auth/logout');
-      })
-      .then(() => {
-        window.location.href = '/login';
-      });
+    }).then(() => {
+      fetch('/api/auth/logout').then(() => (window.location.href = '/login'));
+    });
   }
 }
 
@@ -117,32 +117,34 @@ function submitImage(id) {
     });
 }
 
-window.onkeyup = function(e) {
-	var key = e.keyCode ? e.keyCode : e.which;
+window.onkeyup = function (e) {
+  var key = e.keyCode ? e.keyCode : e.which;
 
-	if(key == 27) {
-		closeModalImage();
+  if (key == 27) {
+    closeModalImage();
     closeModalNickname();
     closeModalPassword();
     closeModalIntroduction();
-	}
-}
+  }
+};
 
 function setThumbnail(event) {
   var reader = new FileReader();
 
-  reader.onload = function(event) {
-    var img = document.createElement("img");
-    img.setAttribute("src", event.target.result);
-    document.querySelector("div#image_container").appendChild(img);
+  reader.onload = function (event) {
+    var img = document.createElement('img');
+    img.setAttribute('src', event.target.result);
+    document.querySelector('div#image_container').appendChild(img);
   };
 
   reader.readAsDataURL(event.target.files[0]);
 }
 
 function updatePrivateStatus(id) {
-  const privateStatus = document.getElementById("private").innerText.split(" ")[1];
-  if (privateStatus === "공개") {
+  const privateStatus = document
+    .getElementById('private')
+    .innerText.split(' ')[1];
+  if (privateStatus === '공개') {
     fetch('users/' + id + '/privateEmail', {
       method: 'PATCH',
       headers: {
@@ -151,7 +153,7 @@ function updatePrivateStatus(id) {
       body: JSON.stringify({ privateEmail: false }),
     });
     window.location.reload();
-  } else if (privateStatus === "비공개") {
+  } else if (privateStatus === '비공개') {
     fetch('users/' + id + '/privateEmail', {
       method: 'PATCH',
       headers: {
@@ -161,6 +163,6 @@ function updatePrivateStatus(id) {
     });
     window.location.reload();
   } else {
-    alert("임의적인 조작은 사용불가합니다.");
+    alert('임의적인 조작은 사용불가합니다.');
   }
 }

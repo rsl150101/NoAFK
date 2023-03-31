@@ -3,8 +3,9 @@ const Op = Sequelize.Op;
 const { User } = require('../models');
 
 class ProjectRepository {
-  constructor(ProjectModel) {
+  constructor(ProjectModel, ProjectLikeModel) {
     this.projectModel = ProjectModel;
+    this.projectLikeModel = ProjectLikeModel;
   }
 
   findProjectById = async (id) => {
@@ -221,7 +222,10 @@ class ProjectRepository {
         },
         order: [['id', 'DESC']],
         attributes: { exclude: ['owner'] },
-        include: [{ model: User, attributes: ['nickname'] }],
+        include: [
+          { model: User, attributes: ['nickname'] },
+          { model: this.projectLikeModel, attributes: ['userId', 'projectId'] },
+        ],
         raw: true,
         limit,
       });
@@ -233,13 +237,34 @@ class ProjectRepository {
   };
 
   //* 프로젝트 총 갯수
-  findAllProjectCount = async (search) => {
+  findAllProjectCount = async (search = '') => {
     try {
       const count = await this.projectModel.count({
         where: {
           [Op.or]: {
             title: { [Op.like]: `%${search}%` },
             owner: { [Op.like]: `%${search}%` },
+          },
+        },
+      });
+      return count;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 모집 중인 프로젝트 총 갯수
+  findAllRecruitProjectCount = async (search = '') => {
+    try {
+      const count = await this.projectModel.count({
+        where: {
+          [Op.and]: {
+            status: 0,
+            [Op.or]: {
+              title: { [Op.like]: `%${search}%` },
+              owner: { [Op.like]: `%${search}%` },
+            },
           },
         },
       });
@@ -287,6 +312,39 @@ class ProjectRepository {
         }
       );
       return { status: 200, message: '프로젝트 진행 상태 수정 성공!' };
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 프로젝트 좋아요 검사
+  verifyProjectLike = async (userId, projectId) => {
+    try {
+      return await this.projectLikeModel.findOne({
+        where: { [Op.and]: { userId, projectId } },
+      });
+    } catch (error) {}
+  };
+
+  //* 프로젝트 좋아요
+  postProjectLike = (userId, projectId) => {
+    try {
+      this.projectLikeModel.create({ userId, projectId });
+      return;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 프로젝트 좋아요 해제
+  deleteProjectLike = (userId, projectId) => {
+    try {
+      this.projectLikeModel.destroy({
+        where: { [Op.and]: { userId, projectId } },
+      });
+      return;
     } catch (error) {
       error.status = 500;
       throw error;

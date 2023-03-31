@@ -141,7 +141,7 @@ class ProjectsController {
     try {
       const { pathname } = url.parse(req.url);
       const { cursor, search } = req.query;
-      const { nextCursor, page, projects, pageTitle } =
+      const { nextCursor, page, projects, pageTitle, allProjectCount } =
         await this.projectService.getCursorBasedProjects(
           pathname,
           cursor,
@@ -149,7 +149,13 @@ class ProjectsController {
         );
       return res
         .status(200)
-        .render(page, { pageTitle, nextCursor, projects, search });
+        .render(page, {
+          pageTitle,
+          nextCursor,
+          projects,
+          search,
+          allProjectCount,
+        });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
@@ -196,6 +202,40 @@ class ProjectsController {
       const { originalname } = req.file;
       this.projectService.verifyThumbnail(originalname);
       return res.status(200).json({ image: req.file.location });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  //* 프로젝트 좋아요
+  postProjectLike = async (req, res) => {
+    try {
+      const userId = res.locals.user.id;
+      const projectId = req.params.id;
+
+      const statusCode = await this.projectService.postProjectLike(
+        userId,
+        projectId
+      );
+
+      return res.sendStatus(statusCode);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  //* 프로젝트 좋아요 해제
+  deleteProjectLike = async (req, res) => {
+    try {
+      const userId = res.locals.user.id;
+      const projectId = req.params.id;
+
+      const statusCode = await this.projectService.deleteProjectLike(
+        userId,
+        projectId
+      );
+
+      return res.sendStatus(statusCode);
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

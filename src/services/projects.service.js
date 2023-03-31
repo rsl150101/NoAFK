@@ -3,13 +3,19 @@ const ProjectRepository = require('../repositories/projects.repository');
 const CommentRepository = require('../repositories/comments.repository');
 const UserRepository = require('../repositories/users.repository');
 const TeamRepository = require('../repositories/teams.repository');
-const { Project, ProjectUser, Comment, User } = require('../models');
+const {
+  Project,
+  ProjectUser,
+  Comment,
+  User,
+  ProjectLike,
+} = require('../models');
 
 // customError
 const { AlreadyDeadLine } = require('../utility/customError');
 
 class ProjectService {
-  projectRepository = new ProjectRepository(Project);
+  projectRepository = new ProjectRepository(Project, ProjectLike);
   teamRepository = new TeamRepository(ProjectUser);
   commentsRepository = new CommentRepository(Comment);
   userRepository = new UserRepository(User);
@@ -197,9 +203,12 @@ class ProjectService {
 
         projects = randomProjects;
       }
+
+      const allProjectCount =
+        await this.projectRepository.findAllRecruitProjectCount(search);
       const nextCursor = projects.length === limit ? projects.at(-1).id : null;
       const pageTitle = page.replace(/^[a-z]/, (char) => char.toUpperCase());
-      return { nextCursor, page, projects, pageTitle };
+      return { nextCursor, page, projects, pageTitle, allProjectCount };
     } catch (error) {
       throw error;
     }
@@ -234,6 +243,44 @@ class ProjectService {
       const allProjectInfoByUser = await this.teamRepository.projectByUser(id);
 
       return allProjectInfoByUser;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //* 프로젝트 좋아요
+  postProjectLike = async (userId, projectId) => {
+    try {
+      const existProjectLike = await this.projectRepository.verifyProjectLike(
+        userId,
+        projectId
+      );
+
+      if (existProjectLike) {
+        return 403;
+      } else {
+        this.projectRepository.postProjectLike(userId, projectId);
+        return 201;
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //* 프로젝트 좋아요 해제
+  deleteProjectLike = async (userId, projectId) => {
+    try {
+      const existProjectLike = await this.projectRepository.verifyProjectLike(
+        userId,
+        projectId
+      );
+
+      if (existProjectLike) {
+        this.projectRepository.deleteProjectLike(userId, projectId);
+        return 204;
+      } else {
+        return 403;
+      }
     } catch (error) {
       throw error;
     }

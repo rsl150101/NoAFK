@@ -9,6 +9,14 @@
   flex: 1;
 }
 
+.recruit-project-count {
+  margin-top: 15px;
+}
+
+.recruit-project-count span {
+  color: var(--count);
+}
+
 .project-list {
   margin: 20px 0;
   padding: 20px 20px;
@@ -34,6 +42,10 @@
 .project-list::-webkit-scrollbar-track {
   background-color: white;
   border-radius: 5px;
+}
+
+.project-list li {
+  position: relative;
 }
 
 .project-list li a {
@@ -98,6 +110,17 @@
   justify-self: center;
 }
 
+.project-list li button {
+  font-size: 30px;
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  top: 0;
+  right: 5px;
+  color: var(--light-gray);
+}
+
 .projects-screen section:nth-child(2) {
   display: flex;
   justify-content: center;
@@ -123,4 +146,16 @@
 
 .projectAddBtn:active {
   transform: translateY(2px);
+}
+
+.project-like-btn--red {
+  color: red !important;
+}
+
+.no-more-project {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  font-weight: 700;
 }
