@@ -18,7 +18,6 @@ class ApiController {
 
       const { status, message } = await this.userService.createUser(userInfo);
 
-      res.clearCookie('authString');
       res.status(status).json({ message });
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -51,7 +50,6 @@ class ApiController {
 
   //로그아웃
   logout = async (req, res) => {
-    res.clearCookie('authString');
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
     // 카카오소셜로그인 쿠키
@@ -165,10 +163,9 @@ class ApiController {
       const { status, message, authString } =
         await this.userService.sendEmailAuth(email);
 
-      res.cookie('authString', authString);
-      res.status(status).json({ message });
+      res.status(status).json({ message, authString, status });
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      return res.status(500).json({ message: error.message, status: 500 });
     }
   };
 }

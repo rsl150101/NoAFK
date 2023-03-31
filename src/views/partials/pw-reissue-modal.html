@@ -1,16 +1,26 @@
 <dialog id="send-email-modal" class="pw-reissue-modal-screen">
   <form method="dialog">
     <label for="send-email">비밀번호 재발급</label>
-    <input
-      type="text"
-      name="send-email"
-      id="send-email-input"
-      placeholder="회원가입한 이메일을 적어주세요"
-      class="w-full"
-    />
     <div>
-      <button value="send">재발급</button>
-      <button value="cancel">취소</button>
+      <input
+        type="text"
+        name="send-email"
+        id="send-email-input"
+        placeholder="회원가입한 이메일"
+      />
+      <button class="auth-btn" id="send-auth-email" type="button">
+        인증번호 전송
+      </button>
+    </div>
+    <div>
+      <input type="text" id="emailCheck" placeholder="인증번호" />
+      <button class="auth-btn" id="send-email-check" type="button">
+        인증번호 확인
+      </button>
+    </div>
+    <div>
+      <button class="send-btn" value="send">재발급</button>
+      <button class="send-btn" value="cancel">취소</button>
     </div>
   </form>
 </dialog>
