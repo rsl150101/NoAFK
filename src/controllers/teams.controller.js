@@ -170,6 +170,7 @@ class TeamsController {
     try {
       const { memberId } = req.params;
       const { position, task } = req.body;
+
       const updatedMember = await this.teamService.updateMember(
         memberId,
         position,
