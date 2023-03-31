@@ -141,21 +141,22 @@ class ProjectsController {
     try {
       const { pathname } = url.parse(req.url);
       const { cursor, search } = req.query;
+      const { id } = res.locals.user;
+
       const { nextCursor, page, projects, pageTitle, allProjectCount } =
         await this.projectService.getCursorBasedProjects(
           pathname,
           cursor,
-          search
-        );
-      return res
-        .status(200)
-        .render(page, {
-          pageTitle,
-          nextCursor,
-          projects,
           search,
-          allProjectCount,
-        });
+          id
+        );
+      return res.status(200).render(page, {
+        pageTitle,
+        nextCursor,
+        projects,
+        search,
+        allProjectCount,
+      });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
@@ -165,8 +166,15 @@ class ProjectsController {
   getCursorBasedProjects = async (req, res) => {
     try {
       const { cursor, site, search } = req.query;
+      const { id } = res.locals.user;
+
       const { nextCursor, projects } =
-        await this.projectService.getCursorBasedProjects(site, cursor, search);
+        await this.projectService.getCursorBasedProjects(
+          site,
+          cursor,
+          search,
+          id
+        );
       return res.status(200).json({ nextCursor, projects });
     } catch (error) {
       return res.status(500).json({ message: error.message });
