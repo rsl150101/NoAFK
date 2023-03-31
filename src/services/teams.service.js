@@ -215,9 +215,7 @@ class TeamService {
 
   deleteTeam = async (teamId) => {
     try {
-      const status = 0;
-      await this.projectRepository.updateStatus(teamId, status);
-
+      await this.projectRepository.deleteProject(teamId);
       return await this.teamRepository.deleteTeam(teamId);
     } catch (error) {
       throw error;
