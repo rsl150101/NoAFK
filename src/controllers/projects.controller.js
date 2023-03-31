@@ -141,7 +141,11 @@ class ProjectsController {
     try {
       const { pathname } = url.parse(req.url);
       const { cursor, search } = req.query;
-      const { id } = res.locals.user;
+      let id;
+
+      if (res.locals.user) {
+        id = res.locals.user.id;
+      }
 
       const { nextCursor, page, projects, pageTitle, allProjectCount } =
         await this.projectService.getCursorBasedProjects(
@@ -166,7 +170,11 @@ class ProjectsController {
   getCursorBasedProjects = async (req, res) => {
     try {
       const { cursor, site, search } = req.query;
-      const { id } = res.locals.user;
+      let id;
+
+      if (res.locals.user) {
+        id = res.locals.user.id;
+      }
 
       const { nextCursor, projects } =
         await this.projectService.getCursorBasedProjects(
