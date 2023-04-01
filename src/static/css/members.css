@@ -49,7 +49,7 @@ select {
   position: relative;
 }
 .form_div {
-  margin-top: 1rem;
+  margin: 1rem 0;
 }
 .sch_area .form_div strong {
   width: 80px;
