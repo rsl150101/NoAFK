@@ -34,72 +34,68 @@
 
 ### Front End
 
-  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white">
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white">
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white">
-  <img src="https://img.shields.io/badge/Nunjucks-1C4913?style=for-the-badge&logo=Nunjucks&logoColor=white">
+![html](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white)
+![css](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white)
+![javascript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white)
+![nunjucks](https://img.shields.io/badge/Nunjucks-1C4913?style=for-the-badge&logo=Nunjucks&logoColor=white)
 
 ### Back End
 
-  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white">
-  <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=Express&logoColor=white">
-  <img src="https://img.shields.io/badge/Socket.io-010101?style=for-the-badge&logo=Socket.io&logoColor=white">
-  <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=for-the-badge&logo=JSON Web Tokens&logoColor=white">
-  <img src="https://img.shields.io/badge/Passport-34E27A?style=for-the-badge&logo=Passport&logoColor=white">
-  <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=Redis&logoColor=white">
-  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
-  <img src="https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white">
-  <br>
-  <img src="https://img.shields.io/badge/multer-112233?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Nodemailer-22B573?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Express Rate Limit-929292?style=for-the-badge">
-  <img src="https://img.shields.io/badge/GreenLock-5BC280?style=for-the-badge">
-  <br>
-  <p><h2>☁️ AWS ☁️</h2></p>
-	<img src="https://img.shields.io/badge/Amazon-EC2-FF9900?style=for-the-badge&logo=Amazon-EC2&4a154b=white" />
-	<img src="https://img.shields.io/badge/Amazon-S3-569A31?style=for-the-badge&logo=Amazon-S3&4a154b=white" />
-	<img src="https://img.shields.io/badge/Amazon-Lambda-FF9900?style=for-the-badge&logo=AWS-Lambda&4a154b=white" />
-  <br>
-	<img src="https://img.shields.io/badge/PM2-2B037A?style=for-the-badge&logo=PM2&4a154b=white" />
-  <br>
-  <p><h2>🛠️ Tools 🛠️</h2></p>
-	<img src="https://img.shields.io/badge/slack-4a154b?style=for-the-badge&logo=slack&4a154b=white" />
-	<img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&4a154b=white" />
-  <br>
-	<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&181717=white" />
-  <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white">
-  <br>
-	<img src="https://img.shields.io/badge/Visual Studio Code-007acc?style=for-the-badge&logo=Visual Studio Code&logoColor=white" />
-  <br>
-<br>
+![node](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white)
+![express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=Express&logoColor=white)
+![socket](https://img.shields.io/badge/Socket.io-010101?style=for-the-badge&logo=Socket.io&logoColor=white)
+![jwt](https://img.shields.io/badge/JSON_Web_Tokens-000000?style=for-the-badge&logo=JSON-Web-Tokens&logoColor=white)
+![passport](https://img.shields.io/badge/Passport-34E27A?style=for-the-badge&logo=Passport&logoColor=white)
+![redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=Redis&logoColor=white)
+![mysql](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white)
+![sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)  
+![multer](https://img.shields.io/badge/multer-112233?style=for-the-badge)
+![nodemailer](https://img.shields.io/badge/Nodemailer-22B573?style=for-the-badge)
+![express](https://img.shields.io/badge/Express_Rate_Limit-929292?style=for-the-badge)
+![greenlock](https://img.shields.io/badge/GreenLock-5BC280?style=for-the-badge)
+
+### ☁️ AWS ☁️
+
+![ec2](https://img.shields.io/badge/Amazon-EC2-FF9900?style=for-the-badge&logo=Amazon-EC2&4a154b=white)
+![s3](https://img.shields.io/badge/Amazon-S3-569A31?style=for-the-badge&logo=Amazon-S3&4a154b=white)
+![lambda](https://img.shields.io/badge/Amazon-Lambda-FF9900?style=for-the-badge&logo=AWS-Lambda&4a154b=white)  
+![pm2](https://img.shields.io/badge/PM2-2B037A?style=for-the-badge&logo=PM2&4a154b=white)
+
+### 🛠️ Tools 🛠️
+
+![slack](https://img.shields.io/badge/slack-4a154b?style=for-the-badge&logo=slack&4a154b=white)
+![notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&4a154b=white)  
+![github](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&181717=white)
+![github_actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=GitHub-Actions&logoColor=white)  
+![vscode](https://img.shields.io/badge/Visual_Studio_Code-007acc?style=for-the-badge&logo=Visual-Studio-Code&logoColor=white)
 
 # 👥 멤버
 
-  <a href="https://github.com/Jeongjiw00">
-    <img src="https://avatars.githubusercontent.com/u/118160093" width="70" height="70">
-  </a>
-  <a href="https://github.com/rsl150101">
-    <img src="https://avatars.githubusercontent.com/u/95523340" width="70" height="70">
-  </a>
-  <a href="https://github.com/go-tiger">
-    <img src="https://avatars.githubusercontent.com/u/64995762" width="70" height="70">
-  </a>
-  <a href="https://github.com/Kyeongjin-Park">
-    <img src="https://avatars.githubusercontent.com/u/109892131" width="70" height="70">
-  </a>
-  <a href="https://github.com/MintZzz1009">
-    <img src="https://avatars.githubusercontent.com/u/107108021" width="70" height="70">
-  </a>
+<a href="https://github.com/Jeongjiw00">
+  <img src="https://avatars.githubusercontent.com/u/118160093" width="70" height="70">
+</a>
+<a href="https://github.com/rsl150101">
+  <img src="https://avatars.githubusercontent.com/u/95523340" width="70" height="70">
+</a>
+<a href="https://github.com/go-tiger">
+  <img src="https://avatars.githubusercontent.com/u/64995762" width="70" height="70">
+</a>
+<a href="https://github.com/Kyeongjin-Park">
+  <img src="https://avatars.githubusercontent.com/u/109892131" width="70" height="70">
+</a>
+<a href="https://github.com/MintZzz1009">
+  <img src="https://avatars.githubusercontent.com/u/107108021" width="70" height="70">
+</a>
 
 # 🏗️ ERD
 
-  <img src="src/static/images/ERD.png">
+![erd](./src/static/images/ERD.png)
 
 # 🔧 아키텍쳐
 
 ## ⚙️ 서비스
 
-  <img src="src/static/images/Service.png" />
+![service](./src/static/images/Service.png)
 
 ## 📂 디렉토리 구조
 
@@ -399,7 +395,7 @@
 
 > 아래 이미지를 클릭하면 시연 영상을 시청할 수 있습니다.
 
-[![찰칵 시연영상](./src/static/images/Thumbnail.png)](https://youtu.be/KeOMuRsQeQA)
+[![NoAFK 시연영상](./src/static/images/Thumbnail.png)](https://youtu.be/KeOMuRsQeQA)
 
 ![Footer](https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=footer)
 
