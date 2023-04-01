@@ -250,7 +250,7 @@
  ┃ ┃ ┣ 📜allteam.html
  ┃ ┃ ┣ 📜base.html
  ┃ ┃ ┣ 📜chat.html
- ┃ ┃ ┣ 📜deletedTeam.html
+ ┃ ┃ ┣ 📜404.html
  ┃ ┃ ┣ 📜home.html
  ┃ ┃ ┣ 📜join.html
  ┃ ┃ ┣ 📜login.html

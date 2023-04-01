@@ -62,7 +62,7 @@ class UsersController {
         totalPages,
         count,
         pathUrl,
-        pageTitle: '유저조회',
+        pageTitle: 'Users',
       });
     } catch (error) {
       return res.status(400).json({ message: error.message });
@@ -177,14 +177,35 @@ class UsersController {
       const userInfo = await this.userService.userInfo(id);
       const projectInfo = await this.projectService.findProjectByUser(id);
       if (userInfo.privateEmail === false) {
-        var privateStatus = "🔴 비공개 (변경)"
+        var privateStatus = '🔴 비공개 (변경)';
       } else {
-        var privateStatus = "🟢 공개 (변경)"
+        var privateStatus = '🟢 공개 (변경)';
       }
-      const { email, nickname, loginMethod, testResult, introduction, image, expiredAt } = userInfo;
+      const {
+        email,
+        nickname,
+        loginMethod,
+        testResult,
+        introduction,
+        image,
+        expiredAt,
+      } = userInfo;
       const replaceImage = image.replace(/\/resizedProfile\//, '/profile/');
 
-      res.status(200).render('mypage', { id, email, nickname, loginMethod, testResult, introduction, image, replaceImage, expiredAt, pageTitle: 'Mypage', projectInfo, privateStatus});
+      res.status(200).render('mypage', {
+        id,
+        email,
+        nickname,
+        loginMethod,
+        testResult,
+        introduction,
+        image,
+        replaceImage,
+        expiredAt,
+        pageTitle: 'Profile',
+        projectInfo,
+        privateStatus,
+      });
     } catch (error) {
       return res.status(400).json({ message: '로그인 후 이용부탁드립니다.' });
     }
@@ -251,9 +272,12 @@ class UsersController {
     try {
       const { id } = req.params;
       const { privateEmail } = req.body;
-      const { status, message } = await this.userService.updateUserPrivateEmail(id, privateEmail);
+      const { status, message } = await this.userService.updateUserPrivateEmail(
+        id,
+        privateEmail
+      );
 
-      res.status(status).json({ message})
+      res.status(status).json({ message });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }

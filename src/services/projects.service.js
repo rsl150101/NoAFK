@@ -3,13 +3,20 @@ const ProjectRepository = require('../repositories/projects.repository');
 const CommentRepository = require('../repositories/comments.repository');
 const UserRepository = require('../repositories/users.repository');
 const TeamRepository = require('../repositories/teams.repository');
-const { Project, ProjectUser, Comment, User } = require('../models');
+const {
+  Project,
+  ProjectUser,
+  Comment,
+  User,
+  ProjectLike,
+} = require('../models');
 
 // customError
 const { AlreadyDeadLine } = require('../utility/customError');
+const { log } = require('console');
 
 class ProjectService {
-  projectRepository = new ProjectRepository(Project);
+  projectRepository = new ProjectRepository(Project, ProjectLike);
   teamRepository = new TeamRepository(ProjectUser);
   commentsRepository = new CommentRepository(Comment);
   userRepository = new UserRepository(User);
@@ -137,7 +144,7 @@ class ProjectService {
   };
 
   //* 페이지별 커서 기반 전체 프로젝트 조회 및 페이지네이션
-  getCursorBasedProjects = async (page, cursor, search) => {
+  getCursorBasedProjects = async (page, cursor, search, userId) => {
     try {
       if (!page) {
         throw new Error('url이 올바르지 않습니다.');
@@ -156,7 +163,9 @@ class ProjectService {
         page = 'home';
       }
 
-      page = page.replace('/', '');
+      if (page.includes('/')) {
+        page = page.replaceAll('/', '');
+      }
 
       let limit = 3;
 
@@ -194,12 +203,30 @@ class ProjectService {
         }
 
         projects = randomProjects;
-      } else {
-        throw new Error('url이 올바르지 않습니다.');
       }
+
+      if (userId) {
+        projects = await Promise.all(
+          projects.map(async (project) => {
+            const existProjectLike =
+              await this.projectRepository.verifyProjectLike(
+                userId,
+                project.id
+              );
+            if (existProjectLike) {
+              return { ...project, like: true };
+            } else {
+              return { ...project, like: false };
+            }
+          })
+        );
+      }
+
+      const allProjectCount =
+        await this.projectRepository.findAllRecruitProjectCount(search);
       const nextCursor = projects.length === limit ? projects.at(-1).id : null;
       const pageTitle = page.replace(/^[a-z]/, (char) => char.toUpperCase());
-      return { nextCursor, page, projects, pageTitle };
+      return { nextCursor, page, projects, pageTitle, allProjectCount };
     } catch (error) {
       throw error;
     }
@@ -234,6 +261,44 @@ class ProjectService {
       const allProjectInfoByUser = await this.teamRepository.projectByUser(id);
 
       return allProjectInfoByUser;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //* 프로젝트 좋아요
+  postProjectLike = async (userId, projectId) => {
+    try {
+      const existProjectLike = await this.projectRepository.verifyProjectLike(
+        userId,
+        projectId
+      );
+
+      if (existProjectLike) {
+        return 403;
+      } else {
+        this.projectRepository.postProjectLike(userId, projectId);
+        return 201;
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  //* 프로젝트 좋아요 해제
+  deleteProjectLike = async (userId, projectId) => {
+    try {
+      const existProjectLike = await this.projectRepository.verifyProjectLike(
+        userId,
+        projectId
+      );
+
+      if (existProjectLike) {
+        this.projectRepository.deleteProjectLike(userId, projectId);
+        return 204;
+      } else {
+        return 403;
+      }
     } catch (error) {
       throw error;
     }

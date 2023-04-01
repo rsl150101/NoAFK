@@ -3,8 +3,9 @@ const Op = Sequelize.Op;
 const { User } = require('../models');
 
 class ProjectRepository {
-  constructor(ProjectModel) {
+  constructor(ProjectModel, ProjectLikeModel) {
     this.projectModel = ProjectModel;
+    this.projectLikeModel = ProjectLikeModel;
   }
 
   findProjectById = async (id) => {
@@ -61,19 +62,49 @@ class ProjectRepository {
     }
   };
 
-  findAllTeamWithNickname = async () => {
+  // 전체 팀(status===0)인 것들 중 마지막 프로젝트
+  findLastTeam = async () => {
+    try {
+      return await this.projectModel.findOne({
+        where: { status: { [Op.ne]: 0 } },
+        order: [['id', 'desc']],
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  findNextTeams = async (cursor) => {
+    try {
+      return await this.projectModel.count({
+        where: {
+          status: { [Op.ne]: 0 },
+          id: { [Op.lt]: cursor },
+        },
+        order: [['id', 'desc']],
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  findTeamsWithNickname = async (cursor, limit) => {
     try {
       return await this.projectModel.findAll({
+        where: {
+          status: { [Op.ne]: 0 },
+          id: { [Op.lt]: cursor },
+        },
         include: [
           {
             model: User,
             attributes: ['nickname'],
           },
         ],
+        limit,
         order: [['id', 'DESC']],
       });
     } catch (error) {
-      error.status = 500;
       throw error;
     }
   };
@@ -203,13 +234,34 @@ class ProjectRepository {
   };
 
   //* 프로젝트 총 갯수
-  findAllProjectCount = async (search) => {
+  findAllProjectCount = async (search = '') => {
     try {
       const count = await this.projectModel.count({
         where: {
           [Op.or]: {
             title: { [Op.like]: `%${search}%` },
             owner: { [Op.like]: `%${search}%` },
+          },
+        },
+      });
+      return count;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 모집 중인 프로젝트 총 갯수
+  findAllRecruitProjectCount = async (search = '') => {
+    try {
+      const count = await this.projectModel.count({
+        where: {
+          [Op.and]: {
+            status: 0,
+            [Op.or]: {
+              title: { [Op.like]: `%${search}%` },
+              owner: { [Op.like]: `%${search}%` },
+            },
           },
         },
       });
@@ -257,6 +309,55 @@ class ProjectRepository {
         }
       );
       return { status: 200, message: '프로젝트 진행 상태 수정 성공!' };
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 해당 유저의 프로젝트 좋아요 전체 조회
+  findAllProjectLikeByUserId = async (userId) => {
+    try {
+      return await this.projectLikeModel.findAll({
+        where: { userId },
+        raw: true,
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 프로젝트 좋아요 검사
+  verifyProjectLike = async (userId, projectId) => {
+    try {
+      return await this.projectLikeModel.findOne({
+        where: { [Op.and]: { userId, projectId } },
+      });
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 프로젝트 좋아요
+  postProjectLike = (userId, projectId) => {
+    try {
+      this.projectLikeModel.create({ userId, projectId });
+      return;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 프로젝트 좋아요 해제
+  deleteProjectLike = (userId, projectId) => {
+    try {
+      this.projectLikeModel.destroy({
+        where: { [Op.and]: { userId, projectId } },
+      });
+      return;
     } catch (error) {
       error.status = 500;
       throw error;

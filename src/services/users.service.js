@@ -74,12 +74,12 @@ class UserService {
         //비밀번호 초기화를 보내는 이메일의 Option
         from: process.env.GMAIL_ID, //관리자 Email
         to: email, //비밀번호 초기화 요청 유저 Email
-        subject: 'NoAFK - 회원가입 인증번호', //보내는 메일의 제목
+        subject: 'NoAFK - 인증번호', //보내는 메일의 제목
         //보내는 메일의 내용
         html:
-          '<p>NoAFK 회원가입을 위한 인증번호입니다.</p>' +
+          '<p>NoAFK 인증번호입니다.</p>' +
           `<p>인증번호는 ${authString} 입니다.</p> <br />` +
-          '<p>회원가입페이지로 돌아가 입력해주세요.</p>',
+          '<p>페이지로 돌아가 입력해주세요.</p>',
       };
       transporter.sendMail(emailOptions); //요청 전송
 
@@ -363,9 +363,8 @@ class UserService {
 
       const totalPages = Math.ceil(count / perPage);
 
-      console.log('🚀  file: users.service.js:358  rows:', rows);
       if (pathUrl === '/members') {
-        const users = rows.map(
+        let users = rows.map(
           ({
             email,
             nickname,
@@ -373,14 +372,26 @@ class UserService {
             introduction,
             image,
             privateEmail,
-          }) => ({
-            email,
-            nickname,
-            testResult,
-            introduction,
-            image,
-            privateEmail,
-          })
+          }) => {
+            switch (privateEmail) {
+              case 0:
+                email = '비공개';
+                break;
+            }
+            switch (testResult) {
+              case null:
+                testResult = '미완료';
+                break;
+            }
+            return {
+              email,
+              nickname,
+              testResult,
+              introduction,
+              image,
+              privateEmail,
+            };
+          }
         );
 
         return { users, totalPages, count };
@@ -448,7 +459,7 @@ class UserService {
     } catch (error) {
       throw error;
     }
-  }
+  };
 }
 
 module.exports = UserService;

@@ -117,6 +117,10 @@ const moreComment = async () => {
 const createComment = async () => {
   const content = document.getElementById('create-comment').value;
 
+  if (content.length > 255) {
+    return alert('댓글은 최대 255자까지 가능합니다.');
+  }
+
   await fetch(`/projects/${projectId}/comments`, {
     method: 'POST',
     headers: {
@@ -130,30 +134,32 @@ const createComment = async () => {
 
 // 댓글 수정
 const editComment = async (content, commentId) => {
-  await fetch(`/projects/${projectId}/comments/${commentId}`, {
+  if (content.length > 255) {
+    return alert('댓글은 최대 255자까지 가능합니다.');
+  }
+
+  const response = await fetch(`/projects/${projectId}/comments/${commentId}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ content }),
   });
-  window.location.reload();
+
+  if (response.status === 200) {
+    window.location.reload();
+  }
 };
 
 // 댓글 삭제
 const deleteComment = async (commentId) => {
-  await fetch(`/projects/${projectId}/comments/${commentId}`, {
+  const response = await fetch(`/projects/${projectId}/comments/${commentId}`, {
     method: 'DELETE',
   });
 
-  window.location.reload();
-};
-
-// 로그아웃
-const logout = async () => {
-  await fetch('/api/auth/logout');
-
-  window.location.replace('/login');
+  if (response.status === 204) {
+    window.location.reload();
+  }
 };
 
 // 참가 신청 수락
@@ -302,12 +308,6 @@ if (deleteBoardBtn) {
 if (endBoardBtn) {
   endBoardBtn.addEventListener('click', () => {
     endBoard();
-  });
-}
-
-if (logoutBtn) {
-  logoutBtn.addEventListener('click', () => {
-    logout();
   });
 }
 

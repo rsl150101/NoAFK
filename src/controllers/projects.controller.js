@@ -43,12 +43,12 @@ class ProjectsController {
       });
     } catch (error) {
       if (error.name === 'AlreadyDeadLine') {
-        return res.render('deletedTeam', {
+        return res.render('404', {
           pageTitle: 'NoProject',
           pageContent: '프로젝트가 마감되었습니다.',
         });
       }
-      return res.render('deletedTeam', {
+      return res.render('404', {
         pageTitle: 'NoProject',
         pageContent: '프로젝트를 찾을 수 없습니다.',
       });
@@ -141,22 +141,27 @@ class ProjectsController {
     try {
       const { pathname } = url.parse(req.url);
       const { cursor, search } = req.query;
-      const { nextCursor, page, projects, pageTitle } =
+      let id;
+
+      if (res.locals.user) {
+        id = res.locals.user.id;
+      }
+
+      const { nextCursor, page, projects, pageTitle, allProjectCount } =
         await this.projectService.getCursorBasedProjects(
           pathname,
           cursor,
-          search
+          search,
+          id
         );
-      return res
-        .status(200)
-        .render(page, { pageTitle, nextCursor, projects, search });
+      return res.status(200).render(page, {
+        pageTitle,
+        nextCursor,
+        projects,
+        search,
+        allProjectCount,
+      });
     } catch (error) {
-      if (error.message === 'url이 올바르지 않습니다.') {
-        return res.render('deletedTeam', {
-          pageTitle: 'Error',
-          pageContent: 'url이 올바르지 않습니다.',
-        });
-      }
       return res.status(500).json({ message: error.message });
     }
   };
@@ -165,8 +170,19 @@ class ProjectsController {
   getCursorBasedProjects = async (req, res) => {
     try {
       const { cursor, site, search } = req.query;
+      let id;
+
+      if (res.locals.user) {
+        id = res.locals.user.id;
+      }
+
       const { nextCursor, projects } =
-        await this.projectService.getCursorBasedProjects(site, cursor, search);
+        await this.projectService.getCursorBasedProjects(
+          site,
+          cursor,
+          search,
+          id
+        );
       return res.status(200).json({ nextCursor, projects });
     } catch (error) {
       return res.status(500).json({ message: error.message });
@@ -202,6 +218,40 @@ class ProjectsController {
       const { originalname } = req.file;
       this.projectService.verifyThumbnail(originalname);
       return res.status(200).json({ image: req.file.location });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  //* 프로젝트 좋아요
+  postProjectLike = async (req, res) => {
+    try {
+      const userId = res.locals.user.id;
+      const projectId = req.params.id;
+
+      const statusCode = await this.projectService.postProjectLike(
+        userId,
+        projectId
+      );
+
+      return res.sendStatus(statusCode);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  //* 프로젝트 좋아요 해제
+  deleteProjectLike = async (req, res) => {
+    try {
+      const userId = res.locals.user.id;
+      const projectId = req.params.id;
+
+      const statusCode = await this.projectService.deleteProjectLike(
+        userId,
+        projectId
+      );
+
+      return res.sendStatus(statusCode);
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

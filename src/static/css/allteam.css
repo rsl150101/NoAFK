@@ -1,25 +1,42 @@
-#allteam__header {
-  font-size: 20px;
-  font-weight: bold;
+.allteam-screen {
+  width: 70%;
+
+  flex: 1;
 }
 
-#allteam__List {
-  overflow-y: scroll;
+.allteam-screen section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 20px 0;
+  width: 100%;
 }
 
-#allteam__List::-webkit-scrollbar {
-  width: 0px;
+.allteam-screen__table-box {
+  display: flex;
+  justify-content: center;
 }
 
-table th {
+.allteam-screen table {
+  margin: 20px 0;
+  border-collapse: collapse;
+}
+
+.allteam-screen thead {
+  background-color: var(--scroll-drag-color);
+}
+
+.allteam-screen th,
+.allteam-screen td {
+  border: 1px solid var(--light-gray);
   padding: 10px;
   line-height: 16px;
 }
 
-thead {
-  background-color: rgba(255, 182, 193, 0.2);
-}
-
-th {
-  border: 1px solid black;
+.more-team {
+  align-self: center;
+  padding: 5px 10px;
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
+  font-weight: 700;
 }

@@ -11,14 +11,21 @@ class TeamsController {
 
   renderTeamPage = async (req, res, next) => {
     try {
+      if (!res.locals.user) {
+        return res.redirect('/login');
+      }
+
       const { teamId } = req.params;
       const { nickname } = res.locals.user;
 
       const memberList = await this.teamService.findAllByTeamId(teamId);
+      const invitedUserList = await this.teamService.findInvitedUserByTeamId(
+        teamId
+      );
 
       if (memberList.length === 0) {
-        return res.render('deletedTeam', {
-          pageTitle: 'NoTeam',
+        return res.render('404', {
+          pageTitle: 'No Team',
           pageContent: '팀이 존재하지 않습니다.',
         });
       }
@@ -29,12 +36,13 @@ class TeamsController {
       return res.render('myteam', {
         pageTitle: 'My Team',
         teamName,
-        status,
-        memberList,
         nickname,
+        memberList,
+        invitedUserList,
+        status,
       });
     } catch (error) {
-      return res.render('deletedTeam', {
+      return res.render('404', {
         pageTitle: 'NoTeam',
         pageContent: '팀을 찾을 수 없습니다.',
       });
@@ -55,19 +63,40 @@ class TeamsController {
         hostTeamList,
       });
     } catch (error) {
-      return res.render('deletedTeam', {
+      return res.render('404', {
         pageTitle: 'NoTeam',
         pageContent: '팀을 찾을 수 없습니다.',
       });
     }
   };
 
-  getAllTeam = async (req, res, next) => {
+  renderTeamsPage = async (req, res) => {
     try {
-      const allTeam = await this.teamService.findAllTeam();
+      const { cursor } = req.query;
+      const { teams, nextCursor, existNextTeams } =
+        await this.teamService.findAllTeam(cursor);
+
       return res.render('allteam', {
         pageTitle: 'All Team',
-        allTeam,
+        teams,
+        nextCursor,
+        existNextTeams,
+      });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  };
+
+  getTeams = async (req, res) => {
+    try {
+      const { cursor } = req.query;
+      const { teams, nextCursor, existNextTeams } =
+        await this.teamService.findAllTeam(cursor);
+
+      return res.status(200).json({
+        teams,
+        nextCursor,
+        existNextTeams,
       });
     } catch (error) {
       res.status(400).json({ message: error.message });

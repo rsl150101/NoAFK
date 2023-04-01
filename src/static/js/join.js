@@ -12,7 +12,9 @@ const emailAuthInput = document.getElementById('emailCheck');
 let useEmail = false;
 let passEmail = false;
 let passPassword = false;
+let useNickname = false;
 let passNickname = false;
+let authString;
 
 function emailCheck() {
   passEmail = false;
@@ -75,6 +77,7 @@ function nicknameCheck() {
 }
 
 function nicknameRecheck() {
+  useNickname = false;
   document.getElementById('nicknameOKMsg').style.display = 'none';
   document.getElementById('nickname-db-check').style.display = 'block';
   nicknameCheck();
@@ -89,33 +92,32 @@ const sendEmailAuth = async () => {
 
   let email = emailInput.value;
 
-  const response = await fetch('/api/auth/send-email', {
+  fetch('/api/auth/send-email', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email }),
-  });
-
-  if (response.status === 500) {
-    return alert('서버오류로 이메일 발송에 실패했습니다.');
-  } else if (response.status === 200) {
-    alert('이메일 발송 성공했습니다. 메일을 확인해주세요.');
-  }
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status === 200) {
+        authString = data.authString;
+        return alert('이메일 발송 성공했습니다. 메일을 확인해주세요.');
+      }
+      if (data.status === 500) {
+        return alert('이메일 발송에 실패했습니다.');
+      }
+      if (data.status === 429) {
+        return alert(data.message);
+      }
+    });
 };
 
 function emailAuthCheck() {
   useEmail = false;
 
   const emailAuthCheck = document.getElementById('emailCheck').value;
-
-  let authString;
-
-  if (document.cookie.includes('authString')) {
-    authString = document.cookie.split('authString=')[1];
-  } else {
-    return alert('인증번호가 발급이 안되었습니다.');
-  }
 
   if (authString !== emailAuthCheck) {
     return alert('인증번호가 틀렸습니다.');
@@ -125,7 +127,6 @@ function emailAuthCheck() {
   emailAuthCheckBtn.style.display = 'none';
   document.getElementById('send-email').style.display = 'none';
 
-  logout();
   return alert('인증되었습니다.');
 }
 
@@ -164,11 +165,15 @@ emailCheckBtn.addEventListener('click', async () => {
 
   if (response.status === 409) {
     return alert('이미 가입한 이메일입니다.');
-  } else if (response.status === 200) {
+  }
+  if (response.status === 200) {
     document.getElementById('email-db-check').style.display = 'none';
     document.getElementById('send-email').style.display = 'block';
     document.getElementById('emailOKMsg').style.display = 'block';
     return;
+  }
+  if (response.status === 429) {
+    return alert('요청이 너무 많습니다. 잠시 후 다시 시도해주세요.');
   }
 });
 
@@ -191,12 +196,18 @@ nicknameCheckBtn.addEventListener('click', async () => {
 
   if (response.status === 409) {
     return alert('이미 가입한 닉네임입니다.');
-  } else if (response.status === 200) {
+  }
+  if (response.status === 200) {
     document.getElementById('nickname-db-check').style.display = 'none';
     document.getElementById('nicknameOKMsg').style.display = 'block';
+    useNickname = true;
     return;
-  } else if (response.status === 500) {
+  }
+  if (response.status === 500) {
     return alert('사용할 수 없는 닉네임이거나 서버오류입니다.');
+  }
+  if (response.status === 429) {
+    return alert('요청이 너무 많습니다. 잠시 후 다시 시도해주세요.');
   }
 });
 
@@ -212,6 +223,9 @@ joinForm.addEventListener('submit', (e) => {
 const join = async () => {
   if (!useEmail) {
     return alert('이메일 인증을 완료해주세요!');
+  }
+  if (!useNickname) {
+    return alert('닉네임 증복체크를 완료해주세요!');
   }
 
   emailCheck();
@@ -240,9 +254,7 @@ const join = async () => {
     alert('회원가입 성공!');
     window.location.href = '/login';
   }
-};
-
-// 로그아웃 - 쿠키지워줄려고 사용
-const logout = async () => {
-  await fetch('/api/auth/logout');
+  if (response.status === 429) {
+    return alert('요청이 너무 많습니다. 잠시 후 다시 시도해주세요.');
+  }
 };

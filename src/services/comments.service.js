@@ -66,21 +66,17 @@ class CommentService {
     }
   };
 
-  updateComment = async (commentId, content, projectId) => {
+  updateComment = async (commentId, content) => {
     try {
-      return await this.commentsRepository.updateComment(
-        commentId,
-        content,
-        projectId
-      );
+      return await this.commentsRepository.updateComment(commentId, content);
     } catch (error) {
       throw error;
     }
   };
 
-  deleteComment = async (projectId, commentId) => {
+  deleteComment = async (commentId) => {
     try {
-      return await this.commentsRepository.deleteComment(projectId, commentId);
+      return await this.commentsRepository.deleteComment(commentId);
     } catch (error) {
       throw error;
     }
