@@ -400,7 +400,6 @@ class ProjectRepository {
   findLikeProjectsDesc = async () => {
     try {
       const projects = await this.projectLikeModel.findAll({
-        where: { deletedAt: null },
         group: 'project_id',
         attributes: [
           'projectId',
