@@ -272,6 +272,35 @@ class ProjectRepository {
     }
   };
 
+  //* 모집 중인 프로젝트 조회
+  findRecruitProjectById = async (id) => {
+    try {
+      const project = await this.projectModel.findOne({
+        where: { id, status: 0 },
+      });
+      return project;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 배열 만큼 프로젝트 조회
+  findProjectsByArray = async (array) => {
+    try {
+      const projects = await this.projectModel.findAll({
+        where: {
+          id: array,
+        },
+        raw: true,
+      });
+      return projects;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
   //* 프로젝트 생성
   createProject = async (projectInfo) => {
     try {

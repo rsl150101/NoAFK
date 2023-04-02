@@ -149,10 +149,14 @@ class ProjectService {
       if (!page) {
         throw new Error('url이 올바르지 않습니다.');
       }
+      const lastProject = await this.projectRepository.findOneLastProject();
 
       if (!cursor) {
-        const { id } = await this.projectRepository.findOneLastProject();
-        cursor = id + 1;
+        if (!lastProject) {
+          cursor = Infinity;
+        } else {
+          cursor = lastProject.id + 1;
+        }
       }
 
       if (!search) {
@@ -201,6 +205,40 @@ class ProjectService {
           allProjects.splice(randomNum, 1);
           end += 1;
         }
+
+        // todo <김우중> <2023.04.02> : 데이터베이스에 프로젝트 테이블의 row 가 많을때 성능 개선을 위한 고민
+        // let end = 0;
+        // const allRecruitProjectCount =
+        //   await this.projectRepository.findAllRecruitProjectCount();
+        // const lastProjectId = lastProject === null ? Infinity : lastProject.id;
+        // const chosenNum = [];
+
+        // while (end !== 12) {
+        //   if (allRecruitProjectCount < 12) {
+        //     if (chosenNum.length === allRecruitProjectCount) {
+        //       break;
+        //     }
+        //   }
+
+        //   const randomNum = Math.round(Math.random() * lastProjectId);
+
+        //   if (chosenNum.includes(randomNum)) {
+        //     continue;
+        //   } else {
+        //     const existProject =
+        //       await this.projectRepository.findRecruitProjectById(randomNum);
+
+        //     if (!existProject) {
+        //       continue;
+        //     }
+        //     chosenNum.push(randomNum);
+        //     end += 1;
+        //   }
+        // }
+
+        // const randomProjects = await this.projectRepository.findProjectsByArray(
+        //   chosenNum
+        // );
 
         projects = randomProjects;
       }
