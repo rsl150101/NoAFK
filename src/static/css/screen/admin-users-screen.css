@@ -42,3 +42,7 @@
 .block2 {
   background-color: lightgray;
 }
+
+.active {
+  font-weight: 700;
+}
