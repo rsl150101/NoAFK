@@ -49,9 +49,8 @@ function updateMemberApplicate(memberId) {
   const inputTask = document.querySelector(`#row-${memberId} input`);
   let position = 3;
   if (select) {
-    Number(select.value);
+    position = Number(select.value);
   }
-
   const task = inputTask.value;
 
   fetch(url + `/${memberId}`, {

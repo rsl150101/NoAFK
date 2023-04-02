@@ -149,10 +149,14 @@ class ProjectService {
       if (!page) {
         throw new Error('url이 올바르지 않습니다.');
       }
+      const lastProject = await this.projectRepository.findOneLastProject();
 
       if (!cursor) {
-        const { id } = await this.projectRepository.findOneLastProject();
-        cursor = id + 1;
+        if (!lastProject) {
+          cursor = Infinity;
+        } else {
+          cursor = lastProject.id + 1;
+        }
       }
 
       if (!search) {
@@ -187,6 +191,18 @@ class ProjectService {
             search
           );
       } else if (page === 'home') {
+        const likeProjectsArr =
+          await this.projectRepository.findLikeProjectsDesc();
+
+        const likeProjects = await Promise.all(
+          likeProjectsArr.map(
+            async (projectItem) =>
+              await this.projectRepository.findProjectById(
+                projectItem.projectId
+              )
+          )
+        );
+
         const allProjects = await this.projectRepository.findAllProjectByStatus(
           0
         );
@@ -202,10 +218,10 @@ class ProjectService {
           end += 1;
         }
 
-        projects = randomProjects;
+        projects = { randomProjects, likeProjects };
       }
 
-      if (userId) {
+      if (userId && page !== 'home') {
         projects = await Promise.all(
           projects.map(async (project) => {
             const existProjectLike =

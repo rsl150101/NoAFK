@@ -10,7 +10,7 @@ class ProjectRepository {
 
   findProjectById = async (id) => {
     try {
-      return await this.projectModel.findOne({ where: { id } });
+      return await this.projectModel.findOne({ where: { id }, raw: true });
     } catch (error) {
       throw error;
     }
@@ -27,6 +27,7 @@ class ProjectRepository {
 
   deleteProject = async (id) => {
     try {
+      this.projectLikeModel.destroy({ where: { projectId: id } });
       return await this.projectModel.destroy({ where: { id } });
     } catch (error) {
       throw error;
@@ -35,6 +36,7 @@ class ProjectRepository {
 
   endProjectApply = async (id) => {
     try {
+      this.projectLikeModel.destroy({ where: { projectId: id } });
       return await this.projectModel.update({ status: 1 }, { where: { id } });
     } catch (error) {
       throw error;
@@ -44,6 +46,7 @@ class ProjectRepository {
   //* 프로젝트 하드 삭제
   hardDeleteProject = (id) => {
     try {
+      this.projectLikeModel.destroy({ where: { projectId: id }, force: true });
       this.projectModel.destroy({ where: { id }, force: true });
       return;
     } catch (error) {
@@ -272,6 +275,35 @@ class ProjectRepository {
     }
   };
 
+  //* 모집 중인 프로젝트 조회
+  findRecruitProjectById = async (id) => {
+    try {
+      const project = await this.projectModel.findOne({
+        where: { id, status: 0 },
+      });
+      return project;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 배열 만큼 프로젝트 조회
+  findProjectsByArray = async (array) => {
+    try {
+      const projects = await this.projectModel.findAll({
+        where: {
+          id: array,
+        },
+        raw: true,
+      });
+      return projects;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
   //* 프로젝트 생성
   createProject = async (projectInfo) => {
     try {
@@ -358,6 +390,26 @@ class ProjectRepository {
         where: { [Op.and]: { userId, projectId } },
       });
       return;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 좋아요 많은 프로젝트 5개 내림차순 조회
+  findLikeProjectsDesc = async () => {
+    try {
+      const projects = await this.projectLikeModel.findAll({
+        group: 'project_id',
+        attributes: [
+          'projectId',
+          [Sequelize.fn('COUNT', Sequelize.col('project_id')), 'count'],
+        ],
+        order: [[Sequelize.literal('count'), 'DESC']],
+        limit: 5,
+      });
+
+      return projects;
     } catch (error) {
       error.status = 500;
       throw error;
