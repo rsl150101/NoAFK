@@ -218,44 +218,10 @@ class ProjectService {
           end += 1;
         }
 
-        // todo <김우중> <2023.04.02> : 데이터베이스에 프로젝트 테이블의 row 가 많을때 성능 개선을 위한 고민
-        // let end = 0;
-        // const allRecruitProjectCount =
-        //   await this.projectRepository.findAllRecruitProjectCount();
-        // const lastProjectId = lastProject === null ? Infinity : lastProject.id;
-        // const chosenNum = [];
-
-        // while (end !== 12) {
-        //   if (allRecruitProjectCount < 12) {
-        //     if (chosenNum.length === allRecruitProjectCount) {
-        //       break;
-        //     }
-        //   }
-
-        //   const randomNum = Math.round(Math.random() * lastProjectId);
-
-        //   if (chosenNum.includes(randomNum)) {
-        //     continue;
-        //   } else {
-        //     const existProject =
-        //       await this.projectRepository.findRecruitProjectById(randomNum);
-
-        //     if (!existProject) {
-        //       continue;
-        //     }
-        //     chosenNum.push(randomNum);
-        //     end += 1;
-        //   }
-        // }
-
-        // const randomProjects = await this.projectRepository.findProjectsByArray(
-        //   chosenNum
-        // );
-
         projects = { randomProjects, likeProjects };
       }
 
-      if (userId) {
+      if (userId && page !== 'home') {
         projects = await Promise.all(
           projects.map(async (project) => {
             const existProjectLike =

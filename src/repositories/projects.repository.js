@@ -27,6 +27,7 @@ class ProjectRepository {
 
   deleteProject = async (id) => {
     try {
+      this.projectLikeModel.destroy({ where: { projectId: id } });
       return await this.projectModel.destroy({ where: { id } });
     } catch (error) {
       throw error;
@@ -35,6 +36,7 @@ class ProjectRepository {
 
   endProjectApply = async (id) => {
     try {
+      this.projectLikeModel.destroy({ where: { projectId: id } });
       return await this.projectModel.update({ status: 1 }, { where: { id } });
     } catch (error) {
       throw error;
@@ -44,6 +46,7 @@ class ProjectRepository {
   //* 프로젝트 하드 삭제
   hardDeleteProject = (id) => {
     try {
+      this.projectLikeModel.destroy({ where: { projectId: id }, force: true });
       this.projectModel.destroy({ where: { id }, force: true });
       return;
     } catch (error) {
@@ -397,6 +400,7 @@ class ProjectRepository {
   findLikeProjectsDesc = async () => {
     try {
       const projects = await this.projectLikeModel.findAll({
+        where: { deletedAt: null },
         group: 'project_id',
         attributes: [
           'projectId',
@@ -405,6 +409,7 @@ class ProjectRepository {
         order: [[Sequelize.literal('count'), 'DESC']],
         limit: 5,
       });
+
       return projects;
     } catch (error) {
       error.status = 500;
