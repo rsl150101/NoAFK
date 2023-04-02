@@ -328,6 +328,15 @@ class UserService {
     }
   };
 
+  //* 회원 차단 해제
+  pardonUser = async (id) => {
+    try {
+      return await this.userRepository.pardonUser(id);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   //* 회원 삭제
   deleteUser = async (id) => {
     try {
@@ -357,6 +366,7 @@ class UserService {
       const { count, rows } = await this.userRepository.getSearchUser(
         start,
         perPage,
+        pathUrl,
         sfl,
         stx
       );

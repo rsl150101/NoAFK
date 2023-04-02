@@ -157,6 +157,19 @@ class UsersController {
     }
   };
 
+  //* 회원 차단 해제
+  pardonUser = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+
+      await this.userService.pardonUser(id);
+
+      res.status(200).json({ message: '선택한 회원을 차단 해제하였습니다.' });
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  };
+
   //* 회원 삭제
   deleteUser = async (req, res, next) => {
     try {

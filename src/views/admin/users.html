@@ -41,13 +41,28 @@
               {{user.authLevelName}}
             </td>
             <td headers="user_list_control" class="user_control">
-              {% if user.authLevel !== 99 %}
+              {% if user.authLevel == 0 %}
               <button
-                class="btn btn_03 block-user"
+                class="btn btn_02 block-user"
                 href="#"
                 data-user-id="{{ user.id }}"
               >
                 차단
+              </button>
+              <button
+                class="btn btn_02 delete-user"
+                href="#"
+                data-user-id="{{ user.id }}"
+              >
+                삭제
+              </button>
+              {% elseif user.authLevel == 2 %}
+              <button
+                class="btn btn_03 pardon-user"
+                href="#"
+                data-user-id="{{ user.id }}"
+              >
+                해제
               </button>
               <button
                 class="btn btn_02 delete-user"

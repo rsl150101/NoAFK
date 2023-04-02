@@ -28,7 +28,18 @@ router.get(
   checkAdmin,
   usersController.renderAdminUserPage
 );
-router.patch('/users/:id', checkToken, checkAdmin, usersController.blockUser);
+router.patch(
+  '/users/block/:id',
+  checkToken,
+  checkAdmin,
+  usersController.blockUser
+);
+router.patch(
+  '/users/pardon/:id',
+  checkToken,
+  checkAdmin,
+  usersController.pardonUser
+);
 router.delete('/users/:id', checkToken, checkAdmin, usersController.deleteUser);
 
 module.exports = router;
