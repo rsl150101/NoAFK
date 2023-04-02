@@ -357,6 +357,7 @@ class UserService {
       const { count, rows } = await this.userRepository.getSearchUser(
         start,
         perPage,
+        pathUrl,
         sfl,
         stx
       );
