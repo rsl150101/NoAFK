@@ -10,7 +10,7 @@ class ProjectRepository {
 
   findProjectById = async (id) => {
     try {
-      return await this.projectModel.findOne({ where: { id } });
+      return await this.projectModel.findOne({ where: { id }, raw: true });
     } catch (error) {
       throw error;
     }
@@ -387,6 +387,25 @@ class ProjectRepository {
         where: { [Op.and]: { userId, projectId } },
       });
       return;
+    } catch (error) {
+      error.status = 500;
+      throw error;
+    }
+  };
+
+  //* 좋아요 많은 프로젝트 5개 내림차순 조회
+  findLikeProjectsDesc = async () => {
+    try {
+      const projects = await this.projectLikeModel.findAll({
+        group: 'project_id',
+        attributes: [
+          'projectId',
+          [Sequelize.fn('COUNT', Sequelize.col('project_id')), 'count'],
+        ],
+        order: [[Sequelize.literal('count'), 'DESC']],
+        limit: 5,
+      });
+      return projects;
     } catch (error) {
       error.status = 500;
       throw error;

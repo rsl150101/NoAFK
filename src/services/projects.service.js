@@ -191,6 +191,18 @@ class ProjectService {
             search
           );
       } else if (page === 'home') {
+        const likeProjectsArr =
+          await this.projectRepository.findLikeProjectsDesc();
+
+        const likeProjects = await Promise.all(
+          likeProjectsArr.map(
+            async (projectItem) =>
+              await this.projectRepository.findProjectById(
+                projectItem.projectId
+              )
+          )
+        );
+
         const allProjects = await this.projectRepository.findAllProjectByStatus(
           0
         );
@@ -240,7 +252,7 @@ class ProjectService {
         //   chosenNum
         // );
 
-        projects = randomProjects;
+        projects = { randomProjects, likeProjects };
       }
 
       if (userId) {
