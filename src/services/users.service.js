@@ -421,6 +421,9 @@ class UserService {
               case 99:
                 authLevelName = '관리자';
                 break;
+              case 2:
+                authLevelName = '차단';
+                break;
             }
             return {
               id,
