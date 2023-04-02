@@ -18,6 +18,54 @@
   height: 200px;
 }
 
+.popular-projects {
+  height: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.popular-projects main {
+  flex: 1;
+}
+
+.popular-projects__list {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  gap: 100px;
+  overflow-x: scroll;
+}
+
+/*스크롤바*/
+.popular-projects__list::-webkit-scrollbar {
+  height: 15px;
+}
+
+/*스크롤바의 드래그 핸들*/
+.popular-projects__list::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-drag-color);
+  border-radius: 15px;
+}
+
+/*스크롤바 트랙*/
+.popular-projects__list::-webkit-scrollbar-track {
+  background-color: white;
+  border-radius: 5px;
+}
+
+.popular-projects__item {
+  height: 250px;
+  width: 300px;
+  text-align: center;
+}
+
+.popular-projects__item img {
+  height: 200px;
+  width: 300px;
+}
+
 .more-projects {
   height: 550px;
   width: 100%;
@@ -52,7 +100,8 @@
   gap: 40px;
 }
 
-.more-projects__item a {
+.more-projects__item a,
+.popular-projects__item a {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -71,12 +120,14 @@
   height: 200px;
 }
 
-.more-projects__item h3 {
+.more-projects__item h3,
+.popular-projects__item h3 {
   font-weight: bold;
   font-size: 1.1em;
 }
 
-.more-projects__item small {
+.more-projects__item small,
+.popular-projects__item small {
   font-size: 0.9em;
   color: var(--gray);
   font-weight: 700;
