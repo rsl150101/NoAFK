@@ -1,0 +1,48 @@
+.admin-users-screen section header div a:first-child {
+  font-weight: 700;
+}
+
+.admin-users-screen section nav {
+  display: flex;
+  justify-content: center;
+}
+
+.admin-users-screen section table tbody td:nth-child(3),
+.admin-users-screen section table tbody td:nth-child(4) {
+  max-width: 100px;
+}
+.admin-users-screen section table tbody td:nth-child(3) div,
+.admin-users-screen section table tbody td:nth-child(4) div {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  line-height: 1.3em;
+  height: 2.6em;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-users-screen section form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.admin-users-screen section nav ul {
+  display: flex;
+}
+
+.admin-users-screen section nav ul li {
+  margin: 0 5px;
+}
+
+.block2 {
+  background-color: lightgray;
+}
+
+.active {
+  font-weight: 700;
+}

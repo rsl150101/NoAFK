@@ -1,0 +1,43 @@
+.test-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+}
+
+#test-select-button {
+  display: flex;
+}
+
+#test-select-button-content {
+  margin-left: 25px;
+  cursor: pointer;
+}
+
+#question-list {
+  text-align: center;
+  font-size: 20px;
+}
+
+table.type04 {
+  border-collapse: separate;
+  border-spacing: 1px;
+  text-align: left;
+  line-height: 1.5;
+  border-top: 1px solid #ced4da;
+  margin: 20px 10px;
+}
+table.type04 th {
+  width: 370px;
+  padding: 50px;
+  font-weight: bold;
+  vertical-align: top;
+  border-bottom: 1px solid #ced4da;
+  font-size: 20px;
+}
+table.type04 td {
+  width: 130px;
+  padding: 50px;
+  vertical-align: top;
+  border-bottom: 1px solid #ced4da;
+  text-align: right;
+}

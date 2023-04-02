@@ -1,0 +1,110 @@
+{% extends 'base.html' %}{% block headblock %}
+<link rel="stylesheet" href="/css/myTeamList.css" />
+{% endblock%} {% block content %}
+<main id="myTeamList__main" class="main-screen my-team-list-screen">
+  <section>
+    <div>
+      <header>
+        <h1>참가 중인 팀</h1>
+      </header>
+      <section class="myTeamList__section section">
+        {% if myTeamList.length === 0 %}
+        <div class="myTeamList__none"><p>참가 중인 팀이 없습니다.</p></div>
+        {% else %} {% set status = ['모집중', '모집마감', '준비', '진행중',
+        '테스트', '종료'] %} {% for myTeam in myTeamList %} {% if myTeam.status
+        !== 0 %}
+        <div
+          onclick="goTeamPage('{{myTeam.id}}')"
+          id="row-{{myTeam.id}}"
+          class="myTeamList__row"
+        >
+          <div class="myTeamList__name">
+            <span>팀명: </span>{{myTeam.teamName}}
+          </div>
+          <div class="myTeamList__techStack">
+            <span>기술 스택: </span>{{myTeam.techStack}}
+          </div>
+          <div class="myTeamList__status">
+            <span>상태: </span>{{status[myTeam.status]}}
+          </div>
+          <div class="myTeamList__createdAt">
+            <span>생성일: </span>{{myTeam.createdAt}}
+          </div>
+        </div>
+        {% endif %} {% endfor %} {% endif %}
+      </section>
+    </div>
+    <div>
+      <header>
+        <h1>참가 신청한 팀</h1>
+      </header>
+      <section class="applyTeam__section section">
+        {% if applyTeamList.length === 0 %}
+        <div class="applyTeam__none"><p>참가 신청을 한 팀이 없습니다.</p></div>
+        {% else %} {% for applyTeam in applyTeamList %}
+        <div
+          onclick="goProjectPage('{{applyTeam.id}}')"
+          id="applyTeam-{{applyTeam.id}}"
+          class="applyTeam__row"
+        >
+          <div class="applyTeam__title">
+            <span>공고 제목: </span>{{applyTeam.title}}
+          </div>
+          <div class="applyTeam__teamName">
+            <span>팀 이름: </span>{{applyTeam.teamName}}
+          </div>
+          <div class="applyTeam__owner">
+            <span>등록자: </span>{{applyTeam.User.nickname}}
+          </div>
+          <div class="applyTeam__techStack">
+            <span>기술 스택: </span>{{applyTeam.techStack}}
+          </div>
+          <div class="applyTeam__recruitDeadline">
+            <span>모집 마감: </span>{{applyTeam.recruitDeadline}}
+          </div>
+        </div>
+        {% endfor %} {% endif %}
+      </section>
+    </div>
+    <div>
+      <header>
+        <h1>초대 받은 팀</h1>
+      </header>
+      <section class="hostTeam__section section">
+        {% if hostTeamList.length === 0 %}
+        <div class="hostTeam__none"><p>초대 받은 팀이 없습니다.</p></div>
+        {% else %} {% for hostTeam in hostTeamList %}
+        <div
+          onclick="goTeamPage('{{hostTeam.id}}')"
+          id="hostTeam-{{hostTeam.id}}"
+          class="hostTeam__row"
+        >
+          <div class="hostTeam__teamName">
+            <span>팀 이름: </span>{{hostTeam.teamName}}
+          </div>
+          <div class="hostTeam__owner">
+            <span>등록자: </span>{{hostTeam.User.nickname}}
+          </div>
+          <div class="hostTeam__techStack">
+            <span>기술 스택: </span>{{hostTeam.techStack}}
+          </div>
+          <div class="hostTeam__recruitDeadline">
+            <span>모집 마감: </span>{{hostTeam.recruitDeadline}}
+          </div>
+        </div>
+        {% endfor %} {% endif %}
+      </section>
+    </div>
+  </section>
+</main>
+
+<script>
+  function goTeamPage(teamId) {
+    location.href = `/teams/${teamId}`;
+  }
+
+  function goProjectPage(projectId) {
+    location.href = `/projects/${projectId}`;
+  }
+</script>
+{% endblock %}

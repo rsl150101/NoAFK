@@ -1,0 +1,131 @@
+.myteam-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 70%;
+  flex: 1;
+}
+
+.myteam-screen section header {
+  margin: 20px 0;
+}
+
+.myteam-screen button {
+  font-weight: 700;
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
+}
+
+thead th {
+  text-align: center;
+  line-height: 20px;
+  font-size: 16px;
+  height: 20px;
+  padding: 10px;
+  border: 1px solid var(--light-gray);
+  background-color: var(--scroll-drag-color);
+}
+
+tbody td {
+  font-size: 12px;
+  text-align: center;
+  line-height: 20px;
+  padding: 0px 10px;
+  border: 1px solid var(--light-gray);
+}
+
+.myteam__member-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.myteam__member-list table {
+  margin-top: 20px;
+}
+
+.myteam__memberList__config-btn > div {
+  display: inline-block;
+  padding: 5px;
+}
+
+#myteam__searching-new {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#myteam__searching-new input {
+  margin: 10px;
+}
+
+#myteam__searching-new button {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background-color: lightpink;
+  cursor: pointer;
+}
+
+#myteam__project-status {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid var(--light-gray);
+}
+
+#myteam__project-status button {
+  border: 1px solid var(--light-gray);
+}
+
+#myteam__project-status__title {
+  padding: 15px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+#myteam__project-status__buttons {
+  padding: 0px 20px;
+}
+
+.myteam__project-status__arrow {
+  padding: 0px 20px;
+}
+
+#myteam__footer {
+  margin: 20px 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#myteam__footer button {
+  padding: 10px;
+}
+
+.now_team_status {
+  border-radius: 5px;
+  outline: 2px solid red;
+}
+
+.leader-display.authority {
+  display: none;
+}
+
+.myteam__reserved-member {
+  display: flex;
+  flex-direction: column;
+}
+
+.myteam__reserved-member table {
+  margin-top: 20px;
+}
+
+#myteam__reserved-member > h2 {
+  font-size: 18px;
+  padding-bottom: 20px;
+}

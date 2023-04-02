@@ -1,0 +1,118 @@
+.login-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 70%;
+  height: 100%;
+  padding: 20px 0;
+}
+
+.login-screen section {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-screen main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.login-box {
+  width: 500px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 1px solid var(--light-gray);
+  border-radius: 10px;
+}
+
+.login-form {
+  width: 70%;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 0 20px;
+  font-size: 1.1em;
+  border-radius: 5px;
+  height: 50px;
+  border: 1px solid var(--light-gray);
+  outline: none;
+}
+
+.login-form input:focus {
+  border: 1px solid var(--dark-gray);
+}
+
+.login-form button {
+  width: 100%;
+  height: 40px;
+  margin-top: 10px;
+  font-weight: 700;
+  border-radius: 5px;
+  border: 1px solid var(--light-gray);
+}
+
+.social-box {
+  width: 70%;
+  height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.social-box button {
+  height: 100%;
+  width: 50px;
+  border: none;
+  border-radius: 5px;
+}
+
+.kakao-button {
+  background-color: var(--kakao-bg-color);
+  color: var(--kakao-color);
+}
+
+.github-button {
+  background-color: var(--github-bg-color);
+  color: white;
+}
+
+.google-button {
+  background-color: var(--google-bg-color);
+}
+
+.google-button svg {
+  height: 26px;
+  width: 26px;
+}
+
+.naver-button {
+  background-color: var(--naver-bg-color);
+  color: white;
+}
+
+.login-exception {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-exception button {
+  width: 45%;
+  height: 40px;
+  font-weight: 700;
+  border-radius: 5px;
+  border: none;
+  background-color: white;
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <title>Chatting | NoAFK</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/teamChat.css" />
+  </head>
+  <body>
+    <main class="teamChat__main">
+      <div id="userNickname" style="display: none">{{nickname}}</div>
+      <div class="chat-people-outer">
+        <div class="teamChat__column chat-people">
+          <div class="teamChat__rooms" onclick="teamChatting()">
+            <div>팀 채팅</div>
+          </div>
+          {% for member in memberList %} {% if member.User.nickname === nickname
+          %}
+          <div
+            class="teamChat__rooms"
+            onclick="whispering(`{{member.User.nickname}}`)"
+          >
+            <div>나</div>
+          </div>
+          {% else %}
+          <div
+            class="teamChat__rooms"
+            onclick="whispering(`{{member.User.nickname}}`)"
+          >
+            <div>{{member.User.nickname}}</div>
+          </div>
+          {% endif %} {% endfor %}
+        </div>
+
+        {% if invitedUserList.length === 0 %} {% else %}
+        <div class="teamChat__column chat-people invited-user">
+          <h3>예비 팀원</h3>
+          {% for invitedUser in invitedUserList %} {% if
+          invitedUser.User.nickname === nickname %}
+          <div
+            class="teamChat__rooms"
+            onclick="whispering(`{{invitedUser.User.nickname}}`)"
+          >
+            <div>나</div>
+          </div>
+          {% else %}
+          <div
+            class="teamChat__rooms"
+            onclick="whispering(`{{invitedUser.User.nickname}}`)"
+          >
+            <div>{{invitedUser.User.nickname}}</div>
+          </div>
+          {% endif %} {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      <div class="teamChat__column chat-screen">
+        <!-- 수신받을 메시지가 노출될 div -->
+        <div id="messages">
+          {% for chatting in chattingList %} {% if chatting.User.nickname ===
+          nickname %}
+          <div class="my-chat">
+            <span class="my-chat__nickname">👈{{chatting.User.nickname}}</span
+            ><span>{{chatting.msg}}</span>
+          </div>
+          {% else %}
+          <div class="others-chat">
+            <span class="others-chat__nickname"
+              >{{chatting.User.nickname}}👉</span
+            ><span>{{chatting.msg}}</span>
+          </div>
+          {% endif %} {% endfor %}
+        </div>
+        <!-- 메시지 폼 -->
+        <form id="messages-form" name="publish">
+          <input id="messages-input" type="text" name="message" />
+          <input id="messages-send" type="submit" value="send" />
+        </form>
+      </div>
+    </main>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/myteam/teamChat.js"></script>
+    <script src="/js/chatting.js"></script>
+  </body>
+</html>

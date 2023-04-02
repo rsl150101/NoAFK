@@ -1,0 +1,51 @@
+{% extends 'base.html' %} {% block content %}
+<main class="main-screen home-screen">
+  <section class="popular-projects">
+    <header>
+      <h1>인기 프로젝트</h1>
+    </header>
+    <main>
+      <ul class="popular-projects__list">
+        {% for project in projects.likeProjects%}
+        <li class="popular-projects__item">
+          <a href="/projects/{{project.id}}">
+            <div>
+              <img src="{{project.image}}" />
+            </div>
+            <h3>{{project.title}}</h3>
+            <small>{{project.techStack}}</small>
+          </a>
+        </li>
+        {% endfor%}
+      </ul>
+    </main>
+  </section>
+  <section class="enterprise">
+    <header>
+      <h1>기업 공고 프로젝트</h1>
+    </header>
+  </section>
+  <div class="ad"><img src="images/banner.png" /></div>
+  <section class="more-projects">
+    <header class="more-projects__header">
+      <h1>더 많은 프로젝트 보기</h1>
+      <a href="/projects">더보기</a>
+    </header>
+    <main>
+      <ul class="more-projects__list">
+        {% for project in projects.randomProjects%}
+        <li class="more-projects__item">
+          <a href="/projects/{{project.id}}">
+            <div>
+              <img src="{{project.image}}" />
+            </div>
+            <h3>{{project.title}}</h3>
+            <small>{{project.techStack}}</small>
+          </a>
+        </li>
+        {% endfor%}
+      </ul>
+    </main>
+  </section>
+</main>
+{% endblock%}

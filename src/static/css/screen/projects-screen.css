@@ -1,0 +1,161 @@
+.projects-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 70%;
+  padding: 20px 0;
+  gap: 20px;
+  flex: 1;
+}
+
+.recruit-project-count {
+  margin-top: 15px;
+}
+
+.recruit-project-count span {
+  color: var(--count);
+}
+
+.project-list {
+  margin: 20px 0;
+  padding: 20px 20px;
+  height: 500px;
+  overflow-y: scroll;
+  gap: 50px;
+  display: grid;
+  grid-auto-rows: 200px;
+}
+
+/*스크롤바*/
+.project-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+/*스크롤바의 드래그 핸들*/
+.project-list::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-drag-color);
+  border-radius: 5px;
+}
+
+/*스크롤바 트랙*/
+.project-list::-webkit-scrollbar-track {
+  background-color: white;
+  border-radius: 5px;
+}
+
+.project-list li {
+  position: relative;
+}
+
+.project-list li a {
+  height: 100%;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 0 5px 1px var(--light-gray);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-list li a:hover {
+  box-shadow: 0 0 2px 2px lightgrey;
+}
+
+.project-list li a:active {
+  transform: translateY(2px);
+}
+
+.project-list li a h1 {
+  font-weight: 700;
+}
+
+.project-list li a pre {
+  width: 100%;
+  white-space: pre-wrap;
+  font-size: 1.1em;
+  flex: 1;
+  margin: 20px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* 라인수 */
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  line-height: 1.3em;
+  height: 3.9em;
+}
+
+.project-list li a > div {
+  display: grid;
+  padding-top: 5px;
+  grid-template-columns: 70% auto minmax(85px, 15%);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 15px;
+  font-size: 0.9em;
+}
+
+.project-list li a div div {
+  grid-row: span 2;
+  align-self: center;
+  color: var(--gray);
+}
+
+.project-list li a div h4 {
+  justify-self: end;
+  font-weight: 700;
+}
+
+.project-list li a div span {
+  justify-self: center;
+}
+
+.project-list li button {
+  font-size: 30px;
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  top: 0;
+  right: 5px;
+  color: var(--light-gray);
+}
+
+.projects-screen section:nth-child(2) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.projectAddBtn {
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 0 5px 1px var(--light-gray);
+  font-weight: 700;
+  font-size: 0.9em;
+  color: var(--dark-gray);
+  border: none;
+}
+
+.projectAddBtn:hover {
+  box-shadow: 0 0 2px 2px lightgrey;
+}
+
+.projectAddBtn:active {
+  transform: translateY(2px);
+}
+
+.project-like-btn--red {
+  color: red !important;
+}
+
+.no-more-project {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  font-weight: 700;
+}

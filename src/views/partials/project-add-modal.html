@@ -1,0 +1,84 @@
+<dialog id="projectAddModal" class="project-add-modal-screen">
+  <form
+    method="dialog"
+    id="projectAddModalForm"
+    class="project-add-modal__form"
+  >
+    <input
+      type="text"
+      name="title"
+      id="title"
+      class="add-modal__title"
+      placeholder="공고 제목을 입력하세요."
+      required
+    />
+    <label for="teamName">팀 명</label>
+    <input type="text" name="teamName" id="teamName" required />
+    <label for="techStack">기술 스택</label>
+    <input
+      type="text"
+      name="techStack"
+      id="techStack"
+      placeholder=", 로 구분해주세요."
+    />
+    <label for="person">모집 인원</label>
+    <input type="number" name="person" id="person" min="1" required />
+    <label for="recruitDeadline">모집 마감 기한</label>
+    <input
+      type="datetime-local"
+      name="recruitDeadline"
+      id="recruitDeadline"
+      max="9999-12-31T23:59"
+      required
+    />
+    <label for="projectStart">프로젝트 시작일</label>
+    <input
+      type="datetime-local"
+      name="projectStart"
+      id="projectStart"
+      max="9999-12-31T23:59"
+      required
+    />
+    <label for="projectEnd">프로젝트 종료일</label>
+    <input
+      type="datetime-local"
+      name="projectEnd"
+      id="projectEnd"
+      max="9999-12-31T23:59"
+      required
+    />
+    <div></div>
+    <small>현재 시간 이후 시작일 이전으로 설정해주세요.</small>
+    <div></div>
+    <small>마감 기한 이후 종료일 이전으로 설정해주세요.</small>
+    <div></div>
+    <small>시작일 이후로 설정해주세요.</small>
+    <label for="thumbnail">썸네일 업로드</label>
+    <input
+      type="file"
+      name="thumbnail"
+      id="thumbnail"
+      class="add-modal__thumbnail"
+      accept="image/png, image/jpeg, image/jpg"
+    />
+    <span> * 최대 용량 10MB, jpg/jpeg/png 파일 지원</span>
+    <textarea
+      name="content"
+      id="content"
+      placeholder="공고 내용을 입력하세요."
+      cols="30"
+      rows="10"
+      class="add-modal__content"
+      required
+    ></textarea>
+    <button value="register" class="add-modal__submit">등록</button>
+    <button
+      id="modalCancelBtn"
+      class="add-modal__cancel"
+      value="cancel"
+      type="button"
+    >
+      취소
+    </button>
+  </form>
+</dialog>

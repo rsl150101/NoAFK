@@ -1,0 +1,80 @@
+{% extends 'base.html'%} {% block content%}
+<main class="admin-main-screen admin-projects-screen">
+  <section>
+    {% include "partials/admin-header.html" %}
+    <table>
+      <thead>
+        <tr>
+          <th>프로젝트 번호</th>
+          <th>프로젝트 제목</th>
+          <th>공고자</th>
+          <th>모집 인원</th>
+          <th>모집 마감</th>
+          <th>프로젝트 기간</th>
+          <th>관리</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if projects.length === 0 %}
+        <tr span="6">
+          <h2>공고가 없습니다.</h2>
+        </tr>
+        {% else %} {% for project in projects %}
+        <tr id="projectRow">
+          <td><span>{{project.id}}</span></td>
+          <td><span>{{project.title}}</span></td>
+          <td><span>{{project["User.nickname"]}}</span></td>
+          <td><span>{{project.person}}</span></td>
+          <td><span>{{project.recruitDeadline}}</span></td>
+          <td>
+            <span>{{project.projectStart}} ~ {{project.projectEnd}}</span>
+          </td>
+          <td><button data-id="{{project.id}}">삭제</button></td>
+        </tr>
+        {% endfor%} {% endif%}
+      </tbody>
+    </table>
+    <form>
+      <input
+        type="text"
+        name="search"
+        id=""
+        placeholder="검색어를 입력해주세요."
+      />
+      <input type="submit" value="검색" />
+    </form>
+    <div id="paginationBox">
+      {% if curPage !== 1%}
+      <a href="/admin/projects?page=1&search={{search}}"
+        ><i class="fa-solid fa-angles-left"></i
+      ></a>
+      {% endif %} {% if prevPage %}
+      <a href="/admin/projects?page={{prevPage}}&search={{search}}"
+        ><i class="fa-solid fa-angle-left"></i
+      ></a>
+      {% endif%} {% for page in pageArr%} {% if page === curPage %}
+      <a
+        class="pagination--bold pagination--margin"
+        href="/admin/projects?page={{page}}&search={{search}}"
+        >{{page}}</a
+      >
+      {% else %}
+      <a
+        class="pagination--margin"
+        href="/admin/projects?page={{page}}&search={{search}}"
+        >{{page}}</a
+      >
+      {% endif%} {% endfor %} {% if nextPage %}
+      <a href="/admin/projects?page={{nextPage}}&search={{search}}"
+        ><i class="fa-solid fa-angle-right"></i
+      ></a>
+      {% endif%} {% if curPage !== totalPage and totalPage !== 0%}
+      <a href="/admin/projects?page={{totalPage}}&search={{search}}"
+        ><i class="fa-solid fa-angles-right"></i
+      ></a>
+      {% endif%}
+    </div>
+  </section>
+</main>
+<script src="../js/adminProjectsSection.js"></script>
+{% endblock %}

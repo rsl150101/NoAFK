@@ -1,0 +1,114 @@
+{% extends 'base.html' %}{% block content %}
+<main class="admin-main-screen admin-users-screen">
+  <section>
+    {% include "partials/admin-header.html" %}
+
+    <table>
+      <thead>
+        <tr>
+          <th scope="col" class="user_list_id td_mng_s">회원 번호</th>
+          <th scope="col" class="user_list_email">이메일</th>
+          <th scope="col" class="user_list_nickname">닉네임</th>
+          <th scope="col" class="user_list_introduction">자기 소개</th>
+          <th scope="col" class="user_list_test_result">성격 유형</th>
+          <th scope="col" class="user_list_expired_at">멤버쉽 만료일</th>
+          <th scope="col" class="user_list_auth_level" class="td_mng_s">
+            권한 등급
+          </th>
+          <th scope="col" class="user_list_control td_mng_s">관리</th>
+        </tr>
+      </thead>
+      <tbody id="usersList">
+        {% if users.length > 0 %}
+        <div id="user_wr">
+          {% for user in users %}
+          <tr class="block{{user.authLevel}}">
+            <td headers="user_list_id" class="user_id">{{user.id}}</td>
+            <td headers="user_list_email" class="user_email">{{user.email}}</td>
+            <td headers="user_list_nickname" class="user_nickname">
+              <div>{{user.nickname}}</div>
+            </td>
+            <td headers="user_list_introduction" class="user_introduction">
+              <div>{{user.introduction}}</div>
+            </td>
+            <td headers="user_list_test_result" class="user_test_result">
+              {{user.testResult}}
+            </td>
+            <td headers="user_list_expired_at" class="user_expired_at">
+              {{user.expiredAt}}
+            </td>
+            <td headers="user_list_auth_level" class="user_auth_level">
+              {{user.authLevelName}}
+            </td>
+            <td headers="user_list_control" class="user_control">
+              {% if user.authLevel == 0 %}
+              <button
+                class="btn btn_02 block-user"
+                href="#"
+                data-user-id="{{ user.id }}"
+              >
+                차단
+              </button>
+              <button
+                class="btn btn_02 delete-user"
+                href="#"
+                data-user-id="{{ user.id }}"
+              >
+                삭제
+              </button>
+              {% elseif user.authLevel == 2 %}
+              <button
+                class="btn btn_03 pardon-user"
+                href="#"
+                data-user-id="{{ user.id }}"
+              >
+                해제
+              </button>
+              <button
+                class="btn btn_02 delete-user"
+                href="#"
+                data-user-id="{{ user.id }}"
+              >
+                삭제
+              </button>
+              {% else %}
+              <button disabled>설정 불가</button>
+              {% endif %}
+            </td>
+          </tr>
+
+          {% endfor %}
+        </div>
+      </tbody>
+      {% else %}
+      <h1 id="searchNotFound">검색된 유저정보가 없습니다.</h1>
+      {% endif %}
+    </table>
+
+    <form id="formSearch" class="local_sch01 local_sch">
+      <select name="sfl" id="sfl">
+        <option value="user_email">이메일</option>
+        <option value="user_nickname">닉네임</option>
+      </select>
+      <input
+        type="text"
+        name="stx"
+        id="stx"
+        placeholder="검색어를 입력해주세요."
+        class="required frm_input"
+      />
+      <input type="submit" value="검색" />
+    </form>
+    <nav aria-label="Page navigation">
+      <ul class="pagination" id="pagination-wrap"></ul>
+    </nav>
+  </section>
+</main>
+<script>
+  const currentPage = '{{currentPage}}';
+  const totalPages = '{{totalPages}}';
+</script>
+<script src="../js/cookieSave.js"></script>
+<script src="../js/admin/users.js"></script>
+<script src="../js/usersPagination.js"></script>
+{% endblock %}

@@ -1,0 +1,279 @@
+{% extends 'base.html' %} {% block headblock %}<link
+  rel="stylesheet"
+  href="/css/projectDetail.css"
+/>{% endblock %} {% block content %}
+<main class="main-screen project-screen">
+  <section>
+    <header class="flex justify-space-btw">
+      <h1>{{pageTitle}}</h1>
+      <div class="mt-4">
+        {% if loginUserId === null %}
+        <button class="new-btn-2"><a href="/login">신청하기</a></button>
+        {% elif project.owner !== loginUserId %} {% if applyCheck %}
+        <button
+          class="new-btn-2"
+          id="apply-cancel-btn"
+          type="button"
+          onclick="applyCancel({{loginUserId}})"
+        >
+          신청취소
+        </button>
+        {% else %}
+        <button class="new-btn-2" id="apply-btn" type="button">신청하기</button>
+        {% endif %} {% endif %}
+      </div>
+    </header>
+    <div id="project-board" class="w-60 mx-auto border-bottom">
+      <div class="flex justify-space-btw">
+        <div>
+          <div class="detail-title" id="title">
+            <h1>{{project.title}}</h1>
+          </div>
+          <div class="detail-owner" id="owner">
+            <span class="font-bold"> by '{{project.nickname}}' </span>
+            <span
+              >{% if project.createdAt === project.updatedAt %}
+              {{project.createdAt}} {% else %} {{project.updatedAt}} (수정됨) {%
+              endif %}
+            </span>
+          </div>
+        </div>
+        <div class="mt-4 flex items-end">
+          {% if project.owner === loginUserId %}
+          <div class="btn-div">
+            <button id="edit-board-btn" type="button" class="mr-4">수정</button>
+            <button id="delete-board-btn" type="button">삭제</button>
+            <button id="end-board-btn" type="button" class="text-color-red">
+              마감
+            </button>
+          </div>
+          <dialog id="projectEditModal" class="project-add-modal-screen">
+            <form method="dialog" class="project-add-modal__form">
+              <input
+                type="text"
+                name="title"
+                id="edit-title"
+                class="add-modal__title"
+                value="{{project.title}}"
+                required
+              />
+              <label for="teamName">팀 명</label>
+              <input
+                type="text"
+                name="teamName"
+                id="teamName"
+                value="{{project.teamName}}"
+                required
+              />
+              <label for="techStack">기술 스택</label>
+              <input
+                type="text"
+                name="techStack"
+                id="edit-techStack"
+                value="{{project.techStack}}"
+              />
+              <label for="person">모집 인원</label>
+              <input
+                type="number"
+                name="person"
+                id="edit-person"
+                min="1"
+                value="{{project.person}}"
+              />
+              <label for="recruitDeadline">마감기한</label>
+              <input
+                type="datetime-local"
+                name="recruitDeadline"
+                id="edit-recruitDeadline"
+                value="{{project.recruitDeadline}}"
+              />
+              <label for="projectStart">프로젝트 시작일</label>
+              <input
+                type="datetime-local"
+                name="projectStart"
+                id="edit-projectStart"
+                value="{{project.projectStart}}"
+              />
+              <label for="projectEnd">프로젝트 종료일</label>
+              <input
+                type="datetime-local"
+                name="projectEnd"
+                id="edit-projectEnd"
+                value="{{project.projectEnd}}"
+              />
+              <label for="thumbnail">썸네일 재업로드</label>
+              <input
+                type="file"
+                name="thumbnail"
+                id="thumbnail"
+                class="add-modal__thumbnail"
+                accept="image/png, image/jpeg, image/jpg"
+              />
+              <textarea
+                name="content"
+                id="edit-content"
+                cols="30"
+                rows="10"
+                class="add-modal__content"
+                required
+              >
+{{project.content}}</textarea
+              >
+              <button class="add-modal__submit" value="register">등록</button>
+              <button class="add-modal__cancel" value="cancel">취소</button>
+            </form>
+          </dialog>
+          {% endif %}
+        </div>
+      </div>
+      <div class="mt-4">
+        <img src="{{project.image}}" alt="프로필사진" />
+      </div>
+      <div class="detail-middle project-detail-border mt-4 mb-4">
+        <div id="person" class="mt-4">
+          <p>모집인원 : {{project.person}}</p>
+        </div>
+        <div id="deadline" class="mt-4">
+          <p>모집마감 : {{ project.recruitDeadline.split(" ")[0] }}</p>
+        </div>
+        <div id="period" class="mt-4">
+          <p>
+            프로젝트 기간 : {{ project.projectStart.split(" ")[0] }} ~ {{
+            project.projectEnd.split(" ")[0] }}
+          </p>
+        </div>
+        <div class="mt-4 mb-4" id="tech-stack">
+          <pre>기술 스택 : {{project.techStack}}</pre>
+        </div>
+      </div>
+      <div class="detail-content mb-4" id="content">
+        <pre>{{project.content}}</pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="w-60 mx-auto border-bottom">
+    <header>
+      <h1>신청자 명단</h1>
+    </header>
+    {% if applyUsers.length > 0 %}
+    <ul class="detail-apply w-45 mb-2">
+      {% for apply in applyUsers %}
+      <li class="apply-list flex justify-space-btw mt-2" id="{{apply.id}}">
+        <div class="mr-4 flex items-center">{{apply.nickname}}</div>
+        {% if project.owner === loginUserId %}
+        <div>
+          <button class="accept-btn" id="accept-btn" type="button">수락</button>
+        </div>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div class="mt-4 mb-4">신청자가 없습니다.</div>
+    {% endif %}
+  </section>
+
+  <section class="w-60 mx-auto border-bottom">
+    <header>
+      <h1>댓글 작성</h1>
+    </header>
+    {% if loginUserId %}
+    <form id="detail-comment">
+      <textarea
+        class="w-full flex justify-start"
+        id="create-comment"
+        placeholder="댓글을 작성하세요."
+        required
+      ></textarea>
+      <div class="flex justify-end mt-4 mb-4">
+        <button id="create-comment-btn" class="new-btn">댓글 작성</button>
+      </div>
+    </form>
+    {% else %}
+    <div class="mt-4 mb-4">댓글 작성은 로그인 후 이용하실 수 있습니다.</div>
+    {% endif %}
+  </section>
+
+  <section class="w-60 mx-auto">
+    <header>
+      <h1>댓글</h1>
+    </header>
+    {% if comments.length > 0 %}
+    <div>
+      <ul class="detail-comment" id="detail-comment-list">
+        {% for comment in comments %}
+        <li class="comment-list" id="{{comment.id}}">
+          <div class="flex justify-space-btw">
+            <div class="flex items-center font-bold">{{comment.nickname}}</div>
+            <div class="flex items-center">
+              {% if comment.createdAt === comment.updatedAt %}
+              <p>{{comment.createdAt}}</p>
+              {% else %}
+              <p>{{comment.updatedAt}} (수정됨)</p>
+              {% endif %} {% if comment.userId === loginUserId %}
+              <div class="before-click-{{comment.id}} display-block btn-div">
+                <button id="check-edit-btn-{{comment.id}}" type="button">
+                  수정
+                </button>
+                <button id="delete-comment-btn-{{comment.id}}" type="button">
+                  삭제
+                </button>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          <pre
+            class="before-click-{{comment.id}} display-block comment-content"
+          >
+{{comment.content}}
+              </pre
+          >
+          <div class="after-click-{{comment.id}} display-none">
+            <form id="new-comment-form-{{comment.id}}">
+              <textarea
+                class="w-full comment-content"
+                id="new-comment-{{comment.id}}"
+                required
+              >
+{{comment.content}}</textarea
+              >
+              <div class="flex justify-end">
+                <button class="new-btn-2 mr-2">등록</button
+                ><button
+                  id="cancel-edit-btn-{{comment.id}}"
+                  class="new-btn-2"
+                  type="button"
+                >
+                  취소
+                </button>
+              </div>
+            </form>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% if existNextComment %}
+      <div class="flex justify-center">
+        <button class="mt-2 mb-4 new-btn" id="more-comment" type="button">
+          댓글 더보기
+        </button>
+      </div>
+      {% endif %}
+    </div>
+    {% else %}
+    <div class="mt-4 mb-4">댓글이 없습니다.</div>
+    {% endif %}
+  </section>
+</main>
+<script>
+  let cursor = '{{nextCursor}}';
+  let loginUserId = '{{loginUserId}}';
+</script>
+<script src="/js/projectDetail.js"></script>
+<script src="/js/projectEditModal.js"></script>
+<script
+  src="https://kit.fontawesome.com/d1f609d41d.js"
+  crossorigin="anonymous"
+></script>
+{% endblock%}

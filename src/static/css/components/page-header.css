@@ -1,0 +1,37 @@
+.page-header {
+  width: 70%;
+  height: 90px;
+  border-bottom: 1px solid var(--light-gray);
+  font-size: 1.2em;
+}
+
+.page-header__nav ul {
+  padding: 30px 0;
+  display: flex;
+  gap: 0 30px;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+.page-header__nav ul li:first-child {
+  font-size: 1.2em;
+}
+
+.page-header__nav__search-bar {
+  flex: auto;
+  font-weight: 500;
+  height: 100%;
+}
+
+.page-header__nav__search-bar input::placeholder {
+  font-weight: 500;
+}
+
+#searchProject {
+  width: 60%;
+  border-radius: 15px;
+  border: 1px solid var(--light-gray);
+  padding: 5px 15px;
+}

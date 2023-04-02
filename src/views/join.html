@@ -1,0 +1,118 @@
+{% extends "base.html" %} {% block content %}
+<main class="main-screen join-screen">
+  <section>
+    <header>
+      <h1>회원가입</h1>
+    </header>
+  </section>
+  <div class="flex items-center justify-center">
+    <div class="join-box flex items-center justify-center w-full flex-col p-6">
+      <form
+        id="join-box"
+        class="flex justify-center items-center flex-col pb-8 pt-6 w-full"
+      >
+        <div class="w-full">
+          <div class="justify-start input-group">
+            <input
+              type="email"
+              class="px-1 py-2"
+              id="email"
+              placeholder="이메일"
+            />
+            <button class="check-button btn" id="email-db-check" type="button">
+              중복 체크
+            </button>
+            <button
+              class="check-button btn"
+              id="send-email"
+              type="button"
+              style="display: none"
+            >
+              인증번호 전송
+            </button>
+          </div>
+          <div class="error-box justify-start flex" id="emailMsg">
+            - 이메일을 확인해주세요.
+          </div>
+          <div class="ok-box" id="emailOKMsg">- 사용 가능한 이메일입니다.</div>
+        </div>
+        <div class="w-full">
+          <div class="justify-start items-center input-group">
+            <input
+              type="text"
+              class="px-1 py-2"
+              id="emailCheck"
+              placeholder="인증번호"
+            />
+            <button
+              class="check-button btn"
+              id="send-email-check"
+              type="button"
+            >
+              인증번호 확인
+            </button>
+          </div>
+        </div>
+
+        <div class="w-full">
+          <div class="justify-start items-center">
+            <input
+              type="password"
+              class="px-1 py-2"
+              id="password"
+              placeholder="비밀번호"
+            />
+          </div>
+          <div class="error-box" id="passwordMsg">
+            - 최소 8자 이상으로 영문자 소문자, 숫자, 특수문자가 각각 최소 1개
+            이상.
+          </div>
+        </div>
+        <div class="w-full">
+          <div class="justify-start items-center">
+            <input
+              type="password"
+              class="px-1 py-2"
+              id="passwordCheck"
+              placeholder="비밀번호확인"
+            />
+          </div>
+          <div class="error-box" id="passwordCheckMsg">
+            - 다시 확인해주세요.
+          </div>
+        </div>
+        <div class="w-full">
+          <div class="justify-start items-center input-group">
+            <input
+              type="nickname"
+              class="px-1 py-2"
+              id="nickname"
+              placeholder="닉네임"
+            />
+            <button
+              class="check-button btn"
+              id="nickname-db-check"
+              type="button"
+            >
+              중복 체크
+            </button>
+          </div>
+          <div class="error-box" id="nicknameMsg">
+            - 닉네임은 한글,영어 대소문자,숫자만 사용가능합니다.
+          </div>
+          <div class="ok-box" id="nicknameOKMsg">
+            - 사용 가능한 닉네임입니다.
+          </div>
+        </div>
+        <div class="text-align-row w-80 margin-top">
+          <button class="join-btn px-6 py-2 margin-y" id="join-btn">
+            JOIN
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<script src="./js/join.js"></script>
+{% endblock %}

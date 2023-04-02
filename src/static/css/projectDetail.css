@@ -1,0 +1,346 @@
+.project-detail-box {
+  text-align: center;
+  font-size: 20px;
+}
+
+.project-detail-border {
+  border: 1px solid black;
+}
+
+.detail-top {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.detail-middle {
+  background-color: #d7f5fa;
+  border: 0;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+.detail-content {
+  font-size: 22px;
+}
+
+.detail-padding {
+  padding: 0 1%;
+}
+
+.detail-margin {
+  margin: 0 1%;
+}
+
+.display-none {
+  display: none;
+}
+
+.display-block {
+  display: block;
+}
+
+.project-screen {
+  font-size: large;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  flex: 1;
+}
+
+.project-screen h1 {
+  font-size: 1.3em;
+  font-weight: bold;
+  padding: 1rem 0 0 0;
+}
+
+.project-screen button:hover {
+  cursor: pointer;
+}
+
+.mx-auto {
+  margin: 0 auto;
+}
+
+.my-auto {
+  margin: auto 0;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+.mr-4 {
+  margin-right: 1rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-space-btw {
+  justify-content: space-between;
+}
+
+.justify-space-around {
+  justify-content: space-around;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.w-80 {
+  width: 80%;
+}
+
+.w-60 {
+  width: 60%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-45 {
+  width: 45%;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+  border: 1px solid silver;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+.detail-title h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.font-bold {
+  font-weight: 800;
+}
+
+.border-bottom {
+  border-bottom: 1px solid lightgrey;
+}
+
+.comment-list {
+  margin: 1rem 0;
+}
+
+.comment-content {
+  margin: 0.5rem 0;
+}
+
+.btn-div button {
+  margin: 0;
+  color: grey;
+  background-color: transparent;
+  border: none;
+  text-decoration-line: underline;
+}
+
+.btn-div .text-color-red {
+  color: red;
+}
+
+.new-btn {
+  font-family: 'Montserrat', 'NotoSansKR', sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  box-shadow: 0 0 5px 1px var(--light-gray);
+  font-weight: 700;
+  font-size: 0.9em;
+  border: none;
+}
+
+.new-btn-2 {
+  font-family: 'Montserrat', 'NotoSansKR', sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
+  width: 80px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  box-shadow: 0 0 5px 1px var(--light-gray);
+  font-weight: 700;
+  font-size: 0.9em;
+  border: none;
+}
+
+.accept-btn {
+  font-family: 'Montserrat', 'NotoSansKR', sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
+  width: 80px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: #d7f5fa;
+  box-shadow: 0 0 5px 1px var(--light-gray);
+  font-weight: 700;
+  font-size: 0.9em;
+  color: var(--dark-gray);
+  border: none;
+}
+
+.project-add-modal-screen {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 0 15px 2px var(--light-gray);
+  height: 75%;
+  width: 65%;
+  padding: 20px;
+}
+
+.project-add-modal-screen::backdrop {
+  background-color: lightgray;
+  opacity: 0.2;
+}
+
+.project-add-modal__form {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: auto 30px 30px 30px auto 80px;
+  align-items: center;
+}
+
+.add-modal__title {
+  border: none;
+  outline: none;
+  font-size: 3em;
+  font-weight: 700;
+  grid-column: 1/-1;
+}
+
+.add-modal__title::placeholder {
+  color: var(--light-gray);
+}
+
+.project-add-modal__form label {
+  justify-self: center;
+  font-weight: 700;
+}
+
+.project-add-modal__form input:not(input[type='file'], .add-modal__title) {
+  grid-column: span 2;
+  width: 80%;
+  min-width: 100px;
+}
+
+.add-modal__thumbnail {
+  grid-column: span 8;
+}
+
+.add-modal__content {
+  height: 200px;
+  grid-column: span 9;
+  grid-row: span 3;
+  resize: none;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.5em;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 0 3px 1px var(--light-gray);
+}
+
+.add-modal__content::placeholder {
+  color: var(--light-gray);
+}
+
+.project-add-modal-screen button {
+  font-family: 'Montserrat', 'NotoSansKR', sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
+  height: 50px;
+  width: 100%;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 0 5px 1px var(--light-gray);
+  font-weight: 700;
+  font-size: 1.2em;
+  color: var(--dark-gray);
+  border: none;
+}
+
+.project-add-modal-screen button:hover {
+  box-shadow: 0 0 2px 2px lightgrey;
+}
+
+.project-add-modal-screen button:active {
+  transform: translateY(2px);
+}
+
+.add-modal__submit {
+  grid-column: 4/5;
+}
+
+.add-modal__cancel {
+  grid-column: 6/7;
+}

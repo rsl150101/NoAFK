@@ -1,0 +1,66 @@
+{% extends 'base.html' %} {% block headblock%}
+<link rel="stylesheet" href="css/test.css" />
+{% endblock %} {% block content %}
+<main class="main-screen home-screen">
+  <section class="test">
+    <header class="test-header">
+      <h1>성향테스트</h1>
+      <div id="test-select">
+        <ul id="test-select-button">
+          <li id="test-select-button-content" onclick="reSelect()">다시선택</li>
+          <li id="test-select-button-content" onclick='submitTest("{{id}}")'>
+            선택완료
+          </li>
+        </ul>
+      </div>
+    </header>
+  </section>
+  <table class="type04">
+    <tr>
+      <th scope="row">
+        1. 나는 관심이 가는 사람에게 다가가서 대화를 시작하기가 어렵지 않다.
+      </th>
+      <td>
+        <label>YES<input type="radio" name="IE" value="E" id="YES" /></label>
+        <br />
+        <label>NO<input type="radio" name="IE" value="I" id="NO" /></label>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">
+        2. 나는 자유 시간 중 상당 부분을 다양한 관심사를 탐구하는 데 할애한다.
+      </th>
+      <td>
+        <label>YES<input type="radio" name="NS" value="N" id="YES" /></label>
+        <br />
+        <label>NO<input type="radio" name="NS" value="S" id="NO" /></label>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">
+        3. 나는 자신의 의견과 매우 다른 의견을 이해하기 위해 많은 시간을
+        할애하곤 한다.
+      </th>
+      <td>
+        <label>YES<input type="radio" name="TF" value="F" id="YES" /></label>
+        <br />
+        <label>NO<input type="radio" name="TF" value="T" id="NO" /></label>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">4. 나는 여행계획을 세울 때 구체적으로 세우는 편이다.</th>
+      <td>
+        <label>YES<input type="radio" name="PJ" value="J" id="YES" /></label>
+        <br />
+        <label>NO<input type="radio" name="PJ" value="P" id="NO" /></label>
+      </td>
+    </tr>
+  </table>
+  <div class="non-content"></div>
+</main>
+<script
+  src="https://kit.fontawesome.com/d1f609d41d.js"
+  crossorigin="anonymous"
+></script>
+<script src="js/test.js"></script>
+{% endblock %}

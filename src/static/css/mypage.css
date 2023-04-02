@@ -1,0 +1,177 @@
+.user-info-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+#user-info-update {
+  display: flex;
+}
+
+#user-info-update-content {
+  margin-left: 25px;
+  cursor: pointer;
+}
+
+#user-profile {
+  display: flex;
+}
+
+#user-profile-image {
+  margin-top: 35px;
+  width: 250px;
+  height: 250px;
+}
+
+#user-profile-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+
+#user-profile-info {
+  margin-left: 5%;
+  width: 69%;
+}
+
+table.type04 {
+  border-collapse: separate;
+  border-spacing: 1px;
+  text-align: left;
+  line-height: 1.5;
+  margin : 20px 10px;
+}
+table.type04 th {
+  width: 150px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  border-bottom: 1px solid #ced4da;
+}
+table.type04 td {
+  width: 100%;
+  padding: 10px;
+  vertical-align: top;
+  border-bottom: 1px solid #ced4da;
+}
+
+table.type09 {
+  border-collapse: collapse;
+  text-align: left;
+  line-height: 1.5;
+
+}
+table.type09 thead th {
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  color: black;
+  border-bottom: 3px solid #ced4da;
+}
+table.type09 tbody th {
+  width: 250px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  border-bottom: 1px solid #ced4da;
+  background: #ecf2f8;
+}
+table.type09 td {
+  width: 250px;
+  padding: 10px;
+  vertical-align: top;
+  border-bottom: 1px solid #ced4da;
+}
+
+/* 모달을 띄우기 위한 스타일 */
+.nicknameModal,
+.passwordModal,
+.imageModal,
+.introductionModal {
+  width: 500px;
+  height: 500px;
+  background-color: rgba(255,255,255,0.9);
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  padding: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  display: none; /* 모달을 숨기는 스타일 */
+}
+
+/* 닫기 버튼 스타일 */
+.close-btn {
+  background-color: #ccc;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px 10px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.submit-btn {
+  background-color: #ccc;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px 10px;
+  position: absolute;
+  top: 300px;
+  right: 220px;
+}
+
+#nicknameInput,
+#passwordInput,
+#imageInput,
+#introductionInput {
+  /* background-color: orange; */
+  width: 300px;
+  height: 300px;
+  margin: 80px auto;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+#image_container img {
+  width: 250px;
+  height: 250px;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll {
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
+#submit-image {
+  margin-top: 150px;
+}
+
+#privateButton {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#private {
+  margin-left: 10px;
+  cursor: pointer;
+  width: 125px;
+  height: 15px;
+}

@@ -1,0 +1,127 @@
+body::-webkit-scrollbar {
+  display: none; /* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+}
+
+body {
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
+.teamChat__main {
+  display: flex;
+
+  height: 100%;
+}
+
+.teamChat__main input[type='submit'] {
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-weight: 700;
+}
+
+.teamChat__rooms {
+  padding: 15px;
+  margin: 5px;
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+#messages {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 5px 50px 5px;
+  margin: 10px;
+  width: 65vw;
+  height: 75vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
+#messages::-webkit-scrollbar {
+  display: none; /* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+}
+
+#messages-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px;
+}
+#messages-input {
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
+  width: 55vw;
+  padding-left: 6px;
+}
+
+#messages-btn {
+  width: 5vw;
+}
+
+.notice {
+  padding: 2px;
+  margin: 3px;
+  background: lightpink;
+  text-align: center;
+}
+
+.my-chat {
+  padding: 3px;
+  margin: 3px;
+  display: flex;
+  flex-direction: row-reverse;
+  background: lightskyblue;
+}
+
+.my-chat__nickname {
+  font-size: large;
+  font-weight: bold;
+}
+
+.others-chat {
+  padding: 2px;
+  margin: 3px;
+  background: lightgoldenrodyellow;
+}
+
+.others-chat__nickname {
+  width: 100px;
+  align-self: center;
+  font-size: large;
+  font-weight: bold;
+}
+
+.chat-people-outer {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-people {
+  height: 100%;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
+.chat-people::-webkit-scrollbar {
+  display: none; /* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+}
+
+.invited-user > h3 {
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.chat-screen {
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
